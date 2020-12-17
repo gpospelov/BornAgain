@@ -36,16 +36,20 @@ FormFactorAnisoPyramid::FormFactorAnisoPyramid(const std::vector<double> P)
     , m_length(m_P[0])
     , m_width(m_P[1])
     , m_height(m_P[2])
-    , m_alpha(m_P[3]) {
+    , m_alpha(m_P[3])
+{
     onChange();
 }
 
 FormFactorAnisoPyramid::FormFactorAnisoPyramid(double length, double width, double height,
                                                double alpha)
-    : FormFactorAnisoPyramid(std::vector<double>{length, width, height, alpha}) {}
+    : FormFactorAnisoPyramid(std::vector<double>{length, width, height, alpha})
+{
+}
 
 IFormFactor* FormFactorAnisoPyramid::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                     kvector_t translation) const {
+                                                     kvector_t translation) const
+{
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dbase_edge = 2 * effects.dz_bottom * Math::cot(m_alpha);
     FormFactorAnisoPyramid slicedff(m_length - dbase_edge, m_width - dbase_edge,
@@ -53,7 +57,8 @@ IFormFactor* FormFactorAnisoPyramid::sliceFormFactor(ZLimits limits, const IRota
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorAnisoPyramid::onChange() {
+void FormFactorAnisoPyramid::onChange()
+{
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
         throw std::runtime_error("AnisoPyramid: angle alpha out of bounds");

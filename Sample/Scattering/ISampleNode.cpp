@@ -19,9 +19,12 @@
 #include <sstream>
 
 ISampleNode::ISampleNode(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}
 
-std::vector<const Material*> ISampleNode::containedMaterials() const {
+std::vector<const Material*> ISampleNode::containedMaterials() const
+{
     std::vector<const Material*> result;
     if (const Material* p_material = material())
         result.push_back(p_material);
@@ -34,7 +37,8 @@ std::vector<const Material*> ISampleNode::containedMaterials() const {
     return result;
 }
 
-bool ISampleNode::isMagnetic() const {
+bool ISampleNode::isMagnetic() const
+{
     const auto materials = containedMaterials();
     return std::any_of(materials.cbegin(), materials.cend(),
                        [](const Material* mat) { return mat->isMagneticMaterial(); });

@@ -21,7 +21,8 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QGraphicsSceneMouseEvent>
 
-QLineF MultiLayerCandidate::getInterfaceToScene() {
+QLineF MultiLayerCandidate::getInterfaceToScene()
+{
     ASSERT(multilayer);
     QLineF line = multilayer->getInterfaceLine(row);
     if (line.length() != 0) {
@@ -34,18 +35,21 @@ QLineF MultiLayerCandidate::getInterfaceToScene() {
     return QLineF();
 }
 
-bool MultiLayerCandidate::operator<(const MultiLayerCandidate& cmp) const {
+bool MultiLayerCandidate::operator<(const MultiLayerCandidate& cmp) const
+{
     return cmp.distance < distance;
 }
 
-ILayerView::ILayerView(QGraphicsItem* parent) : ConnectableView(parent) {
+ILayerView::ILayerView(QGraphicsItem* parent) : ConnectableView(parent)
+{
     setFlag(QGraphicsItem::ItemIsMovable, true);
     setFlag(QGraphicsItem::ItemIsSelectable, true);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
 }
 
 //! Propagates change of 'Thickness' dynamic property to screen thickness of ILayerView.
-void ILayerView::onPropertyChange(const QString& propertyName) {
+void ILayerView::onPropertyChange(const QString& propertyName)
+{
     if (propertyName == LayerItem::P_THICKNESS) {
         updateHeight();
     } else if (propertyName == LayerItem::P_MATERIAL) {
@@ -56,7 +60,8 @@ void ILayerView::onPropertyChange(const QString& propertyName) {
     IView::onPropertyChange(propertyName);
 }
 
-void ILayerView::updateHeight() {
+void ILayerView::updateHeight()
+{
     if (m_item->isTag(LayerItem::P_THICKNESS)) {
         m_rect.setHeight(DesignerHelper::nanometerToScreen(
             m_item->getItemValue(LayerItem::P_THICKNESS).toDouble()));
@@ -66,7 +71,8 @@ void ILayerView::updateHeight() {
     }
 }
 
-void ILayerView::updateColor() {
+void ILayerView::updateColor()
+{
     if (m_item->isTag(LayerItem::P_MATERIAL)) {
         QVariant v = m_item->getItemValue(LayerItem::P_MATERIAL);
         if (v.isValid()) {
@@ -79,7 +85,8 @@ void ILayerView::updateColor() {
     }
 }
 
-void ILayerView::updateLabel() {
+void ILayerView::updateLabel()
+{
     if (getInputPorts().size() < 1)
         return;
 
@@ -112,7 +119,8 @@ void ILayerView::updateLabel() {
 
 //! Detects movement of the ILayerView and sends possible drop areas to GraphicsScene
 //! for visualization.
-QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant& value) {
+QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant& value)
+{
     if (change == ItemPositionChange && scene()) {
 
         MultiLayerCandidate multilayerCandidate = getMultiLayerCandidate();
@@ -124,7 +132,8 @@ QVariant ILayerView::itemChange(GraphicsItemChange change, const QVariant& value
     return QGraphicsItem::itemChange(change, value);
 }
 
-void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
     if (event->button() == Qt::LeftButton) {
         m_drag_start_position = pos();
     }
@@ -133,7 +142,8 @@ void ILayerView::mousePressEvent(QGraphicsSceneMouseEvent* event) {
 
 //! Detects possible MultiLayerView's to drop given ILayerView and propagate
 //! request to SessionModel.
-void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
     DesignerScene* designerScene = dynamic_cast<DesignerScene*>(scene());
     ASSERT(designerScene);
     designerScene->setLayerInterfaceLine(); // removing drop area hint from the scene
@@ -195,7 +205,8 @@ void ILayerView::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
     throw GUIHelpers::Error("LayerView::mouseReleaseEvent() -> Loggic error.");
 }
 
-void ILayerView::update_appearance() {
+void ILayerView::update_appearance()
+{
     updateHeight();
     updateColor();
     updateLabel();
@@ -208,7 +219,8 @@ void ILayerView::update_appearance() {
 //! ILayerView should intersects and ILayerView center should be near appropriate
 //! drop area. If more than one candidate is found, they will be sorted according
 //! to the distance between drop area and ILayerVIew center
-MultiLayerCandidate ILayerView::getMultiLayerCandidate() {
+MultiLayerCandidate ILayerView::getMultiLayerCandidate()
+{
     QVector<MultiLayerCandidate> candidates;
 
     QRectF layerRect = mapRectToScene(boundingRect());

@@ -30,14 +30,16 @@ public:
 
 ItemCatalogueTest::~ItemCatalogueTest() = default;
 
-TEST_F(ItemCatalogueTest, initialState) {
+TEST_F(ItemCatalogueTest, initialState)
+{
     ItemCatalogue catalogue;
     EXPECT_EQ(catalogue.itemCount(), 0);
     EXPECT_EQ(catalogue.modelTypes(), std::vector<std::string>({}));
     EXPECT_EQ(catalogue.labels(), std::vector<std::string>({}));
 }
 
-TEST_F(ItemCatalogueTest, addItem) {
+TEST_F(ItemCatalogueTest, addItem)
+{
     ItemCatalogue catalogue;
 
     catalogue.registerItem<PropertyItem>();
@@ -58,7 +60,8 @@ TEST_F(ItemCatalogueTest, addItem) {
     EXPECT_EQ(catalogue.labels(), std::vector<std::string>({""}));
 }
 
-TEST_F(ItemCatalogueTest, copyConstructor) {
+TEST_F(ItemCatalogueTest, copyConstructor)
+{
     ItemCatalogue catalogue;
     catalogue.registerItem<PropertyItem>();
 
@@ -85,7 +88,8 @@ TEST_F(ItemCatalogueTest, copyConstructor) {
     EXPECT_THROW(copy.create(Constants::VectorItemType), std::runtime_error);
 }
 
-TEST_F(ItemCatalogueTest, assignmentOperator) {
+TEST_F(ItemCatalogueTest, assignmentOperator)
+{
     ItemCatalogue catalogue;
     catalogue.registerItem<PropertyItem>();
 
@@ -101,7 +105,8 @@ TEST_F(ItemCatalogueTest, assignmentOperator) {
     EXPECT_TRUE(dynamic_cast<PropertyItem*>(item.get()) != nullptr);
 }
 
-TEST_F(ItemCatalogueTest, contains) {
+TEST_F(ItemCatalogueTest, contains)
+{
     ItemCatalogue catalogue;
     catalogue.registerItem<PropertyItem>();
 
@@ -109,7 +114,8 @@ TEST_F(ItemCatalogueTest, contains) {
     EXPECT_FALSE(catalogue.contains(Constants::VectorItemType));
 }
 
-TEST_F(ItemCatalogueTest, defaultItemCatalogue) {
+TEST_F(ItemCatalogueTest, defaultItemCatalogue)
+{
     auto catalogue = CreateStandardItemCatalogue();
 
     auto item = catalogue->create(Constants::BaseType);
@@ -125,7 +131,8 @@ TEST_F(ItemCatalogueTest, defaultItemCatalogue) {
     EXPECT_TRUE(dynamic_cast<CompoundItem*>(item.get()) != nullptr);
 }
 
-TEST_F(ItemCatalogueTest, addLabeledItem) {
+TEST_F(ItemCatalogueTest, addLabeledItem)
+{
     ItemCatalogue catalogue;
     catalogue.registerItem<PropertyItem>("property");
     catalogue.registerItem<VectorItem>("vector item");
@@ -135,7 +142,8 @@ TEST_F(ItemCatalogueTest, addLabeledItem) {
     EXPECT_EQ(catalogue.labels(), std::vector<std::string>({"property", "vector item"}));
 }
 
-TEST_F(ItemCatalogueTest, merge) {
+TEST_F(ItemCatalogueTest, merge)
+{
     ItemCatalogue catalogue1;
     catalogue1.registerItem<PropertyItem>("property");
     catalogue1.registerItem<VectorItem>("vector");

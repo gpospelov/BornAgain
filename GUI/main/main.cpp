@@ -23,7 +23,8 @@
 
 void messageHandler(QtMsgType, const QMessageLogContext&, const QString&) {}
 
-int main(int argc, char* argv[]) {
+int main(int argc, char* argv[])
+{
     ApplicationOptions options(argc, argv);
     if (!options.isConsistent())
         return 0;

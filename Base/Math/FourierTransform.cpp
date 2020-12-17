@@ -23,13 +23,17 @@
 FourierTransform::FourierTransform() = default;
 
 FourierTransform::Workspace::Workspace()
-    : h_src(0), w_src(0), h_fftw(0), w_fftw(0), in_src(0), out_fftw(0), p_forw_src(nullptr) {}
+    : h_src(0), w_src(0), h_fftw(0), w_fftw(0), in_src(0), out_fftw(0), p_forw_src(nullptr)
+{
+}
 
-FourierTransform::Workspace::~Workspace() {
+FourierTransform::Workspace::~Workspace()
+{
     clear();
 }
 
-void FourierTransform::Workspace::clear() {
+void FourierTransform::Workspace::clear()
+{
     // rows (h) and columns (w) of the input 'source'
     h_src = 0;
     w_src = 0;
@@ -51,7 +55,8 @@ void FourierTransform::Workspace::clear() {
 /* ************************************************************************* */
 // Fourier Transform in 2D
 /* ************************************************************************* */
-void FourierTransform::fft(const double2d_t& source, double2d_t& result) {
+void FourierTransform::fft(const double2d_t& source, double2d_t& result)
+{
     // rows (h) and columns (w) of the input 'source'
     int h_src = static_cast<int>(source.size());
     int w_src = static_cast<int>((source.size() ? source[0].size() : 0));
@@ -87,7 +92,8 @@ void FourierTransform::fft(const double2d_t& source, double2d_t& result) {
 /* ************************************************************************* */
 // Fourier Transform 2D shift - center array around zero frequency
 /* ************************************************************************* */
-void FourierTransform::fftshift(double2d_t& result) {
+void FourierTransform::fftshift(double2d_t& result)
+{
     // Centering FT around zero frequency
     size_t row_shift;
     if (result.size() % 2 == 0)
@@ -114,7 +120,8 @@ void FourierTransform::fftshift(double2d_t& result) {
 /* ************************************************************************* */
 // Fourier Transform in 1D
 /* ************************************************************************* */
-void FourierTransform::fft(const double1d_t& source, double1d_t& result) {
+void FourierTransform::fft(const double1d_t& source, double1d_t& result)
+{
     // we simply create 2d arrays with length of first dimension equal to 1, and call 2d FT
     double2d_t source2d;
     source2d.push_back(source);
@@ -131,7 +138,8 @@ void FourierTransform::fft(const double1d_t& source, double1d_t& result) {
 /* ************************************************************************* */
 // Fourier Transform 1D shift - center around zero frequency
 /* ************************************************************************* */
-void FourierTransform::fftshift(double1d_t& result) {
+void FourierTransform::fftshift(double1d_t& result)
+{
     // Centering FT around zero frequency
     size_t col_shift;
     if (result.size() % 2 == 0)
@@ -145,7 +153,8 @@ void FourierTransform::fftshift(double1d_t& result) {
 /* ************************************************************************************ */
 // initialise input and output arrays in workspace for fast Fourier transformation (fftw)
 /* ************************************************************************************ */
-void FourierTransform::init(int h_src, int w_src) {
+void FourierTransform::init(int h_src, int w_src)
+{
     if (!h_src || !w_src) {
         std::ostringstream os;
         os << "FourierTransform::init() -> Panic! Wrong dimensions " << h_src << " " << w_src
@@ -179,7 +188,8 @@ void FourierTransform::init(int h_src, int w_src) {
 // initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
 
-void FourierTransform::fftw_forward_FT(const double2d_t& src) {
+void FourierTransform::fftw_forward_FT(const double2d_t& src)
+{
     if (ws.h_fftw <= 0 || ws.w_fftw <= 0)
         throw std::runtime_error(
             "FourierTransform::fftw_forward_FT() -> Panic! Initialisation is missed.");

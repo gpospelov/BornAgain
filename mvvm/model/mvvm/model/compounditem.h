@@ -40,7 +40,8 @@ public:
     std::string displayName() const override;
 };
 
-template <typename T> T* CompoundItem::addProperty(const std::string& name) {
+template <typename T> T* CompoundItem::addProperty(const std::string& name)
+{
     T* property = new T;
     registerTag(TagInfo::propertyTag(name, property->modelType()));
     property->setDisplayName(name);
@@ -48,12 +49,14 @@ template <typename T> T* CompoundItem::addProperty(const std::string& name) {
     return property;
 }
 
-inline PropertyItem* CompoundItem::addProperty(const std::string& name, const char* value) {
+inline PropertyItem* CompoundItem::addProperty(const std::string& name, const char* value)
+{
     return addProperty(name, std::string(value));
 }
 
 template <typename V>
-PropertyItem* CompoundItem::addProperty(const std::string& name, const V& value) {
+PropertyItem* CompoundItem::addProperty(const std::string& name, const V& value)
+{
     auto property = new PropertyItem;
     registerTag(TagInfo::propertyTag(name, property->modelType()));
     property->setDisplayName(name);

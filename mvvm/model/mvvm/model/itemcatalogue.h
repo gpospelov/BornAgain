@@ -57,7 +57,8 @@ private:
     std::unique_ptr<ItemCatalogueImpl> p_impl;
 };
 
-template <typename T> void ItemCatalogue::registerItem(const std::string& label) {
+template <typename T> void ItemCatalogue::registerItem(const std::string& label)
+{
     registerItem(T().modelType(), ItemFactoryFunction<T>(), label);
 }
 

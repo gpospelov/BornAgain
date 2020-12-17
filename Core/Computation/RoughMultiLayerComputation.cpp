@@ -29,18 +29,23 @@
 // Phys. Rev. B, vol. 51 (4), p. 2311 (1995)
 
 namespace {
-complex_t h_plus(complex_t z) {
+complex_t h_plus(complex_t z)
+{
     return 0.5 * cerfcx(-mul_I(z) / std::sqrt(2.0));
 }
-complex_t h_min(complex_t z) {
+complex_t h_min(complex_t z)
+{
     return 0.5 * cerfcx(mul_I(z) / std::sqrt(2.0));
 }
 } // namespace
 
 RoughMultiLayerComputation::RoughMultiLayerComputation(const ProcessedSample* p_sample)
-    : m_sample{p_sample} {}
+    : m_sample{p_sample}
+{
+}
 
-void RoughMultiLayerComputation::compute(SimulationElement& elem) const {
+void RoughMultiLayerComputation::compute(SimulationElement& elem) const
+{
     if (elem.getAlphaMean() < 0.0)
         return;
     auto n_slices = m_sample->numberOfSlices();
@@ -76,14 +81,16 @@ void RoughMultiLayerComputation::compute(SimulationElement& elem) const {
     elem.addIntensity((autocorr + crosscorr.real()) * M_PI / 4. / wavelength / wavelength);
 }
 
-complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const {
+complex_t RoughMultiLayerComputation::get_refractive_term(size_t ilayer, double wavelength) const
+{
     auto& slices = m_sample->slices();
     return slices[ilayer].material().refractiveIndex2(wavelength)
            - slices[ilayer + 1].material().refractiveIndex2(wavelength);
 }
 
 complex_t RoughMultiLayerComputation::get_sum8terms(size_t ilayer,
-                                                    const SimulationElement& sim_element) const {
+                                                    const SimulationElement& sim_element) const
+{
     auto& slices = m_sample->slices();
     auto p_fresnel_map = m_sample->fresnelMap();
     const auto P_in_plus = p_fresnel_map->getInCoefficients(sim_element, ilayer);

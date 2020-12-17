@@ -17,6 +17,7 @@
 
 #include "GUI/ba3d/model/model.h"
 
-class RealSpaceModel : public RealSpace::Model {};
+class RealSpaceModel : public RealSpace::Model {
+};
 
 #endif // BORNAGAIN_GUI_COREGUI_VIEWS_REALSPACEWIDGETS_REALSPACEMODEL_H

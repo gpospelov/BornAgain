@@ -21,7 +21,8 @@
 using namespace ModelView;
 
 DoubleEditor::DoubleEditor(QWidget* parent)
-    : CustomEditor(parent), m_doubleEditor(new QDoubleSpinBox) {
+    : CustomEditor(parent), m_doubleEditor(new QDoubleSpinBox)
+{
     setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setFocusPolicy(Qt::StrongFocus);
     m_doubleEditor->setKeyboardTracking(false);
@@ -41,26 +42,31 @@ DoubleEditor::DoubleEditor(QWidget* parent)
     setFocusProxy(m_doubleEditor);
 }
 
-void DoubleEditor::setRange(double minimum, double maximum) {
+void DoubleEditor::setRange(double minimum, double maximum)
+{
     m_doubleEditor->setRange(minimum, maximum);
 }
 
-void DoubleEditor::setDecimals(int decimals) {
+void DoubleEditor::setDecimals(int decimals)
+{
     m_doubleEditor->setDecimals(decimals);
 }
 
-void DoubleEditor::setSingleStep(double value) {
+void DoubleEditor::setSingleStep(double value)
+{
     m_doubleEditor->setSingleStep(value);
 }
 
-void DoubleEditor::onEditingFinished() {
+void DoubleEditor::onEditingFinished()
+{
     double new_value = m_doubleEditor->value();
 
     if (!Utils::AreAlmostEqual(new_value, m_data.value<double>()))
         setDataIntern(QVariant::fromValue(new_value));
 }
 
-void DoubleEditor::update_components() {
+void DoubleEditor::update_components()
+{
     if (m_data.type() != QVariant::Double)
         throw std::runtime_error("DoubleEditor::update_components() -> Error. Wrong variant type");
 

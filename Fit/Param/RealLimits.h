@@ -82,7 +82,8 @@ public:
     std::string toString() const;
 
     //! Prints class
-    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const RealLimits& m)
+    {
         ostr << m.toString();
         return ostr;
     }

@@ -33,7 +33,8 @@ struct MaterialEditorActions::MaterialEditorActionsImpl {
 
     //! Finds parent and tagrow to insert new item
 
-    std::pair<SessionItem*, TagRow> locateInsertPlace() {
+    std::pair<SessionItem*, TagRow> locateInsertPlace()
+    {
         auto all_selected = selection_model->selectedMaterials();
         auto selected = all_selected.empty() ? nullptr : all_selected.back();
         if (selected)
@@ -43,23 +44,29 @@ struct MaterialEditorActions::MaterialEditorActionsImpl {
 
     //! Returns a multi layer playing the role of invisible root item.
 
-    ModelView::SessionItem* root_item() {
+    ModelView::SessionItem* root_item()
+    {
         return selection_model->viewModel()->sessionItemFromIndex(QModelIndex());
     }
 };
 
 MaterialEditorActions::MaterialEditorActions(QObject* parent)
-    : QObject(parent), p_impl(std::make_unique<MaterialEditorActionsImpl>()) {}
+    : QObject(parent), p_impl(std::make_unique<MaterialEditorActionsImpl>())
+{
+}
 
-void MaterialEditorActions::setModel(MaterialModel* model) {
+void MaterialEditorActions::setModel(MaterialModel* model)
+{
     p_impl->material_model = model;
 }
 
-void MaterialEditorActions::setMaterialSelectionModel(MaterialSelectionModel* selection_model) {
+void MaterialEditorActions::setMaterialSelectionModel(MaterialSelectionModel* selection_model)
+{
     p_impl->selection_model = selection_model;
 }
 
-void MaterialEditorActions::onAddMaterial() {
+void MaterialEditorActions::onAddMaterial()
+{
     if (!p_impl->material_model)
         return;
 
@@ -70,7 +77,8 @@ void MaterialEditorActions::onAddMaterial() {
 
 //! Processes request to clone selected materials.
 
-void MaterialEditorActions::onCloneMaterial() {
+void MaterialEditorActions::onCloneMaterial()
+{
     if (!p_impl->material_model)
         return;
 
@@ -80,7 +88,8 @@ void MaterialEditorActions::onCloneMaterial() {
     p_impl->selection_model->selectItems(new_selection);
 }
 
-void MaterialEditorActions::onRemoveMaterial() {
+void MaterialEditorActions::onRemoveMaterial()
+{
     if (!p_impl->selection_model)
         return;
 
@@ -88,7 +97,8 @@ void MaterialEditorActions::onRemoveMaterial() {
         ModelView::Utils::DeleteItemFromModel(item);
 }
 
-void MaterialEditorActions::onMoveUp() {
+void MaterialEditorActions::onMoveUp()
+{
     if (!p_impl->selection_model)
         return;
 
@@ -96,7 +106,8 @@ void MaterialEditorActions::onMoveUp() {
         ModelView::Utils::MoveUp(item);
 }
 
-void MaterialEditorActions::onMoveDown() {
+void MaterialEditorActions::onMoveDown()
+{
     if (!p_impl->selection_model)
         return;
 
@@ -106,7 +117,8 @@ void MaterialEditorActions::onMoveDown() {
         ModelView::Utils::MoveDown(item);
 }
 
-void MaterialEditorActions::onExport() {
+void MaterialEditorActions::onExport()
+{
     auto item = p_impl->root_item();
     const auto containers = item->children();
 

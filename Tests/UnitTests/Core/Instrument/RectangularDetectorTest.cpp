@@ -13,7 +13,8 @@ protected:
     double phi(kvector_t k) { return k.phi() / Units::deg; }
     double alpha(kvector_t k) { return 90.0 - k.theta() / Units::deg; }
 
-    bool isEqual(const kvector_t lhs, const kvector_t rhs) {
+    bool isEqual(const kvector_t lhs, const kvector_t rhs)
+    {
         bool is_equal = algo::almostEqual(lhs.x(), rhs.x()) && algo::almostEqual(lhs.y(), rhs.y())
                         && algo::almostEqual(lhs.z(), rhs.z());
         if (!is_equal) {
@@ -23,7 +24,8 @@ protected:
     }
 };
 
-TEST_F(RectangularDetectorTest, InitialState) {
+TEST_F(RectangularDetectorTest, InitialState)
+{
     RectangularDetector det(50u, 10.0, 60u, 20.0);
     EXPECT_EQ(50u, det.getNbinsX());
     EXPECT_EQ(10.0, det.getWidth());
@@ -40,7 +42,8 @@ TEST_F(RectangularDetectorTest, InitialState) {
     EXPECT_EQ(RectangularDetector::GENERIC, det.getDetectorArrangment());
 }
 
-TEST_F(RectangularDetectorTest, Clone) {
+TEST_F(RectangularDetectorTest, Clone)
+{
     RectangularDetector det(50u, 10.0, 60u, 20.0);
     kvector_t normal(10.0, 20.0, 30.0);
     kvector_t direction(1.0, 2.0, 3.0);
@@ -55,7 +58,8 @@ TEST_F(RectangularDetectorTest, Clone) {
     EXPECT_EQ(RectangularDetector::GENERIC, clone->getDetectorArrangment());
 }
 
-TEST_F(RectangularDetectorTest, PerpToSample) {
+TEST_F(RectangularDetectorTest, PerpToSample)
+{
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
@@ -107,7 +111,8 @@ TEST_F(RectangularDetectorTest, PerpToSample) {
     //    EXPECT_NEAR(alpha(k), alpha(elements[19], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
-TEST_F(RectangularDetectorTest, PerpToDirectBeam) {
+TEST_F(RectangularDetectorTest, PerpToDirectBeam)
+{
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
@@ -149,7 +154,8 @@ TEST_F(RectangularDetectorTest, PerpToDirectBeam) {
     //    EXPECT_NEAR(alpha(k), alpha(elements[0], wavelength), 1e-10 * std::abs(alpha(k)));
 }
 
-TEST_F(RectangularDetectorTest, PerpToReflectedBeam) {
+TEST_F(RectangularDetectorTest, PerpToReflectedBeam)
+{
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
@@ -193,7 +199,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeam) {
 }
 
 // detector perpendicular to reflected beam, when direct beam position is known
-TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos) {
+TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos)
+{
     size_t nbinsx(5u), nbinsy(4u);
     double width(50.0), height(40.0);
     double distance(100.0), u0(20.0), v0(10.0);
@@ -250,7 +257,8 @@ TEST_F(RectangularDetectorTest, PerpToReflectedBeamDpos) {
 }
 
 // Test retrieval of analyzer properties
-TEST_F(RectangularDetectorTest, AnalyzerProperties) {
+TEST_F(RectangularDetectorTest, AnalyzerProperties)
+{
     RectangularDetector detector(50u, 10.0, 60u, 20.0);
 
     kvector_t direction;

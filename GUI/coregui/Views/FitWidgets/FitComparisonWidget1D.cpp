@@ -36,7 +36,8 @@ FitComparisonWidget1D::FitComparisonWidget1D(QWidget* parent)
     , m_statusLabel(new PlotStatusLabel(nullptr, this))
     , m_propertyWidget(new IntensityDataPropertyWidget)
     , m_resetViewAction(new QAction(this))
-    , m_comparisonController(new FitComparison1DViewController(this)) {
+    , m_comparisonController(new FitComparison1DViewController(this))
+{
     auto vlayout = new QVBoxLayout;
     vlayout->setMargin(0);
     vlayout->setSpacing(0);
@@ -70,11 +71,13 @@ FitComparisonWidget1D::FitComparisonWidget1D(QWidget* parent)
 
 FitComparisonWidget1D::~FitComparisonWidget1D() = default;
 
-QList<QAction*> FitComparisonWidget1D::actionList() {
+QList<QAction*> FitComparisonWidget1D::actionList()
+{
     return QList<QAction*>() << m_resetViewAction << m_propertyWidget->actionList();
 }
 
-void FitComparisonWidget1D::subscribeToItem() {
+void FitComparisonWidget1D::subscribeToItem()
+{
     if (!jobItem()->isValidForFitting())
         return;
 
@@ -100,22 +103,26 @@ void FitComparisonWidget1D::subscribeToItem() {
     m_propertyWidget->setItem(viewItem());
 }
 
-void FitComparisonWidget1D::unsubscribeFromItem() {
+void FitComparisonWidget1D::unsubscribeFromItem()
+{
     m_diff_plot->setItem(nullptr);
     m_comparisonController->clear();
 }
 
-void FitComparisonWidget1D::onResetViewAction() {
+void FitComparisonWidget1D::onResetViewAction()
+{
     viewItem()->resetView();
     m_comparisonController->resetDiffView();
 }
 
-JobItem* FitComparisonWidget1D::jobItem() {
+JobItem* FitComparisonWidget1D::jobItem()
+{
     JobItem* jobItem = dynamic_cast<JobItem*>(currentItem());
     return jobItem;
 }
 
-Data1DViewItem* FitComparisonWidget1D::viewItem() {
+Data1DViewItem* FitComparisonWidget1D::viewItem()
+{
     auto view_item = dynamic_cast<Data1DViewItem*>(jobItem()->dataItemView());
     ASSERT(view_item);
     return view_item;

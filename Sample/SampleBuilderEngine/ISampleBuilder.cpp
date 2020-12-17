@@ -14,7 +14,8 @@
 
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
-ISampleBuilder::ISampleBuilder() {
+ISampleBuilder::ISampleBuilder()
+{
     setName("SampleBuilder");
 }
 

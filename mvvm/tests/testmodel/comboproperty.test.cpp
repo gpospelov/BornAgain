@@ -26,7 +26,8 @@ public:
 
 ComboPropertyTest::~ComboPropertyTest() = default;
 
-TEST_F(ComboPropertyTest, initialState) {
+TEST_F(ComboPropertyTest, initialState)
+{
     ComboProperty combo;
     EXPECT_EQ(combo.value(), "");
     EXPECT_EQ(combo.values(), std::vector<std::string>());
@@ -37,7 +38,8 @@ TEST_F(ComboPropertyTest, initialState) {
     EXPECT_EQ(combo.label(), "None");
 }
 
-TEST_F(ComboPropertyTest, createFrom) {
+TEST_F(ComboPropertyTest, createFrom)
+{
     // from vector of values, first item should be selected
     std::vector<std::string> expected{"a1", "a2"};
     ComboProperty combo = ComboProperty::createFrom(expected);
@@ -55,7 +57,8 @@ TEST_F(ComboPropertyTest, createFrom) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({1}));
 }
 
-TEST_F(ComboPropertyTest, setValue) {
+TEST_F(ComboPropertyTest, setValue)
+{
     std::vector<std::string> expected{"a1", "a2"};
     ComboProperty combo = ComboProperty::createFrom(expected);
 
@@ -74,7 +77,8 @@ TEST_F(ComboPropertyTest, setValue) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({1}));
 }
 
-TEST_F(ComboPropertyTest, setCurrentIndex) {
+TEST_F(ComboPropertyTest, setCurrentIndex)
+{
     std::vector<std::string> expected{"c1", "c2", "c3"};
     ComboProperty combo = ComboProperty::createFrom(expected);
 
@@ -92,7 +96,8 @@ TEST_F(ComboPropertyTest, setCurrentIndex) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({1}));
 }
 
-TEST_F(ComboPropertyTest, setValues) {
+TEST_F(ComboPropertyTest, setValues)
+{
     // seting values through stream
     std::vector<std::string> expectedValues{"a1", "a2"};
     ComboProperty combo = ComboProperty::createFrom(expectedValues);
@@ -127,7 +132,8 @@ TEST_F(ComboPropertyTest, setValues) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({1}));
 }
 
-TEST_F(ComboPropertyTest, setSelected) {
+TEST_F(ComboPropertyTest, setSelected)
+{
     std::vector<std::string> expectedValues = {"a1", "a2", "a3"};
     ComboProperty combo = ComboProperty::createFrom(expectedValues);
 
@@ -180,7 +186,8 @@ TEST_F(ComboPropertyTest, setSelected) {
     EXPECT_EQ(combo.selectedValues(), std::vector<std::string>({"a2"}));
 }
 
-TEST_F(ComboPropertyTest, fromStream) {
+TEST_F(ComboPropertyTest, fromStream)
+{
     ComboProperty combo = ComboProperty() << "a1"
                                           << "a2";
     std::vector<std::string> expected{"a1", "a2"};
@@ -210,7 +217,8 @@ TEST_F(ComboPropertyTest, fromStream) {
     EXPECT_EQ(combo.currentIndex(), 1);
 }
 
-TEST_F(ComboPropertyTest, fromVectorStream) {
+TEST_F(ComboPropertyTest, fromVectorStream)
+{
     std::vector<std::string> expected{"a1", "a2"};
     ComboProperty combo = ComboProperty::createFrom(expected);
     combo.setSelected(0, true);
@@ -231,7 +239,8 @@ TEST_F(ComboPropertyTest, fromVectorStream) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({0, 1}));
 }
 
-TEST_F(ComboPropertyTest, setSringOfValues) {
+TEST_F(ComboPropertyTest, setSringOfValues)
+{
     std::vector<std::string> expectedValues = {"a1", "a2"};
     ComboProperty combo = ComboProperty::createFrom(expectedValues);
 
@@ -258,7 +267,8 @@ TEST_F(ComboPropertyTest, setSringOfValues) {
     EXPECT_EQ(combo.selectedIndices(), std::vector<int>({1}));
 }
 
-TEST_F(ComboPropertyTest, setStringOfSelections) {
+TEST_F(ComboPropertyTest, setStringOfSelections)
+{
     ComboProperty combo;
     EXPECT_EQ(combo.stringOfSelections(), "");
 
@@ -290,7 +300,8 @@ TEST_F(ComboPropertyTest, setStringOfSelections) {
     EXPECT_EQ(combo.stringOfSelections(), "0");
 }
 
-TEST_F(ComboPropertyTest, comboEqualityDiffIndex) {
+TEST_F(ComboPropertyTest, comboEqualityDiffIndex)
+{
     ComboProperty c1 = ComboProperty::createFrom({"a1", "a2"});
     ComboProperty c2 = ComboProperty::createFrom({"a1", "a2"});
 
@@ -302,7 +313,8 @@ TEST_F(ComboPropertyTest, comboEqualityDiffIndex) {
     EXPECT_TRUE(c1 == c2);
 }
 
-TEST_F(ComboPropertyTest, comboEqualityDiffList) {
+TEST_F(ComboPropertyTest, comboEqualityDiffList)
+{
     ComboProperty c1;
     ComboProperty c2;
     EXPECT_TRUE(c1 == c2);
@@ -347,7 +359,8 @@ TEST_F(ComboPropertyTest, comboEqualityDiffList) {
 //! Check equality of ComboProperty's variants.
 //! If comparators are not registered, the behavior is undefined.
 
-TEST_F(ComboPropertyTest, variantEqualityDiffLists) {
+TEST_F(ComboPropertyTest, variantEqualityDiffLists)
+{
     if (ModelView::Comparators::registered()) {
         ComboProperty c1 = ComboProperty() << "a1"
                                            << "a2";
@@ -377,7 +390,8 @@ TEST_F(ComboPropertyTest, variantEqualityDiffLists) {
 
 //! Check equality of ComboProperty's variants when only selected item differs.
 
-TEST_F(ComboPropertyTest, variantEqualityDiffIndex) {
+TEST_F(ComboPropertyTest, variantEqualityDiffIndex)
+{
     if (ModelView::Comparators::registered()) {
         ComboProperty c1 = ComboProperty::createFrom({"a1", "a2"});
         ComboProperty c2 = ComboProperty::createFrom({"a1", "a2"});

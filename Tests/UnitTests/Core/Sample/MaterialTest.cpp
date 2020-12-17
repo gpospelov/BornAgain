@@ -7,9 +7,11 @@
 #include "Sample/Scattering/Rotations.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class MaterialTest : public ::testing::Test {};
+class MaterialTest : public ::testing::Test {
+};
 
-TEST_F(MaterialTest, MaterialConstruction) {
+TEST_F(MaterialTest, MaterialConstruction)
+{
     complex_t material_data = complex_t(0.0, 2.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
@@ -43,7 +45,8 @@ TEST_F(MaterialTest, MaterialConstruction) {
     EXPECT_EQ(default_magnetism, material6.magnetization());
 }
 
-TEST_F(MaterialTest, MaterialTransform) {
+TEST_F(MaterialTest, MaterialTransform)
+{
     complex_t material_data = complex_t(1.0, 0.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(1.0, 0.0, 0.0);
@@ -62,7 +65,8 @@ TEST_F(MaterialTest, MaterialTransform) {
     EXPECT_EQ(transformed_mag, material4.magnetization());
 }
 
-TEST_F(MaterialTest, DefaultMaterials) {
+TEST_F(MaterialTest, DefaultMaterials)
+{
     Material material = HomogeneousMaterial();
     const double dummy_wavelength = 1.0;
 
@@ -80,7 +84,8 @@ TEST_F(MaterialTest, DefaultMaterials) {
     EXPECT_FALSE(material.typeID() == MaterialBySLD().typeID());
 }
 
-TEST_F(MaterialTest, ComputationTest) {
+TEST_F(MaterialTest, ComputationTest)
+{
     // Reference data for Fe taken from
     // https://sld-calculator.appspot.com
     // http://www.ati.ac.at/~neutropt/scattering/table.html
@@ -132,7 +137,8 @@ TEST_F(MaterialTest, ComputationTest) {
     EXPECT_NEAR(subtrSLD.imag(), subtrSLDWlIndep.imag(), 1e-10);
 }
 
-TEST_F(MaterialTest, AveragedMaterialTest) {
+TEST_F(MaterialTest, AveragedMaterialTest)
+{
     kvector_t magnetization = kvector_t{1.0, 0.0, 0.0};
     const Material material = HomogeneousMaterial("Material", 0.5, 0.5, magnetization);
     const std::vector<HomogeneousRegion> regions = {HomogeneousRegion{0.25, material},
@@ -165,7 +171,8 @@ TEST_F(MaterialTest, AveragedMaterialTest) {
     EXPECT_TRUE(material_avr3.typeID() == MATERIAL_TYPES::MaterialBySLD);
 }
 
-TEST_F(MaterialTest, TypeIdsTest) {
+TEST_F(MaterialTest, TypeIdsTest)
+{
     Material material = MaterialBySLD("Material", 1.0, 1.0);
     Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
     EXPECT_TRUE(material.typeID() == MATERIAL_TYPES::MaterialBySLD);
@@ -175,7 +182,8 @@ TEST_F(MaterialTest, TypeIdsTest) {
     EXPECT_TRUE(material.typeID() == material3.typeID());
 }
 
-TEST_F(MaterialTest, MaterialComparison) {
+TEST_F(MaterialTest, MaterialComparison)
+{
     Material material = MaterialBySLD("Material", 1.0, 1.0);
     Material material2 = HomogeneousMaterial("Material", 1.0, 1.0);
     EXPECT_TRUE(material == material);
@@ -194,7 +202,8 @@ TEST_F(MaterialTest, MaterialComparison) {
     EXPECT_TRUE(HomogeneousMaterial() != MaterialBySLD());
 }
 
-TEST_F(MaterialTest, MaterialCopy) {
+TEST_F(MaterialTest, MaterialCopy)
+{
     complex_t material_data = complex_t(0.0, 2.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);
@@ -206,7 +215,8 @@ TEST_F(MaterialTest, MaterialCopy) {
     EXPECT_TRUE(material == copy);
 }
 
-TEST_F(MaterialTest, MaterialMove) {
+TEST_F(MaterialTest, MaterialMove)
+{
     complex_t material_data = complex_t(0.0, 2.0);
     complex_t refIndex = complex_t(1.0 - material_data.real(), material_data.imag());
     kvector_t magnetism = kvector_t(3.0, 4.0, 5.0);

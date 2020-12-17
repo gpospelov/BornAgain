@@ -6,15 +6,18 @@
 #include "Param/Distrib/ParameterDistribution.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class PythonFormattingTest : public ::testing::Test {};
+class PythonFormattingTest : public ::testing::Test {
+};
 
-TEST_F(PythonFormattingTest, ValueTimesUnits) {
+TEST_F(PythonFormattingTest, ValueTimesUnits)
+{
     EXPECT_EQ("2*nm", pyfmt::printValue(2.0, "nm"));
     EXPECT_EQ("2*deg", pyfmt::printValue(2.0 * Units::deg, "rad"));
     EXPECT_EQ("2.0", pyfmt::printValue(2.0, ""));
 }
 
-TEST_F(PythonFormattingTest, RealLimits) {
+TEST_F(PythonFormattingTest, RealLimits)
+{
     EXPECT_EQ("RealLimits.lowerLimited(1.0)",
               pyfmt::printRealLimits(RealLimits::lowerLimited(1.0)));
     EXPECT_EQ("RealLimits.lowerLimited(1*nm)",
@@ -45,7 +48,8 @@ TEST_F(PythonFormattingTest, RealLimits) {
     EXPECT_EQ("", pyfmt::printRealLimitsArg(RealLimits::limitless()));
 }
 
-TEST_F(PythonFormattingTest, printDistribution) {
+TEST_F(PythonFormattingTest, printDistribution)
+{
     EXPECT_EQ(pyfmt2::printDistribution(DistributionGate(1.0, 2.0)),
               "ba.DistributionGate(1.0, 2.0)");
 
@@ -60,7 +64,8 @@ TEST_F(PythonFormattingTest, printDistribution) {
               "ba.DistributionLogNormal(1*deg, 0.01)");
 }
 
-TEST_F(PythonFormattingTest, printParameterDistribution) {
+TEST_F(PythonFormattingTest, printParameterDistribution)
+{
 
     DistributionGate gate(1.0, 2.0);
     ParameterDistribution dist("ParName", gate, 5, 2.0);

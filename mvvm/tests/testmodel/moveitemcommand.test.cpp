@@ -28,7 +28,8 @@ public:
 
 MoveItemCommandTest::~MoveItemCommandTest() = default;
 
-TEST_F(MoveItemCommandTest, rootContextNext) {
+TEST_F(MoveItemCommandTest, rootContextNext)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem()); // 0
     auto item1 = model.insertItem<SessionItem>(model.rootItem()); // 1
@@ -63,7 +64,8 @@ TEST_F(MoveItemCommandTest, rootContextNext) {
     EXPECT_EQ(model.rootItem()->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, rootContextSamePos) {
+TEST_F(MoveItemCommandTest, rootContextSamePos)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<SessionItem>(model.rootItem());
@@ -93,7 +95,8 @@ TEST_F(MoveItemCommandTest, rootContextSamePos) {
     EXPECT_EQ(model.rootItem()->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, rootContextPrev) {
+TEST_F(MoveItemCommandTest, rootContextPrev)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<SessionItem>(model.rootItem());
@@ -123,7 +126,8 @@ TEST_F(MoveItemCommandTest, rootContextPrev) {
     EXPECT_EQ(model.rootItem()->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, rootContextLast) {
+TEST_F(MoveItemCommandTest, rootContextLast)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<SessionItem>(model.rootItem());
@@ -153,7 +157,8 @@ TEST_F(MoveItemCommandTest, rootContextLast) {
     EXPECT_EQ(model.rootItem()->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, rootContextLast2) {
+TEST_F(MoveItemCommandTest, rootContextLast2)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<SessionItem>(model.rootItem());
@@ -183,7 +188,8 @@ TEST_F(MoveItemCommandTest, rootContextLast2) {
     EXPECT_EQ(model.rootItem()->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, fromRootToParent) {
+TEST_F(MoveItemCommandTest, fromRootToParent)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto parent = model.insertItem<SessionItem>(model.rootItem());
@@ -228,7 +234,8 @@ TEST_F(MoveItemCommandTest, fromRootToParent) {
     EXPECT_EQ(parent->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, fromParentToRoot) {
+TEST_F(MoveItemCommandTest, fromParentToRoot)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto parent = model.insertItem<SessionItem>(model.rootItem());
@@ -273,7 +280,8 @@ TEST_F(MoveItemCommandTest, fromParentToRoot) {
     EXPECT_EQ(parent->children(), expected);
 }
 
-TEST_F(MoveItemCommandTest, betweenParentTags) {
+TEST_F(MoveItemCommandTest, betweenParentTags)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>(model.rootItem());
     parent->registerTag(TagInfo::universalTag("tag1"));

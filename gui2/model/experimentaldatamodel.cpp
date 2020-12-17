@@ -31,7 +31,8 @@ using namespace ModelView;
 
 namespace {
 
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
+{
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<gui2::CanvasItem>();
     result->registerItem<gui2::CanvasContainerItem>();
@@ -52,17 +53,20 @@ ExperimentalDataModel::ExperimentalDataModel(std::shared_ptr<ItemPool> pool)
 
 //! Returns the canvas container of the model.
 
-CanvasContainerItem* ExperimentalDataModel::canvasContainer() const {
+CanvasContainerItem* ExperimentalDataModel::canvasContainer() const
+{
     return topItem<CanvasContainerItem>();
 }
 
 //! Returns the data container of the model.
 
-ExperimentalDataContainerItem* ExperimentalDataModel::dataContainer() const {
+ExperimentalDataContainerItem* ExperimentalDataModel::dataContainer() const
+{
     return topItem<ExperimentalDataContainerItem>();
 }
 
-CanvasItem* ExperimentalDataModel::addCanvas() {
+CanvasItem* ExperimentalDataModel::addCanvas()
+{
     return insertItem<CanvasItem>(canvasContainer());
 }
 
@@ -71,7 +75,8 @@ CanvasItem* ExperimentalDataModel::addCanvas() {
 //! and set it to GraphItem.
 
 ModelView::GraphItem* ExperimentalDataModel::addGraph(const GraphImportData& graph_data,
-                                                      CanvasItem& target_canvas) {
+                                                      CanvasItem& target_canvas)
+{
     auto result = insertItem<GraphItem>(&target_canvas);
 
     auto data = insertItem<Data1DItem>(dataContainer());
@@ -86,7 +91,8 @@ ModelView::GraphItem* ExperimentalDataModel::addGraph(const GraphImportData& gra
 
 //! Remove graph from the model. Underlying DataItem will be removed too.
 
-void ExperimentalDataModel::removeGraph(GraphItem& graph) {
+void ExperimentalDataModel::removeGraph(GraphItem& graph)
+{
     auto dataItem = graph.dataItem();
 
     removeItem(graph.parent(), graph.tagRow());
@@ -95,7 +101,8 @@ void ExperimentalDataModel::removeGraph(GraphItem& graph) {
 
 //! Remove canvas with all its graphs.
 
-void ExperimentalDataModel::removeCanvas(CanvasItem& canvas) {
+void ExperimentalDataModel::removeCanvas(CanvasItem& canvas)
+{
     // Remove graph first. Use special method for that, since we want to remove underlying items.
     for (auto graph : canvas.graphItems())
         removeGraph(*graph);
@@ -105,7 +112,8 @@ void ExperimentalDataModel::removeCanvas(CanvasItem& canvas) {
 //! Merge canvas from the vector. All graphs will be the children of the first canvas in the vector.
 //! All other canvas will be emptied and deleted.
 
-void ExperimentalDataModel::mergeCanvases(const std::vector<CanvasItem*>& canvases) {
+void ExperimentalDataModel::mergeCanvases(const std::vector<CanvasItem*>& canvases)
+{
     if (canvases.size() <= 1)
         return;
 
@@ -118,7 +126,8 @@ void ExperimentalDataModel::mergeCanvases(const std::vector<CanvasItem*>& canvas
     }
 }
 
-void ExperimentalDataModel::init_model() {
+void ExperimentalDataModel::init_model()
+{
     setItemCatalogue(CreateItemCatalogue());
 
     insertItem<ExperimentalDataContainerItem>(rootItem());

@@ -21,7 +21,8 @@
 
 namespace pyfmt {
 
-std::string preambled(const std::string& code) {
+std::string preambled(const std::string& code)
+{
     std::vector<std::string> to_declare;
     for (const std::string& key : {"angstrom", "deg", "nm", "nm2", "micrometer"})
         if (code.find("*" + key) != std::string::npos)
@@ -35,11 +36,13 @@ std::string preambled(const std::string& code) {
            + StringUtils::join(to_declare, ", ") + "\n\n\n" + code;
 }
 
-std::string printBool(double value) {
+std::string printBool(double value)
+{
     return value ? "True" : "False";
 }
 
-std::string printDouble(double input) {
+std::string printDouble(double input)
+{
     std::ostringstream inter;
     inter << std::setprecision(12);
     if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
@@ -53,7 +56,8 @@ std::string printDouble(double input) {
 }
 
 //! prints double as an integer, if possible within standard accuracy
-std::string printLightDouble(double input) {
+std::string printLightDouble(double input)
+{
     std::ostringstream inter;
     int ival = std::lround(input);
     if (std::abs(input - ival) < 1e-11)
@@ -70,14 +74,16 @@ std::string printLightDouble(double input) {
     return inter.str();
 }
 
-std::string printNm(double input) {
+std::string printNm(double input)
+{
     std::ostringstream inter;
     inter << std::setprecision(12);
     inter << printLightDouble(input) << "*nm";
     return inter.str();
 }
 
-std::string printNm2(double input) {
+std::string printNm2(double input)
+{
     std::ostringstream inter;
     inter << std::setprecision(12);
     inter << printLightDouble(input) << "*nm2";
@@ -85,7 +91,8 @@ std::string printNm2(double input) {
 }
 
 // 1.000000e+07 -> 1.0e+07
-std::string printScientificDouble(double input) {
+std::string printScientificDouble(double input)
+{
     std::ostringstream inter;
     inter << std::scientific;
     inter << input;
@@ -104,13 +111,15 @@ std::string printScientificDouble(double input) {
     return part1 + part2;
 }
 
-std::string printDegrees(double input) {
+std::string printDegrees(double input)
+{
     std::ostringstream inter;
     inter << printLightDouble(Units::rad2deg(input)) << "*deg";
     return inter.str();
 }
 
-std::string printValue(double value, const std::string& units) {
+std::string printValue(double value, const std::string& units)
+{
     if (units == "rad")
         return printDegrees(value);
     else if (units == "nm")
@@ -121,28 +130,33 @@ std::string printValue(double value, const std::string& units) {
         throw std::runtime_error("pyfmt::printValue() -> Error. Unknown units '" + units + "'");
 }
 
-std::string printString(const std::string& value) {
+std::string printString(const std::string& value)
+{
     std::ostringstream result;
     result << "\"" << value << "\"";
     return result.str();
 }
 
-bool isSquare(double length1, double length2, double angle) {
+bool isSquare(double length1, double length2, double angle)
+{
     return length1 == length2 && algo::almostEqual(angle, M_PI_2);
 }
 
-bool isHexagonal(double length1, double length2, double angle) {
+bool isHexagonal(double length1, double length2, double angle)
+{
     return length1 == length2 && algo::almostEqual(angle, M_TWOPI / 3.0);
 }
 
-std::string printKvector(const kvector_t value) {
+std::string printKvector(const kvector_t value)
+{
     std::ostringstream result;
     result << "kvector_t(" << printDouble(value.x()) << ", " << printDouble(value.y()) << ", "
            << printDouble(value.z()) << ")";
     return result.str();
 }
 
-std::string indent(size_t width) {
+std::string indent(size_t width)
+{
     return std::string(width, ' ');
 }
 

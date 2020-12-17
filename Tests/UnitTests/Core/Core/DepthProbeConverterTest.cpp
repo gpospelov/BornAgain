@@ -25,9 +25,12 @@ protected:
 DepthProbeConverterTest::DepthProbeConverterTest()
     : m_inclination_axis("Angles", m_nbins, m_alpha_start, m_alpha_end) // angles in radians
     , m_z_axis("Positions", m_nbins, m_z_start, m_z_end)                // z positions in nm
-    , m_beam(Beam::horizontalBeam()) {}
+    , m_beam(Beam::horizontalBeam())
+{
+}
 
-void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& test_object) {
+void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& test_object)
+{
     EXPECT_EQ(test_object.dimension(), 2u);
 
     EXPECT_NEAR(test_object.calculateMin(0, Axes::Units::DEFAULT), 2.8647889757e+1,
@@ -63,7 +66,8 @@ void DepthProbeConverterTest::checkMainFunctionality(const DepthProbeConverter& 
 }
 
 void DepthProbeConverterTest::checkAlphaAxis(Axes::Units units,
-                                             const DepthProbeConverter& test_object) {
+                                             const DepthProbeConverter& test_object)
+{
     auto axis = test_object.createConvertedAxis(0, units);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), test_object.axisSize(0));
@@ -72,8 +76,8 @@ void DepthProbeConverterTest::checkAlphaAxis(Axes::Units units,
     EXPECT_EQ(axis->upperBound(), test_object.calculateMax(0, units));
 }
 
-void DepthProbeConverterTest::checkZAxis(Axes::Units units,
-                                         const DepthProbeConverter& test_object) {
+void DepthProbeConverterTest::checkZAxis(Axes::Units units, const DepthProbeConverter& test_object)
+{
     auto axis = test_object.createConvertedAxis(1, units);
     EXPECT_TRUE(dynamic_cast<FixedBinAxis*>(axis.get()));
     EXPECT_EQ(axis->size(), test_object.axisSize(1));
@@ -88,12 +92,14 @@ void DepthProbeConverterTest::checkZAxis(Axes::Units units,
     EXPECT_NEAR(axis->upperBound(), test_max, std::abs(test_max) * 1e-10);
 }
 
-TEST_F(DepthProbeConverterTest, DepthProbeConverter) {
+TEST_F(DepthProbeConverterTest, DepthProbeConverter)
+{
     DepthProbeConverter converter(m_beam, m_inclination_axis, m_z_axis);
     checkMainFunctionality(converter);
 }
 
-TEST_F(DepthProbeConverterTest, DepthProbeConverterExceptions) {
+TEST_F(DepthProbeConverterTest, DepthProbeConverterExceptions)
+{
     DepthProbeConverter converter(m_beam, m_inclination_axis, m_z_axis);
 
     EXPECT_THROW(converter.axisName(0, Axes::Units::MM), std::runtime_error);
@@ -113,7 +119,8 @@ TEST_F(DepthProbeConverterTest, DepthProbeConverterExceptions) {
     EXPECT_THROW(converter.createConvertedAxis(2, Axes::Units::DEFAULT), std::runtime_error);
 }
 
-TEST_F(DepthProbeConverterTest, DepthProbeConverterClone) {
+TEST_F(DepthProbeConverterTest, DepthProbeConverterClone)
+{
     DepthProbeConverter converter(m_beam, m_inclination_axis, m_z_axis);
     std::unique_ptr<DepthProbeConverter> converter_clone(converter.clone());
     checkMainFunctionality(*converter_clone);

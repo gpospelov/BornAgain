@@ -9,13 +9,15 @@
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "Tests/UnitTests/utilities/google_test.h"
 
-class TestParticleLayoutItem : public ::testing::Test {};
+class TestParticleLayoutItem : public ::testing::Test {
+};
 
 using namespace SessionItemUtils;
 
 //! Checks enabled/disabled status of TotalSurfaceDensity when adding interference function items.
 
-TEST_F(TestParticleLayoutItem, densityAppearance) {
+TEST_F(TestParticleLayoutItem, densityAppearance)
+{
     SampleModel model;
     auto layout = dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
 
@@ -51,7 +53,8 @@ TEST_F(TestParticleLayoutItem, densityAppearance) {
 //! a) on interference function attachment
 //! b) on lattice parameter adjustments
 
-TEST_F(TestParticleLayoutItem, densityValue) {
+TEST_F(TestParticleLayoutItem, densityValue)
+{
     SampleModel model;
     auto layout = dynamic_cast<ParticleLayoutItem*>(model.insertNewItem("ParticleLayout"));
 

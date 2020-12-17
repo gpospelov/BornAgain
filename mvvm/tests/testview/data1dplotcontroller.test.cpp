@@ -35,7 +35,8 @@ Data1DPlotControllerTest::~Data1DPlotControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(Data1DPlotControllerTest, initialState) {
+TEST_F(Data1DPlotControllerTest, initialState)
+{
     // Constructor accept valid QCPGraph
     EXPECT_THROW(Data1DPlotController(nullptr), std::runtime_error);
 
@@ -52,7 +53,8 @@ TEST_F(Data1DPlotControllerTest, initialState) {
 
 //! Testing controller when Data1DItem is not initialized properly.
 
-TEST_F(Data1DPlotControllerTest, dataItemInInitialState) {
+TEST_F(Data1DPlotControllerTest, dataItemInInitialState)
+{
     // creating custom plot and empty graph on it
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
@@ -72,7 +74,8 @@ TEST_F(Data1DPlotControllerTest, dataItemInInitialState) {
 
 //! Testing controller when Data1DItem get it's axis after controller setup.
 
-TEST_F(Data1DPlotControllerTest, axisAfter) {
+TEST_F(Data1DPlotControllerTest, axisAfter)
+{
     // creating custom plot and empty graph on it
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
@@ -94,7 +97,8 @@ TEST_F(Data1DPlotControllerTest, axisAfter) {
 
 //! Testing graph points update.
 
-TEST_F(Data1DPlotControllerTest, dataPoints) {
+TEST_F(Data1DPlotControllerTest, dataPoints)
+{
     // creating custom plot and empty graph on it
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
@@ -122,7 +126,8 @@ TEST_F(Data1DPlotControllerTest, dataPoints) {
 
 //! Testing graph errors update.
 
-TEST_F(Data1DPlotControllerTest, errorBars) {
+TEST_F(Data1DPlotControllerTest, errorBars)
+{
     // creating custom plot and empty graph on it
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();
@@ -148,7 +153,8 @@ TEST_F(Data1DPlotControllerTest, errorBars) {
 
 //! Testing two graph scenario.
 
-TEST_F(Data1DPlotControllerTest, twoDataItems) {
+TEST_F(Data1DPlotControllerTest, twoDataItems)
+{
     // creating custom plot and empty graph on it
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto graph = custom_plot->addGraph();

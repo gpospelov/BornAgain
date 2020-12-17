@@ -75,19 +75,23 @@ private:
     QGraphicsTextItem* m_label;
 };
 
-inline const QString& NodeEditorPort::portName() const {
+inline const QString& NodeEditorPort::portName() const
+{
     return m_name;
 }
 
-inline int NodeEditorPort::type() const {
+inline int NodeEditorPort::type() const
+{
     return ViewTypes::NODE_EDITOR_PORT;
 }
 
-inline bool NodeEditorPort::isConnected() {
+inline bool NodeEditorPort::isConnected()
+{
     return m_connections.size();
 }
 
-inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const {
+inline NodeEditorPort::EPortType NodeEditorPort::getPortType() const
+{
     return m_port_type;
 }
 

@@ -28,7 +28,8 @@ RectangularDetector::RectangularDetector(size_t nxbins, double width, size_t nyb
     , m_distance(0.0)
     , m_dbeam_u0(0.0)
     , m_dbeam_v0(0.0)
-    , m_detector_arrangement(GENERIC) {
+    , m_detector_arrangement(GENERIC)
+{
     setDetectorParameters(nxbins, 0.0, width, nybins, 0.0, height);
     setName("RectangularDetector");
 }
@@ -44,17 +45,20 @@ RectangularDetector::RectangularDetector(const RectangularDetector& other)
     , m_dbeam_v0(other.m_dbeam_v0)
     , m_detector_arrangement(other.m_detector_arrangement)
     , m_u_unit(other.m_u_unit)
-    , m_v_unit(other.m_v_unit) {
+    , m_v_unit(other.m_v_unit)
+{
     setName("RectangularDetector");
 }
 
 RectangularDetector::~RectangularDetector() = default;
 
-RectangularDetector* RectangularDetector::clone() const {
+RectangularDetector* RectangularDetector::clone() const
+{
     return new RectangularDetector(*this);
 }
 
-void RectangularDetector::init(const Beam& beam) {
+void RectangularDetector::init(const Beam& beam)
+{
     double alpha_i = beam.direction().alpha();
     kvector_t central_k = beam.getCentralK();
     initNormalVector(central_k);
@@ -62,7 +66,8 @@ void RectangularDetector::init(const Beam& beam) {
 }
 
 void RectangularDetector::setPosition(const kvector_t normal_to_detector, double u0, double v0,
-                                      const kvector_t direction) {
+                                      const kvector_t direction)
+{
     m_detector_arrangement = GENERIC;
     m_normal_to_detector = normal_to_detector;
     m_distance = m_normal_to_detector.mag();
@@ -71,80 +76,98 @@ void RectangularDetector::setPosition(const kvector_t normal_to_detector, double
     m_direction = direction;
 }
 
-void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0) {
+void RectangularDetector::setPerpendicularToSampleX(double distance, double u0, double v0)
+{
     m_detector_arrangement = PERPENDICULAR_TO_SAMPLE;
     setDistanceAndOffset(distance, u0, v0);
 }
 
-void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0) {
+void RectangularDetector::setPerpendicularToDirectBeam(double distance, double u0, double v0)
+{
     m_detector_arrangement = PERPENDICULAR_TO_DIRECT_BEAM;
     setDistanceAndOffset(distance, u0, v0);
 }
 
-void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0, double v0) {
+void RectangularDetector::setPerpendicularToReflectedBeam(double distance, double u0, double v0)
+{
     m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM;
     setDistanceAndOffset(distance, u0, v0);
 }
 
-void RectangularDetector::setDirectBeamPosition(double u0, double v0) {
+void RectangularDetector::setDirectBeamPosition(double u0, double v0)
+{
     m_detector_arrangement = PERPENDICULAR_TO_REFLECTED_BEAM_DPOS;
     m_dbeam_u0 = u0;
     m_dbeam_v0 = v0;
 }
 
-double RectangularDetector::getWidth() const {
+double RectangularDetector::getWidth() const
+{
     return axis(0).span();
 }
 
-double RectangularDetector::getHeight() const {
+double RectangularDetector::getHeight() const
+{
     return axis(1).span();
 }
 
-size_t RectangularDetector::getNbinsX() const {
+size_t RectangularDetector::getNbinsX() const
+{
     return axis(0).size();
 }
 
-size_t RectangularDetector::getNbinsY() const {
+size_t RectangularDetector::getNbinsY() const
+{
     return axis(1).size();
 }
 
-kvector_t RectangularDetector::getNormalVector() const {
+kvector_t RectangularDetector::getNormalVector() const
+{
     return m_normal_to_detector;
 }
 
-double RectangularDetector::getU0() const {
+double RectangularDetector::getU0() const
+{
     return m_u0;
 }
 
-double RectangularDetector::getV0() const {
+double RectangularDetector::getV0() const
+{
     return m_v0;
 }
 
-kvector_t RectangularDetector::getDirectionVector() const {
+kvector_t RectangularDetector::getDirectionVector() const
+{
     return m_direction;
 }
 
-double RectangularDetector::getDistance() const {
+double RectangularDetector::getDistance() const
+{
     return m_distance;
 }
 
-double RectangularDetector::getDirectBeamU0() const {
+double RectangularDetector::getDirectBeamU0() const
+{
     return m_dbeam_u0;
 }
 
-double RectangularDetector::getDirectBeamV0() const {
+double RectangularDetector::getDirectBeamV0() const
+{
     return m_dbeam_v0;
 }
 
-RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const {
+RectangularDetector::EDetectorArrangement RectangularDetector::getDetectorArrangment() const
+{
     return m_detector_arrangement;
 }
 
-Axes::Units RectangularDetector::defaultAxesUnits() const {
+Axes::Units RectangularDetector::defaultAxesUnits() const
+{
     return Axes::Units::MM;
 }
 
-RectangularPixel* RectangularDetector::regionOfInterestPixel() const {
+RectangularPixel* RectangularDetector::regionOfInterestPixel() const
+{
     const IAxis& u_axis = axis(0);
     const IAxis& v_axis = axis(1);
     double u_min, v_min, width, height;
@@ -167,7 +190,8 @@ RectangularPixel* RectangularDetector::regionOfInterestPixel() const {
     return new RectangularPixel(corner_position, uaxis_vector, vaxis_vector);
 }
 
-IPixel* RectangularDetector::createPixel(size_t index) const {
+IPixel* RectangularDetector::createPixel(size_t index) const
+{
     const IAxis& u_axis = axis(0);
     const IAxis& v_axis = axis(1);
     const size_t u_index = axisBinIndex(index, 0);
@@ -182,7 +206,8 @@ IPixel* RectangularDetector::createPixel(size_t index) const {
     return new RectangularPixel(corner_position, width, height);
 }
 
-std::string RectangularDetector::axisName(size_t index) const {
+std::string RectangularDetector::axisName(size_t index) const
+{
     switch (index) {
     case 0:
         return "u";
@@ -194,7 +219,8 @@ std::string RectangularDetector::axisName(size_t index) const {
     }
 }
 
-size_t RectangularDetector::indexOfSpecular(const Beam& beam) const {
+size_t RectangularDetector::indexOfSpecular(const Beam& beam) const
+{
     if (dimension() != 2)
         return totalSize();
     const double alpha = beam.direction().alpha();
@@ -215,7 +241,8 @@ size_t RectangularDetector::indexOfSpecular(const Beam& beam) const {
     return getGlobalIndex(u_axis.findClosestIndex(u), v_axis.findClosestIndex(v));
 }
 
-void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0) {
+void RectangularDetector::setDistanceAndOffset(double distance, double u0, double v0)
+{
     if (distance <= 0.0) {
         std::ostringstream message;
         message << "RectangularDetector::setPerpendicularToSample() -> Error. "
@@ -227,7 +254,8 @@ void RectangularDetector::setDistanceAndOffset(double distance, double u0, doubl
     m_v0 = v0;
 }
 
-void RectangularDetector::initNormalVector(const kvector_t central_k) {
+void RectangularDetector::initNormalVector(const kvector_t central_k)
+{
     kvector_t central_k_unit = central_k.unit();
 
     if (m_detector_arrangement == GENERIC) {
@@ -253,7 +281,8 @@ void RectangularDetector::initNormalVector(const kvector_t central_k) {
     }
 }
 
-void RectangularDetector::initUandV(double alpha_i) {
+void RectangularDetector::initUandV(double alpha_i)
+{
     double d2 = m_normal_to_detector.dot(m_normal_to_detector);
     kvector_t u_direction =
         d2 * m_direction - m_direction.dot(m_normal_to_detector) * m_normal_to_detector;

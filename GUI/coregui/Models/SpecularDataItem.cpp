@@ -22,7 +22,8 @@ const QString SpecularDataItem::P_TITLE = "Title";
 const QString SpecularDataItem::P_XAXIS = "x-axis";
 const QString SpecularDataItem::P_YAXIS = "y-axis";
 
-SpecularDataItem::SpecularDataItem() : DataItem("SpecularData") {
+SpecularDataItem::SpecularDataItem() : DataItem("SpecularData")
+{
     addProperty(P_TITLE, QString())->setVisible(false);
 
     SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
@@ -40,7 +41,8 @@ SpecularDataItem::SpecularDataItem() : DataItem("SpecularData") {
     setYaxisTitle(SpecularDataAxesNames::y_axis_default_name);
 }
 
-void SpecularDataItem::setOutputData(OutputData<double>* data) {
+void SpecularDataItem::setOutputData(OutputData<double>* data)
+{
     ASSERT(data && "Assertion failed in SpecularDataItem::setOutputData: nullptr data passed");
     if (data->rank() != 1)
         throw GUIHelpers::Error(
@@ -52,81 +54,99 @@ void SpecularDataItem::setOutputData(OutputData<double>* data) {
     emitDataChanged();
 }
 
-int SpecularDataItem::getNbins() const {
+int SpecularDataItem::getNbins() const
+{
     return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
 }
 
-double SpecularDataItem::getLowerX() const {
+double SpecularDataItem::getLowerX() const
+{
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
-double SpecularDataItem::getUpperX() const {
+double SpecularDataItem::getUpperX() const
+{
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
-double SpecularDataItem::getXmin() const {
+double SpecularDataItem::getXmin() const
+{
     const double defaultXmin(0.0);
     return m_data ? m_data->axis(0).lowerBound() : defaultXmin;
 }
 
-double SpecularDataItem::getXmax() const {
+double SpecularDataItem::getXmax() const
+{
     const double defaultXmax(1.0);
     return m_data ? m_data->axis(0).upperBound() : defaultXmax;
 }
 
-double SpecularDataItem::getLowerY() const {
+double SpecularDataItem::getLowerY() const
+{
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
 }
 
-double SpecularDataItem::getUpperY() const {
+double SpecularDataItem::getUpperY() const
+{
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 }
 
-double SpecularDataItem::getYmin() const {
+double SpecularDataItem::getYmin() const
+{
     return dataRange().first;
 }
 
-double SpecularDataItem::getYmax() const {
+double SpecularDataItem::getYmax() const
+{
     return dataRange().second;
 }
 
-bool SpecularDataItem::isLog() const {
+bool SpecularDataItem::isLog() const
+{
     return getItem(P_YAXIS)->getItemValue(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
 }
 
-QString SpecularDataItem::getXaxisTitle() const {
+QString SpecularDataItem::getXaxisTitle() const
+{
     return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
 }
 
-QString SpecularDataItem::getYaxisTitle() const {
+QString SpecularDataItem::getYaxisTitle() const
+{
     return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
 }
 
-void SpecularDataItem::setXaxisTitle(QString xtitle) {
+void SpecularDataItem::setXaxisTitle(QString xtitle)
+{
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
 }
 
-void SpecularDataItem::setYaxisTitle(QString ytitle) {
+void SpecularDataItem::setYaxisTitle(QString ytitle)
+{
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
 }
 
 //! set zoom range of x,y axes to axes of input data
-void SpecularDataItem::setAxesRangeToData() {
+void SpecularDataItem::setAxesRangeToData()
+{
     setLowerX(getXmin());
     setUpperX(getXmax());
     setLowerY(getYmin());
     setUpperY(getYmax());
 }
 
-void SpecularDataItem::updateAxesUnits(const InstrumentItem* instrument) {
+void SpecularDataItem::updateAxesUnits(const InstrumentItem* instrument)
+{
     JobItemUtils::updateDataAxes(this, instrument);
 }
 
-std::vector<int> SpecularDataItem::shape() const {
+std::vector<int> SpecularDataItem::shape() const
+{
     return {getNbins()};
 }
 
-void SpecularDataItem::reset(ImportDataInfo data) {
+void SpecularDataItem::reset(ImportDataInfo data)
+{
     ComboProperty combo = ComboProperty() << data.unitsLabel();
     setItemValue(SpecularDataItem::P_AXES_UNITS, combo.variant());
     getItem(SpecularDataItem::P_AXES_UNITS)->setVisible(true);
@@ -137,29 +157,35 @@ void SpecularDataItem::reset(ImportDataInfo data) {
     setAxesRangeToData();
 }
 
-void SpecularDataItem::setLowerX(double xmin) {
+void SpecularDataItem::setLowerX(double xmin)
+{
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
 }
 
-void SpecularDataItem::setUpperX(double xmax) {
+void SpecularDataItem::setUpperX(double xmax)
+{
     getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
 }
 
-void SpecularDataItem::setLowerY(double ymin) {
+void SpecularDataItem::setLowerY(double ymin)
+{
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN_DEG, ymin);
 }
 
-void SpecularDataItem::setUpperY(double ymax) {
+void SpecularDataItem::setUpperY(double ymax)
+{
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX_DEG, ymax);
 }
 
-void SpecularDataItem::setLog(bool log_flag) {
+void SpecularDataItem::setLog(bool log_flag)
+{
     getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
 }
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.
 
-void SpecularDataItem::updateAxesZoomLevel() {
+void SpecularDataItem::updateAxesZoomLevel()
+{
     // set zoom range of x-axis to min, max values if it was not set already
     if (getUpperX() < getLowerX()) {
         setLowerX(getXmin());
@@ -177,7 +203,8 @@ void SpecularDataItem::updateAxesZoomLevel() {
 }
 
 //! Init ymin, ymax to match the intensity values range.
-QPair<double, double> SpecularDataItem::dataRange() const {
+QPair<double, double> SpecularDataItem::dataRange() const
+{
     const double default_min = 0.0;
     const double default_max = 1.0;
     const OutputData<double>* data = getOutputData();
@@ -194,15 +221,18 @@ QPair<double, double> SpecularDataItem::dataRange() const {
     return QPair<double, double>(min, max);
 }
 
-const BasicAxisItem* SpecularDataItem::xAxisItem() const {
+const BasicAxisItem* SpecularDataItem::xAxisItem() const
+{
     return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
 }
 
-BasicAxisItem* SpecularDataItem::xAxisItem() {
+BasicAxisItem* SpecularDataItem::xAxisItem()
+{
     return const_cast<BasicAxisItem*>(static_cast<const SpecularDataItem*>(this)->xAxisItem());
 }
 
-const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const {
+const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
+{
     auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
     ASSERT(result);
     return result;
@@ -210,6 +240,7 @@ const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const {
 
 //! Set axes viewport to original data.
 
-void SpecularDataItem::resetView() {
+void SpecularDataItem::resetView()
+{
     setAxesRangeToData();
 }

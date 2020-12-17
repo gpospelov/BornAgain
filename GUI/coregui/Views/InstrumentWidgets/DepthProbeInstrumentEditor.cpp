@@ -33,7 +33,8 @@ DepthProbeInstrumentEditor::DepthProbeInstrumentEditor(QWidget* parent)
     , m_wavelengthEditor(new ComponentEditor(ComponentEditor::InfoWidget, wavelength_title))
     , m_inclinationEditor(new ComponentEditor(ComponentEditor::InfoWidget, inclination_title))
     , m_depthAxisEditor(new ComponentEditor(ComponentEditor::InfoWidget, depth_axis_title))
-    , m_gridLayout(new QGridLayout) {
+    , m_gridLayout(new QGridLayout)
+{
     m_gridLayout->addWidget(m_wavelengthEditor, 1, 0);
     m_gridLayout->addWidget(m_inclinationEditor, 1, 1);
     m_gridLayout->addWidget(m_depthAxisEditor, 1, 2);
@@ -49,7 +50,8 @@ DepthProbeInstrumentEditor::DepthProbeInstrumentEditor(QWidget* parent)
             &DepthProbeInstrumentEditor::onDialogRequest);
 }
 
-void DepthProbeInstrumentEditor::subscribeToItem() {
+void DepthProbeInstrumentEditor::subscribeToItem()
+{
     const auto beam_item = instrumentItem()->getItem(DepthProbeInstrumentItem::P_BEAM);
 
     auto wavelengthItem = beam_item->getItem(SpecularBeamItem::P_WAVELENGTH);
@@ -63,16 +65,19 @@ void DepthProbeInstrumentEditor::subscribeToItem() {
     m_depthAxisEditor->setItem(instrumentItem()->getItem(DepthProbeInstrumentItem::P_Z_AXIS));
 }
 
-void DepthProbeInstrumentEditor::unsubscribeFromItem() {
+void DepthProbeInstrumentEditor::unsubscribeFromItem()
+{
     m_wavelengthEditor->clearEditor();
     m_inclinationEditor->clearEditor();
 }
 
-DepthProbeInstrumentItem* DepthProbeInstrumentEditor::instrumentItem() {
+DepthProbeInstrumentItem* DepthProbeInstrumentEditor::instrumentItem()
+{
     return dynamic_cast<DepthProbeInstrumentItem*>(currentItem());
 }
 
-void DepthProbeInstrumentEditor::onDialogRequest(SessionItem* item, const QString& name) {
+void DepthProbeInstrumentEditor::onDialogRequest(SessionItem* item, const QString& name)
+{
     if (!item)
         return;
 

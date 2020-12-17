@@ -22,7 +22,8 @@ const float cz = 100; // multiplication scale for controlling how long the axes 
 
 namespace RealSpace {
 
-Buffer::Buffer(Geometry const& geometry) {
+Buffer::Buffer(Geometry const& geometry)
+{
     initializeOpenGLFunctions();
 
     auto& mesh = geometry.m_mesh;
@@ -42,12 +43,14 @@ Buffer::Buffer(Geometry const& geometry) {
                           reinterpret_cast<void*>(sizeof(Vector3D)));
 }
 
-void Buffer::draw() {
+void Buffer::draw()
+{
     QOpenGLVertexArrayObject::Binder __(&m_vao);
     glDrawArrays(GL_TRIANGLES, 0, m_vertexCount);
 }
 
-Buffer3DAxes::Buffer3DAxes() {
+Buffer3DAxes::Buffer3DAxes()
+{
     initializeOpenGLFunctions();
 
     QOpenGLVertexArrayObject::Binder __(&m_vao3DAxes);
@@ -99,7 +102,8 @@ Buffer3DAxes::Buffer3DAxes() {
                           reinterpret_cast<void*>(3 * sizeof(float)));
 }
 
-void Buffer3DAxes::draw3DAxes() {
+void Buffer3DAxes::draw3DAxes()
+{
     QOpenGLVertexArrayObject::Binder __(&m_vao3DAxes);
     glLineWidth(1.4f);
     glDrawArrays(GL_LINES, 0, m_vertexCount3DAxes);

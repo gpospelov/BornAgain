@@ -44,7 +44,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //! the format.
 class HighlightingRule {
 public:
-    HighlightingRule(const QString& patternStr, int n, const QTextCharFormat& matchingFormat) {
+    HighlightingRule(const QString& patternStr, int n, const QTextCharFormat& matchingFormat)
+    {
         originalRuleStr = patternStr;
         pattern = QRegExp(patternStr);
         nth = n;

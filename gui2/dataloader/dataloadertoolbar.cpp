@@ -18,7 +18,8 @@
 
 namespace gui2 {
 
-DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent) {
+DataLoaderToolBar::DataLoaderToolBar(QWidget* parent) : QToolBar(parent)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     // add files

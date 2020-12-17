@@ -34,7 +34,8 @@ ToyItemsSerializationTest::~ToyItemsSerializationTest() = default;
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel) {
+TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel)
+{
     // model with single group item
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
@@ -51,7 +52,8 @@ TEST_F(ToyItemsSerializationTest, defaultShapeGroupItemInModel) {
 //! Checking ShapeGroupItem in a model.
 //! Serialization/deserelization should give an item identical to original.
 
-TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel) {
+TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel)
+{
     SampleModel model;
     auto group = model.insertItem<ShapeGroupItem>();
 
@@ -75,7 +77,8 @@ TEST_F(ToyItemsSerializationTest, modifiedShapeGroupItemInModel) {
 
 //! Insert all supported items in a model and check that after serialization
 
-TEST_F(ToyItemsSerializationTest, allItemsInAModel) {
+TEST_F(ToyItemsSerializationTest, allItemsInAModel)
+{
     SampleModel model;
     model.insertItem<ToyItems::MultiLayerItem>();
     model.insertItem<ToyItems::LayerItem>();

@@ -26,7 +26,8 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
     , m_fftAction(nullptr)
     , m_fftModel(new SessionModel("TempFFTModel", this))
     , m_fftItem(nullptr)
-    , m_in_fft_mode(false) {
+    , m_in_fft_mode(false)
+{
     m_fftItem = dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem("IntensityData"));
 
     m_fftAction = new QAction(this);
@@ -36,11 +37,13 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
     connect(m_fftAction, &QAction::triggered, this, &IntensityDataFFTPresenter::onFFTActionRequest);
 }
 
-void IntensityDataFFTPresenter::reset() {
+void IntensityDataFFTPresenter::reset()
+{
     m_in_fft_mode = false;
 }
 
-IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origItem) {
+IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origItem)
+{
     if (!origItem)
         throw GUIHelpers::Error("IntensityDataFFTPresenter::fftItem() -> Error. Empty item.");
 
@@ -53,15 +56,18 @@ IntensityDataItem* IntensityDataFFTPresenter::fftItem(IntensityDataItem* origIte
     return m_fftItem;
 }
 
-QList<QAction*> IntensityDataFFTPresenter::actionList() {
+QList<QAction*> IntensityDataFFTPresenter::actionList()
+{
     return QList<QAction*>() << m_fftAction;
 }
 
-bool IntensityDataFFTPresenter::inFFTMode() const {
+bool IntensityDataFFTPresenter::inFFTMode() const
+{
     return m_in_fft_mode;
 }
 
-void IntensityDataFFTPresenter::onFFTActionRequest() {
+void IntensityDataFFTPresenter::onFFTActionRequest()
+{
     m_in_fft_mode = !m_in_fft_mode;
     fftActionRequest();
 }

@@ -89,19 +89,23 @@ NewProjectDialog::NewProjectDialog(QWidget* parent, Mode mode, const QString& wo
     setProjectName(projectName);
 }
 
-QString NewProjectDialog::getWorkingDirectory() const {
+QString NewProjectDialog::getWorkingDirectory() const
+{
     return QDir::fromNativeSeparators(m_workDirEdit->text());
 }
 
-void NewProjectDialog::setWorkingDirectory(const QString& text) {
+void NewProjectDialog::setWorkingDirectory(const QString& text)
+{
     m_workDirEdit->setText(QDir::toNativeSeparators(text));
 }
 
-void NewProjectDialog::setProjectName(const QString& text) {
+void NewProjectDialog::setProjectName(const QString& text)
+{
     return m_projectNameEdit->setText(text);
 }
 
-QString NewProjectDialog::getProjectFileName() const {
+QString NewProjectDialog::getProjectFileName() const
+{
     QString projectDir = getWorkingDirectory() + QString("/") + getProjectName();
     QString projectFile = getProjectName() + ProjectDocument::projectFileExtension();
     QString result = projectDir + QString("/") + projectFile;
@@ -109,7 +113,8 @@ QString NewProjectDialog::getProjectFileName() const {
 }
 
 //! calls directory selection dialog
-void NewProjectDialog::onBrowseDirectory() {
+void NewProjectDialog::onBrowseDirectory()
+{
     QString dirname = QFileDialog::getExistingDirectory(
         this, "Select directory", getWorkingDirectory(),
         QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);
@@ -122,7 +127,8 @@ void NewProjectDialog::onBrowseDirectory() {
 
 //! Checks whether ProjectPath is valid and sets warning state accordingly. Corresponding directory
 //! should exists.
-void NewProjectDialog::checkIfProjectPathIsValid(const QString& dirname) {
+void NewProjectDialog::checkIfProjectPathIsValid(const QString& dirname)
+{
     if (QFile::exists(dirname)) {
         setValidProjectPath(true);
         setWorkingDirectory(dirname);
@@ -134,7 +140,8 @@ void NewProjectDialog::checkIfProjectPathIsValid(const QString& dirname) {
 
 //! Checks whether project name is valid and sets warning state accordingly. There should not be the
 //! directory with such name in ProjectPath
-void NewProjectDialog::checkIfProjectNameIsValid(const QString& projectName) {
+void NewProjectDialog::checkIfProjectNameIsValid(const QString& projectName)
+{
     const QDir projectDir = getWorkingDirectory() + "/" + projectName;
     setValidProjectName(!projectDir.exists());
     updateWarningStatus();
@@ -142,7 +149,8 @@ void NewProjectDialog::checkIfProjectNameIsValid(const QString& projectName) {
 
 //! sets flags whether project name is valid and then updates color of LineEdit
 //! and warning message
-void NewProjectDialog::setValidProjectName(bool status) {
+void NewProjectDialog::setValidProjectName(bool status)
+{
     m_valid_projectName = status;
     QPalette palette;
     if (m_valid_projectName) {
@@ -155,7 +163,8 @@ void NewProjectDialog::setValidProjectName(bool status) {
 
 //! sets flags wether project path is valid and then updates color of LineEdit
 //! and warning message
-void NewProjectDialog::setValidProjectPath(bool status) {
+void NewProjectDialog::setValidProjectPath(bool status)
+{
     m_valid_projectPath = status;
     QPalette palette;
     if (m_valid_projectPath) {
@@ -167,7 +176,8 @@ void NewProjectDialog::setValidProjectPath(bool status) {
 }
 
 //! updates warning label depending on validity of project name and path
-void NewProjectDialog::updateWarningStatus() {
+void NewProjectDialog::updateWarningStatus()
+{
     if (m_valid_projectPath && m_valid_projectName) {
         m_createButton->setEnabled(true);
         m_warningLabel->setText("");
@@ -188,7 +198,8 @@ void NewProjectDialog::updateWarningStatus() {
 }
 
 //! creates directory with selected ProjectName in selected ProjectPath
-void NewProjectDialog::createProjectDir() {
+void NewProjectDialog::createProjectDir()
+{
     QDir parentDir = getWorkingDirectory();
     if (!parentDir.mkdir(getProjectName())) {
         m_warningLabel->setText("<font color='darkRed'> Can't make subdirectory' '"

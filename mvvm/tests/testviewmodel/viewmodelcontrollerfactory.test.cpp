@@ -31,7 +31,8 @@ public:
 
 ViewModelControllerFactoryTest::~ViewModelControllerFactoryTest() = default;
 
-TEST_F(ViewModelControllerFactoryTest, allItemsControllerBuild) {
+TEST_F(ViewModelControllerFactoryTest, allItemsControllerBuild)
+{
     SessionModel session_model;
     ViewModelBase view_model;
 

@@ -38,7 +38,8 @@ struct AbstractItemCommand::AbstractItemCommandImpl {
 };
 
 AbstractItemCommand::AbstractItemCommand(SessionItem* receiver)
-    : p_impl(std::make_unique<AbstractItemCommand::AbstractItemCommandImpl>(this)) {
+    : p_impl(std::make_unique<AbstractItemCommand::AbstractItemCommandImpl>(this))
+{
     if (!receiver)
         throw std::runtime_error("Invalid item.");
 
@@ -52,7 +53,8 @@ AbstractItemCommand::~AbstractItemCommand() = default;
 
 //! Execute command.
 
-void AbstractItemCommand::execute() {
+void AbstractItemCommand::execute()
+{
     if (!p_impl->can_execute())
         throw std::runtime_error("Can't execute the command. Wrong order.");
 
@@ -63,7 +65,8 @@ void AbstractItemCommand::execute() {
 
 //! Undo command as it was before execution.
 
-void AbstractItemCommand::undo() {
+void AbstractItemCommand::undo()
+{
     if (!p_impl->can_undo())
         throw std::runtime_error("Can't undo the command. Wrong order.");
 
@@ -74,44 +77,53 @@ void AbstractItemCommand::undo() {
 
 //! Returns whether the command is obsolete (which means that it shouldn't be kept in the stack).
 
-bool AbstractItemCommand::isObsolete() const {
+bool AbstractItemCommand::isObsolete() const
+{
     return p_impl->m_isObsolete;
 }
 
 //! Returns command description.
 
-std::string AbstractItemCommand::description() const {
+std::string AbstractItemCommand::description() const
+{
     return p_impl->m_text;
 }
 
-CommandResult AbstractItemCommand::result() const {
+CommandResult AbstractItemCommand::result() const
+{
     return p_impl->m_result;
 }
 
 //! Sets command obsolete flag.
 
-void AbstractItemCommand::setObsolete(bool flag) {
+void AbstractItemCommand::setObsolete(bool flag)
+{
     p_impl->m_isObsolete = flag;
 }
 
 //! Sets command description.
 
-void AbstractItemCommand::setDescription(const std::string& text) {
+void AbstractItemCommand::setDescription(const std::string& text)
+{
     p_impl->m_text = text;
 }
 
-Path AbstractItemCommand::pathFromItem(SessionItem* item) const {
+Path AbstractItemCommand::pathFromItem(SessionItem* item) const
+{
     return Utils::PathFromItem(item);
 }
 
-SessionItem* AbstractItemCommand::itemFromPath(const Path& path) const {
+SessionItem* AbstractItemCommand::itemFromPath(const Path& path) const
+{
     return Utils::ItemFromPath(*p_impl->m_model, path);
 }
 
-SessionModel* AbstractItemCommand::model() const {
+SessionModel* AbstractItemCommand::model() const
+{
     return p_impl->m_model;
 }
 
-void AbstractItemCommand::setResult(const CommandResult& command_result) {
+void AbstractItemCommand::setResult(const CommandResult& command_result)
+{
     p_impl->m_result = command_result;
 }

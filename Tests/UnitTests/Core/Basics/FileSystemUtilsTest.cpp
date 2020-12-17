@@ -6,29 +6,34 @@
 
 class FileSystemUtilsTest : public ::testing::Test {
 protected:
-    void SetUp() override {
+    void SetUp() override
+    {
         FileSystemUtils::createDirectories(BATesting::TestOutDir_Core());
         ASSERT_TRUE(std::filesystem::exists(BATesting::TestOutDir_Core()));
         ASSERT_TRUE(assureNonExistingTestCasePath());
     }
 
-    void TearDown() override {
+    void TearDown() override
+    {
         EXPECT_TRUE(assureNonExistingTestCasePath());
         // by design no removing of BATesting::TestOutDir_Core() which may have been
         // created in SetUp
     }
 
-    std::string testCaseFolderName() const {
+    std::string testCaseFolderName() const
+    {
         const auto test_info = ::testing::UnitTest::GetInstance()->current_test_info();
         return test_info->test_case_name() + std::string("_") + test_info->name();
     }
 
-    std::string testCasePath() const {
+    std::string testCasePath() const
+    {
         return FileSystemUtils::jointPath(BATesting::TestOutDir_Core(), testCaseFolderName());
     }
 
     //! Assures the test case specific path is not existent. Removes it if necessary.
-    bool assureNonExistingTestCasePath() const {
+    bool assureNonExistingTestCasePath() const
+    {
         // current dir must not be the dir to be removed
         std::filesystem::current_path(BATesting::TestOutDir_Core());
         std::filesystem::remove_all(testCasePath());
@@ -36,7 +41,8 @@ protected:
     }
 };
 
-TEST_F(FileSystemUtilsTest, extension) {
+TEST_F(FileSystemUtilsTest, extension)
+{
     EXPECT_EQ(FileSystemUtils::extension(""), "");
     EXPECT_EQ(FileSystemUtils::extension("/home/james/"), "");
     EXPECT_EQ(FileSystemUtils::extension("/home/james/."), "");
@@ -48,7 +54,8 @@ TEST_F(FileSystemUtilsTest, extension) {
     EXPECT_EQ(FileSystemUtils::extension("/home/james/file.txt.GZ"), ".GZ");
 }
 
-TEST_F(FileSystemUtilsTest, extensions) {
+TEST_F(FileSystemUtilsTest, extensions)
+{
     EXPECT_EQ(FileSystemUtils::extensions(""), "");
     EXPECT_EQ(FileSystemUtils::extensions("/home/james/"), "");
     EXPECT_EQ(FileSystemUtils::extensions("/home/james/."), "");
@@ -62,7 +69,8 @@ TEST_F(FileSystemUtilsTest, extensions) {
     EXPECT_EQ(FileSystemUtils::extensions("/home/james/file.txt.gz"), ".txt.gz");
 }
 
-TEST_F(FileSystemUtilsTest, filename) {
+TEST_F(FileSystemUtilsTest, filename)
+{
     EXPECT_EQ(FileSystemUtils::filename(""), "");
     EXPECT_EQ(FileSystemUtils::filename("/home/james/"), "");
     EXPECT_EQ(FileSystemUtils::filename("/home/james/."), ".");   // sic! according to C++17
@@ -72,7 +80,8 @@ TEST_F(FileSystemUtilsTest, filename) {
     EXPECT_EQ(FileSystemUtils::filename("/home/james/file"), "file");
 }
 
-TEST_F(FileSystemUtilsTest, stem) {
+TEST_F(FileSystemUtilsTest, stem)
+{
     EXPECT_EQ(FileSystemUtils::stem(""), "");
     EXPECT_EQ(FileSystemUtils::stem("/home/james/"), "");
     EXPECT_EQ(FileSystemUtils::stem("/home/james/."), ".");
@@ -84,7 +93,8 @@ TEST_F(FileSystemUtilsTest, stem) {
     EXPECT_EQ(FileSystemUtils::stem("/home/james/filename.txt.gz"), "filename.txt");
 }
 
-TEST_F(FileSystemUtilsTest, stem_ext) {
+TEST_F(FileSystemUtilsTest, stem_ext)
+{
     EXPECT_EQ(FileSystemUtils::stem_ext(""), "");
     EXPECT_EQ(FileSystemUtils::stem_ext("/home/james/"), "");
     EXPECT_EQ(FileSystemUtils::stem_ext("/home/james/."), ".");
@@ -97,7 +107,8 @@ TEST_F(FileSystemUtilsTest, stem_ext) {
     EXPECT_EQ(FileSystemUtils::stem_ext("/home/james/filename.txt.gz"), "filename");
 }
 
-TEST_F(FileSystemUtilsTest, createDirectory) {
+TEST_F(FileSystemUtilsTest, createDirectory)
+{
     // with absolute path
     EXPECT_TRUE(FileSystemUtils::createDirectory(testCasePath()));
     EXPECT_FALSE(FileSystemUtils::createDirectory(testCasePath()));
@@ -110,7 +121,8 @@ TEST_F(FileSystemUtilsTest, createDirectory) {
     EXPECT_TRUE(std::filesystem::exists(FileSystemUtils::jointPath(testCasePath(), "sub")));
 }
 
-TEST_F(FileSystemUtilsTest, createDirectories) {
+TEST_F(FileSystemUtilsTest, createDirectories)
+{
     // with absolute path
     const auto sub1 = FileSystemUtils::jointPath(testCasePath(), "sub1");
     const auto sub2 = FileSystemUtils::jointPath(sub1, "sub2");
@@ -131,7 +143,8 @@ TEST_F(FileSystemUtilsTest, createDirectories) {
     EXPECT_TRUE(std::filesystem::exists(FileSystemUtils::jointPath(sub2, sub4)));
 }
 
-TEST_F(FileSystemUtilsTest, jointPath) {
+TEST_F(FileSystemUtilsTest, jointPath)
+{
 #ifdef _WIN32
     EXPECT_EQ(FileSystemUtils::jointPath("a", "b"), "a\\b");
 #else
@@ -143,7 +156,8 @@ TEST_F(FileSystemUtilsTest, jointPath) {
     EXPECT_ANY_THROW(FileSystemUtils::jointPath("", "b"));
 }
 
-TEST_F(FileSystemUtilsTest, filesInDirectory_IsFileExists) {
+TEST_F(FileSystemUtilsTest, filesInDirectory_IsFileExists)
+{
     EXPECT_ANY_THROW(FileSystemUtils::filesInDirectory("non-existent/directory"));
 
     // assure clean preconditions

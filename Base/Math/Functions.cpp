@@ -28,21 +28,25 @@
 //  Various functions
 //  ************************************************************************************************
 
-double Math::StandardNormal(double x) {
+double Math::StandardNormal(double x)
+{
     return std::exp(-x * x / 2.0) / std::sqrt(M_TWOPI);
 }
 
-double Math::Gaussian(double x, double average, double std_dev) {
+double Math::Gaussian(double x, double average, double std_dev)
+{
     return StandardNormal((x - average) / std_dev) / std_dev;
 }
 
-double Math::IntegratedGaussian(double x, double average, double std_dev) {
+double Math::IntegratedGaussian(double x, double average, double std_dev)
+{
     double normalized_x = (x - average) / std_dev;
     static double root2 = std::sqrt(2.0);
     return (gsl_sf_erf(normalized_x / root2) + 1.0) / 2.0;
 }
 
-double Math::cot(double x) {
+double Math::cot(double x)
+{
     return tan(M_PI_2 - x);
 }
 
@@ -69,7 +73,8 @@ complex_t Math::tanhc(const complex_t z) // tanh(x)/x
     return std::tanh(z) / z;
 }
 
-double Math::Laue(const double x, size_t N) {
+double Math::Laue(const double x, size_t N)
+{
     static const double SQRT6DOUBLE_EPS = std::sqrt(6.0 * std::numeric_limits<double>::epsilon());
     auto nd = static_cast<double>(N);
     if (std::abs(nd * x) < SQRT6DOUBLE_EPS)
@@ -79,7 +84,8 @@ double Math::Laue(const double x, size_t N) {
     return num / den;
 }
 
-double Math::erf(double arg) {
+double Math::erf(double arg)
+{
     if (arg < 0.0)
         throw std::runtime_error("Error in Math::erf: negative argument is not allowed");
     if (std::isinf(arg))

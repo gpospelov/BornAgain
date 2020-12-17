@@ -26,10 +26,12 @@ namespace {
 FormFactorComponents ff_components;
 }
 
-ParticleInVacuumBuilder::ParticleInVacuumBuilder()
-    : m_ff(new FormFactorFullSphere(5.0 * Units::nm)) {}
+ParticleInVacuumBuilder::ParticleInVacuumBuilder() : m_ff(new FormFactorFullSphere(5.0 * Units::nm))
+{
+}
 
-MultiLayer* ParticleInVacuumBuilder::buildSample() const {
+MultiLayer* ParticleInVacuumBuilder::buildSample() const
+{
     Layer vacuum_layer(refMat::Vacuum);
 
     Particle particle(refMat::Particle, *m_ff);
@@ -41,13 +43,15 @@ MultiLayer* ParticleInVacuumBuilder::buildSample() const {
     return result;
 }
 
-MultiLayer* ParticleInVacuumBuilder::createSampleByIndex(size_t index) {
+MultiLayer* ParticleInVacuumBuilder::createSampleByIndex(size_t index)
+{
     auto name = ff_components.keys().at(index);
     m_ff.reset(ff_components.getItem(name)->clone());
     setName(name);
     return buildSample();
 }
 
-size_t ParticleInVacuumBuilder::size() {
+size_t ParticleInVacuumBuilder::size()
+{
     return ff_components.size();
 }

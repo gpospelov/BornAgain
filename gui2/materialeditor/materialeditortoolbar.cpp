@@ -21,7 +21,8 @@
 namespace gui2 {
 
 MaterialEditorToolBar::MaterialEditorToolBar(MaterialEditorActions* actions, QWidget* parent)
-    : QToolBar(parent) {
+    : QToolBar(parent)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto action = new QAction("Add material", this);

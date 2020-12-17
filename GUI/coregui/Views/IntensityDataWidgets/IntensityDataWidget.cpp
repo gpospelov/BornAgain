@@ -26,7 +26,8 @@ IntensityDataWidget::IntensityDataWidget(QWidget* parent)
     : SessionItemWidget(parent)
     , m_intensityCanvas(new IntensityDataCanvas)
     , m_propertyWidget(new IntensityDataPropertyWidget)
-    , m_fftPresenter(new IntensityDataFFTPresenter(this)) {
+    , m_fftPresenter(new IntensityDataFFTPresenter(this))
+{
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     auto hlayout = new QHBoxLayout;
@@ -51,26 +52,30 @@ IntensityDataWidget::IntensityDataWidget(QWidget* parent)
     m_propertyWidget->setVisible(false);
 }
 
-void IntensityDataWidget::setItem(SessionItem* jobItem) {
+void IntensityDataWidget::setItem(SessionItem* jobItem)
+{
     SessionItemWidget::setItem(jobItem);
     m_intensityCanvas->setItem(intensityDataItem());
     m_propertyWidget->setItem(intensityDataItem());
     m_fftPresenter->reset();
 }
 
-QList<QAction*> IntensityDataWidget::actionList() {
+QList<QAction*> IntensityDataWidget::actionList()
+{
     return m_intensityCanvas->actionList() + m_fftPresenter->actionList()
            + m_propertyWidget->actionList();
 }
 
-void IntensityDataWidget::onContextMenuRequest(const QPoint& point) {
+void IntensityDataWidget::onContextMenuRequest(const QPoint& point)
+{
     QMenu menu;
     for (auto action : actionList())
         menu.addAction(action);
     menu.exec(point);
 }
 
-void IntensityDataWidget::onFFTAction() {
+void IntensityDataWidget::onFFTAction()
+{
     if (!intensityDataItem() || !intensityDataItem()->getOutputData())
         return;
 
@@ -85,6 +90,7 @@ void IntensityDataWidget::onFFTAction() {
     }
 }
 
-IntensityDataItem* IntensityDataWidget::intensityDataItem() {
+IntensityDataItem* IntensityDataWidget::intensityDataItem()
+{
     return DataItemUtils::intensityDataItem(currentItem());
 }

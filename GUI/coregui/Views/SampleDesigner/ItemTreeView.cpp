@@ -18,7 +18,8 @@
 #include <QMimeData>
 #include <QtCore/QXmlStreamWriter>
 
-ItemTreeView::ItemTreeView(QWidget* parent) : QTreeView(parent) {
+ItemTreeView::ItemTreeView(QWidget* parent) : QTreeView(parent)
+{
 
     setAllColumnsShowFocus(true);
     setWindowTitle("Sample Tree View");
@@ -29,7 +30,8 @@ ItemTreeView::ItemTreeView(QWidget* parent) : QTreeView(parent) {
 
 ItemTreeView::~ItemTreeView() = default;
 
-void ItemTreeView::dragMoveEvent(QDragMoveEvent* event) {
+void ItemTreeView::dragMoveEvent(QDragMoveEvent* event)
+{
     QTreeView::dragMoveEvent(event);
     SessionModel* model = static_cast<SessionModel*>(this->model());
     model->setDraggedItemType(QString());

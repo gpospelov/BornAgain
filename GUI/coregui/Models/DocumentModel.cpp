@@ -15,10 +15,12 @@
 #include "GUI/coregui/Models/DocumentModel.h"
 #include "GUI/coregui/Models/SimulationOptionsItem.h"
 
-DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent) {
+DocumentModel::DocumentModel(QObject* parent) : SessionModel(SessionXML::DocumentModelTag, parent)
+{
     setObjectName(SessionXML::DocumentModelTag);
 }
 
-SimulationOptionsItem* DocumentModel::simulationOptionsItem() {
+SimulationOptionsItem* DocumentModel::simulationOptionsItem()
+{
     return topItem<SimulationOptionsItem>();
 }

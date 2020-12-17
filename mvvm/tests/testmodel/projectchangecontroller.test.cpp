@@ -28,7 +28,8 @@ public:
 
 ProjectChangeControllerTest::~ProjectChangeControllerTest() = default;
 
-TEST_F(ProjectChangeControllerTest, initialState) {
+TEST_F(ProjectChangeControllerTest, initialState)
+{
     SessionModel sample_model("SampleModel");
     SessionModel material_model("MaterialModel");
     std::vector<SessionModel*> models = {&sample_model, &material_model};
@@ -37,7 +38,8 @@ TEST_F(ProjectChangeControllerTest, initialState) {
     EXPECT_FALSE(controller.hasChanged());
 }
 
-TEST_F(ProjectChangeControllerTest, twoModelsChange) {
+TEST_F(ProjectChangeControllerTest, twoModelsChange)
+{
     SessionModel sample_model("SampleModel");
     SessionModel material_model("MaterialModel");
     std::vector<SessionModel*> models = {&sample_model, &material_model};
@@ -53,7 +55,8 @@ TEST_F(ProjectChangeControllerTest, twoModelsChange) {
     EXPECT_FALSE(controller.hasChanged());
 }
 
-TEST_F(ProjectChangeControllerTest, callback) {
+TEST_F(ProjectChangeControllerTest, callback)
+{
     int model_changed_count{0};
 
     SessionModel sample_model("SampleModel");

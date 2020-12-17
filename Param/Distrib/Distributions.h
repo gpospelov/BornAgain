@@ -156,7 +156,8 @@ public:
     DistributionGaussian(double mean, double std_dev);
     DistributionGaussian();
 
-    DistributionGaussian* clone() const final {
+    DistributionGaussian* clone() const final
+    {
         return new DistributionGaussian(m_mean, m_std_dev);
     }
 
@@ -190,7 +191,8 @@ public:
     DistributionLogNormal(double median, double scale_param);
     DistributionLogNormal() = delete;
 
-    DistributionLogNormal* clone() const final {
+    DistributionLogNormal* clone() const final
+    {
         return new DistributionLogNormal(m_median, m_scale_param);
     }
 
@@ -259,7 +261,8 @@ public:
     DistributionTrapezoid(double center, double left, double middle, double right);
     DistributionTrapezoid();
 
-    DistributionTrapezoid* clone() const final {
+    DistributionTrapezoid* clone() const final
+    {
         return new DistributionTrapezoid(m_center, m_left, m_middle, m_right);
     }
 

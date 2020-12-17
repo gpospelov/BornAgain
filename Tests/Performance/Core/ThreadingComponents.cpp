@@ -32,7 +32,8 @@
 namespace {
 
 //! Returns multilayer spheres distribution at lattice points.
-std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres) {
+std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres)
+{
     auto material_1 = HomogeneousMaterial("example06_Vacuum", 0.0, 0.0);
     auto material_2 = HomogeneousMaterial("example08_Particle", 0.0006, 2e-08);
     auto material_3 = HomogeneousMaterial("example06_Substrate", 6e-06, 2e-08);
@@ -71,7 +72,8 @@ std::unique_ptr<MultiLayer> createSampleSpheresDistribution(int nspheres) {
 //! Creates realistic GISAS simulation (without sample).
 //! Rectangular PILATUS detector 981x1043, ROI and masks.
 
-std::unique_ptr<ISimulation> CreateRealisticGISASSimulation() {
+std::unique_ptr<ISimulation> CreateRealisticGISASSimulation()
+{
     auto result = std::make_unique<GISASSimulation>();
     result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
 
@@ -98,7 +100,8 @@ std::unique_ptr<ISimulation> CreateRealisticGISASSimulation() {
 //! Spherical detector 100x100, cylinders in DWBA.
 //! Intended to study the performance of "real time" parameter tuning in GUI.
 
-std::unique_ptr<ISimulation> TestComponents::CreateSimpleGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateSimpleGISAS()
+{
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
                                   2.0 * Units::deg);
@@ -112,7 +115,8 @@ std::unique_ptr<ISimulation> TestComponents::CreateSimpleGISAS() {
 //! Creates simulation representing realistic GISAS.
 //! Intended to study the performance of some real life experiment.
 
-std::unique_ptr<ISimulation> TestComponents::CreateRealisticGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateRealisticGISAS()
+{
     auto result = CreateRealisticGISASSimulation();
     auto sample = std::unique_ptr<MultiLayer>(CylindersInDWBABuilder().buildSample());
     result->setSample(*sample);
@@ -124,7 +128,8 @@ std::unique_ptr<ISimulation> TestComponents::CreateRealisticGISAS() {
 //! ROI and masks, noise, background.
 //! Intended to study the performance of some real life experiment.
 
-std::unique_ptr<ISimulation> TestComponents::CreateRealisticAndHeavyGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateRealisticAndHeavyGISAS()
+{
     auto result = CreateRealisticGISASSimulation();
     auto sample = createSampleSpheresDistribution(50);
     result->setSample(*sample);
@@ -136,7 +141,8 @@ std::unique_ptr<ISimulation> TestComponents::CreateRealisticAndHeavyGISAS() {
 //! Intended to study the influence of SimulationElements and IPixel constructions on overall
 //! performance.
 
-std::unique_ptr<ISimulation> TestComponents::CreateGiganticGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateGiganticGISAS()
+{
     const int nbins = 2048;
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(nbins, -2.0 * Units::deg, 2.0 * Units::deg, nbins,
@@ -151,7 +157,8 @@ std::unique_ptr<ISimulation> TestComponents::CreateGiganticGISAS() {
 //! Tiny spherical detector 64x64, cylinders in BA, huge wavelength.
 //! Intended to study parameter distribution in ISimulation::runSingleSimulation context.
 
-std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS()
+{
     const int nbins = 64;
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(nbins, -2.0 * Units::deg, 2.0 * Units::deg, nbins,
@@ -173,7 +180,8 @@ std::unique_ptr<ISimulation> TestComponents::CreateWavelengthGISAS() {
 //! Spherical detector 100x100, cylinders in DWBA.
 //! Intended to study the performance in MonteCarlo mode.
 
-std::unique_ptr<ISimulation> TestComponents::CreateMCGISAS() {
+std::unique_ptr<ISimulation> TestComponents::CreateMCGISAS()
+{
     auto result = std::make_unique<GISASSimulation>();
     result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
                                   2.0 * Units::deg);

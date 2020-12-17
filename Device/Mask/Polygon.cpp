@@ -31,7 +31,8 @@ public:
     void get_points(std::vector<double>& xpos, std::vector<double>& ypos);
 };
 
-void PolygonPrivate::init_from(const std::vector<double>& x, const std::vector<double>& y) {
+void PolygonPrivate::init_from(const std::vector<double>& x, const std::vector<double>& y)
+{
     if (x.size() != y.size())
         throw std::runtime_error(
             "Polygon::Polygon(const std::vector<double>& x, const std::vector<double>& y) "
@@ -43,7 +44,8 @@ void PolygonPrivate::init_from(const std::vector<double>& x, const std::vector<d
     correct(polygon);
 }
 
-void PolygonPrivate::get_points(std::vector<double>& xpos, std::vector<double>& ypos) {
+void PolygonPrivate::get_points(std::vector<double>& xpos, std::vector<double>& ypos)
+{
     xpos.clear();
     ypos.clear();
     for (auto it = polygon.outer().begin(); it != polygon.outer().end(); ++it) {
@@ -59,7 +61,8 @@ void PolygonPrivate::get_points(std::vector<double>& xpos, std::vector<double>& 
 // IMPORTANT Input parameters are not "const reference" to be able to work from python
 // (auto conversion of python list to vector<double>).
 Polygon::Polygon(const std::vector<double> x, const std::vector<double> y)
-    : IShape2D("Polygon"), m_d(new PolygonPrivate) {
+    : IShape2D("Polygon"), m_d(new PolygonPrivate)
+{
     m_d->init_from(x, y);
 }
 
@@ -70,7 +73,8 @@ Polygon::Polygon(const std::vector<double> x, const std::vector<double> y)
 //! doesn't repeat the first one), it will be closed automatically.
 //! @param points Two dimensional vector of (x,y) coordinates of polygon points.
 Polygon::Polygon(const std::vector<std::vector<double>> points)
-    : IShape2D("Polygon"), m_d(new PolygonPrivate) {
+    : IShape2D("Polygon"), m_d(new PolygonPrivate)
+{
     std::vector<double> x;
     std::vector<double> y;
     for (size_t i = 0; i < points.size(); ++i) {
@@ -86,27 +90,33 @@ Polygon::Polygon(const std::vector<std::vector<double>> points)
 
 Polygon::Polygon(const PolygonPrivate* d) : IShape2D("Polygon"), m_d(new PolygonPrivate(*d)) {}
 
-Polygon::~Polygon() {
+Polygon::~Polygon()
+{
     delete m_d;
 }
 
-bool Polygon::contains(double x, double y) const {
+bool Polygon::contains(double x, double y) const
+{
     //    return within(PolygonPrivate::point_t(x, y), m_d->polygon); // not including borders
     return covered_by(PolygonPrivate::point_t(x, y), m_d->polygon); // including borders
 }
 
-bool Polygon::contains(const Bin1D& binx, const Bin1D& biny) const {
+bool Polygon::contains(const Bin1D& binx, const Bin1D& biny) const
+{
     return contains(binx.center(), biny.center());
 }
 
-double Polygon::getArea() const {
+double Polygon::getArea() const
+{
     return area(m_d->polygon);
 }
 
-void Polygon::getPoints(std::vector<double>& xpos, std::vector<double>& ypos) const {
+void Polygon::getPoints(std::vector<double>& xpos, std::vector<double>& ypos) const
+{
     m_d->get_points(xpos, ypos);
 }
 
-void Polygon::print(std::ostream& ostr) const {
+void Polygon::print(std::ostream& ostr) const
+{
     ostr << wkt<PolygonPrivate::polygon_t>(m_d->polygon);
 }

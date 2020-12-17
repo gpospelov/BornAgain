@@ -87,7 +87,8 @@ void addRangedDistributionToItem(SessionItem* item, const IRangedDistribution& r
 } // namespace
 
 void TransformFromDomain::set1DLatticeItem(SessionItem* item,
-                                           const InterferenceFunction1DLattice& sample) {
+                                           const InterferenceFunction1DLattice& sample)
+{
     item->setItemValue(InterferenceFunction1DLatticeItem::P_LENGTH, sample.getLength());
     item->setItemValue(InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE,
                        Units::rad2deg(sample.getXi()));
@@ -99,7 +100,8 @@ void TransformFromDomain::set1DLatticeItem(SessionItem* item,
 }
 
 void TransformFromDomain::set2DLatticeItem(SessionItem* item,
-                                           const InterferenceFunction2DLattice& sample) {
+                                           const InterferenceFunction2DLattice& sample)
+{
     set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunction2DLatticeItem::P_XI_INTEGRATION,
@@ -112,7 +114,8 @@ void TransformFromDomain::set2DLatticeItem(SessionItem* item,
 }
 
 void TransformFromDomain::set2DParaCrystalItem(SessionItem* item,
-                                               const InterferenceFunction2DParaCrystal& sample) {
+                                               const InterferenceFunction2DParaCrystal& sample)
+{
     set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunction2DParaCrystalItem::P_DAMPING_LENGTH,
@@ -133,8 +136,9 @@ void TransformFromDomain::set2DParaCrystalItem(SessionItem* item,
     setPositionVariance(item, sample);
 }
 
-void TransformFromDomain::setFinite2DLatticeItem(
-    SessionItem* item, const InterferenceFunctionFinite2DLattice& sample) {
+void TransformFromDomain::setFinite2DLatticeItem(SessionItem* item,
+                                                 const InterferenceFunctionFinite2DLattice& sample)
+{
     set2DLatticeParameters(item, sample.lattice());
 
     item->setItemValue(InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_1,
@@ -149,14 +153,16 @@ void TransformFromDomain::setFinite2DLatticeItem(
 }
 
 void TransformFromDomain::setHardDiskItem(SessionItem* item,
-                                          const InterferenceFunctionHardDisk& sample) {
+                                          const InterferenceFunctionHardDisk& sample)
+{
     item->setItemValue(InterferenceFunctionHardDiskItem::P_RADIUS, sample.radius());
     item->setItemValue(InterferenceFunctionHardDiskItem::P_DENSITY, sample.density());
     setPositionVariance(item, sample);
 }
 
 void TransformFromDomain::setRadialParaCrystalItem(
-    SessionItem* item, const InterferenceFunctionRadialParaCrystal& sample) {
+    SessionItem* item, const InterferenceFunctionRadialParaCrystal& sample)
+{
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_PEAK_DISTANCE,
                        sample.peakDistance());
     item->setItemValue(InterferenceFunctionRadialParaCrystalItem::P_DAMPING_LENGTH,
@@ -172,7 +178,8 @@ void TransformFromDomain::setRadialParaCrystalItem(
 }
 
 void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* layer,
-                                       const LayerInterface* top_interface) {
+                                       const LayerInterface* top_interface)
+{
     layerItem->setItemValue(LayerItem::P_THICKNESS, layer->thickness());
     layerItem->setGroupProperty(LayerItem::P_ROUGHNESS, "LayerZeroRoughness");
     layerItem->setItemValue(LayerItem::P_NSLICES, (int)layer->numberOfSlices());
@@ -187,7 +194,8 @@ void TransformFromDomain::setLayerItem(SessionItem* layerItem, const Layer* laye
     }
 }
 
-void TransformFromDomain::setRoughnessItem(SessionItem* item, const LayerRoughness& sample) {
+void TransformFromDomain::setRoughnessItem(SessionItem* item, const LayerRoughness& sample)
+{
     item->setItemValue(LayerBasicRoughnessItem::P_SIGMA, sample.getSigma());
     item->setItemValue(LayerBasicRoughnessItem::P_HURST, sample.getHurstParameter());
     item->setItemValue(LayerBasicRoughnessItem::P_LATERAL_CORR_LENGTH,
@@ -196,7 +204,8 @@ void TransformFromDomain::setRoughnessItem(SessionItem* item, const LayerRoughne
 
 //! Initialization of ParticleDistributionItem
 void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
-                                                      const ParticleDistribution& sample) {
+                                                      const ParticleDistribution& sample)
+{
     ParticleDistributionItem* distItem = dynamic_cast<ParticleDistributionItem*>(item);
     ASSERT(distItem);
 
@@ -217,7 +226,8 @@ void TransformFromDomain::setParticleDistributionItem(SessionItem* item,
 }
 
 //! Returns true if given roughness is non-zero roughness
-bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness) {
+bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
+{
     if (!roughness)
         return false;
     if (roughness->getSigma() == 0 && roughness->getHurstParameter() == 0.0
@@ -226,7 +236,8 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness) {
     return true;
 }
 
-void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation) {
+void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation)
+{
     ASSERT(beam_item);
     Beam beam = simulation.instrument().beam();
 
@@ -252,7 +263,8 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 }
 
 void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
-                                                 const OffSpecularSimulation& simulation) {
+                                                 const OffSpecularSimulation& simulation)
+{
     Beam beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.intensity());
@@ -263,7 +275,8 @@ void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
 }
 
 void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
-                                              const SpecularSimulation& simulation) {
+                                              const SpecularSimulation& simulation)
+{
     const Beam& beam = simulation.instrument().beam();
 
     beam_item->setIntensity(beam.intensity());
@@ -297,7 +310,8 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
 }
 
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
-                                      const ISimulation2D& simulation) {
+                                      const ISimulation2D& simulation)
+{
     const IDetector* p_detector = simulation.instrument().getDetector();
     setDetectorGeometry(instrument_item, *p_detector);
 
@@ -309,7 +323,8 @@ void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
 }
 
 void TransformFromDomain::setDetectorGeometry(Instrument2DItem* instrument_item,
-                                              const IDetector& detector) {
+                                              const IDetector& detector)
+{
     if (auto det = dynamic_cast<const SphericalDetector*>(&detector)) {
         instrument_item->setDetectorGroup("SphericalDetector");
         auto item = dynamic_cast<SphericalDetectorItem*>(instrument_item->detectorItem());
@@ -325,7 +340,8 @@ void TransformFromDomain::setDetectorGeometry(Instrument2DItem* instrument_item,
 }
 
 void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
-                                                const IDetector& detector) {
+                                                const IDetector& detector)
+{
     const IDetectorResolution* p_resfunc = detector.detectorResolution();
 
     if (!p_resfunc)
@@ -354,7 +370,8 @@ void TransformFromDomain::setDetectorResolution(DetectorItem* detector_item,
 }
 
 void TransformFromDomain::setDetectorProperties(DetectorItem* detector_item,
-                                                const IDetector& detector) {
+                                                const IDetector& detector)
+{
     double total_transmission = detector.detectionProperties().analyzerTotalTransmission();
     if (total_transmission <= 0.0)
         return;
@@ -367,7 +384,8 @@ void TransformFromDomain::setDetectorProperties(DetectorItem* detector_item,
 }
 
 void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_item,
-                                               const SphericalDetector& detector) {
+                                               const SphericalDetector& detector)
+{
     // Axes
     const IAxis& phi_axis = detector.axis(0);
     const IAxis& alpha_axis = detector.axis(1);
@@ -388,7 +406,8 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
 }
 
 void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detector_item,
-                                                 const RectangularDetector& detector) {
+                                                 const RectangularDetector& detector)
+{
     // Axes
     BasicAxisItem* xAxisItem =
         dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_X_AXIS));
@@ -452,7 +471,8 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
 }
 
 void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
-                                           const ISimulation& simulation) {
+                                           const ISimulation& simulation)
+{
     const IDetector* detector = simulation.instrument().getDetector();
     if ((detector->detectorMask() && detector->detectorMask()->numberOfMasks())
         || detector->regionOfInterest()) {
@@ -467,7 +487,8 @@ void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
 }
 
 void TransformFromDomain::setMaskContainer(MaskContainerItem* container_item,
-                                           const IDetector& detector, double scale) {
+                                           const IDetector& detector, double scale)
+{
     auto detectorMask = detector.detectorMask();
     for (size_t i_mask = 0; i_mask < detectorMask->numberOfMasks(); ++i_mask) {
         bool mask_value(false);
@@ -552,7 +573,8 @@ void TransformFromDomain::setMaskContainer(MaskContainerItem* container_item,
 }
 
 void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribution_item,
-                                            const ParameterDistribution& parameter_distribution) {
+                                            const ParameterDistribution& parameter_distribution)
+{
     ASSERT(beam_distribution_item);
 
     if (parameter_distribution.getMinValue() < parameter_distribution.getMaxValue()) {
@@ -568,7 +590,8 @@ void TransformFromDomain::setItemFromSample(BeamDistributionItem* beam_distribut
 }
 
 void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
-                                        const ISimulation& simulation) {
+                                        const ISimulation& simulation)
+{
     auto p_bg = simulation.background();
     if (auto p_constant_bg = dynamic_cast<const ConstantBackground*>(p_bg)) {
         auto constant_bg_item =
@@ -581,7 +604,8 @@ void TransformFromDomain::setBackground(InstrumentItem* instrument_item,
 }
 
 void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
-                                             SpecularBeamItem* beam_item) {
+                                             SpecularBeamItem* beam_item)
+{
     if (!footprint)
         return;
     if (const auto gaussian_fp = dynamic_cast<const FootprintGauss*>(footprint)) {
@@ -597,7 +621,8 @@ void TransformFromDomain::setFootprintFactor(const IFootprintFactor* footprint,
     }
 }
 
-void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, double factor) {
+void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, double factor)
+{
     if (item->modelType() != "BasicAxis")
         throw GUIHelpers::Error("TransformFromDomain::setAxisItem() -> Error. Unexpected item.");
 
@@ -611,7 +636,8 @@ void TransformFromDomain::setAxisItem(SessionItem* item, const IAxis& axis, doub
 }
 
 namespace {
-void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name) {
+void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_name)
+{
     if (const FTDistribution1DCauchy* pdf = dynamic_cast<const FTDistribution1DCauchy*>(ipdf)) {
         SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution1DCauchy");
         pdfItem->setItemValue(FTDistribution1DCauchyItem::P_OMEGA, pdf->omega());
@@ -640,7 +666,8 @@ void SetPDF1D(SessionItem* item, const IFTDistribution1D* ipdf, QString group_na
     }
 }
 
-void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name) {
+void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_name)
+{
     if (const FTDistribution2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDistribution2DCauchy*>(pdf)) {
         SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDistribution2DCauchy");
@@ -680,7 +707,8 @@ void setPDF2D(SessionItem* item, const IFTDistribution2D* pdf, QString group_nam
     }
 }
 
-void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QString group_name) {
+void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QString group_name)
+{
     if (const FTDecayFunction1DCauchy* pdf = dynamic_cast<const FTDecayFunction1DCauchy*>(ipdf)) {
         SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction1DCauchy");
         pdfItem->setItemValue(FTDecayFunction1DItem::P_DECAY_LENGTH, pdf->decayLength());
@@ -702,7 +730,8 @@ void SetDecayFunction1D(SessionItem* item, const IFTDecayFunction1D* ipdf, QStri
     }
 }
 
-void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QString group_name) {
+void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QString group_name)
+{
     if (const FTDecayFunction2DCauchy* pdf_cauchy =
             dynamic_cast<const FTDecayFunction2DCauchy*>(pdf)) {
         SessionItem* pdfItem = item->setGroupProperty(group_name, "FTDecayFunction2DCauchy");
@@ -727,7 +756,8 @@ void SetDecayFunction2D(SessionItem* item, const IFTDecayFunction2D* pdf, QStrin
     }
 }
 
-void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice) {
+void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice)
+{
     SessionItem* latticeItem(nullptr);
     if (lattice.getName() == "SquareLattice2D") {
         latticeItem = item->setGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE,
@@ -751,13 +781,15 @@ void set2DLatticeParameters(SessionItem* item, const Lattice2D& lattice) {
                               Units::rad2deg(lattice.rotationAngle()));
 }
 
-void setPositionVariance(SessionItem* item, const IInterferenceFunction& iff) {
+void setPositionVariance(SessionItem* item, const IInterferenceFunction& iff)
+{
     double pos_var = iff.positionVariance();
     item->setItemValue(InterferenceFunctionItem::P_POSITION_VARIANCE, pos_var);
 }
 
 void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_distr,
-                     QString group_name, double factor) {
+                     QString group_name, double factor)
+{
     const IDistribution1D* p_distribution = par_distr.getDistribution();
 
     SessionItem* item = 0;
@@ -812,8 +844,8 @@ void setDistribution(SessionItem* part_distr_item, ParameterDistribution par_dis
 }
 
 void addDistributionToBeamItem(const std::string& parameter_name, const QString& item_name,
-                               const ParameterDistribution& distribution,
-                               const BeamItem* beam_item) {
+                               const ParameterDistribution& distribution, const BeamItem* beam_item)
+{
     ParameterPattern pattern;
     pattern.beginsWith("*").add("Beam").add(parameter_name);
     if (distribution.getMainParameterName() != pattern.toStdString())
@@ -824,7 +856,8 @@ void addDistributionToBeamItem(const std::string& parameter_name, const QString&
 }
 
 void addRangedDistributionToItem(SessionItem* item, const IRangedDistribution& ranged, double mean,
-                                 double std_dev) {
+                                 double std_dev)
+{
     auto distr_item = dynamic_cast<BeamDistributionItem*>(item);
     if (!distr_item)
         return;

@@ -2,9 +2,11 @@
 #include "Device/InputOutput/DataFormatUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class VariableBinAxisTest : public ::testing::Test {};
+class VariableBinAxisTest : public ::testing::Test {
+};
 
-TEST_F(VariableBinAxisTest, VectorOfUnitLength) {
+TEST_F(VariableBinAxisTest, VectorOfUnitLength)
+{
     static const double arr[] = {0., 1.};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 1, values);
@@ -14,7 +16,8 @@ TEST_F(VariableBinAxisTest, VectorOfUnitLength) {
     EXPECT_EQ(0.5, axis[0]);
 }
 
-TEST_F(VariableBinAxisTest, ValidityOfCOnstructor) {
+TEST_F(VariableBinAxisTest, ValidityOfCOnstructor)
+{
     std::vector<double> values;
     ASSERT_THROW(VariableBinAxis("name", 1, values), std::runtime_error);
     values.resize(5);
@@ -29,7 +32,8 @@ TEST_F(VariableBinAxisTest, ValidityOfCOnstructor) {
     ASSERT_THROW(VariableBinAxis("name", 3, v2), std::runtime_error);
 }
 
-TEST_F(VariableBinAxisTest, IndexedAccessor) {
+TEST_F(VariableBinAxisTest, IndexedAccessor)
+{
     std::vector<double> values;
 
     double start(0.0);
@@ -59,7 +63,8 @@ TEST_F(VariableBinAxisTest, IndexedAccessor) {
     ASSERT_THROW(a2[3], std::runtime_error);
 }
 
-TEST_F(VariableBinAxisTest, FindClosestIndex) {
+TEST_F(VariableBinAxisTest, FindClosestIndex)
+{
     static const double arr1[] = {0.0, 0.5, 1.0};
     std::vector<double> values1(arr1, arr1 + sizeof(arr1) / sizeof(arr1[0]));
 
@@ -99,7 +104,8 @@ TEST_F(VariableBinAxisTest, FindClosestIndex) {
     EXPECT_EQ(size_t(3), v3.findClosestIndex(1.9999));
 }
 
-TEST_F(VariableBinAxisTest, CheckBin) {
+TEST_F(VariableBinAxisTest, CheckBin)
+{
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values3(arr3, arr3 + sizeof(arr3) / sizeof(arr3[0]));
     VariableBinAxis axis("name", 4, values3);
@@ -124,7 +130,8 @@ TEST_F(VariableBinAxisTest, CheckBin) {
     EXPECT_DOUBLE_EQ(1.0, axis.bin(3).binSize());
 }
 
-TEST_F(VariableBinAxisTest, CheckEquality) {
+TEST_F(VariableBinAxisTest, CheckEquality)
+{
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values3(arr3, arr3 + sizeof(arr3) / sizeof(arr3[0]));
 
@@ -140,7 +147,8 @@ TEST_F(VariableBinAxisTest, CheckEquality) {
     EXPECT_FALSE(a1 == a4);
 }
 
-TEST_F(VariableBinAxisTest, CheckClone) {
+TEST_F(VariableBinAxisTest, CheckClone)
+{
     static const double arr3[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values3(arr3, arr3 + sizeof(arr3) / sizeof(arr3[0]));
     VariableBinAxis a1("name", 4, values3);
@@ -150,7 +158,8 @@ TEST_F(VariableBinAxisTest, CheckClone) {
     delete clone;
 }
 
-TEST_F(VariableBinAxisTest, IOStream) {
+TEST_F(VariableBinAxisTest, IOStream)
+{
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 4, values);
@@ -163,7 +172,8 @@ TEST_F(VariableBinAxisTest, IOStream) {
     EXPECT_TRUE(axis == *result);
 }
 
-TEST_F(VariableBinAxisTest, BinCenters) {
+TEST_F(VariableBinAxisTest, BinCenters)
+{
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 4, values);
@@ -176,7 +186,8 @@ TEST_F(VariableBinAxisTest, BinCenters) {
     EXPECT_DOUBLE_EQ(1.5, centers[3]);
 }
 
-TEST_F(VariableBinAxisTest, BinBoundaries) {
+TEST_F(VariableBinAxisTest, BinBoundaries)
+{
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 4, values);
@@ -190,7 +201,8 @@ TEST_F(VariableBinAxisTest, BinBoundaries) {
     EXPECT_DOUBLE_EQ(2.0, boundaries[4]);
 }
 
-TEST_F(VariableBinAxisTest, ClippedAxis) {
+TEST_F(VariableBinAxisTest, ClippedAxis)
+{
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
     VariableBinAxis axis("name", 4, values);

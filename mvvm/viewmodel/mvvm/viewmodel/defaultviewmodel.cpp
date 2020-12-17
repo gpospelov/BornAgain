@@ -18,4 +18,6 @@
 using namespace ModelView;
 
 DefaultViewModel::DefaultViewModel(SessionModel* model, QObject* parent)
-    : ViewModel(std::make_unique<DefaultViewModelController>(model, this), parent) {}
+    : ViewModel(std::make_unique<DefaultViewModelController>(model, this), parent)
+{
+}

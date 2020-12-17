@@ -33,7 +33,8 @@ ItemUtilsTest::~ItemUtilsTest() = default;
 
 //! Simple iteration over item and its children
 
-TEST_F(ItemUtilsTest, iterateItem) {
+TEST_F(ItemUtilsTest, iterateItem)
+{
     std::vector<const SessionItem*> visited_items;
 
     auto fun = [&](const SessionItem* item) { visited_items.push_back(item); };
@@ -65,7 +66,8 @@ TEST_F(ItemUtilsTest, iterateItem) {
 
 //! Conditional iteration over item and its children.
 
-TEST_F(ItemUtilsTest, iterateIfItem) {
+TEST_F(ItemUtilsTest, iterateIfItem)
+{
     std::vector<const SessionItem*> visited_items;
 
     // function which will not let iterate over children
@@ -90,7 +92,8 @@ TEST_F(ItemUtilsTest, iterateIfItem) {
 
 //! Iteration over root item of the model.
 
-TEST_F(ItemUtilsTest, iterateModel) {
+TEST_F(ItemUtilsTest, iterateModel)
+{
     SessionModel model;
 
     // building model
@@ -113,7 +116,8 @@ TEST_F(ItemUtilsTest, iterateModel) {
 
 //! Copy number of child in parents tree.
 
-TEST_F(ItemUtilsTest, itemCopyNumber) {
+TEST_F(ItemUtilsTest, itemCopyNumber)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -130,7 +134,8 @@ TEST_F(ItemUtilsTest, itemCopyNumber) {
 
 //! Check access to top level and property items.
 
-TEST_F(ItemUtilsTest, TopLevelItems) {
+TEST_F(ItemUtilsTest, TopLevelItems)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -148,7 +153,8 @@ TEST_F(ItemUtilsTest, TopLevelItems) {
 
 //! Check access to top level and property items.
 
-TEST_F(ItemUtilsTest, SinglePropertyItems) {
+TEST_F(ItemUtilsTest, SinglePropertyItems)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -166,7 +172,8 @@ TEST_F(ItemUtilsTest, SinglePropertyItems) {
 
 //! Looking for next item.
 
-TEST_F(ItemUtilsTest, FindNextSibling) {
+TEST_F(ItemUtilsTest, FindNextSibling)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -187,7 +194,8 @@ TEST_F(ItemUtilsTest, FindNextSibling) {
 
 //! Looking for previous item.
 
-TEST_F(ItemUtilsTest, FindPreviousSibling) {
+TEST_F(ItemUtilsTest, FindPreviousSibling)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -208,7 +216,8 @@ TEST_F(ItemUtilsTest, FindPreviousSibling) {
 
 //! Looking for previous item.
 
-TEST_F(ItemUtilsTest, FindNextItemToSelect) {
+TEST_F(ItemUtilsTest, FindNextItemToSelect)
+{
     SessionModel model;
 
     auto parent = model.insertItem<SessionItem>();
@@ -229,7 +238,8 @@ TEST_F(ItemUtilsTest, FindNextItemToSelect) {
 
 //! Looking for previous item.
 
-TEST_F(ItemUtilsTest, IsItemAncestor) {
+TEST_F(ItemUtilsTest, IsItemAncestor)
+{
     SessionModel model;
     EXPECT_FALSE(Utils::IsItemAncestor(model.rootItem(), model.rootItem()));
 
@@ -249,7 +259,8 @@ TEST_F(ItemUtilsTest, IsItemAncestor) {
     EXPECT_FALSE(Utils::IsItemAncestor(x_item, y_item));
 }
 
-TEST_F(ItemUtilsTest, UniqueItems) {
+TEST_F(ItemUtilsTest, UniqueItems)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<SessionItem>(model.rootItem());
@@ -259,7 +270,8 @@ TEST_F(ItemUtilsTest, UniqueItems) {
     EXPECT_EQ(Utils::UniqueItems(data), expected);
 }
 
-TEST_F(ItemUtilsTest, CastedItems) {
+TEST_F(ItemUtilsTest, CastedItems)
+{
     SessionModel model;
     auto item0 = model.insertItem<SessionItem>(model.rootItem());
     auto item1 = model.insertItem<PropertyItem>(model.rootItem());

@@ -23,6 +23,7 @@ const std::map<RoughnessModel, std::string> roughnessModelNames = {
     {RoughnessModel::NEVOT_CROCE, "RoughnessModel::NEVOT_CROCE"}};
 }
 
-std::string RoughnessModelWrap::roughnessModelName(RoughnessModel model) {
+std::string RoughnessModelWrap::roughnessModelName(RoughnessModel model)
+{
     return roughnessModelNames.at(model);
 }

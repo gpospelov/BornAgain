@@ -16,17 +16,20 @@ const double phi_i = 0.0 * Units::deg;
 
 class SimulationElementTest : public ::testing::Test {
 public:
-    std::unique_ptr<IPixel> createPixel() const {
+    std::unique_ptr<IPixel> createPixel() const
+    {
         return std::make_unique<SphericalPixel>(alpha_bin, phi_bin);
     }
 
-    std::unique_ptr<SimulationElement> createElement() const {
+    std::unique_ptr<SimulationElement> createElement() const
+    {
         return std::make_unique<SimulationElement>(wavelength, alpha_i, phi_i, createPixel(),
                                                    Eigen::Matrix2cd{}, Eigen::Matrix2cd{}, false);
     }
 };
 
-TEST_F(SimulationElementTest, basicConstructor) {
+TEST_F(SimulationElementTest, basicConstructor)
+{
     SimulationElement element(wavelength, alpha_i, phi_i, createPixel(), {}, {}, false);
     EXPECT_EQ(element.wavelength(), wavelength);
     EXPECT_EQ(element.getAlphaI(), alpha_i);
@@ -39,7 +42,8 @@ TEST_F(SimulationElementTest, basicConstructor) {
     EXPECT_FALSE(element.isSpecular());
 }
 
-TEST_F(SimulationElementTest, setIntensity) {
+TEST_F(SimulationElementTest, setIntensity)
+{
     auto element = createElement();
     EXPECT_EQ(element->intensity(), 0.0);
     element->addIntensity(1.0);
@@ -48,7 +52,8 @@ TEST_F(SimulationElementTest, setIntensity) {
     EXPECT_EQ(element->intensity(), 42.0);
 }
 
-TEST_F(SimulationElementTest, copyConstructor) {
+TEST_F(SimulationElementTest, copyConstructor)
+{
     auto orig = createElement();
     SimulationElement element(*orig);
     EXPECT_EQ(orig->wavelength(), element.wavelength());
@@ -67,7 +72,8 @@ TEST_F(SimulationElementTest, copyConstructor) {
     EXPECT_EQ(orig->isSpecular(), element.isSpecular());
 }
 
-TEST_F(SimulationElementTest, moveConstruction) {
+TEST_F(SimulationElementTest, moveConstruction)
+{
     SimulationElement for_move(1.0, 2.0, 3.0, createPixel(), {}, {}, false);
     SimulationElement orig(1.0, 2.0, 3.0, createPixel(), {}, {}, false);
     SimulationElement element(std::move(for_move));

@@ -21,7 +21,8 @@
 
 namespace {
 
-template <typename T> T* createGroupBox(ComponentView* componentView, QString title) {
+template <typename T> T* createGroupBox(ComponentView* componentView, QString title)
+{
     auto box = new T(title);
     auto boxlayout = new QVBoxLayout;
     boxlayout->setContentsMargins(0, 0, 0, 0);
@@ -32,7 +33,8 @@ template <typename T> T* createGroupBox(ComponentView* componentView, QString ti
 } // namespace
 
 ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
-    : m_type(editorType), m_componentView(nullptr), m_item(nullptr), m_title(title) {
+    : m_type(editorType), m_componentView(nullptr), m_item(nullptr), m_title(title)
+{
     m_componentView = createComponentView();
 
     auto mainLayout = new QVBoxLayout;
@@ -59,27 +61,32 @@ ComponentEditor::ComponentEditor(EditorType editorType, const QString& title)
     setLayout(mainLayout);
 }
 
-void ComponentEditor::setItem(SessionItem* item) {
+void ComponentEditor::setItem(SessionItem* item)
+{
     m_item = item;
     m_componentView->setItem(item);
 }
 
-void ComponentEditor::clearEditor() {
+void ComponentEditor::clearEditor()
+{
     m_item = nullptr;
     m_componentView->clearEditor();
 }
 
-void ComponentEditor::addItem(SessionItem* item) {
+void ComponentEditor::addItem(SessionItem* item)
+{
     if (!m_item)
         m_item = item;
     m_componentView->addItem(item);
 }
 
-void ComponentEditor::onDialogRequest() {
+void ComponentEditor::onDialogRequest()
+{
     emit dialogRequest(m_item, m_title);
 }
 
-ComponentView* ComponentEditor::createComponentView() {
+ComponentView* ComponentEditor::createComponentView()
+{
     ComponentView* result(nullptr);
 
     if (m_type.testFlag(Tree)) {

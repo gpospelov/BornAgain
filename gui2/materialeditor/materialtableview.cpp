@@ -20,14 +20,16 @@ namespace gui2 {
 
 MaterialTableView::~MaterialTableView() = default;
 
-void MaterialTableView::setModel(QAbstractItemModel* model) {
+void MaterialTableView::setModel(QAbstractItemModel* model)
+{
     QTableView::setModel(model);
     setAlternatingRowColors(true);
     horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     horizontalHeader()->setSectionResizeMode(0, QHeaderView::ResizeToContents);
 }
 
-void MaterialTableView::keyPressEvent(QKeyEvent* event) {
+void MaterialTableView::keyPressEvent(QKeyEvent* event)
+{
     if (!event || event->key() != Qt::Key_Return || state() == QAbstractItemView::EditingState)
         return QTableView::keyPressEvent(event);
 
@@ -37,7 +39,8 @@ void MaterialTableView::keyPressEvent(QKeyEvent* event) {
 }
 
 QModelIndex MaterialTableView::moveCursor(QAbstractItemView::CursorAction cursorAction,
-                                          Qt::KeyboardModifiers modifiers) {
+                                          Qt::KeyboardModifiers modifiers)
+{
     const QModelIndex current_index = currentIndex();
     bool filtered_action = cursorAction == QAbstractItemView::MoveNext
                            || cursorAction == QAbstractItemView::MovePrevious;
@@ -53,11 +56,13 @@ QModelIndex MaterialTableView::moveCursor(QAbstractItemView::CursorAction cursor
     return next;
 }
 
-bool MaterialTableView::isTextField(const QModelIndex& index) const {
+bool MaterialTableView::isTextField(const QModelIndex& index) const
+{
     return index.isValid() && index.column() > 1; // color and checkbox are not keyboard editable
 }
 
-bool MaterialTableView::isKeyboardEditable(const QModelIndex& index) const {
+bool MaterialTableView::isKeyboardEditable(const QModelIndex& index) const
+{
     return index.isValid();
 }
 

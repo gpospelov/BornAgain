@@ -26,7 +26,9 @@ class FilterPropertyProxy : public QSortFilterProxyModel {
 
 public:
     FilterPropertyProxy(int columns, QObject* parent = 0)
-        : QSortFilterProxyModel(parent), m_columns(columns) {}
+        : QSortFilterProxyModel(parent), m_columns(columns)
+    {
+    }
     int columnCount(const QModelIndex& parent) const;
 
     static QModelIndex toSourceIndex(QModelIndex index);

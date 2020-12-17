@@ -24,10 +24,13 @@ using namespace ModelView;
 class JsonItemCopyStrategyTest : public ::testing::Test {
 public:
     JsonItemCopyStrategyTest()
-        : m_factory(std::make_unique<ItemFactory>(CreateStandardItemCatalogue())) {}
+        : m_factory(std::make_unique<ItemFactory>(CreateStandardItemCatalogue()))
+    {
+    }
     ~JsonItemCopyStrategyTest();
 
-    std::unique_ptr<JsonItemCopyStrategy> createCopyStrategy() {
+    std::unique_ptr<JsonItemCopyStrategy> createCopyStrategy()
+    {
         return std::make_unique<JsonItemCopyStrategy>(m_factory.get());
     }
 
@@ -38,7 +41,8 @@ JsonItemCopyStrategyTest::~JsonItemCopyStrategyTest() = default;
 
 //! Saving/restoring PropertyItem.
 
-TEST_F(JsonItemCopyStrategyTest, propertyItem) {
+TEST_F(JsonItemCopyStrategyTest, propertyItem)
+{
     auto strategy = createCopyStrategy();
 
     PropertyItem item;
@@ -53,7 +57,8 @@ TEST_F(JsonItemCopyStrategyTest, propertyItem) {
 
 //! Saving/restoring CompoundItem.
 
-TEST_F(JsonItemCopyStrategyTest, compoundItem) {
+TEST_F(JsonItemCopyStrategyTest, compoundItem)
+{
     auto strategy = createCopyStrategy();
 
     CompoundItem item;
@@ -69,7 +74,8 @@ TEST_F(JsonItemCopyStrategyTest, compoundItem) {
 
 //! Saving/restoring CustomItem.
 
-TEST_F(JsonItemCopyStrategyTest, customItem) {
+TEST_F(JsonItemCopyStrategyTest, customItem)
+{
     auto strategy = createCopyStrategy();
 
     const std::string model_type(Constants::BaseType);

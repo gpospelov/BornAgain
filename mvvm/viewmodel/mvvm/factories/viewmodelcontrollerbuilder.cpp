@@ -25,7 +25,8 @@ ViewModelControllerBuilder::ViewModelControllerBuilder() = default;
 
 ViewModelControllerBuilder::~ViewModelControllerBuilder() = default;
 
-ViewModelControllerBuilder::operator std::unique_ptr<ViewModelController>() {
+ViewModelControllerBuilder::operator std::unique_ptr<ViewModelController>()
+{
     if (!context.model)
         throw std::runtime_error("Error in ViewModelController: undefined model");
 
@@ -42,24 +43,28 @@ ViewModelControllerBuilder::operator std::unique_ptr<ViewModelController>() {
     return result;
 }
 
-ViewModelControllerBuilder::self& ViewModelControllerBuilder::model(SessionModel* model) {
+ViewModelControllerBuilder::self& ViewModelControllerBuilder::model(SessionModel* model)
+{
     context.model = model;
     return *this;
 }
 
-ViewModelControllerBuilder::self& ViewModelControllerBuilder::viewModel(ViewModelBase* view_model) {
+ViewModelControllerBuilder::self& ViewModelControllerBuilder::viewModel(ViewModelBase* view_model)
+{
     context.view_model = view_model;
     return *this;
 }
 
 ViewModelControllerBuilder::self& ViewModelControllerBuilder::childrenStrategy(
-    std::unique_ptr<ChildrenStrategyInterface> children_strategy) {
+    std::unique_ptr<ChildrenStrategyInterface> children_strategy)
+{
     context.children_strategy = std::move(children_strategy);
     return *this;
 }
 
 ViewModelControllerBuilder::self&
-ViewModelControllerBuilder::rowStrategy(std::unique_ptr<RowStrategyInterface> row_strategy) {
+ViewModelControllerBuilder::rowStrategy(std::unique_ptr<RowStrategyInterface> row_strategy)
+{
     context.row_strategy = std::move(row_strategy);
     return *this;
 }

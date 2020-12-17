@@ -25,7 +25,8 @@
 namespace {
 
 std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
-                                               const ISimulation& direct_simulation) {
+                                               const ISimulation& direct_simulation)
+{
     const std::string output_name =
         FileSystemUtils::jointPath(BATesting::TestOutDir_PyStd(), test_name);
     const std::string output_path = output_name + ".ref.int.gz";
@@ -68,7 +69,8 @@ std::unique_ptr<OutputData<double>> domainData(const std::string& test_name,
 //! Run simulation directly (in C+ core) and through Python export, and compare results.
 
 bool checkSimulation(const std::string& name, const ISimulation& direct_simulation,
-                     const double limit) {
+                     const double limit)
+{
     std::cout << "PyStd test: checkSimulation(" << name << ")" << std::endl;
 
     const std::unique_ptr<OutputData<double>> domain_data = domainData(name, direct_simulation);

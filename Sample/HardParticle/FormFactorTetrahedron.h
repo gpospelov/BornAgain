@@ -25,7 +25,8 @@ public:
     FormFactorTetrahedron(const std::vector<double> P);
     FormFactorTetrahedron(double base_edge, double height, double alpha);
 
-    FormFactorTetrahedron* clone() const final {
+    FormFactorTetrahedron* clone() const final
+    {
         return new FormFactorTetrahedron(m_base_edge, m_height, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

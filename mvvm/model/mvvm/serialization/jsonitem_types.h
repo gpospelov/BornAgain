@@ -53,12 +53,14 @@ enum class ConverterMode {
 };
 
 //! Returns true if given mode requires ID regeneration instead of using the one stored in JSON.
-inline bool isRegenerateIdWhenBackFromJson(ConverterMode mode) {
+inline bool isRegenerateIdWhenBackFromJson(ConverterMode mode)
+{
     return mode == ConverterMode::copy;
 }
 
 //! Returns true if item content should be reconstructed from JSON
-inline bool isRebuildItemDataAndTagFromJson(ConverterMode mode) {
+inline bool isRebuildItemDataAndTagFromJson(ConverterMode mode)
+{
     return mode != ConverterMode::project;
 }
 

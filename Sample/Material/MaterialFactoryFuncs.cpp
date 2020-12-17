@@ -19,29 +19,34 @@
 #include <functional>
 
 Material HomogeneousMaterial(const std::string& name, complex_t refractive_index,
-                             kvector_t magnetization) {
+                             kvector_t magnetization)
+{
     const double delta = 1.0 - refractive_index.real();
     const double beta = refractive_index.imag();
     return HomogeneousMaterial(name, delta, beta, magnetization);
 }
 
 Material HomogeneousMaterial(const std::string& name, double delta, double beta,
-                             kvector_t magnetization) {
+                             kvector_t magnetization)
+{
     std::unique_ptr<RefractiveMaterialImpl> mat_impl(
         new RefractiveMaterialImpl(name, delta, beta, magnetization));
     return Material(std::move(mat_impl));
 }
 
-Material HomogeneousMaterial() {
+Material HomogeneousMaterial()
+{
     return HomogeneousMaterial("vacuum", 0.0, 0.0, kvector_t{});
 }
 
-Material MaterialBySLD() {
+Material MaterialBySLD()
+{
     return MaterialBySLD("vacuum", 0.0, 0.0, kvector_t{});
 }
 
 Material MaterialBySLD(const std::string& name, double sld_real, double sld_imag,
-                       kvector_t magnetization) {
+                       kvector_t magnetization)
+{
     constexpr double inv_sq_angstroms = 1.0 / (Units::angstrom * Units::angstrom);
     std::unique_ptr<MaterialBySLDImpl> mat_impl(new MaterialBySLDImpl(
         name, sld_real * inv_sq_angstroms, sld_imag * inv_sq_angstroms, magnetization));

@@ -17,8 +17,8 @@
 #include "GUI/coregui/Views/SampleDesigner/DesignerHelper.h"
 #include "GUI/coregui/utils/StyleUtils.h"
 
-ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent)
-    : ConnectableView(parent) {
+ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent) : ConnectableView(parent)
+{
     setName("ParticleDistribution");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getDefaultBoundingRect("ParticleDistribution"));
@@ -31,6 +31,7 @@ ParticleDistributionView::ParticleDistributionView(QGraphicsItem* parent)
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
-void ParticleDistributionView::addView(IView* childView, int /* row */) {
+void ParticleDistributionView::addView(IView* childView, int /* row */)
+{
     connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
 }

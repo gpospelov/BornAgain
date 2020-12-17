@@ -78,11 +78,13 @@ private:
     QMap<int, QString> m_columnToolTips;
 };
 
-inline Qt::DropActions FitParameterProxyModel::supportedDragActions() const {
+inline Qt::DropActions FitParameterProxyModel::supportedDragActions() const
+{
     return Qt::MoveAction | Qt::CopyAction;
 }
 
-inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const {
+inline Qt::DropActions FitParameterProxyModel::supportedDropActions() const
+{
     return Qt::MoveAction | Qt::CopyAction;
 }
 

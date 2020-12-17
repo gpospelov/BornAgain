@@ -35,7 +35,8 @@ ColorMapItemTest::~ColorMapItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ColorMapItemTest, initialState) {
+TEST_F(ColorMapItemTest, initialState)
+{
     ColorMapItem item;
     EXPECT_TRUE(item.dataItem() == nullptr);
     EXPECT_TRUE(item.property<bool>(ColorMapItem::P_INTERPOLATION));
@@ -44,7 +45,8 @@ TEST_F(ColorMapItemTest, initialState) {
 
 //! Setting dataItem in model context.
 
-TEST_F(ColorMapItemTest, setDataItem) {
+TEST_F(ColorMapItemTest, setDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data2DItem>();
     auto colormap_item = model.insertItem<ColorMapItem>();
@@ -56,7 +58,8 @@ TEST_F(ColorMapItemTest, setDataItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(ColorMapItemTest, onSetDataItem) {
+TEST_F(ColorMapItemTest, onSetDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data2DItem>();
     auto colormap_item = model.insertItem<ColorMapItem>();

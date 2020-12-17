@@ -38,7 +38,8 @@ ImportDataEditor::ImportDataEditor(ExperimentalDataModel* model, QWidget* parent
     , m_editorActions(new ImportDataEditorActions(m_dataModel, this))
     , m_editorToolBar(new ImportDataEditorToolBar(m_editorActions, this))
     , m_dataSelectorWidget(new DataSelectorWidget(m_viewModel))
-    , m_graphCanvasWidget(new GraphCanvasWidget) {
+    , m_graphCanvasWidget(new GraphCanvasWidget)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
@@ -56,7 +57,8 @@ ImportDataEditor::ImportDataEditor(ExperimentalDataModel* model, QWidget* parent
     setupConnections();
 }
 
-void ImportDataEditor::setupConnections() {
+void ImportDataEditor::setupConnections()
+{
     // connect toolbar  with this editor
     connect(m_editorToolBar, &ImportDataEditorToolBar::updateViewportRequest,
             [this]() { m_graphCanvasWidget->updateViewport(); });
@@ -74,7 +76,8 @@ void ImportDataEditor::setupConnections() {
 
 //! Invoke the data load dialog and connect its state.
 
-void ImportDataEditor::invokeImportDialog() {
+void ImportDataEditor::invokeImportDialog()
+{
     DataLoaderDialog dialog(this);
 
     auto [names, index] = canvasInfo();
@@ -94,7 +97,8 @@ void ImportDataEditor::invokeImportDialog() {
 
 //! Returns vector of canvas display name together with index of currently selected canvas.
 
-std::pair<std::vector<std::string>, int> ImportDataEditor::canvasInfo() const {
+std::pair<std::vector<std::string>, int> ImportDataEditor::canvasInfo() const
+{
     std::vector<std::string> names;
     auto canvases = Utils::FindItems<CanvasItem>(m_dataModel);
     auto current_canvas = selectionModel()->activeCanvas();
@@ -104,7 +108,8 @@ std::pair<std::vector<std::string>, int> ImportDataEditor::canvasInfo() const {
 }
 
 void ImportDataEditor::onImportDialogAccept(const std::vector<GraphImportData>& graph_data,
-                                            CanvasItem* canvas) {
+                                            CanvasItem* canvas)
+{
     if (!canvas)
         canvas = m_dataModel->addCanvas();
     for (auto& data : graph_data)
@@ -112,7 +117,8 @@ void ImportDataEditor::onImportDialogAccept(const std::vector<GraphImportData>& 
     selectionModel()->selectItem(canvas);
 }
 
-DataSelectionModel* ImportDataEditor::selectionModel() const {
+DataSelectionModel* ImportDataEditor::selectionModel() const
+{
     return m_dataSelectorWidget->selectionModel();
 }
 

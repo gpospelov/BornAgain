@@ -28,7 +28,8 @@ namespace {
 //! If number is negative, this side will be callulated automatically.
 
 // FIXME move to utils, provide unit tests
-QCP::MarginSides autoMarginPolicy(int left, int top, int right, int bottom) {
+QCP::MarginSides autoMarginPolicy(int left, int top, int right, int bottom)
+{
     QCP::MarginSides result{QCP::msAll};
     if (left >= 0)
         result &= ~QCP::msLeft;
@@ -50,7 +51,8 @@ struct GraphCanvas::GraphCanvasImpl {
     std::unique_ptr<StatusStringReporter> reporter;
     StatusLabel* status_label{nullptr};
 
-    GraphCanvasImpl() : custom_plot(new QCustomPlot), status_label(new StatusLabel) {
+    GraphCanvasImpl() : custom_plot(new QCustomPlot), status_label(new StatusLabel)
+    {
         viewport_controller = std::make_unique<GraphViewportPlotController>(custom_plot);
 
         auto on_mouse_move = [this](const std::string& str) {
@@ -60,14 +62,16 @@ struct GraphCanvas::GraphCanvasImpl {
     }
 
     //! Updates viewport.
-    void setViewportToContent() {
+    void setViewportToContent()
+    {
         if (!viewport_controller->currentItem())
             return;
         viewport_controller->currentItem()->setViewportToContent();
     }
 
     //! Updates viewport.
-    void setViewportToContent(double left, double top, double right, double bottom) {
+    void setViewportToContent(double left, double top, double right, double bottom)
+    {
         if (!viewport_controller->currentItem())
             return;
         viewport_controller->currentItem()->setViewportToContent(left, top, right, bottom);
@@ -77,7 +81,8 @@ struct GraphCanvas::GraphCanvasImpl {
 };
 
 GraphCanvas::GraphCanvas(QWidget* parent)
-    : QWidget(parent), p_impl(std::make_unique<GraphCanvasImpl>()) {
+    : QWidget(parent), p_impl(std::make_unique<GraphCanvasImpl>())
+{
     auto layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -99,26 +104,31 @@ GraphCanvas::GraphCanvas(QWidget* parent)
 
 GraphCanvas::~GraphCanvas() = default;
 
-void GraphCanvas::setItem(GraphViewportItem* viewport_item) {
+void GraphCanvas::setItem(GraphViewportItem* viewport_item)
+{
     p_impl->viewport_controller->setItem(viewport_item);
 }
 
-std::unique_ptr<SceneAdapterInterface> GraphCanvas::createSceneAdapter() const {
+std::unique_ptr<SceneAdapterInterface> GraphCanvas::createSceneAdapter() const
+{
     return std::make_unique<CustomPlotSceneAdapter>(p_impl->customPlot());
 }
 
-void GraphCanvas::setViewportToContent(double left, double top, double right, double bottom) {
+void GraphCanvas::setViewportToContent(double left, double top, double right, double bottom)
+{
     p_impl->setViewportToContent(left, top, right, bottom);
 }
 
-void GraphCanvas::setViewportToContent() {
+void GraphCanvas::setViewportToContent()
+{
     p_impl->setViewportToContent();
 }
 
 //! Set margins between axes rectangle and widget borders.
 //! If the value is negative, leave old margin intact and allow automatic margin adjustment.
 
-void GraphCanvas::setAxisMargins(int left, int top, int right, int bottom) {
+void GraphCanvas::setAxisMargins(int left, int top, int right, int bottom)
+{
     auto customPlot = p_impl->customPlot();
     customPlot->axisRect()->setAutoMargins(autoMarginPolicy(left, top, right, bottom));
 

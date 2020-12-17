@@ -25,7 +25,8 @@ LoaderSelectorPanel::LoaderSelectorPanel(QWidget* parent)
     : QWidget(parent)
     , m_fileSelectorWidget(new ImportFileWidget)
     , m_propertyWidget(new ParserPropertyWidget)
-    , m_splitter(new QSplitter) {
+    , m_splitter(new QSplitter)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
@@ -42,35 +43,43 @@ LoaderSelectorPanel::LoaderSelectorPanel(QWidget* parent)
 
 LoaderSelectorPanel::~LoaderSelectorPanel() = default;
 
-std::unique_ptr<ParserInterface> LoaderSelectorPanel::createParser() const {
+std::unique_ptr<ParserInterface> LoaderSelectorPanel::createParser() const
+{
     return m_propertyWidget->createParser();
 }
 
-void LoaderSelectorPanel::setTargetCanvas(const QStringList& canvas_names, int current_index) {
+void LoaderSelectorPanel::setTargetCanvas(const QStringList& canvas_names, int current_index)
+{
     m_propertyWidget->setTargetCanvas(canvas_names, current_index);
 }
 
-int LoaderSelectorPanel::targetCanvasIndex() const {
+int LoaderSelectorPanel::targetCanvasIndex() const
+{
     return m_targetCanvasIndex;
 }
 
-void LoaderSelectorPanel::onAddFilesRequest() {
+void LoaderSelectorPanel::onAddFilesRequest()
+{
     m_fileSelectorWidget->onAddFilesRequest();
 }
 
-void LoaderSelectorPanel::onRemoveFileRequest() {
+void LoaderSelectorPanel::onRemoveFileRequest()
+{
     m_fileSelectorWidget->onRemoveFileRequest();
 }
 
-QStringList LoaderSelectorPanel::selectedFileNames() const {
+QStringList LoaderSelectorPanel::selectedFileNames() const
+{
     return m_fileSelectorWidget->selectedFileNames();
 }
 
-QStringList LoaderSelectorPanel::fileNames() const {
+QStringList LoaderSelectorPanel::fileNames() const
+{
     return m_fileSelectorWidget->fileNames();
 }
 
-void LoaderSelectorPanel::init_connections() {
+void LoaderSelectorPanel::init_connections()
+{
     auto on_file_names_changed = [this]() { fileNamesChanged(m_fileSelectorWidget->fileNames()); };
     connect(m_fileSelectorWidget, &ImportFileWidget::fileNamesChanged, on_file_names_changed);
 

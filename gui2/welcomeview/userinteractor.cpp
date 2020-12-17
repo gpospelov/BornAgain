@@ -25,7 +25,8 @@ using namespace ModelView;
 
 namespace {
 //! Map of standard Qt answers to what ProjectManager expects.
-std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map() {
+std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map()
+{
     std::map<QMessageBox::StandardButton, SaveChangesAnswer> result = {
         {QMessageBox::Save, SaveChangesAnswer::SAVE},
         {QMessageBox::Discard, SaveChangesAnswer::DISCARD},
@@ -37,12 +38,15 @@ std::map<QMessageBox::StandardButton, SaveChangesAnswer> answer_map() {
 namespace gui2 {
 
 UserInteractor::UserInteractor(RecentProjectSettings* settings, QWidget* parent)
-    : m_settings(settings), m_parent(parent) {}
+    : m_settings(settings), m_parent(parent)
+{
+}
 
 //! Returns directory on disk selected by the user via QFileDialog.
 //! Checks if selected directory can be the project directory.
 
-std::string UserInteractor::onSelectDirRequest() {
+std::string UserInteractor::onSelectDirRequest()
+{
     auto dirname = selectDir();
 
     if (dirname.empty()) // no valid selection
@@ -81,7 +85,8 @@ std::string UserInteractor::onCreateDirRequest()
 
 //! Returns save/cancel/discard changes choice provided by the user.
 
-SaveChangesAnswer UserInteractor::onSaveChangesRequest() {
+SaveChangesAnswer UserInteractor::onSaveChangesRequest()
+{
     static auto translate = answer_map();
 
     QMessageBox msgBox;
@@ -96,7 +101,8 @@ SaveChangesAnswer UserInteractor::onSaveChangesRequest() {
 //! Summon dialog to select directory on disk. If selection is not empty,
 //! save parent directory for later re-use.
 
-std::string UserInteractor::selectDir() const {
+std::string UserInteractor::selectDir() const
+{
     QString dirname = QFileDialog::getExistingDirectory(
         m_parent, "Select directory", m_settings->currentWorkdir(),
         QFileDialog::DontResolveSymlinks | QFileDialog::ShowDirsOnly);

@@ -34,7 +34,8 @@ namespace {
 //! Returns vector of ExternalProperty representing imported graphs.
 //! Use "Undefined graph" as a first item in a list.
 
-std::vector<ModelView::ExternalProperty> available_graph_properties(ExperimentalDataModel* model) {
+std::vector<ModelView::ExternalProperty> available_graph_properties(ExperimentalDataModel* model)
+{
     std::vector<ModelView::ExternalProperty> result{ExternalProperty::undefined()};
     auto properties = Utils::CreateGraphProperties(model);
     std::copy(properties.begin(), properties.end(), std::back_inserter(result));
@@ -45,10 +46,13 @@ std::vector<ModelView::ExternalProperty> available_graph_properties(Experimental
 CustomBeamPropertyEditorFactory::~CustomBeamPropertyEditorFactory() = default;
 
 CustomBeamPropertyEditorFactory::CustomBeamPropertyEditorFactory(ApplicationModels* models)
-    : m_models(models) {}
+    : m_models(models)
+{
+}
 
 std::unique_ptr<CustomEditor>
-CustomBeamPropertyEditorFactory::createEditor(const QModelIndex& index) const {
+CustomBeamPropertyEditorFactory::createEditor(const QModelIndex& index) const
+{
     auto value = index.data(Qt::EditRole);
     if (ModelView::Utils::IsExtPropertyVariant(value)) {
         auto choice_callback = [this]() {

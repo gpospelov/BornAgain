@@ -15,7 +15,8 @@
 #include "mvvm/plotting/customplotutils.h"
 #include <qcustomplot.h>
 
-void ModelView::Utils::SetLogarithmicScale(QCPColorScale* axis, bool is_log_scale) {
+void ModelView::Utils::SetLogarithmicScale(QCPColorScale* axis, bool is_log_scale)
+{
     if (is_log_scale && axis->dataScaleType() != QCPAxis::stLogarithmic)
         axis->setDataScaleType(QCPAxis::stLogarithmic);
 
@@ -25,7 +26,8 @@ void ModelView::Utils::SetLogarithmicScale(QCPColorScale* axis, bool is_log_scal
     SetLogarithmicScale(axis->axis(), is_log_scale);
 }
 
-void ModelView::Utils::SetLogarithmicScale(QCPAxis* axis, bool is_log_scale) {
+void ModelView::Utils::SetLogarithmicScale(QCPAxis* axis, bool is_log_scale)
+{
     if (is_log_scale) {
         axis->setNumberFormat("eb");
         axis->setNumberPrecision(0);

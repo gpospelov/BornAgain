@@ -18,4 +18,6 @@
 using namespace ModelView;
 
 PropertyFlatViewModel::PropertyFlatViewModel(SessionModel* model, QObject* parent)
-    : ViewModel(std::make_unique<PropertyFlatViewModelController>(model, this), parent) {}
+    : ViewModel(std::make_unique<PropertyFlatViewModelController>(model, this), parent)
+{
+}

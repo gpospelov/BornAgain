@@ -24,7 +24,8 @@
 IDetector2D::IDetector2D() = default;
 
 IDetector2D::IDetector2D(const IDetector2D& other)
-    : IDetector(other), m_detector_mask(other.m_detector_mask) {
+    : IDetector(other), m_detector_mask(other.m_detector_mask)
+{
     if (other.regionOfInterest())
         m_region_of_interest.reset(other.regionOfInterest()->clone());
 }
@@ -32,27 +33,32 @@ IDetector2D::IDetector2D(const IDetector2D& other)
 IDetector2D::~IDetector2D() = default;
 
 void IDetector2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
-                                        double y_min, double y_max) {
+                                        double y_min, double y_max)
+{
     clear();
     addAxis(*createAxis(0, n_x, x_min, x_max));
     addAxis(*createAxis(1, n_y, y_min, y_max));
 }
 
-const RegionOfInterest* IDetector2D::regionOfInterest() const {
+const RegionOfInterest* IDetector2D::regionOfInterest() const
+{
     return m_region_of_interest.get();
 }
 
-void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup) {
+void IDetector2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
+{
     m_region_of_interest = std::make_unique<RegionOfInterest>(*this, xlow, ylow, xup, yup);
     m_detector_mask.initMaskData(*this);
 }
 
-void IDetector2D::resetRegionOfInterest() {
+void IDetector2D::resetRegionOfInterest()
+{
     m_region_of_interest.reset();
     m_detector_mask.initMaskData(*this);
 }
 
-std::vector<size_t> IDetector2D::active_indices() const {
+std::vector<size_t> IDetector2D::active_indices() const
+{
     std::vector<size_t> result;
     SimulationArea area(this);
     for (SimulationArea::iterator it = area.begin(); it != area.end(); ++it)
@@ -60,26 +66,31 @@ std::vector<size_t> IDetector2D::active_indices() const {
     return result;
 }
 
-std::unique_ptr<DetectorContext> IDetector2D::createContext() const {
+std::unique_ptr<DetectorContext> IDetector2D::createContext() const
+{
     return std::make_unique<DetectorContext>(this);
 }
 
-void IDetector2D::addMask(const IShape2D& shape, bool mask_value) {
+void IDetector2D::addMask(const IShape2D& shape, bool mask_value)
+{
     m_detector_mask.addMask(shape, mask_value);
     m_detector_mask.initMaskData(*this);
 }
 
-void IDetector2D::maskAll() {
+void IDetector2D::maskAll()
+{
     if (dimension() != 2)
         return;
     addMask(InfinitePlane(), true);
 }
 
-const DetectorMask* IDetector2D::detectorMask() const {
+const DetectorMask* IDetector2D::detectorMask() const
+{
     return &m_detector_mask;
 }
 
-size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const {
+size_t IDetector2D::getGlobalIndex(size_t x, size_t y) const
+{
     if (dimension() != 2)
         return totalSize();
     return x * axis(1).size() + y;

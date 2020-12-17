@@ -43,7 +43,8 @@ public:
     //! Retrieves the amplitude coefficients for an incoming wavevector.
     template <typename T>
     std::unique_ptr<const ILayerRTCoefficients> getInCoefficients(const T& sim_element,
-                                                                  size_t layer_index) const {
+                                                                  size_t layer_index) const
+    {
         return getCoefficients(sim_element.getKi(), layer_index);
     }
 

@@ -17,7 +17,8 @@
 #include "Sample/Processed/ProfileHelper.h"
 #include "Sample/RT/SimulationOptions.h"
 
-std::vector<double> swigAPI::generateZValues(int n_points, double z_min, double z_max) {
+std::vector<double> swigAPI::generateZValues(int n_points, double z_min, double z_max)
+{
     std::vector<double> result;
     if (n_points < 1)
         return result;
@@ -29,7 +30,8 @@ std::vector<double> swigAPI::generateZValues(int n_points, double z_min, double 
 }
 
 std::vector<complex_t> swigAPI::materialProfileSLD(const MultiLayer& multilayer, int n_points,
-                                                   double z_min, double z_max) {
+                                                   double z_min, double z_max)
+{
     SimulationOptions options;
     options.setUseAvgMaterials(true);
     ProcessedSample sample(multilayer, options);
@@ -38,7 +40,8 @@ std::vector<complex_t> swigAPI::materialProfileSLD(const MultiLayer& multilayer,
     return helper.calculateProfile(z_values);
 }
 
-std::pair<double, double> swigAPI::defaultMaterialProfileLimits(const MultiLayer& multilayer) {
+std::pair<double, double> swigAPI::defaultMaterialProfileLimits(const MultiLayer& multilayer)
+{
     SimulationOptions options;
     options.setUseAvgMaterials(true);
     ProcessedSample sample(multilayer, options);

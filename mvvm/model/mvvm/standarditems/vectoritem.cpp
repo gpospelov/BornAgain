@@ -19,7 +19,8 @@
 
 using namespace ModelView;
 
-VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType) {
+VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType)
+{
     addProperty(P_X, 0.0)->setDisplayName("X");
     addProperty(P_Y, 0.0)->setDisplayName("Y");
     addProperty(P_Z, 0.0)->setDisplayName("Z");
@@ -29,12 +30,14 @@ VectorItem::VectorItem() : CompoundItem(Constants::VectorItemType) {
     update_label();
 }
 
-void VectorItem::activate() {
+void VectorItem::activate()
+{
     auto on_property_change = [this](SessionItem*, const std::string&) { update_label(); };
     mapper()->setOnPropertyChange(on_property_change, this);
 }
 
-void VectorItem::update_label() {
+void VectorItem::update_label()
+{
     std::ostringstream ostr;
     ostr << "(" << property<double>(P_X) << ", " << property<double>(P_Y) << ", "
          << property<double>(P_Z) << ")";

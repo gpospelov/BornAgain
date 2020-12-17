@@ -29,7 +29,8 @@ const std::string samplemodel_name = "SampleModel";
 const std::string materialmodel_name = "MaterialModel";
 
 //! Constructs json file name from SessionModel typeName (as it is done internaly by Project).
-std::string get_json_filename(const std::string& model_name) {
+std::string get_json_filename(const std::string& model_name)
+{
     std::string result(model_name);
     std::transform(result.begin(), result.end(), result.begin(), ::tolower);
     return result + ".json";
@@ -44,14 +45,18 @@ public:
     ProjectTest()
         : FolderBasedTest("test_ProjectTest")
         , sample_model(std::make_unique<SessionModel>(samplemodel_name))
-        , material_model(std::make_unique<SessionModel>(materialmodel_name)) {}
+        , material_model(std::make_unique<SessionModel>(materialmodel_name))
+    {
+    }
     ~ProjectTest();
 
-    std::vector<SessionModel*> models() const {
+    std::vector<SessionModel*> models() const
+    {
         return {sample_model.get(), material_model.get()};
     };
 
-    ProjectContext createContext() {
+    ProjectContext createContext()
+    {
         ProjectContext result;
         result.m_models_callback = [this]() { return models(); };
         return result;
@@ -63,7 +68,8 @@ public:
 
 ProjectTest::~ProjectTest() = default;
 
-TEST_F(ProjectTest, initialState) {
+TEST_F(ProjectTest, initialState)
+{
     Project project(createContext());
     EXPECT_TRUE(project.projectDir().empty());
     EXPECT_FALSE(project.isModified());
@@ -71,7 +77,8 @@ TEST_F(ProjectTest, initialState) {
 
 //! Testing saveModel.
 
-TEST_F(ProjectTest, saveModel) {
+TEST_F(ProjectTest, saveModel)
+{
     Project project(createContext());
 
     // create project directory and save file
@@ -90,7 +97,8 @@ TEST_F(ProjectTest, saveModel) {
 
 //! Testing loadModel.
 
-TEST_F(ProjectTest, loadModel) {
+TEST_F(ProjectTest, loadModel)
+{
     Project project(createContext());
 
     auto item0 = sample_model->insertItem<PropertyItem>();

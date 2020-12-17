@@ -75,7 +75,8 @@ QString readTextFile(const QString& fileName);
 
 } // namespace GUIHelpers
 
-inline std::ostream& operator<<(std::ostream& stream, const QString& str) {
+inline std::ostream& operator<<(std::ostream& stream, const QString& str)
+{
     stream << str.toStdString();
     return stream;
 }

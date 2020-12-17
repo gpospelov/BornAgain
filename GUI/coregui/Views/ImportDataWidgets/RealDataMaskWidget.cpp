@@ -22,7 +22,8 @@
 #include <QBoxLayout>
 
 RealDataMaskWidget::RealDataMaskWidget(QWidget* parent)
-    : SessionItemWidget(parent), m_maskEditor(new MaskEditor) {
+    : SessionItemWidget(parent), m_maskEditor(new MaskEditor)
+{
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     QHBoxLayout* hlayout = new QHBoxLayout;
@@ -39,28 +40,33 @@ RealDataMaskWidget::RealDataMaskWidget(QWidget* parent)
     setLayout(mainLayout);
 }
 
-QList<QAction*> RealDataMaskWidget::actionList() {
+QList<QAction*> RealDataMaskWidget::actionList()
+{
     return m_maskEditor->topToolBarActions();
 }
 
-void RealDataMaskWidget::subscribeToItem() {
+void RealDataMaskWidget::subscribeToItem()
+{
     auto intensityItem = intensityDataItem();
     auto container = maskContainer(intensityItem);
     m_maskEditor->setMaskContext(intensityItem->model(), container->index(), intensityItem);
     m_maskEditor->update();
 }
 
-void RealDataMaskWidget::unsubscribeFromItem() {
+void RealDataMaskWidget::unsubscribeFromItem()
+{
     m_maskEditor->resetContext();
 }
 
-IntensityDataItem* RealDataMaskWidget::intensityDataItem() {
+IntensityDataItem* RealDataMaskWidget::intensityDataItem()
+{
     IntensityDataItem* result = dynamic_cast<RealDataItem*>(currentItem())->intensityDataItem();
     ASSERT(result);
     return result;
 }
 
-MaskContainerItem* RealDataMaskWidget::maskContainer(IntensityDataItem* intensityData) {
+MaskContainerItem* RealDataMaskWidget::maskContainer(IntensityDataItem* intensityData)
+{
     auto containerItem = intensityData->getItem(IntensityDataItem::T_MASKS);
     if (!containerItem)
         containerItem =

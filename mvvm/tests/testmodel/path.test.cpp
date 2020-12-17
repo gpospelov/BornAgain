@@ -29,12 +29,14 @@ public:
 
 PathTest::~PathTest() = default;
 
-TEST_F(PathTest, initialState) {
+TEST_F(PathTest, initialState)
+{
     Path path;
     EXPECT_TRUE(path.str().empty());
 }
 
-TEST_F(PathTest, append) {
+TEST_F(PathTest, append)
+{
     Path path;
     path.append(1);
     EXPECT_EQ(path.str(), "1");
@@ -46,17 +48,20 @@ TEST_F(PathTest, append) {
     EXPECT_EQ(path.str(), "3,1,2");
 }
 
-TEST_F(PathTest, fromVector) {
+TEST_F(PathTest, fromVector)
+{
     Path path = Path::fromVector({1, 2, 3});
     EXPECT_EQ(path.str(), "1,2,3");
 }
 
-TEST_F(PathTest, fromString) {
+TEST_F(PathTest, fromString)
+{
     Path path = Path::fromString("3,2,3");
     EXPECT_EQ(path.str(), "3,2,3");
 }
 
-TEST_F(PathTest, PathFromItem) {
+TEST_F(PathTest, PathFromItem)
+{
     SessionModel model;
 
     // unexisting path
@@ -95,7 +100,8 @@ TEST_F(PathTest, PathFromItem) {
     EXPECT_EQ(Utils::PathFromItem(child201).str(), "2,0,1");
 }
 
-TEST_F(PathTest, itemFromPath) {
+TEST_F(PathTest, itemFromPath)
+{
     SessionModel model;
 
     // access to non-existing item

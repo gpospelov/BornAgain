@@ -37,8 +37,8 @@ CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #include "GUI/coregui/Views/InfoWidgets/PythonSyntaxHighlighter.h"
 
-PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument* parent)
-    : QSyntaxHighlighter(parent) {
+PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument* parent) : QSyntaxHighlighter(parent)
+{
     keywords = QStringList() << "and"
                              << "assert"
                              << "break"
@@ -126,7 +126,8 @@ PythonSyntaxHighlighter::PythonSyntaxHighlighter(QTextDocument* parent)
     initializeRules();
 }
 
-void PythonSyntaxHighlighter::initializeRules() {
+void PythonSyntaxHighlighter::initializeRules()
+{
     for (QString currKeyword : keywords) {
         rules.append(HighlightingRule(QString("\\b%1\\b").arg(currKeyword), 0,
                                       basicStyles.value("keyword")));
@@ -171,7 +172,8 @@ void PythonSyntaxHighlighter::initializeRules() {
         basicStyles.value("numbers"))); // r'\b[+-]?[0-9]+(?:\.[0-9]+)?(?:[eE][+-]?[0-9]+)?\b'
 }
 
-void PythonSyntaxHighlighter::highlightBlock(const QString& text) {
+void PythonSyntaxHighlighter::highlightBlock(const QString& text)
+{
     for (HighlightingRule currRule : rules) {
         int idx = currRule.pattern.indexIn(text, 0);
         while (idx >= 0) {
@@ -190,7 +192,8 @@ void PythonSyntaxHighlighter::highlightBlock(const QString& text) {
 }
 
 bool PythonSyntaxHighlighter::matchMultiline(const QString& text, const QRegExp& delimiter,
-                                             const int inState, const QTextCharFormat& style) {
+                                             const int inState, const QTextCharFormat& style)
+{
     int start = -1;
     int add = -1;
     int end = -1;
@@ -233,7 +236,8 @@ bool PythonSyntaxHighlighter::matchMultiline(const QString& text, const QRegExp&
 }
 
 const QTextCharFormat PythonSyntaxHighlighter::getTextCharFormat(const QString& colorName,
-                                                                 const QString& style) {
+                                                                 const QString& style)
+{
     QTextCharFormat charFormat;
     QColor color(colorName);
     charFormat.setForeground(color);

@@ -25,7 +25,8 @@ using namespace ModelView;
 
 DefaultViewModelController::DefaultViewModelController(SessionModel* session_model,
                                                        ViewModelBase* view_model)
-    : ViewModelController(session_model, view_model) {
+    : ViewModelController(session_model, view_model)
+{
     setChildrenStrategy(std::make_unique<AllChildrenStrategy>());
     setRowStrategy(std::make_unique<LabelDataRowStrategy>());
 }
@@ -34,7 +35,8 @@ DefaultViewModelController::DefaultViewModelController(SessionModel* session_mod
 
 TopItemsViewModelController::TopItemsViewModelController(SessionModel* session_model,
                                                          ViewModelBase* view_model)
-    : ViewModelController(session_model, view_model) {
+    : ViewModelController(session_model, view_model)
+{
     setChildrenStrategy(std::make_unique<TopItemsStrategy>());
     setRowStrategy(std::make_unique<LabelDataRowStrategy>());
 }
@@ -43,12 +45,14 @@ TopItemsViewModelController::TopItemsViewModelController(SessionModel* session_m
 
 PropertyViewModelController::PropertyViewModelController(SessionModel* session_model,
                                                          ViewModelBase* view_model)
-    : ViewModelController(session_model, view_model) {
+    : ViewModelController(session_model, view_model)
+{
     setChildrenStrategy(std::make_unique<PropertyItemsStrategy>());
     setRowStrategy(std::make_unique<LabelDataRowStrategy>());
 }
 
-void PropertyViewModelController::onDataChange(SessionItem* item, int role) {
+void PropertyViewModelController::onDataChange(SessionItem* item, int role)
+{
     ViewModelController::onDataChange(item, role);
     // If data change occured with GroupItem, performs cleanup and regeneration of
     // ViewItems, corresponding to groupItem's current index.
@@ -62,7 +66,8 @@ void PropertyViewModelController::onDataChange(SessionItem* item, int role) {
 
 PropertyTableViewModelController::PropertyTableViewModelController(
     SessionModel* session_model, ViewModelBase* view_model, const std::vector<std::string>& labels)
-    : ViewModelController(session_model, view_model) {
+    : ViewModelController(session_model, view_model)
+{
     setChildrenStrategy(std::make_unique<TopItemsStrategy>());
     setRowStrategy(std::make_unique<PropertiesRowStrategy>(labels));
 }
@@ -71,12 +76,14 @@ PropertyTableViewModelController::PropertyTableViewModelController(
 
 PropertyFlatViewModelController::PropertyFlatViewModelController(SessionModel* session_model,
                                                                  ViewModelBase* view_model)
-    : ViewModelController(session_model, view_model) {
+    : ViewModelController(session_model, view_model)
+{
     setChildrenStrategy(std::make_unique<PropertyItemsFlatStrategy>());
     setRowStrategy(std::make_unique<LabelDataRowStrategy>());
 }
 
-void PropertyFlatViewModelController::onDataChange(SessionItem* item, int role) {
+void PropertyFlatViewModelController::onDataChange(SessionItem* item, int role)
+{
     ViewModelController::onDataChange(item, role);
     // If data change occured with GroupItem, performs cleanup and regeneration of
     // ViewItems, corresponding to groupItem's current index.

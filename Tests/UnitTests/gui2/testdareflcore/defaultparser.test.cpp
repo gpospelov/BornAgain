@@ -26,7 +26,8 @@ public:
 
 DefaultParserTest::~DefaultParserTest() = default;
 
-TEST_F(DefaultParserTest, initialState) {
+TEST_F(DefaultParserTest, initialState)
+{
     DefaultParser parser({});
 
     EXPECT_EQ(parser.totalLineCount(), 0);
@@ -35,7 +36,8 @@ TEST_F(DefaultParserTest, initialState) {
 
 //! Testing line acceptance with standard parser settings.
 
-TEST_F(DefaultParserTest, lineAcceptanceStandardParser) {
+TEST_F(DefaultParserTest, lineAcceptanceStandardParser)
+{
     DefaultParser parser({"#", ",", ""}); // prefix, separator, line pattern
 
     parser.process({"1, 2, 3"});
@@ -61,7 +63,8 @@ TEST_F(DefaultParserTest, lineAcceptanceStandardParser) {
 
 //! Testing line acceptance with standard parser settings.
 
-TEST_F(DefaultParserTest, lineAcceptanceNumberPatternParser) {
+TEST_F(DefaultParserTest, lineAcceptanceNumberPatternParser)
+{
     DefaultParser parser({"#", ",", "1-2"}); // prefix, separator, line pattern
 
     parser.process({"1, 2, 3", "4, 5, 6", "7, 8, 9", "#", ""});
@@ -69,7 +72,8 @@ TEST_F(DefaultParserTest, lineAcceptanceNumberPatternParser) {
     EXPECT_EQ(parsedDataRowCount(parser), 1);
 }
 
-TEST_F(DefaultParserTest, parseResults) {
+TEST_F(DefaultParserTest, parseResults)
+{
     DefaultParser parser({"#", ",", ""}); // prefix, separator, line pattern
 
     parser.process({"1, 2, 3"});

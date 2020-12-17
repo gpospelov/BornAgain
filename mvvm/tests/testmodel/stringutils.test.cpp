@@ -26,7 +26,8 @@ public:
 
 StringUtilsTest::~StringUtilsTest() = default;
 
-TEST_F(StringUtilsTest, ScientificDoubleToString) {
+TEST_F(StringUtilsTest, ScientificDoubleToString)
+{
     using Utils::ScientificDoubleToString;
     const int precision = 6;
     EXPECT_EQ(ScientificDoubleToString(0.0, precision), "0.0e+00");
@@ -36,7 +37,8 @@ TEST_F(StringUtilsTest, ScientificDoubleToString) {
     EXPECT_EQ(ScientificDoubleToString(1000000., precision), "1.0e+06");
 }
 
-TEST_F(StringUtilsTest, DoubleToString) {
+TEST_F(StringUtilsTest, DoubleToString)
+{
     using Utils::DoubleToString;
     const int precision = 4;
     EXPECT_EQ(DoubleToString(0.0, precision), "0.0");
@@ -46,7 +48,8 @@ TEST_F(StringUtilsTest, DoubleToString) {
 
 //! Testing function TrimWhitespace
 
-TEST_F(StringUtilsTest, TrimWhiteSpace) {
+TEST_F(StringUtilsTest, TrimWhiteSpace)
+{
     using Utils::TrimWhitespace;
     EXPECT_EQ(TrimWhitespace(""), std::string());
     EXPECT_EQ(TrimWhitespace(" "), std::string());
@@ -54,7 +57,8 @@ TEST_F(StringUtilsTest, TrimWhiteSpace) {
     EXPECT_EQ(TrimWhitespace(" \t\n abc cde\n"), std::string("abc cde"));
 }
 
-TEST_F(StringUtilsTest, RemoveRepeatedSpaces) {
+TEST_F(StringUtilsTest, RemoveRepeatedSpaces)
+{
     using Utils::RemoveRepeatedSpaces;
     EXPECT_EQ(RemoveRepeatedSpaces(std::string{}), std::string{});
     EXPECT_EQ(RemoveRepeatedSpaces(" "), std::string{" "});
@@ -66,7 +70,8 @@ TEST_F(StringUtilsTest, RemoveRepeatedSpaces) {
 
 //! Testing function StringToDouble.
 
-TEST_F(StringUtilsTest, StringToDouble) {
+TEST_F(StringUtilsTest, StringToDouble)
+{
     using Utils::StringToDouble;
 
     // not a double
@@ -95,7 +100,8 @@ TEST_F(StringUtilsTest, StringToDouble) {
 
 //! Testing function StringToDouble.
 
-TEST_F(StringUtilsTest, StringToInteger) {
+TEST_F(StringUtilsTest, StringToInteger)
+{
     using Utils::StringToInteger;
 
     // not an int
@@ -121,7 +127,8 @@ TEST_F(StringUtilsTest, StringToInteger) {
 //! Testing SplitString method.
 //! Carefully checking that it is reproduces Python behavior, as promised in comments to the method.
 
-TEST_F(StringUtilsTest, SplitString) {
+TEST_F(StringUtilsTest, SplitString)
+{
     using Utils::SplitString;
 
     EXPECT_THROW(SplitString("", ""), std::runtime_error);
@@ -149,7 +156,8 @@ TEST_F(StringUtilsTest, SplitString) {
 
 //! Testing ParseSpaceSeparatedDoubles.
 
-TEST_F(StringUtilsTest, ParseSpaceSeparatedDoubles) {
+TEST_F(StringUtilsTest, ParseSpaceSeparatedDoubles)
+{
     using Utils::ParseSpaceSeparatedDoubles;
     std::vector<double> data;
 

@@ -53,18 +53,21 @@ ExternalPropertyEditor::ExternalPropertyEditor(QWidget* parent)
     setLayout(layout);
 }
 
-void ExternalPropertyEditor::setCallback(std::function<void(const QVariant&)> callback) {
+void ExternalPropertyEditor::setCallback(std::function<void(const QVariant&)> callback)
+{
     m_callback = std::move(callback);
 }
 
-void ExternalPropertyEditor::buttonClicked() {
+void ExternalPropertyEditor::buttonClicked()
+{
     if (m_callback)
         m_callback(m_data);
     else
         QMessageBox::warning(nullptr, "Not configured", "No external dialog configured.");
 }
 
-void ExternalPropertyEditor::update_components() {
+void ExternalPropertyEditor::update_components()
+{
     if (!Utils::IsExtPropertyVariant(m_data))
         throw std::runtime_error("Error. Wrong variant type (ExternalProperty is required).");
 

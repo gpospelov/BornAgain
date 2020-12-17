@@ -29,7 +29,8 @@ public:
 
 PropertiesRowStrategyTest::~PropertiesRowStrategyTest() = default;
 
-TEST_F(PropertiesRowStrategyTest, initialState) {
+TEST_F(PropertiesRowStrategyTest, initialState)
+{
     PropertiesRowStrategy strategy;
     EXPECT_EQ(strategy.constructRow(nullptr).size(), 0);
     EXPECT_EQ(strategy.horizontalHeaderLabels(), QStringList());
@@ -37,7 +38,8 @@ TEST_F(PropertiesRowStrategyTest, initialState) {
 
 //! Checks row construction for standard top level item. It shouldn't generate any rows.
 
-TEST_F(PropertiesRowStrategyTest, topLevelItem) {
+TEST_F(PropertiesRowStrategyTest, topLevelItem)
+{
     SessionItem item("model_type");
 
     PropertiesRowStrategy strategy;
@@ -48,7 +50,8 @@ TEST_F(PropertiesRowStrategyTest, topLevelItem) {
 
 //! Checks row construction for property item. It shouldn't generate any rows.
 
-TEST_F(PropertiesRowStrategyTest, propertyItem) {
+TEST_F(PropertiesRowStrategyTest, propertyItem)
+{
     SessionItem item("model_type");
     item.setData(42.0);
 
@@ -61,7 +64,8 @@ TEST_F(PropertiesRowStrategyTest, propertyItem) {
 //! Checks row construction for vector item.
 //! There should be 3 view items looking to x, y, z properties.
 
-TEST_F(PropertiesRowStrategyTest, vectorItemCustomLabels) {
+TEST_F(PropertiesRowStrategyTest, vectorItemCustomLabels)
+{
     VectorItem item;
 
     EXPECT_EQ(item.property<double>(VectorItem::P_X), 0.0);
@@ -89,7 +93,8 @@ TEST_F(PropertiesRowStrategyTest, vectorItemCustomLabels) {
 
 //! Checks row label construction for vector item.
 
-TEST_F(PropertiesRowStrategyTest, vectorItemAutoLabels) {
+TEST_F(PropertiesRowStrategyTest, vectorItemAutoLabels)
+{
     VectorItem item;
 
     EXPECT_EQ(item.property<double>(VectorItem::P_X), 0.0);
@@ -107,7 +112,8 @@ TEST_F(PropertiesRowStrategyTest, vectorItemAutoLabels) {
 
 //! Row construction for rootItem with single item inserted. Shouldn't generate any row.
 
-TEST_F(PropertiesRowStrategyTest, baseItemInModelContext) {
+TEST_F(PropertiesRowStrategyTest, baseItemInModelContext)
+{
     SessionModel model;
 
     PropertiesRowStrategy strategy;
@@ -121,7 +127,8 @@ TEST_F(PropertiesRowStrategyTest, baseItemInModelContext) {
 
 //! Row construction for rootItem with single item inserted. Shouldn't generate any row.
 
-TEST_F(PropertiesRowStrategyTest, propertyItemTree) {
+TEST_F(PropertiesRowStrategyTest, propertyItemTree)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
 
@@ -144,7 +151,8 @@ TEST_F(PropertiesRowStrategyTest, propertyItemTree) {
 
 //! Row construction for rootItem when vectorItem is present. Shouldn't generate any row.
 
-TEST_F(PropertiesRowStrategyTest, vectorItemInModelContext) {
+TEST_F(PropertiesRowStrategyTest, vectorItemInModelContext)
+{
     SessionModel model;
     model.insertItem<VectorItem>();
 

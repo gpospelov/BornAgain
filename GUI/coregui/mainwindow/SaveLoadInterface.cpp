@@ -16,7 +16,8 @@
 
 SaveLoadInterface::~SaveLoadInterface() = default;
 
-QString SaveLoadInterface::fileName(const QString& projectDir) const {
+QString SaveLoadInterface::fileName(const QString& projectDir) const
+{
     const auto filename = fileName();
     return projectDir.isEmpty() ? filename : projectDir + "/" + filename;
 }

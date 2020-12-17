@@ -29,7 +29,8 @@ CustomplotTestUtilsTest::~CustomplotTestUtilsTest() = default;
 
 //! Check methods to access graph bin centers and values.
 
-TEST_F(CustomplotTestUtilsTest, binCentersbinValues) {
+TEST_F(CustomplotTestUtilsTest, binCentersbinValues)
+{
     QCustomPlot custom_plot;
 
     auto graph = custom_plot.addGraph();
@@ -41,7 +42,8 @@ TEST_F(CustomplotTestUtilsTest, binCentersbinValues) {
 
 //! Check methods to access graph errors.
 
-TEST_F(CustomplotTestUtilsTest, binErrors) {
+TEST_F(CustomplotTestUtilsTest, binErrors)
+{
     QCustomPlot custom_plot;
 
     auto graph = custom_plot.addGraph();

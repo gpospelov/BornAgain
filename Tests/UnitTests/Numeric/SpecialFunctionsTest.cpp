@@ -6,11 +6,13 @@
     EXPECT_NEAR((a).real(), (b).real(), epsi);                                                     \
     EXPECT_NEAR((a).imag(), (b).imag(), epsi);
 
-class SpecialFunctionsTest : public ::testing::Test {};
+class SpecialFunctionsTest : public ::testing::Test {
+};
 
 // Test accuracy of complex function sinc(z) near the removable singularity at z=0
 
-TEST_F(SpecialFunctionsTest, csinc) {
+TEST_F(SpecialFunctionsTest, csinc)
+{
     const double eps = 4.7e-16; // more than twice the machine precision
 
     for (int i = 0; i < 24; ++i) {

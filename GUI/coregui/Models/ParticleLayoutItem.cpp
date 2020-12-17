@@ -21,7 +21,8 @@
 namespace {
 
 //! Returns true if name is related to 2D interference functions.
-bool isInterference2D(const QString& name) {
+bool isInterference2D(const QString& name)
+{
     if (name == "Interference2DLattice" || name == "Interference2DParaCrystal"
         || name == "InterferenceFinite2DLattice" || name == "InterferenceHardDisk")
         return true;
@@ -29,7 +30,8 @@ bool isInterference2D(const QString& name) {
 }
 
 //! Returns true if name is related to 2D interference functions.
-bool isLattice2D(SessionItem* item) {
+bool isLattice2D(SessionItem* item)
+{
     return dynamic_cast<Lattice2DItem*>(item);
 }
 
@@ -46,7 +48,8 @@ const QString ParticleLayoutItem::P_WEIGHT = QString::fromStdString("Weight");
 const QString ParticleLayoutItem::T_PARTICLES = "Particle Tag";
 const QString ParticleLayoutItem::T_INTERFERENCE = "Interference Tag";
 
-ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout") {
+ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout")
+{
     setToolTip("A layout of particles");
 
     addProperty(P_TOTAL_DENSITY, 0.01)->setToolTip(density_tooltip);
@@ -83,7 +86,8 @@ ParticleLayoutItem::ParticleLayoutItem() : SessionGraphicsItem("ParticleLayout")
 //! Two dimensional interference calculates density automatically, so property should
 //! be disabled.
 
-void ParticleLayoutItem::updateDensityAppearance() {
+void ParticleLayoutItem::updateDensityAppearance()
+{
     getItem(P_TOTAL_DENSITY)->setEnabled(true);
     if (auto interferenceItem = getItem(T_INTERFERENCE))
         if (isInterference2D(interferenceItem->modelType()))
@@ -92,7 +96,8 @@ void ParticleLayoutItem::updateDensityAppearance() {
 
 //! Updates the value of TotalSurfaceDensity on lattice type change.
 
-void ParticleLayoutItem::updateDensityValue() {
+void ParticleLayoutItem::updateDensityValue()
+{
     if (auto interferenceItem = getItem(T_INTERFERENCE)) {
         if (interferenceItem->isTag(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE)) {
             auto& latticeItem = interferenceItem->groupItem<Lattice2DItem>(

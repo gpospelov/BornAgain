@@ -32,45 +32,54 @@ namespace {
 void SaveDocument(const QJsonDocument& document, const std::string& fileName);
 }
 
-std::string TestUtils::TestOutputDir() {
+std::string TestUtils::TestOutputDir()
+{
     return TestConfig::TestOutputDir(); // defined in auto-generated testconfig.h
 }
 
-std::string TestUtils::CreateTestDirectory(const std::string& test_sub_dir) {
+std::string TestUtils::CreateTestDirectory(const std::string& test_sub_dir)
+{
     std::string result = TestDirectoryPath(test_sub_dir);
     Utils::create_directory(result);
     return result;
 }
 
-std::string TestUtils::TestDirectoryPath(const std::string& test_sub_dir) {
+std::string TestUtils::TestDirectoryPath(const std::string& test_sub_dir)
+{
     return TestOutputDir() + std::string("/") + test_sub_dir;
 }
 
-std::string TestUtils::TestFileName(const std::string& test_sub_dir, const std::string& file_name) {
+std::string TestUtils::TestFileName(const std::string& test_sub_dir, const std::string& file_name)
+{
 
     return TestDirectoryPath(test_sub_dir) + std::string("/") + file_name;
 }
 
-void TestUtils::SaveJson(const QJsonObject& object, const std::string& fileName) {
+void TestUtils::SaveJson(const QJsonObject& object, const std::string& fileName)
+{
     QJsonDocument document(object);
     SaveDocument(document, fileName);
 }
 
-void TestUtils::SaveJson(const QJsonArray& object, const std::string& fileName) {
+void TestUtils::SaveJson(const QJsonArray& object, const std::string& fileName)
+{
     QJsonDocument document(object);
     SaveDocument(document, fileName);
 }
 
-QString TestUtils::JsonToString(const QJsonObject& object) {
+QString TestUtils::JsonToString(const QJsonObject& object)
+{
     QJsonDocument document(object);
     return QString(document.toJson(QJsonDocument::Compact));
 }
 
-QString TestUtils::ModelToJsonString(SessionModel& model) {
+QString TestUtils::ModelToJsonString(SessionModel& model)
+{
     return QString::fromStdString(JsonUtils::ModelToJsonString(model));
 }
 
-QJsonDocument TestUtils::LoadJson(const std::string& fileName) {
+QJsonDocument TestUtils::LoadJson(const std::string& fileName)
+{
     QFile jsonFile(QString::fromStdString(fileName));
 
     if (!jsonFile.open(QIODevice::ReadOnly))
@@ -79,7 +88,8 @@ QJsonDocument TestUtils::LoadJson(const std::string& fileName) {
     return QJsonDocument().fromJson(jsonFile.readAll());
 }
 
-std::string TestUtils::CreateTestFile(const std::string& dirname, const std::string& fileName) {
+std::string TestUtils::CreateTestFile(const std::string& dirname, const std::string& fileName)
+{
     std::string filename = dirname.empty() ? fileName : dirname + "/" + fileName;
 
     QFile file(QString::fromStdString(filename));
@@ -94,7 +104,8 @@ std::string TestUtils::CreateTestFile(const std::string& dirname, const std::str
     return filename;
 }
 
-std::string TestUtils::CreateEmptyFile(const std::string& dirname, const std::string& fileName) {
+std::string TestUtils::CreateEmptyFile(const std::string& dirname, const std::string& fileName)
+{
     std::string filename = dirname.empty() ? fileName : dirname + "/" + fileName;
 
     QFile file(QString::fromStdString(filename));
@@ -106,7 +117,8 @@ std::string TestUtils::CreateEmptyFile(const std::string& dirname, const std::st
 
 namespace {
 
-void SaveDocument(const QJsonDocument& document, const std::string& fileName) {
+void SaveDocument(const QJsonDocument& document, const std::string& fileName)
+{
     QFile saveFile(QString::fromStdString(fileName));
 
     if (!saveFile.open(QIODevice::WriteOnly))

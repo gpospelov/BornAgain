@@ -17,7 +17,8 @@
 #include <regex>
 
 //! Returns true if text matches pattern with wildcards '*' and '?'.
-bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern) {
+bool StringUtils::matchesPattern(const std::string& text, const std::string& wildcardPattern)
+{
     // escape all regex special characters, except '?' and '*'
     std::string mywildcardPattern = wildcardPattern;
     boost::replace_all(mywildcardPattern, "\\", "\\\\");
@@ -45,26 +46,30 @@ bool StringUtils::matchesPattern(const std::string& text, const std::string& wil
 }
 
 //! Returns string right-padded with blanks.
-std::string StringUtils::padRight(const std::string& name, size_t length) {
+std::string StringUtils::padRight(const std::string& name, size_t length)
+{
     std::string result = name;
     result.resize(length, ' ');
     return result;
 }
 
 //! Returns token vector obtained by splitting string at delimiters.
-std::vector<std::string> StringUtils::split(const std::string& text, const std::string& delimiter) {
+std::vector<std::string> StringUtils::split(const std::string& text, const std::string& delimiter)
+{
     std::vector<std::string> tokens;
     boost::split(tokens, text, boost::is_any_of(delimiter));
     return tokens;
 }
 
 void StringUtils::replaceItemsFromString(std::string& text, const std::vector<std::string>& items,
-                                         const std::string& replacement) {
+                                         const std::string& replacement)
+{
     for (size_t i = 0; i < items.size(); ++i)
         boost::replace_all(text, items[i], replacement);
 }
 
-std::string StringUtils::join(const std::vector<std::string>& joinable, const std::string& joint) {
+std::string StringUtils::join(const std::vector<std::string>& joinable, const std::string& joint)
+{
     std::string result;
     size_t n = joinable.size();
     if (n == 0)
@@ -75,7 +80,8 @@ std::string StringUtils::join(const std::vector<std::string>& joinable, const st
     return result;
 }
 
-std::string StringUtils::removeSubstring(const std::string& text, const std::string& substr) {
+std::string StringUtils::removeSubstring(const std::string& text, const std::string& substr)
+{
     std::string result = text;
     for (std::string::size_type i = result.find(substr); i != std::string::npos;
          i = result.find(substr))
@@ -83,12 +89,14 @@ std::string StringUtils::removeSubstring(const std::string& text, const std::str
     return result;
 }
 
-std::string StringUtils::to_lower(std::string text) {
+std::string StringUtils::to_lower(std::string text)
+{
     boost::to_lower(text);
     return text;
 }
 
-std::string StringUtils::trim(const std::string& str, const std::string& whitespace) {
+std::string StringUtils::trim(const std::string& str, const std::string& whitespace)
+{
     const auto strBegin = str.find_first_not_of(whitespace);
 
     if (strBegin == std::string::npos)

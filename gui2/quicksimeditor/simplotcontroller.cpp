@@ -24,7 +24,8 @@ namespace gui2 {
 
 SimPlotController::SimPlotController(QObject* parent) : QObject(parent) {}
 
-void SimPlotController::setModels(ApplicationModels* models) {
+void SimPlotController::setModels(ApplicationModels* models)
+{
     m_models = models;
 
     auto on_model_change = [this]() { onInstrumentChange(); };
@@ -32,7 +33,8 @@ void SimPlotController::setModels(ApplicationModels* models) {
         m_models->instrumentModel(), on_model_change);
 }
 
-void SimPlotController::onInstrumentChange() {
+void SimPlotController::onInstrumentChange()
+{
     auto instrument = m_models->instrumentModel()->topItem<SpecularInstrumentItem>();
     auto graph = instrument->beamItem()->experimentalGraphItem();
     m_models->jobModel()->updateReferenceGraph(graph);

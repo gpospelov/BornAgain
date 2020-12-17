@@ -30,7 +30,8 @@ SimulationView::SimulationView(ApplicationModels* models, QWidget* parent)
     : QMainWindow(parent)
     , m_editorList(new CollapsibleListWidget)
     , m_simEditor(new QuickSimEditor)
-    , m_models(models) {
+    , m_models(models)
+{
     auto splitter = new QSplitter;
 
     initEditorList();
@@ -41,7 +42,8 @@ SimulationView::SimulationView(ApplicationModels* models, QWidget* parent)
     setCentralWidget(splitter);
 }
 
-void SimulationView::initEditorList() {
+void SimulationView::initEditorList()
+{
     m_editorList->layout()->setContentsMargins(4, 4, 4, 4);
     auto material_editor = new MaterialEditor(this);
     auto layer_editor = new LayerEditor(this);

@@ -32,11 +32,14 @@ const std::string ExperimentalDataMimeType = "darefl/ExperimentalDataMime";
 namespace gui2 {
 
 DataViewModel::DataViewModel(ExperimentalDataModel* model, QObject* parent)
-    : ModelView::TopItemsViewModel(model, parent) {}
+    : ModelView::TopItemsViewModel(model, parent)
+{
+}
 
 //! Return the Qt flags for given index. We allow GraphItem drag, they can be dropped on CanvasItem.
 
-Qt::ItemFlags DataViewModel::flags(const QModelIndex& index) const {
+Qt::ItemFlags DataViewModel::flags(const QModelIndex& index) const
+{
     Qt::ItemFlags result = ViewModel::flags(index);
 
     if (auto item = sessionItemFromIndex(index); item) {
@@ -51,7 +54,8 @@ Qt::ItemFlags DataViewModel::flags(const QModelIndex& index) const {
 
 //! Generate the mime data for all selected items.
 
-QMimeData* DataViewModel::mimeData(const QModelIndexList& index_list) const {
+QMimeData* DataViewModel::mimeData(const QModelIndexList& index_list) const
+{
     auto result = new QMimeData;
 
     // Get the list of the identifiers
@@ -67,20 +71,23 @@ QMimeData* DataViewModel::mimeData(const QModelIndexList& index_list) const {
 
 //! Supported drag actions.
 
-Qt::DropActions DataViewModel::supportedDragActions() const {
+Qt::DropActions DataViewModel::supportedDragActions() const
+{
     return Qt::TargetMoveAction;
 }
 
 //! Supported drop actions.
 
-Qt::DropActions DataViewModel::supportedDropActions() const {
+Qt::DropActions DataViewModel::supportedDropActions() const
+{
     return Qt::TargetMoveAction;
 }
 
 //! Returns true if we can drop item here.
 
 bool DataViewModel::canDropMimeData(const QMimeData* data, Qt::DropAction, int, int,
-                                    const QModelIndex& parent) const {
+                                    const QModelIndex& parent) const
+{
     if (data->hasFormat(QString::fromStdString(ExperimentalDataMimeType)))
         if (auto target = sessionItemFromIndex(parent); target)
             return target->modelType() == Constants::CanvasItemType;
@@ -89,7 +96,8 @@ bool DataViewModel::canDropMimeData(const QMimeData* data, Qt::DropAction, int, 
 }
 
 bool DataViewModel::dropMimeData(const QMimeData* data, Qt::DropAction action, int row, int column,
-                                 const QModelIndex& parent) {
+                                 const QModelIndex& parent)
+{
     if (!canDropMimeData(data, action, row, column, parent))
         return false;
 

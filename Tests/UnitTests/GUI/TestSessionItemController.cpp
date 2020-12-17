@@ -5,11 +5,13 @@
 #include "Tests/UnitTests/GUI/TestSessionItemControllerHelper.h"
 #include <QObject>
 
-class TestSessionItemController : public ::testing::Test {};
+class TestSessionItemController : public ::testing::Test {
+};
 
 //! Testing helper classes which will be used for controller testing.
 
-TEST_F(TestSessionItemController, test_InitialState) {
+TEST_F(TestSessionItemController, test_InitialState)
+{
     TestListener listener;
     EXPECT_EQ(listener.m_onItemDestroyedCount, 0);
     EXPECT_EQ(listener.m_onPropertyChangeCount, 0);
@@ -32,7 +34,8 @@ TEST_F(TestSessionItemController, test_InitialState) {
 
 //! Setting item and doing nothing.
 
-TEST_F(TestSessionItemController, test_setItem) {
+TEST_F(TestSessionItemController, test_setItem)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -47,7 +50,8 @@ TEST_F(TestSessionItemController, test_setItem) {
 
 //! Setting item and subscribing to it.
 
-TEST_F(TestSessionItemController, test_setItemAndSubscribeItem) {
+TEST_F(TestSessionItemController, test_setItemAndSubscribeItem)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -63,7 +67,8 @@ TEST_F(TestSessionItemController, test_setItemAndSubscribeItem) {
 
 //! Setting item properties when widget is in hidden/shown state.
 
-TEST_F(TestSessionItemController, test_onPropertyChange) {
+TEST_F(TestSessionItemController, test_onPropertyChange)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -109,7 +114,8 @@ TEST_F(TestSessionItemController, test_onPropertyChange) {
 
 //! Deleting item when widget is visible.
 
-TEST_F(TestSessionItemController, test_onItemDestroyWidgetVisible) {
+TEST_F(TestSessionItemController, test_onItemDestroyWidgetVisible)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -134,7 +140,8 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetVisible) {
     EXPECT_TRUE(object.currentItem() == nullptr);
 }
 
-TEST_F(TestSessionItemController, test_onItemDestroyWidgetHidden) {
+TEST_F(TestSessionItemController, test_onItemDestroyWidgetHidden)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -166,7 +173,8 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetHidden) {
 
 //! Typical scenario when one item follows the other.
 
-TEST_F(TestSessionItemController, test_onTwoItems) {
+TEST_F(TestSessionItemController, test_onTwoItems)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -199,7 +207,8 @@ TEST_F(TestSessionItemController, test_onTwoItems) {
 
 //! Settings two items one after another, when widget stays hidden
 
-TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden) {
+TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden)
+{
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
@@ -231,7 +240,8 @@ TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden) {
 
 //! Deleting the widget when item still alive.
 
-TEST_F(TestSessionItemController, test_deleteWidget) {
+TEST_F(TestSessionItemController, test_deleteWidget)
+{
     TestListener listener;
     TestObject* object = new TestObject(&listener);
     SessionModel model("TestModel");

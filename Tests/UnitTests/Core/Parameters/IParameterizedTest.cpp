@@ -8,7 +8,8 @@ protected:
 
     class ParameterizedObject : public IParametricComponent {
     public:
-        ParameterizedObject() : m_real_par1(0), m_real_par2(0) {
+        ParameterizedObject() : m_real_par1(0), m_real_par2(0)
+        {
             setName("Parameterized");
             registerParameter("par1", &m_real_par1);
             registerParameter("par2", &m_real_par2);
@@ -21,7 +22,8 @@ protected:
 
 // TODO enable tests
 
-TEST_F(IParametricComponentTest, InitialState) {
+TEST_F(IParametricComponentTest, InitialState)
+{
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(0), m_initial_object.getParameterPool()->size() );
     IParametricComponent obj2(m_initial_object);
@@ -29,7 +31,8 @@ TEST_F(IParametricComponentTest, InitialState) {
     */
 }
 
-TEST_F(IParametricComponentTest, DealingWithPool) {
+TEST_F(IParametricComponentTest, DealingWithPool)
+{
     /* TEMPORARILY DISABLED getParameterPool()
     EXPECT_EQ( size_t(2), m_parameterized.getParameterPool()->size());
     IParametricComponentTest::ParameterizedObject obj2 = m_parameterized;
@@ -44,7 +47,8 @@ TEST_F(IParametricComponentTest, DealingWithPool) {
     */
 }
 
-TEST_F(IParametricComponentTest, SetParameterValue) {
+TEST_F(IParametricComponentTest, SetParameterValue)
+{
     //    m_parameterized.m_real_par1 = 1.0;
     //    m_parameterized.m_real_par2 = 2.0;
     //    m_parameterized.setParameterValue("par1", 3.0);

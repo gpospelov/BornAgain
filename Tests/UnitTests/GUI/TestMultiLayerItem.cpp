@@ -3,13 +3,15 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestMultiLayerItem : public ::testing::Test {};
+class TestMultiLayerItem : public ::testing::Test {
+};
 
 //! Testing layer appearance (enabled, disabled) in a MultiLayer made of two default layers.
 //!
 //! In two layer system top and bottom layers should have disabled thickness and roughness.
 
-TEST_F(TestMultiLayerItem, test_twoLayerSystem) {
+TEST_F(TestMultiLayerItem, test_twoLayerSystem)
+{
     SampleModel model;
 
     auto multilayer = model.insertNewItem("MultiLayer");
@@ -37,7 +39,8 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem) {
 //!
 //! In three layer system middle layer's thickness/roughness should be enabled.
 
-TEST_F(TestMultiLayerItem, test_threeLayerSystem) {
+TEST_F(TestMultiLayerItem, test_threeLayerSystem)
+{
     SampleModel model;
 
     auto multilayer = model.insertNewItem("MultiLayer");
@@ -71,7 +74,8 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem) {
 //! In three layer system, the moving of middle layer on top should lead to the disabling
 //! of roughness/thickness.
 
-TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop) {
+TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop)
+{
     SampleModel model;
 
     auto multilayer = model.insertNewItem("MultiLayer");
@@ -118,7 +122,8 @@ TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop) {
 //!
 //! If top layer was moved to canvas, its thickness and roughness should be reenabled.
 
-TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas) {
+TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas)
+{
     SampleModel model;
 
     auto multilayer = model.insertNewItem("MultiLayer");

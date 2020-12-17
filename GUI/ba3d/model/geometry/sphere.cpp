@@ -20,7 +20,8 @@ namespace RealSpace {
 
 // cut: 0..1 - how much is cut off from the bottom
 // removedTop - how much fraction of the radius is removed from the top
-Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop) {
+Geometry::Mesh Geometry::meshSphere(float cut, float baseShift, float removedTop)
+{
     if (1 <= cut)
         return Mesh();
     cut = qMax(0.f, cut);

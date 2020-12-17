@@ -25,7 +25,8 @@ public:
     FormFactorPyramid(const std::vector<double> P);
     FormFactorPyramid(double base_edge, double height, double alpha);
 
-    FormFactorPyramid* clone() const final {
+    FormFactorPyramid* clone() const final
+    {
         return new FormFactorPyramid(m_base_edge, m_height, m_alpha);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -19,7 +19,8 @@ namespace {
 const double default_step = 0.01;
 const double step_factor = 0.01;
 
-double step_for_value(double value) {
+double step_for_value(double value)
+{
     return value == 0.0 ? default_step : std::abs(value) * step_factor;
 }
 } // namespace
@@ -34,39 +35,48 @@ Parameter::Parameter(const std::string& name, double value, const AttLimits& lim
     , m_value(value)
     , m_step(step)
     , m_error(0.0)
-    , m_limits(limits) {
+    , m_limits(limits)
+{
     if (step <= 0.0)
         m_step = step_for_value(value);
 }
 
-std::string Parameter::name() const {
+std::string Parameter::name() const
+{
     return m_name;
 }
 
-double Parameter::startValue() const {
+double Parameter::startValue() const
+{
     return m_start_value;
 }
 
-AttLimits Parameter::limits() const {
+AttLimits Parameter::limits() const
+{
     return m_limits;
 }
 
-double Parameter::value() const {
+double Parameter::value() const
+{
     return m_value;
 }
 
-void Parameter::setValue(double value) {
+void Parameter::setValue(double value)
+{
     m_value = value;
 }
 
-double Parameter::step() const {
+double Parameter::step() const
+{
     return m_step;
 }
 
-double Parameter::error() const {
+double Parameter::error() const
+{
     return m_error;
 }
 
-void Parameter::setError(double value) {
+void Parameter::setError(double value)
+{
     m_error = value;
 }

@@ -27,7 +27,8 @@ const QString LayerItem::P_MATERIAL = "Material";
 const QString LayerItem::P_NSLICES = "Number of slices";
 const QString LayerItem::T_LAYOUTS = "Layout tag";
 
-LayerItem::LayerItem() : SessionGraphicsItem("Layer") {
+LayerItem::LayerItem() : SessionGraphicsItem("Layer")
+{
     setToolTip("A layer with thickness and material");
     addProperty(P_THICKNESS, 0.0)
         ->setLimits(RealLimits::lowerLimited(0.0))
@@ -49,7 +50,8 @@ LayerItem::LayerItem() : SessionGraphicsItem("Layer") {
     mapper()->setOnParentChange([this](SessionItem* new_parent) { updateAppearance(new_parent); });
 }
 
-QVector<SessionItem*> LayerItem::materialPropertyItems() {
+QVector<SessionItem*> LayerItem::materialPropertyItems()
+{
     QVector<SessionItem*> result;
     if (auto property = getItem(LayerItem::P_MATERIAL))
         result.push_back(property);
@@ -58,7 +60,8 @@ QVector<SessionItem*> LayerItem::materialPropertyItems() {
     return result;
 }
 
-void LayerItem::updateAppearance(SessionItem* new_parent) {
+void LayerItem::updateAppearance(SessionItem* new_parent)
+{
     if (!new_parent) {
         if (parent() && parent()->modelType() == "MultiLayer") {
             // we are about to be removed from MultiLayer

@@ -29,7 +29,8 @@ const double section_label_scale = 1.25;
 namespace gui2 {
 
 RecentProjectWidget::RecentProjectWidget(QWidget* parent)
-    : QWidget(parent), m_currentProjectPane(new ProjectPaneWidget) {
+    : QWidget(parent), m_currentProjectPane(new ProjectPaneWidget)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(20, 0, 10, 0);
 
@@ -37,22 +38,26 @@ RecentProjectWidget::RecentProjectWidget(QWidget* parent)
     layout->addStretch(1);
 }
 
-QSize RecentProjectWidget::sizeHint() const {
+QSize RecentProjectWidget::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize RecentProjectWidget::minimumSizeHint() const {
+QSize RecentProjectWidget::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 
 //! Set current project title and label on appropriate widget.
-void RecentProjectWidget::setCurrentProject(const QString& project_dir, bool is_modified) {
+void RecentProjectWidget::setCurrentProject(const QString& project_dir, bool is_modified)
+{
     m_currentProjectPane->setCurrentProject(project_dir, is_modified);
     m_currentProjectPane->setActive(false);
 }
 
 //! Set name of all recent projects to appropriate widgets.
-void RecentProjectWidget::setRecentProjectsList(const QStringList& projects) {
+void RecentProjectWidget::setRecentProjectsList(const QStringList& projects)
+{
     int widget_index{0};
     for (auto widget : m_recentProjectPanes) {
         if (widget_index < projects.size())
@@ -64,7 +69,8 @@ void RecentProjectWidget::setRecentProjectsList(const QStringList& projects) {
     }
 }
 
-QBoxLayout* RecentProjectWidget::createCurrentProjectLayout() const {
+QBoxLayout* RecentProjectWidget::createCurrentProjectLayout() const
+{
     auto result = new QVBoxLayout;
     auto label = new QLabel("Current Project");
     ModelView::Utils::ScaleLabelFont(label, section_label_scale);
@@ -73,7 +79,8 @@ QBoxLayout* RecentProjectWidget::createCurrentProjectLayout() const {
     return result;
 }
 
-QBoxLayout* RecentProjectWidget::createRecentProjectLayout() {
+QBoxLayout* RecentProjectWidget::createRecentProjectLayout()
+{
     auto result = new QVBoxLayout;
     auto label = new QLabel("Recent Projects");
     ModelView::Utils::ScaleLabelFont(label, section_label_scale);
@@ -89,7 +96,8 @@ QBoxLayout* RecentProjectWidget::createRecentProjectLayout() {
     return result;
 }
 
-QWidget* RecentProjectWidget::createRecentProjectScrollArea() {
+QWidget* RecentProjectWidget::createRecentProjectScrollArea()
+{
     auto result = new ModelView::AdjustingScrollArea;
 
     auto content = new QWidget;

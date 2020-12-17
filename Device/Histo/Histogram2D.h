@@ -111,7 +111,8 @@ protected:
     Histogram1D* create_projectionY(int xbinlow, int xbinup);
 };
 
-template <typename T> void Histogram2D::initFromShape(const T& data) {
+template <typename T> void Histogram2D::initFromShape(const T& data)
+{
     auto shape = ArrayUtils::getShape(data);
     const size_t nrows = shape.first;
     const size_t ncols = shape.second;

@@ -3,9 +3,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <iostream>
 
-class FixedBinAxisTest : public ::testing::Test {};
+class FixedBinAxisTest : public ::testing::Test {
+};
 
-TEST_F(FixedBinAxisTest, IndexedAccessor) {
+TEST_F(FixedBinAxisTest, IndexedAccessor)
+{
     FixedBinAxis a1("length", 100, 0.0, 10.0);
     ASSERT_EQ(100u, a1.size());
     EXPECT_EQ(0.0, a1.lowerBound());
@@ -22,7 +24,8 @@ TEST_F(FixedBinAxisTest, IndexedAccessor) {
     ASSERT_THROW(a2[3], std::runtime_error);
 }
 
-TEST_F(FixedBinAxisTest, VectorOfUnitLength) {
+TEST_F(FixedBinAxisTest, VectorOfUnitLength)
+{
     FixedBinAxis vec("name", 1, 1.0, 2.0);
     EXPECT_EQ(1u, vec.size());
     EXPECT_EQ(double(1.0), vec.lowerBound());
@@ -30,7 +33,8 @@ TEST_F(FixedBinAxisTest, VectorOfUnitLength) {
     EXPECT_EQ(1.5, vec[0]);
 }
 
-TEST_F(FixedBinAxisTest, FindClosestIndex) {
+TEST_F(FixedBinAxisTest, FindClosestIndex)
+{
     FixedBinAxis v1("name", 2, 0.0, 1.0);
     EXPECT_EQ(size_t(2), v1.size());
     EXPECT_EQ(size_t(0), v1.findClosestIndex(0.0));
@@ -51,7 +55,8 @@ TEST_F(FixedBinAxisTest, FindClosestIndex) {
     EXPECT_EQ(size_t(2), v2.findClosestIndex(1.5));
 }
 
-TEST_F(FixedBinAxisTest, CheckBin) {
+TEST_F(FixedBinAxisTest, CheckBin)
+{
     FixedBinAxis axis("name", 20, 0, 10);
 
     Bin1D bin0 = axis.bin(0);
@@ -84,7 +89,8 @@ TEST_F(FixedBinAxisTest, CheckBin) {
     EXPECT_DOUBLE_EQ(1.5, axis2.bin(2).center());
 }
 
-TEST_F(FixedBinAxisTest, CheckEquality) {
+TEST_F(FixedBinAxisTest, CheckEquality)
+{
     FixedBinAxis b1("axis", 99, -1.01, 3.3);
     FixedBinAxis b2("axis", 99, -1.01, 3.3);
     EXPECT_TRUE(b1 == b2);
@@ -98,14 +104,16 @@ TEST_F(FixedBinAxisTest, CheckEquality) {
     EXPECT_FALSE(b1 == b6);
 }
 
-TEST_F(FixedBinAxisTest, CheckClone) {
+TEST_F(FixedBinAxisTest, CheckClone)
+{
     FixedBinAxis a1("axis", 99, -1.2, 5.4);
     FixedBinAxis* clone = a1.clone();
     EXPECT_TRUE(a1 == *clone);
     delete clone;
 }
 
-TEST_F(FixedBinAxisTest, IOStream) {
+TEST_F(FixedBinAxisTest, IOStream)
+{
     FixedBinAxis axis("name", 99, -1.2, 5.4);
 
     std::ostringstream oss;
@@ -116,7 +124,8 @@ TEST_F(FixedBinAxisTest, IOStream) {
     EXPECT_TRUE(axis == *result);
 }
 
-TEST_F(FixedBinAxisTest, BinCenters) {
+TEST_F(FixedBinAxisTest, BinCenters)
+{
     FixedBinAxis axis("name", 3, -1.5, 1.5);
     std::vector<double> centers = axis.binCenters();
     EXPECT_EQ(size_t(3), centers.size());
@@ -129,7 +138,8 @@ TEST_F(FixedBinAxisTest, BinCenters) {
     EXPECT_DOUBLE_EQ(axis.binCenter(2), centers[2]);
 }
 
-TEST_F(FixedBinAxisTest, BinBoundaries) {
+TEST_F(FixedBinAxisTest, BinBoundaries)
+{
     FixedBinAxis axis("name", 3, -1.5, 1.5);
     std::vector<double> boundaries = axis.binBoundaries();
     EXPECT_EQ(size_t(4), boundaries.size());
@@ -139,7 +149,8 @@ TEST_F(FixedBinAxisTest, BinBoundaries) {
     EXPECT_DOUBLE_EQ(1.5, boundaries[3]);
 }
 
-TEST_F(FixedBinAxisTest, ClippedAxis) {
+TEST_F(FixedBinAxisTest, ClippedAxis)
+{
     FixedBinAxis axis("name", 4, -1.0, 3.0);
 
     FixedBinAxis* clip1 = axis.createClippedAxis(-0.5, 2.5);

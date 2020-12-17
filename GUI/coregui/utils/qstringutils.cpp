@@ -18,7 +18,8 @@
 
 namespace GUI_StringUtils {
 
-QString withTildeHomePath(const QString& path) {
+QString withTildeHomePath(const QString& path)
+{
     if (GUI_OS_Utils::HostOsInfo::isWindowsHost())
         return path;
 

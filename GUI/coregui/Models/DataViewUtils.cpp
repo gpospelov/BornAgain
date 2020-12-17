@@ -22,21 +22,24 @@
 #include "GUI/coregui/Models/JobItemUtils.h"
 
 namespace {
-std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item) {
+std::unique_ptr<IUnitConverter> getConverter(Data1DViewItem* view_item)
+{
     auto job_item = view_item->jobItem();
     ASSERT(job_item->instrumentItem());
 
     return DomainObjectBuilder::createUnitConverter(job_item->instrumentItem());
 }
 
-Axes::Units selectedUnits(Data1DViewItem* view_item) {
+Axes::Units selectedUnits(Data1DViewItem* view_item)
+{
     auto current_unit_name =
         view_item->getItemValue(Data1DViewItem::P_AXES_UNITS).value<ComboProperty>().getValue();
     return JobItemUtils::axesUnitsFromName(current_unit_name);
 }
 } // namespace
 
-void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item) {
+void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item)
+{
     auto converter = getConverter(view_item);
     if (!converter)
         return;
@@ -47,7 +50,8 @@ void DataViewUtils::updateAxesTitle(Data1DViewItem* view_item) {
 }
 
 std::unique_ptr<OutputData<double>> DataViewUtils::getTranslatedData(Data1DViewItem* view_item,
-                                                                     DataItem* data_item) {
+                                                                     DataItem* data_item)
+{
     std::unique_ptr<OutputData<double>> result;
     if (!data_item || !data_item->getOutputData())
         return result;

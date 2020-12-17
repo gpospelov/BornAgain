@@ -29,7 +29,8 @@ SetValueCommandTest::~SetValueCommandTest() = default;
 
 //! Set item value through SetValueCommand command.
 
-TEST_F(SetValueCommandTest, setValueCommand) {
+TEST_F(SetValueCommandTest, setValueCommand)
+{
     SessionModel model;
     const int role = ItemDataRole::DATA;
 
@@ -55,7 +56,8 @@ TEST_F(SetValueCommandTest, setValueCommand) {
 
 //! Set same item value through SetValueCommand command.
 
-TEST_F(SetValueCommandTest, setSameValueCommand) {
+TEST_F(SetValueCommandTest, setSameValueCommand)
+{
     SessionModel model;
     const int role = ItemDataRole::DATA;
 

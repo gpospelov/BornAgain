@@ -25,7 +25,8 @@ const QString MultiLayerItem::P_CROSS_CORR_LENGTH =
 const QString MultiLayerItem::P_EXTERNAL_FIELD = "ExternalField";
 const QString MultiLayerItem::T_LAYERS = "Layer tag";
 
-MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer") {
+MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer")
+{
     setToolTip("A multilayer to hold stack of layers");
     setItemName("MultiLayer");
 
@@ -44,14 +45,16 @@ MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer") {
     mapper()->setOnChildrenChange([this](SessionItem*) { updateLayers(); });
 }
 
-QVector<SessionItem*> MultiLayerItem::materialPropertyItems() {
+QVector<SessionItem*> MultiLayerItem::materialPropertyItems()
+{
     QVector<SessionItem*> result;
     for (auto layer_item : getItems(T_LAYERS))
         result.append(static_cast<LayerItem*>(layer_item)->materialPropertyItems());
     return result;
 }
 
-void MultiLayerItem::updateLayers() {
+void MultiLayerItem::updateLayers()
+{
     QVector<SessionItem*> list = getChildrenOfType("Layer");
     for (auto it = list.begin(); it != list.end(); ++it) {
         if (it == list.begin())

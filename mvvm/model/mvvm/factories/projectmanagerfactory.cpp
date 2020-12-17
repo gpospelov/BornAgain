@@ -19,7 +19,8 @@
 namespace ModelView {
 std::unique_ptr<ProjectManagerInterface>
 CreateProjectManager(const ProjectContext& project_context,
-                     const UserInteractionContext& user_context) {
+                     const UserInteractionContext& user_context)
+{
     return std::make_unique<ProjectManagerDecorator>(project_context, user_context);
 }
 

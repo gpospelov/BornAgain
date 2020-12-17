@@ -18,31 +18,38 @@
 
 ExternalProperty::ExternalProperty() = default;
 
-QString ExternalProperty::text() const {
+QString ExternalProperty::text() const
+{
     return m_text;
 }
 
-void ExternalProperty::setText(const QString& name) {
+void ExternalProperty::setText(const QString& name)
+{
     m_text = name;
 }
 
-QColor ExternalProperty::color() const {
+QColor ExternalProperty::color() const
+{
     return m_color;
 }
 
-void ExternalProperty::setColor(const QColor& color) {
+void ExternalProperty::setColor(const QColor& color)
+{
     m_color = color;
 }
 
-QString ExternalProperty::identifier() const {
+QString ExternalProperty::identifier() const
+{
     return m_identifier;
 }
 
-void ExternalProperty::setIdentifier(const QString& identifier) {
+void ExternalProperty::setIdentifier(const QString& identifier)
+{
     m_identifier = identifier;
 }
 
-QPixmap ExternalProperty::pixmap() const {
+QPixmap ExternalProperty::pixmap() const
+{
     QPixmap pixmap(10, 10);
     pixmap.fill(color());
     return pixmap;
@@ -50,20 +57,23 @@ QPixmap ExternalProperty::pixmap() const {
 
 //! Returns true if property is in valid state (i.e. have at least one member defined).
 
-bool ExternalProperty::isValid() const {
+bool ExternalProperty::isValid() const
+{
     if (m_identifier.isEmpty() && m_text.isEmpty() && !m_color.isValid())
         return false;
 
     return true;
 }
 
-QVariant ExternalProperty::variant() const {
+QVariant ExternalProperty::variant() const
+{
     QVariant variant;
     variant.setValue(*this);
     return variant;
 }
 
-bool ExternalProperty::operator==(const ExternalProperty& other) const {
+bool ExternalProperty::operator==(const ExternalProperty& other) const
+{
     if (m_identifier != other.m_identifier)
         return false;
     if (m_text != other.m_text)
@@ -74,10 +84,12 @@ bool ExternalProperty::operator==(const ExternalProperty& other) const {
     return true;
 }
 
-bool ExternalProperty::operator!=(const ExternalProperty& other) const {
+bool ExternalProperty::operator!=(const ExternalProperty& other) const
+{
     return !(*this == other);
 }
 
-bool ExternalProperty::operator<(const ExternalProperty& other) const {
+bool ExternalProperty::operator<(const ExternalProperty& other) const
+{
     return m_identifier < other.m_identifier && m_text < other.m_text;
 }

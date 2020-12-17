@@ -26,7 +26,8 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
     callback_t callback;
     MouseMoveReporterImpl(MouseMoveReporter* reporter, QCustomPlot* custom_plot,
                           callback_t callback)
-        : reporter(reporter), custom_plot(custom_plot), callback(std::move(callback)) {
+        : reporter(reporter), custom_plot(custom_plot), callback(std::move(callback))
+    {
         if (!custom_plot)
             throw std::runtime_error("MouseMoveReporter: not initialized custom plot.");
 
@@ -34,7 +35,8 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
         set_connected();
     }
 
-    void set_connected() {
+    void set_connected()
+    {
         auto on_mouse_move = [this](QMouseEvent* event) {
             double x = pixelToXaxisCoord(event->pos().x());
             double y = pixelToYaxisCoord(event->pos().y());
@@ -49,13 +51,16 @@ struct MouseMoveReporter::MouseMoveReporterImpl {
 
     double pixelToYaxisCoord(double pixel) const { return custom_plot->yAxis->pixelToCoord(pixel); }
 
-    bool axesRangeContains(double xpos, double ypos) const {
+    bool axesRangeContains(double xpos, double ypos) const
+    {
         return custom_plot->xAxis->range().contains(xpos)
                && custom_plot->yAxis->range().contains(ypos);
     }
 };
 
 MouseMoveReporter::MouseMoveReporter(QCustomPlot* custom_plot, callback_t callback)
-    : p_impl(std::make_unique<MouseMoveReporterImpl>(this, custom_plot, callback)) {}
+    : p_impl(std::make_unique<MouseMoveReporterImpl>(this, custom_plot, callback))
+{
+}
 
 MouseMoveReporter::~MouseMoveReporter() = default;

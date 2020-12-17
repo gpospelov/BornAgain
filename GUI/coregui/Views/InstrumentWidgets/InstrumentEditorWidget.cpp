@@ -27,7 +27,8 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
     , m_nameLineEdit(new QLineEdit)
     , m_instrumentPresenter(new InstrumentPresenter)
     , m_currentItem(nullptr)
-    , m_block_signals(false) {
+    , m_block_signals(false)
+{
     setMinimumSize(400, 400);
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
@@ -46,18 +47,21 @@ InstrumentEditorWidget::InstrumentEditorWidget(QWidget* parent)
             &InstrumentEditorWidget::onChangedEditor);
 }
 
-QSize InstrumentEditorWidget::sizeHint() const {
+QSize InstrumentEditorWidget::sizeHint() const
+{
     return QSize(600, 600);
 }
 
-void InstrumentEditorWidget::setItem(SessionItem* instrument) {
+void InstrumentEditorWidget::setItem(SessionItem* instrument)
+{
     m_currentItem = instrument;
     updateWidgets();
 
     m_instrumentPresenter->setItem(instrument);
 }
 
-void InstrumentEditorWidget::onChangedEditor(const QString&) {
+void InstrumentEditorWidget::onChangedEditor(const QString&)
+{
     if (m_block_signals)
         return;
 
@@ -67,7 +71,8 @@ void InstrumentEditorWidget::onChangedEditor(const QString&) {
 
 //! top block with instrument name
 
-QLayout* InstrumentEditorWidget::createTopLayout() {
+QLayout* InstrumentEditorWidget::createTopLayout()
+{
     auto result = new QHBoxLayout;
 
     m_nameLineEdit->setMinimumWidth(200);
@@ -80,7 +85,8 @@ QLayout* InstrumentEditorWidget::createTopLayout() {
     return result;
 }
 
-void InstrumentEditorWidget::updateWidgets() {
+void InstrumentEditorWidget::updateWidgets()
+{
     m_block_signals = true;
 
     if (m_currentItem) {

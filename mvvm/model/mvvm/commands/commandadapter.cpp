@@ -18,15 +18,19 @@
 using namespace ModelView;
 
 CommandAdapter::CommandAdapter(std::shared_ptr<AbstractItemCommand> command)
-    : m_command(std::move(command)) {}
+    : m_command(std::move(command))
+{
+}
 
 CommandAdapter::~CommandAdapter() = default;
 
-void CommandAdapter::undo() {
+void CommandAdapter::undo()
+{
     m_command->undo();
 }
 
-void CommandAdapter::redo() {
+void CommandAdapter::redo()
+{
     m_command->execute();
     setObsolete(m_command->isObsolete());
     setText(QString::fromStdString(m_command->description()));

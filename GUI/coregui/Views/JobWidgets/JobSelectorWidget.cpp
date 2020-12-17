@@ -30,7 +30,8 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
     , m_toolBar(new JobSelectorToolBar(m_jobSelectorActions, this))
     , m_jobListWidget(new JobListWidget)
     , m_jobProperties(new JobPropertiesWidget)
-    , m_jobModel(nullptr) {
+    , m_jobModel(nullptr)
+{
     setWindowTitle(Constants::JobSelectorWidgetName);
     setObjectName("JobSelectorWidget");
 
@@ -60,29 +61,35 @@ JobSelectorWidget::JobSelectorWidget(JobModel* jobModel, QWidget* parent)
             &JobSelectorWidget::onSelectionChanged);
 }
 
-void JobSelectorWidget::setModel(JobModel* jobModel) {
+void JobSelectorWidget::setModel(JobModel* jobModel)
+{
     m_jobModel = jobModel;
     m_jobListWidget->setModel(m_jobModel);
 }
 
-QSize JobSelectorWidget::sizeHint() const {
+QSize JobSelectorWidget::sizeHint() const
+{
     return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth() * 2);
 }
 
-QSize JobSelectorWidget::minimumSizeHint() const {
+QSize JobSelectorWidget::minimumSizeHint() const
+{
     return QSize(StyleUtils::PropertyPanelWidth(), StyleUtils::PropertyPanelWidth());
 }
 
-const JobItem* JobSelectorWidget::currentJobItem() const {
+const JobItem* JobSelectorWidget::currentJobItem() const
+{
     return m_jobListWidget->currentJobItem();
 }
 
-void JobSelectorWidget::makeJobItemSelected(JobItem* item) {
+void JobSelectorWidget::makeJobItemSelected(JobItem* item)
+{
     ASSERT(item);
     m_jobListWidget->makeJobItemSelected(item);
 }
 
-void JobSelectorWidget::onSelectionChanged(JobItem* jobItem) {
+void JobSelectorWidget::onSelectionChanged(JobItem* jobItem)
+{
     m_jobProperties->setItem(jobItem);
     emit selectionChanged(jobItem);
 }

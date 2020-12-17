@@ -17,7 +17,8 @@
 #include <QVBoxLayout>
 
 ProjectionsPropertyPanel::ProjectionsPropertyPanel(QWidget* parent)
-    : SessionItemWidget(parent), m_componentEditor(new ComponentEditor) {
+    : SessionItemWidget(parent), m_componentEditor(new ComponentEditor)
+{
     setSizePolicy(QSizePolicy::Fixed, QSizePolicy::Expanding);
 
     QVBoxLayout* mainLayout = new QVBoxLayout;
@@ -28,18 +29,22 @@ ProjectionsPropertyPanel::ProjectionsPropertyPanel(QWidget* parent)
     setLayout(mainLayout);
 }
 
-QSize ProjectionsPropertyPanel::sizeHint() const {
+QSize ProjectionsPropertyPanel::sizeHint() const
+{
     return QSize(230, 256);
 }
 
-QSize ProjectionsPropertyPanel::minimumSizeHint() const {
+QSize ProjectionsPropertyPanel::minimumSizeHint() const
+{
     return QSize(230, 64);
 }
 
-void ProjectionsPropertyPanel::subscribeToItem() {
+void ProjectionsPropertyPanel::subscribeToItem()
+{
     m_componentEditor->setItem(currentItem());
 }
 
-void ProjectionsPropertyPanel::unsubscribeFromItem() {
+void ProjectionsPropertyPanel::unsubscribeFromItem()
+{
     m_componentEditor->setItem(nullptr);
 }

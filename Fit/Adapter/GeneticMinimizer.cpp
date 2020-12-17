@@ -17,7 +17,8 @@
 
 namespace {
 
-std::map<int, std::string> statusDescription() {
+std::map<int, std::string> statusDescription()
+{
     std::map<int, std::string> result;
     result[0] = "OK, minimum found";
     result[1] = "Maximum number of iterations reached";
@@ -27,7 +28,8 @@ std::map<int, std::string> statusDescription() {
 
 GeneticMinimizer::GeneticMinimizer()
     : MinimizerAdapter(MinimizerInfo::buildGeneticInfo())
-    , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer()) {
+    , m_genetic_minimizer(new ROOT::Math::GeneticMinimizer())
+{
     addOption("Tolerance", 0.01, "Tolerance on the function value at the minimum");
     addOption("PrintLevel", 0, "Minimizer internal print level");
     addOption("MaxIterations", 3, "Maximum number of iterations");
@@ -47,47 +49,58 @@ GeneticMinimizer::GeneticMinimizer()
 
 GeneticMinimizer::~GeneticMinimizer() = default;
 
-void GeneticMinimizer::setTolerance(double value) {
+void GeneticMinimizer::setTolerance(double value)
+{
     setOptionValue("Tolerance", value);
 }
 
-double GeneticMinimizer::tolerance() const {
+double GeneticMinimizer::tolerance() const
+{
     return optionValue<double>("Tolerance");
 }
 
-void GeneticMinimizer::setPrintLevel(int value) {
+void GeneticMinimizer::setPrintLevel(int value)
+{
     setOptionValue("PrintLevel", value);
 }
 
-int GeneticMinimizer::printLevel() const {
+int GeneticMinimizer::printLevel() const
+{
     return optionValue<int>("PrintLevel");
 }
 
-void GeneticMinimizer::setMaxIterations(int value) {
+void GeneticMinimizer::setMaxIterations(int value)
+{
     setOptionValue("MaxIterations", value);
 }
 
-int GeneticMinimizer::maxIterations() const {
+int GeneticMinimizer::maxIterations() const
+{
     return optionValue<int>("MaxIterations");
 }
 
-void GeneticMinimizer::setPopulationSize(int value) {
+void GeneticMinimizer::setPopulationSize(int value)
+{
     setOptionValue("PopSize", value);
 }
 
-int GeneticMinimizer::populationSize() const {
+int GeneticMinimizer::populationSize() const
+{
     return optionValue<int>("PopSize");
 }
 
-void GeneticMinimizer::setRandomSeed(int value) {
+void GeneticMinimizer::setRandomSeed(int value)
+{
     setOptionValue("RandomSeed", value);
 }
 
-int GeneticMinimizer::randomSeed() const {
+int GeneticMinimizer::randomSeed() const
+{
     return optionValue<int>("RandomSeed");
 }
 
-void GeneticMinimizer::setParameter(unsigned int index, const mumufit::Parameter& par) {
+void GeneticMinimizer::setParameter(unsigned int index, const mumufit::Parameter& par)
+{
     if (!par.limits().isFixed() && !par.limits().isLimited()) {
         std::ostringstream ostr;
         ostr << "GeneticMinimizer::setParameter() -> Error! "
@@ -99,17 +112,20 @@ void GeneticMinimizer::setParameter(unsigned int index, const mumufit::Parameter
     MinimizerAdapter::setParameter(index, par);
 }
 
-std::string GeneticMinimizer::statusToString() const {
+std::string GeneticMinimizer::statusToString() const
+{
     return statusDescription()[rootMinimizer()->Status()];
 }
 
-std::map<std::string, std::string> GeneticMinimizer::statusMap() const {
+std::map<std::string, std::string> GeneticMinimizer::statusMap() const
+{
     auto result = MinimizerAdapter::statusMap();
     result["functionCalls"] = std::to_string(rootMinimizer()->NCalls());
     return result;
 }
 
-void GeneticMinimizer::propagateOptions() {
+void GeneticMinimizer::propagateOptions()
+{
     ROOT::Math::GeneticMinimizerParameters pars;
     pars.fPopSize = populationSize();
     pars.fNsteps = maxIterations();
@@ -123,6 +139,7 @@ void GeneticMinimizer::propagateOptions() {
     m_genetic_minimizer->SetParameters(pars);
 }
 
-const MinimizerAdapter::root_minimizer_t* GeneticMinimizer::rootMinimizer() const {
+const MinimizerAdapter::root_minimizer_t* GeneticMinimizer::rootMinimizer() const
+{
     return m_genetic_minimizer.get();
 }

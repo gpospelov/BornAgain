@@ -20,14 +20,16 @@
 
 using namespace ModelView;
 
-PropertyTreeView::PropertyTreeView(QWidget* parent) : ItemsTreeView(parent) {
+PropertyTreeView::PropertyTreeView(QWidget* parent) : ItemsTreeView(parent)
+{
     treeView()->setHeaderHidden(false);
     // provide one click editing
     treeView()->setEditTriggers(QAbstractItemView::AllEditTriggers);
     treeView()->setAlternatingRowColors(true);
 }
 
-void PropertyTreeView::setItem(SessionItem* item) {
+void PropertyTreeView::setItem(SessionItem* item)
+{
     if (!item) {
         treeView()->setModel(nullptr);
         return;

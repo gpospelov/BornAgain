@@ -36,7 +36,8 @@ GraphItemTest::~GraphItemTest() = default;
 
 //! Initial state.
 
-TEST_F(GraphItemTest, initialState) {
+TEST_F(GraphItemTest, initialState)
+{
     GraphItem item;
     EXPECT_TRUE(item.dataItem() == nullptr);
     EXPECT_EQ(item.binCenters(), std::vector<double>{});
@@ -47,7 +48,8 @@ TEST_F(GraphItemTest, initialState) {
 
 //! Setting dataItem in model context.
 
-TEST_F(GraphItemTest, setDataItem) {
+TEST_F(GraphItemTest, setDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -59,7 +61,8 @@ TEST_F(GraphItemTest, setDataItem) {
 
 //! Setting dataItem in model context.
 
-TEST_F(GraphItemTest, binValues) {
+TEST_F(GraphItemTest, binValues)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -77,7 +80,8 @@ TEST_F(GraphItemTest, binValues) {
 
 //! Setting dataItem with errors
 
-TEST_F(GraphItemTest, binErrors) {
+TEST_F(GraphItemTest, binErrors)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -98,7 +102,8 @@ TEST_F(GraphItemTest, binErrors) {
 
 //! Check unlinking when nullptr is set as Data1DItem.
 
-TEST_F(GraphItemTest, setNullData) {
+TEST_F(GraphItemTest, setNullData)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -122,7 +127,8 @@ TEST_F(GraphItemTest, setNullData) {
 
 //! Check signaling on set data item.
 
-TEST_F(GraphItemTest, onSetDataItem) {
+TEST_F(GraphItemTest, onSetDataItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -141,7 +147,8 @@ TEST_F(GraphItemTest, onSetDataItem) {
 
 //! Sets GraphItem from another GraphItem
 
-TEST_F(GraphItemTest, setFromGraphItem) {
+TEST_F(GraphItemTest, setFromGraphItem)
+{
     SessionModel model;
     auto data_item = model.insertItem<Data1DItem>();
     auto graph_item = model.insertItem<GraphItem>();
@@ -162,7 +169,8 @@ TEST_F(GraphItemTest, setFromGraphItem) {
     EXPECT_EQ(graph_item2->penItem()->property<QColor>(PenItem::P_COLOR), QColor(Qt::red));
 }
 
-TEST_F(GraphItemTest, penItem_setNamedColor) {
+TEST_F(GraphItemTest, penItem_setNamedColor)
+{
     GraphItem item;
     item.setNamedColor("mediumaquamarine");
     EXPECT_EQ(item.colorName(), std::string("#66cdaa"));

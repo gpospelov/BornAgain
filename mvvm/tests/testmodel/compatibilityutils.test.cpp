@@ -33,7 +33,8 @@ CompatibilityUtilsTest::~CompatibilityUtilsTest() = default;
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag)
+{
     TagInfo tag = TagInfo::propertyTag("thickness", Constants::PropertyType);
     SessionItemContainer container(tag);
 
@@ -46,7 +47,8 @@ TEST_F(CompatibilityUtilsTest, IsCompatibleSinglePropertyTag) {
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag)
+{
     TagInfo tag = TagInfo::universalTag("layers");
     SessionItemContainer container(tag);
 
@@ -59,7 +61,8 @@ TEST_F(CompatibilityUtilsTest, IsCompatibleUniversalTag) {
 
 //! Testing IsCompatibleSingleProperty.
 
-TEST_F(CompatibilityUtilsTest, IsCompatibleGroupTag) {
+TEST_F(CompatibilityUtilsTest, IsCompatibleGroupTag)
+{
     TagInfo tag = TagInfo::universalTag(GroupItem::T_GROUP_ITEMS);
     SessionItemContainer container(tag);
 

@@ -30,13 +30,15 @@ public:
 
 FileUtilsTest::~FileUtilsTest() = default;
 
-TEST_F(FileUtilsTest, exists) {
+TEST_F(FileUtilsTest, exists)
+{
     EXPECT_TRUE(Utils::exists(testPath()));
     EXPECT_FALSE(Utils::exists(std::string()));
     EXPECT_FALSE(Utils::exists(std::string("abc")));
 }
 
-TEST_F(FileUtilsTest, create_directory) {
+TEST_F(FileUtilsTest, create_directory)
+{
     std::string dirname = testPath() + std::string("/") + "subdir";
     Utils::remove(dirname);
 
@@ -44,7 +46,8 @@ TEST_F(FileUtilsTest, create_directory) {
     EXPECT_TRUE(Utils::exists(dirname));
 }
 
-TEST_F(FileUtilsTest, remove_all) {
+TEST_F(FileUtilsTest, remove_all)
+{
     std::string dirname = testPath() + std::string("/") + "subdir2";
     Utils::create_directory(dirname);
 
@@ -53,14 +56,16 @@ TEST_F(FileUtilsTest, remove_all) {
     EXPECT_FALSE(Utils::exists(dirname));
 }
 
-TEST_F(FileUtilsTest, base_name) {
+TEST_F(FileUtilsTest, base_name)
+{
     std::string filename = testPath() + std::string("/testmodel/fileutils.test.cpp");
     std::string base_name = Utils::base_name(filename);
 
     EXPECT_EQ("fileutils.test", base_name);
 }
 
-TEST_F(FileUtilsTest, FindFiles) {
+TEST_F(FileUtilsTest, FindFiles)
+{
     TestUtils::CreateTestFile(testPath(), "a.txt");
     TestUtils::CreateTestFile(testPath(), "name0.json");
     TestUtils::CreateTestFile(testPath(), "name1.json");
@@ -74,7 +79,8 @@ TEST_F(FileUtilsTest, FindFiles) {
                                            Utils::join(testPath(), "name1.json")));
 }
 
-TEST_F(FileUtilsTest, parent_path) {
+TEST_F(FileUtilsTest, parent_path)
+{
     // parent path of testPath() is the main test folder
     // "<build>/test_output/test_FileUtils" -> "<build>/test_output/"
     EXPECT_EQ(Utils::parent_path(testPath()), TestUtils::TestOutputDir());
@@ -84,7 +90,8 @@ TEST_F(FileUtilsTest, parent_path) {
     EXPECT_EQ(Utils::parent_path(filename), testPath());
 }
 
-TEST_F(FileUtilsTest, is_empty) {
+TEST_F(FileUtilsTest, is_empty)
+{
     // creating new empty directory
     std::string dirname = testPath() + std::string("/") + "subdir_is_empty";
     Utils::remove_all(dirname);

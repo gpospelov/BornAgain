@@ -48,7 +48,8 @@ const QString density_tooltip =
     "Number of mesocrystals per square nanometer (particle surface density).\n "
     "Should be defined for disordered and 1d-ordered particle collections.";
 
-bool IsIParticleName(QString name) {
+bool IsIParticleName(QString name)
+{
     return (name.startsWith("Particle") || name.startsWith("ParticleComposition")
             || name.startsWith("ParticleCoreShell") || name.startsWith("MesoCrystal"));
 }
@@ -63,7 +64,8 @@ const QString MesoCrystalItem::P_VECTOR_C = "Third lattice vector";
 
 // TODO make derived from ParticleItem
 
-MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal") {
+MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
+{
     setToolTip("A 3D crystal structure of nanoparticles");
 
     addGroupProperty(P_OUTER_SHAPE, "Form Factor");
@@ -105,7 +107,8 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal") {
     });
 }
 
-std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const {
+std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
+{
     const Lattice3D& lattice = getLattice();
     if (!(lattice.unitCellVolume() > 0.0))
         throw GUIHelpers::Error("MesoCrystalItem::createMesoCrystal(): "
@@ -127,7 +130,8 @@ std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const {
     return result;
 }
 
-QStringList MesoCrystalItem::translateList(const QStringList& list) const {
+QStringList MesoCrystalItem::translateList(const QStringList& list) const
+{
     QStringList result = list;
     // Add CrystalType to path name of basis particle
     if (IsIParticleName(list.back()))
@@ -136,14 +140,16 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const {
     return result;
 }
 
-Lattice3D MesoCrystalItem::getLattice() const {
+Lattice3D MesoCrystalItem::getLattice() const
+{
     const kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
     const kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
     const kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
     return Lattice3D(a1, a2, a3);
 }
 
-std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const {
+std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const
+{
     QVector<SessionItem*> childlist = children();
     for (int i = 0; i < childlist.size(); ++i) {
         if (childlist[i]->modelType() == "Particle") {
@@ -163,7 +169,8 @@ std::unique_ptr<IParticle> MesoCrystalItem::getBasis() const {
     return {};
 }
 
-std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const {
+std::unique_ptr<IFormFactor> MesoCrystalItem::getOuterShape() const
+{
     auto& ff_item = groupItem<FormFactorItem>(MesoCrystalItem::P_OUTER_SHAPE);
     return ff_item.createFormFactor();
 }

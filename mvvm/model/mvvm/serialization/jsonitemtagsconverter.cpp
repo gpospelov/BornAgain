@@ -29,14 +29,16 @@ struct JsonItemTagsConverter::JsonItemTagsConverterImpl {
     std::unique_ptr<JsonItemContainerConverter> m_container_converter;
     std::unique_ptr<JsonTagInfoConverterInterface> m_taginfo_converter;
 
-    JsonItemTagsConverterImpl(ConverterCallbacks callbacks = {}) {
+    JsonItemTagsConverterImpl(ConverterCallbacks callbacks = {})
+    {
         m_container_converter = std::make_unique<JsonItemContainerConverter>(std::move(callbacks));
         m_taginfo_converter = std::make_unique<JsonTagInfoConverter>();
     }
 
     //! Create containers from JSON. SessionItemTags should be empty.
 
-    void create_containers(const QJsonObject& json, SessionItemTags& item_tags) {
+    void create_containers(const QJsonObject& json, SessionItemTags& item_tags)
+    {
         if (item_tags.tagsCount())
             throw std::runtime_error("Error in JsonItemTagsConverter: no containers expected.");
 
@@ -56,7 +58,8 @@ struct JsonItemTagsConverter::JsonItemTagsConverterImpl {
 
     //! Populate containers from JSON. Container must be already created.
 
-    void populate_containers(const QJsonObject& json, SessionItemTags& item_tags) {
+    void populate_containers(const QJsonObject& json, SessionItemTags& item_tags)
+    {
         auto container_array = json[JsonItemFormatAssistant::containerKey].toArray();
 
         if (container_array.size() != item_tags.tagsCount())
@@ -73,11 +76,14 @@ struct JsonItemTagsConverter::JsonItemTagsConverterImpl {
 };
 
 JsonItemTagsConverter::JsonItemTagsConverter(ConverterCallbacks callbacks)
-    : p_impl(std::make_unique<JsonItemTagsConverterImpl>(callbacks)) {}
+    : p_impl(std::make_unique<JsonItemTagsConverterImpl>(callbacks))
+{
+}
 
 JsonItemTagsConverter::~JsonItemTagsConverter() = default;
 
-QJsonObject JsonItemTagsConverter::to_json(const SessionItemTags& item_tags) {
+QJsonObject JsonItemTagsConverter::to_json(const SessionItemTags& item_tags)
+{
     QJsonObject result;
     result[JsonItemFormatAssistant::defaultTagKey] = QString::fromStdString(item_tags.defaultTag());
 
@@ -95,7 +101,8 @@ QJsonObject JsonItemTagsConverter::to_json(const SessionItemTags& item_tags) {
 //! + If SessionItemTags contains some tags already, they will be populated from JSON. in this
 //!   case it will be assumed, that existing item's tags are matching JSON.
 
-void JsonItemTagsConverter::from_json(const QJsonObject& json, SessionItemTags& item_tags) {
+void JsonItemTagsConverter::from_json(const QJsonObject& json, SessionItemTags& item_tags)
+{
     static JsonItemFormatAssistant assistant;
 
     if (!assistant.isSessionItemTags(json))

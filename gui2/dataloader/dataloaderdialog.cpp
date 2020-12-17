@@ -40,7 +40,8 @@ namespace {
 
 //! Wraps user method in try/catch and invoke it.
 //! Provides busy-sign while executing, and warning dialog on exception catch.
-template <typename T> void invoke_and_catch(T method) {
+template <typename T> void invoke_and_catch(T method)
+{
     QApplication::setOverrideCursor(Qt::WaitCursor);
     try {
         std::invoke(method);
@@ -60,18 +61,21 @@ template <typename T> void invoke_and_catch(T method) {
 const QString dialogsize_key = "dialogsize";
 const QString splittersize_key = "splittersize";
 
-const QString dialogsize_setting_name() {
+const QString dialogsize_setting_name()
+{
     return Constants::DataLoaderGroupKey + "/" + dialogsize_key;
 }
 
-const QString splittersize_setting_name() {
+const QString splittersize_setting_name()
+{
     return Constants::DataLoaderGroupKey + "/" + splittersize_key;
 }
 
 //! Returns string representing import summary: filename and columns used for import.
 
 std::string createImportDescription(const QString& file_name, const ColumnInfo& axis_info,
-                                    const ColumnInfo& intensity_info) {
+                                    const ColumnInfo& intensity_info)
+{
     std::ostringstream ostr;
     ostr << "file: '" << ModelView::Utils::WithTildeHomePath(file_name).toStdString() << "', ";
     ostr << "columns: (" << axis_info.column << ", " << intensity_info.column << ")";
@@ -86,7 +90,8 @@ DataLoaderDialog::DataLoaderDialog(QWidget* parent)
     , m_selectorPanel(new LoaderSelectorPanel)
     , m_previewPanel(new LoaderPreviewPanel)
     , m_splitter(new QSplitter)
-    , m_dataHandler(std::make_unique<DataHandler>()) {
+    , m_dataHandler(std::make_unique<DataHandler>())
+{
     m_splitter->setChildrenCollapsible(false);
     m_splitter->addWidget(m_selectorPanel);
     m_splitter->addWidget(m_previewPanel);
@@ -114,48 +119,56 @@ DataLoaderDialog::DataLoaderDialog(QWidget* parent)
     readSettings();
 }
 
-DataLoaderDialog::~DataLoaderDialog() {
+DataLoaderDialog::~DataLoaderDialog()
+{
     writeSettings();
 }
 
 //! Returns the result of whole parsing.
 
-std::vector<GraphImportData> DataLoaderDialog::graphImportData() const {
+std::vector<GraphImportData> DataLoaderDialog::graphImportData() const
+{
     return m_graphImportData;
 }
 
 //! Set list of target canvas to define entr where to import.
 
 void DataLoaderDialog::setTargetCanvas(const std::vector<std::string>& canvas_names,
-                                       int current_index) {
+                                       int current_index)
+{
     m_selectorPanel->setTargetCanvas(ModelView::Utils::toStringList(canvas_names), current_index);
 }
 
 //! Returns index of target canvas for graph import.
 
-int DataLoaderDialog::targetCanvasIndex() const {
+int DataLoaderDialog::targetCanvasIndex() const
+{
     return m_selectorPanel->targetCanvasIndex();
 }
 
 //! Invokes file selector dialog.
 
-void DataLoaderDialog::invokeFileSelectorDialog() {
+void DataLoaderDialog::invokeFileSelectorDialog()
+{
     m_selectorPanel->onAddFilesRequest();
 }
 
-QStringList DataLoaderDialog::fileNames() const {
+QStringList DataLoaderDialog::fileNames() const
+{
     return m_selectorPanel->fileNames();
 }
 
 //! Make dialog intact to enter-key to handle it by LoadSelectorPanel.
 
-void DataLoaderDialog::keyPressEvent(QKeyEvent* event) {
+void DataLoaderDialog::keyPressEvent(QKeyEvent* event)
+{
     if (event->key() == Qt::Key_Enter || event->key() == Qt::Key_Return)
         return;
     QDialog::keyPressEvent(event);
 }
 
-void DataLoaderDialog::accept() {
+void DataLoaderDialog::accept()
+{
     invoke_and_catch([this]() { onParseAllRequest(); });
 
     QDialog::accept();
@@ -164,7 +177,8 @@ void DataLoaderDialog::accept() {
 
 //! Loads ASCII data from all files in a list.
 
-void DataLoaderDialog::onLoadFilesRequest() {
+void DataLoaderDialog::onLoadFilesRequest()
+{
     auto update_raw_data = [this]() {
         m_dataHandler->updateRawData(
             ModelView::Utils::fromStringList(m_selectorPanel->fileNames()));
@@ -174,7 +188,8 @@ void DataLoaderDialog::onLoadFilesRequest() {
 
 //! Show content of selected file in text/table views.
 
-void DataLoaderDialog::onShowFilePreviewRequest() {
+void DataLoaderDialog::onShowFilePreviewRequest()
+{
     auto selected_files = m_selectorPanel->selectedFileNames();
     if (selected_files.empty()) {
         m_previewPanel->clearPanel();
@@ -192,7 +207,8 @@ void DataLoaderDialog::onShowFilePreviewRequest() {
 
 //! Parse all string data and generate graph data.
 
-void DataLoaderDialog::onParseAllRequest() {
+void DataLoaderDialog::onParseAllRequest()
+{
     m_graphImportData.clear();
 
     auto parser = m_selectorPanel->createParser();
@@ -213,7 +229,8 @@ void DataLoaderDialog::onParseAllRequest() {
 
 //! Reads dialog settings.
 
-void DataLoaderDialog::readSettings() {
+void DataLoaderDialog::readSettings()
+{
     QSettings settings;
 
     if (settings.contains(dialogsize_setting_name()))
@@ -232,7 +249,8 @@ void DataLoaderDialog::readSettings() {
 
 //! Writes dialog settings.
 
-void DataLoaderDialog::writeSettings() {
+void DataLoaderDialog::writeSettings()
+{
     QSettings settings;
     settings.setValue(dialogsize_setting_name(), size());
 
@@ -244,7 +262,8 @@ void DataLoaderDialog::writeSettings() {
 
 //! Init interconnections of all widgets.
 
-void DataLoaderDialog::initConnections() {
+void DataLoaderDialog::initConnections()
+{
     // connect toolbar and LoaderSelectorPanel
     connect(m_toolBar, &DataLoaderToolBar::addFilesRequest, m_selectorPanel,
             &LoaderSelectorPanel::onAddFilesRequest);

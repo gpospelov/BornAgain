@@ -3,9 +3,11 @@
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class GISASSimulationTest : public ::testing::Test {};
+class GISASSimulationTest : public ::testing::Test {
+};
 
-TEST_F(GISASSimulationTest, SimulationInitialState) {
+TEST_F(GISASSimulationTest, SimulationInitialState)
+{
     GISASSimulation simulation;
     EXPECT_EQ(nullptr, simulation.sample());
     EXPECT_EQ(0u, simulation.intensityMapSize());
@@ -13,7 +15,8 @@ TEST_F(GISASSimulationTest, SimulationInitialState) {
     EXPECT_EQ(1u, simulation.getChildren().size());
 }
 
-TEST_F(GISASSimulationTest, SimulationConstruction) {
+TEST_F(GISASSimulationTest, SimulationConstruction)
+{
     GISASSimulation simulation;
     simulation.setSample(MultiLayer());
     EXPECT_NE(nullptr, simulation.sample());
@@ -28,7 +31,8 @@ TEST_F(GISASSimulationTest, SimulationConstruction) {
     EXPECT_EQ(2u, simulation.getChildren().size());
 }
 
-TEST_F(GISASSimulationTest, SimulationClone1) {
+TEST_F(GISASSimulationTest, SimulationClone1)
+{
     GISASSimulation simulation;
     auto p_clone = simulation.clone();
     EXPECT_EQ(nullptr, p_clone->sample());
@@ -38,7 +42,8 @@ TEST_F(GISASSimulationTest, SimulationClone1) {
     delete p_clone;
 }
 
-TEST_F(GISASSimulationTest, SimulationClone2) {
+TEST_F(GISASSimulationTest, SimulationClone2)
+{
     GISASSimulation simulation;
     simulation.setSample(MultiLayer());
     simulation.setDetectorParameters(10, -2.0, 2.0, 20, 0.0, 2.0);

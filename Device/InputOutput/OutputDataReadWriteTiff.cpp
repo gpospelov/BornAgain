@@ -24,13 +24,17 @@ OutputDataReadWriteTiff::OutputDataReadWriteTiff()
     , m_height(0)
     , m_bitsPerSample(0)
     , m_samplesPerPixel(0)
-    , m_sampleFormat(0) {}
+    , m_sampleFormat(0)
+{
+}
 
-OutputDataReadWriteTiff::~OutputDataReadWriteTiff() {
+OutputDataReadWriteTiff::~OutputDataReadWriteTiff()
+{
     close();
 }
 
-void OutputDataReadWriteTiff::read(std::istream& input_stream) {
+void OutputDataReadWriteTiff::read(std::istream& input_stream)
+{
     m_tiff = TIFFStreamOpen("MemTIFF", &input_stream);
     if (!m_tiff)
         throw std::runtime_error("OutputDataReadWriteTiff::read() -> Can't open the file.");
@@ -40,13 +44,15 @@ void OutputDataReadWriteTiff::read(std::istream& input_stream) {
     close();
 }
 
-OutputData<double>* OutputDataReadWriteTiff::readOutputData(std::istream& input_stream) {
+OutputData<double>* OutputDataReadWriteTiff::readOutputData(std::istream& input_stream)
+{
     read(input_stream);
     return m_data->clone();
 }
 
 void OutputDataReadWriteTiff::writeOutputData(const OutputData<double>& data,
-                                              std::ostream& output_stream) {
+                                              std::ostream& output_stream)
+{
     m_data.reset(data.clone());
     if (m_data->rank() != 2)
         throw std::runtime_error("OutputDataReadWriteTiff::write -> Error. "
@@ -59,7 +65,8 @@ void OutputDataReadWriteTiff::writeOutputData(const OutputData<double>& data,
     close();
 }
 
-void OutputDataReadWriteTiff::read_header() {
+void OutputDataReadWriteTiff::read_header()
+{
     ASSERT(m_tiff);
     uint32 width(0);
     uint32 height(0);
@@ -115,7 +122,8 @@ void OutputDataReadWriteTiff::read_header() {
     }
 }
 
-void OutputDataReadWriteTiff::read_data() {
+void OutputDataReadWriteTiff::read_data()
+{
     ASSERT(m_tiff);
 
     ASSERT(0 == m_bitsPerSample % 8);
@@ -193,7 +201,8 @@ void OutputDataReadWriteTiff::read_data() {
     _TIFFfree(buf);
 }
 
-void OutputDataReadWriteTiff::write_header() {
+void OutputDataReadWriteTiff::write_header()
+{
     ASSERT(m_tiff);
     TIFFSetField(m_tiff, TIFFTAG_ARTIST, "BornAgain.IOFactory");
     TIFFSetField(m_tiff, TIFFTAG_DATETIME, SysUtils::getCurrentDateAndTime().c_str());
@@ -214,7 +223,8 @@ void OutputDataReadWriteTiff::write_header() {
     TIFFSetField(m_tiff, TIFFTAG_PHOTOMETRIC, PHOTOMETRIC_MINISWHITE);
 }
 
-void OutputDataReadWriteTiff::write_data() {
+void OutputDataReadWriteTiff::write_data()
+{
     typedef int sample_t;
     tmsize_t buf_size = sizeof(sample_t) * m_width;
     tdata_t buf = _TIFFmalloc(buf_size);
@@ -242,7 +252,8 @@ void OutputDataReadWriteTiff::write_data() {
     TIFFFlush(m_tiff);
 }
 
-void OutputDataReadWriteTiff::close() {
+void OutputDataReadWriteTiff::close()
+{
     if (m_tiff) {
         TIFFClose(m_tiff);
         m_tiff = nullptr;
@@ -251,7 +262,8 @@ void OutputDataReadWriteTiff::close() {
     }
 }
 
-void OutputDataReadWriteTiff::create_output_data() {
+void OutputDataReadWriteTiff::create_output_data()
+{
     ASSERT(m_tiff);
     m_data.reset(new OutputData<double>);
     m_data->addAxis("x", m_width, 0.0, double(m_width));

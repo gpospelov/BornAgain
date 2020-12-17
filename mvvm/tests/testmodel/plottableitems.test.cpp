@@ -30,14 +30,16 @@ PlottableItemsTest::~PlottableItemsTest() = default;
 
 //! Initial state.
 
-TEST_F(PlottableItemsTest, penItem_initialState) {
+TEST_F(PlottableItemsTest, penItem_initialState)
+{
     PenItem item;
     EXPECT_EQ(item.property<QColor>(PenItem::P_COLOR), QColor(Qt::black));
     EXPECT_EQ(item.property<int>(PenItem::P_WIDTH), 1);
     EXPECT_EQ(item.property<ComboProperty>(PenItem::P_STYLE).currentIndex(), Qt::SolidLine);
 }
 
-TEST_F(PlottableItemsTest, penItem_setSelected) {
+TEST_F(PlottableItemsTest, penItem_setSelected)
+{
     PenItem item;
 
     item.setSelected(true);
@@ -47,7 +49,8 @@ TEST_F(PlottableItemsTest, penItem_setSelected) {
     EXPECT_EQ(item.property<ComboProperty>(PenItem::P_STYLE).currentIndex(), Qt::SolidLine);
 }
 
-TEST_F(PlottableItemsTest, penItem_setNamedColor) {
+TEST_F(PlottableItemsTest, penItem_setNamedColor)
+{
     PenItem item;
     item.setNamedColor("mediumaquamarine");
     EXPECT_EQ(item.colorName(), std::string("#66cdaa"));

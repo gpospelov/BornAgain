@@ -26,14 +26,16 @@ public:
 
 JsonItemTypesTest::~JsonItemTypesTest() = default;
 
-TEST_F(JsonItemTypesTest, isRegenerateIdWhenBackFromJson) {
+TEST_F(JsonItemTypesTest, isRegenerateIdWhenBackFromJson)
+{
     EXPECT_FALSE(isRegenerateIdWhenBackFromJson(ConverterMode::none));
     EXPECT_FALSE(isRegenerateIdWhenBackFromJson(ConverterMode::clone));
     EXPECT_TRUE(isRegenerateIdWhenBackFromJson(ConverterMode::copy));
     EXPECT_FALSE(isRegenerateIdWhenBackFromJson(ConverterMode::project));
 }
 
-TEST_F(JsonItemTypesTest, isRebuildItemDataAndTagFromJson) {
+TEST_F(JsonItemTypesTest, isRebuildItemDataAndTagFromJson)
+{
     EXPECT_TRUE(isRebuildItemDataAndTagFromJson(ConverterMode::none));
     EXPECT_TRUE(isRebuildItemDataAndTagFromJson(ConverterMode::clone));
     EXPECT_TRUE(isRebuildItemDataAndTagFromJson(ConverterMode::copy));

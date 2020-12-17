@@ -17,7 +17,8 @@
 
 using namespace ModelView;
 
-std::unique_ptr<ItemCatalogue> ModelView::CreateStandardItemCatalogue() {
+std::unique_ptr<ItemCatalogue> ModelView::CreateStandardItemCatalogue()
+{
     auto result = std::make_unique<ItemCatalogue>();
     result->registerItem<ColorMapItem>();
     result->registerItem<ColorMapViewportItem>();

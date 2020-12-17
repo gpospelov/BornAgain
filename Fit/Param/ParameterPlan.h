@@ -28,7 +28,9 @@
 class ParameterPlan {
 public:
     ParameterPlan(const mumufit::Parameter& param, double expected_value, double tolerance = 0.01)
-        : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param) {}
+        : m_expected_value(expected_value), m_tolerance(tolerance), m_parameter(param)
+    {
+    }
 
     mumufit::Parameter fitParameter() const { return m_parameter; }
     double expectedValue() const { return m_expected_value; }

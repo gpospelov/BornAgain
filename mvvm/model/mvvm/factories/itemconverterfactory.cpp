@@ -23,7 +23,8 @@ namespace ModelView {
 //! including item's unique ID. Used for backup.
 
 std::unique_ptr<JsonItemConverterInterface>
-CreateItemCloneConverter(const ItemFactoryInterface* item_factory) {
+CreateItemCloneConverter(const ItemFactoryInterface* item_factory)
+{
     ConverterContext context{item_factory, ConverterMode::clone};
     return std::make_unique<JsonItemConverter>(context);
 }
@@ -33,7 +34,8 @@ CreateItemCloneConverter(const ItemFactoryInterface* item_factory) {
 //! to make it unique. Used for copying of item together with its children.
 
 std::unique_ptr<JsonItemConverterInterface>
-CreateItemCopyConverter(const ItemFactoryInterface* item_factory) {
+CreateItemCopyConverter(const ItemFactoryInterface* item_factory)
+{
     ConverterContext context{item_factory, ConverterMode::copy};
     return std::make_unique<JsonItemConverter>(context);
 }
@@ -48,7 +50,8 @@ CreateItemCopyConverter(const ItemFactoryInterface* item_factory) {
 //! + Property tags are updated, universal tags reconstructed.
 
 std::unique_ptr<JsonItemConverterInterface>
-CreateItemProjectConverter(const ItemFactoryInterface* item_factory) {
+CreateItemProjectConverter(const ItemFactoryInterface* item_factory)
+{
     ConverterContext context{item_factory, ConverterMode::project};
     return std::make_unique<JsonItemConverter>(context);
 }

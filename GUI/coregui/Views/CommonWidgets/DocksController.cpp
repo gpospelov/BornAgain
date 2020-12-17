@@ -29,7 +29,8 @@ const char dockWidgetActiveState[] = "DockWidgetActiveState";
 const char StateKey[] = "State";
 const int settingsVersion = 2;
 
-QString stripAccelerator(const QString& text) {
+QString stripAccelerator(const QString& text)
+{
     QString res = text;
     for (int index = res.indexOf('&'); index != -1; index = res.indexOf('&', index + 1))
         res.remove(index, 1);
@@ -39,7 +40,8 @@ QString stripAccelerator(const QString& text) {
 } // namespace
 
 DocksController::DocksController(QMainWindow* mainWindow)
-    : QObject(mainWindow), m_mainWindow(mainWindow) {
+    : QObject(mainWindow), m_mainWindow(mainWindow)
+{
     m_mainWindow->setDocumentMode(true);
     m_mainWindow->setTabPosition(Qt::AllDockWidgetAreas, QTabWidget::South);
     m_mainWindow->setCorner(Qt::BottomLeftCorner, Qt::LeftDockWidgetArea);
@@ -47,7 +49,8 @@ DocksController::DocksController(QMainWindow* mainWindow)
     m_mainWindow->installEventFilter(this);
 }
 
-QDockWidget* DocksController::addDockForWidget(QWidget* widget) {
+QDockWidget* DocksController::addDockForWidget(QWidget* widget)
+{
     auto dockWidget = new QDockWidget(m_mainWindow);
     dockWidget->setWidget(widget);
     dockWidget->setFeatures(QDockWidget::DockWidgetMovable | QDockWidget::DockWidgetClosable
@@ -74,7 +77,8 @@ QDockWidget* DocksController::addDockForWidget(QWidget* widget) {
     return dockWidget;
 }
 
-void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area) {
+void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area)
+{
     if (m_docks.find(id) != m_docks.end())
         throw GUIHelpers::Error("DocksController::addWidget() -> Error. "
                                 "Attempt to add widget id twice");
@@ -87,7 +91,8 @@ void DocksController::addWidget(int id, QWidget* widget, Qt::DockWidgetArea area
         frames[i]->setFrameStyle(QFrame::NoFrame);
 }
 
-void DocksController::resetLayout() {
+void DocksController::resetLayout()
+{
     setTrackingEnabled(false);
     for (auto dockWidget : dockWidgets()) {
         dockWidget->setFloating(false);
@@ -109,17 +114,20 @@ void DocksController::resetLayout() {
     setTrackingEnabled(true);
 }
 
-void DocksController::toggleDock(int id) {
+void DocksController::toggleDock(int id)
+{
     auto dock = findDock(id);
     dock->setHidden(!dock->isHidden());
 }
 
-QDockWidget* DocksController::findDock(int id) {
+QDockWidget* DocksController::findDock(int id)
+{
     ASSERT(m_docks.find(id) != m_docks.end());
     return m_docks[id].dock();
 }
 
-QDockWidget* DocksController::findDock(QWidget* widget) {
+QDockWidget* DocksController::findDock(QWidget* widget)
+{
     for (auto& it : m_docks)
         if (it.second.widget() == widget)
             return it.second.dock();
@@ -127,13 +135,15 @@ QDockWidget* DocksController::findDock(QWidget* widget) {
     throw GUIHelpers::Error("DocksController::findDock() -> Can't find dock for widget");
 }
 
-const QList<QDockWidget*> DocksController::dockWidgets() const {
+const QList<QDockWidget*> DocksController::dockWidgets() const
+{
     return m_mainWindow->findChildren<QDockWidget*>();
 }
 
 //! Show docks with id's from the list. Other docks will be hidden.
 
-void DocksController::setVisibleDocks(const std::vector<int>& visibleDocks) {
+void DocksController::setVisibleDocks(const std::vector<int>& visibleDocks)
+{
     for (auto& it : m_docks) {
         if (std::find(visibleDocks.begin(), visibleDocks.end(), it.first) != visibleDocks.end())
             it.second.dock()->show();
@@ -150,7 +160,8 @@ void DocksController::setVisibleDocks(const std::vector<int>& visibleDocks) {
 //! single timer shot) we return min/max sizes of QDockWidget back to re-enable splitters
 //! functionality.
 
-void DocksController::setDockHeightForWidget(int height) {
+void DocksController::setDockHeightForWidget(int height)
+{
     QWidget* widget = qobject_cast<QWidget*>(sender());
     ASSERT(widget);
     QDockWidget* dock = findDock(widget);
@@ -170,14 +181,16 @@ void DocksController::setDockHeightForWidget(int height) {
     QTimer::singleShot(1, this, &DocksController::dockToMinMaxSizes);
 }
 
-void DocksController::dockToMinMaxSizes() {
+void DocksController::dockToMinMaxSizes()
+{
     ASSERT(m_dock_info.m_dock);
     m_dock_info.m_dock->setMinimumSize(m_dock_info.m_min_size);
     m_dock_info.m_dock->setMaximumSize(m_dock_info.m_max_size);
     m_dock_info.m_dock = nullptr;
 }
 
-void DocksController::setTrackingEnabled(bool enabled) {
+void DocksController::setTrackingEnabled(bool enabled)
+{
     if (enabled) {
         m_handleDockVisibilityChanges = true;
         for (auto dockWidget : dockWidgets())
@@ -187,7 +200,8 @@ void DocksController::setTrackingEnabled(bool enabled) {
     }
 }
 
-void DocksController::handleWindowVisibilityChanged(bool visible) {
+void DocksController::handleWindowVisibilityChanged(bool visible)
+{
     m_handleDockVisibilityChanges = false;
     for (auto dockWidget : dockWidgets()) {
         if (dockWidget->isFloating()) {
@@ -198,7 +212,8 @@ void DocksController::handleWindowVisibilityChanged(bool visible) {
         m_handleDockVisibilityChanges = true;
 }
 
-bool DocksController::eventFilter(QObject* obj, QEvent* event) {
+bool DocksController::eventFilter(QObject* obj, QEvent* event)
+{
     if (event->type() == QEvent::Show)
         handleWindowVisibilityChanged(true);
     else if (event->type() == QEvent::Hide)
@@ -207,7 +222,8 @@ bool DocksController::eventFilter(QObject* obj, QEvent* event) {
     return QObject::eventFilter(obj, event);
 }
 
-void DocksController::addDockActionsToMenu(QMenu* menu) {
+void DocksController::addDockActionsToMenu(QMenu* menu)
+{
     QList<QAction*> actions;
     for (auto dockWidget : dockWidgets()) {
         if (dockWidget->property("managed_dockwidget").isNull()
@@ -226,7 +242,8 @@ void DocksController::addDockActionsToMenu(QMenu* menu) {
         menu->addAction(action);
 }
 
-void DocksController::saveSettings(QSettings* settings) const {
+void DocksController::saveSettings(QSettings* settings) const
+{
     QHash<QString, QVariant> hash = saveSettings();
     QHashIterator<QString, QVariant> it(hash);
     while (it.hasNext()) {
@@ -235,13 +252,17 @@ void DocksController::saveSettings(QSettings* settings) const {
     }
 }
 
-void DocksController::restoreSettings(const QSettings* settings) {
+void DocksController::restoreSettings(const QSettings* settings)
+{
     QHash<QString, QVariant> hash;
-    foreach (const QString& key, settings->childKeys()) { hash.insert(key, settings->value(key)); }
+    foreach (const QString& key, settings->childKeys()) {
+        hash.insert(key, settings->value(key));
+    }
     restoreSettings(hash);
 }
 
-QHash<QString, QVariant> DocksController::saveSettings() const {
+QHash<QString, QVariant> DocksController::saveSettings() const
+{
     QHash<QString, QVariant> settings;
     settings.insert(QLatin1String(StateKey), m_mainWindow->saveState(settingsVersion));
     for (auto dockWidget : dockWidgets()) {
@@ -250,7 +271,8 @@ QHash<QString, QVariant> DocksController::saveSettings() const {
     return settings;
 }
 
-void DocksController::restoreSettings(const QHash<QString, QVariant>& settings) {
+void DocksController::restoreSettings(const QHash<QString, QVariant>& settings)
+{
     QByteArray ba = settings.value(QLatin1String(StateKey), QByteArray()).toByteArray();
     if (!ba.isEmpty())
         m_mainWindow->restoreState(ba, settingsVersion);

@@ -32,7 +32,8 @@ SessionItemTagsTest::~SessionItemTagsTest() = default;
 
 //! Initial state of emty SessionItemTags.
 
-TEST_F(SessionItemTagsTest, initialState) {
+TEST_F(SessionItemTagsTest, initialState)
+{
     const std::string name("tag");
     SessionItemTags tag;
     EXPECT_EQ(tag.defaultTag(), "");
@@ -44,7 +45,8 @@ TEST_F(SessionItemTagsTest, initialState) {
 
 //! Registering tags.
 
-TEST_F(SessionItemTagsTest, registerTag) {
+TEST_F(SessionItemTagsTest, registerTag)
+{
     const std::string name("tag");
     SessionItemTags tag;
 
@@ -64,7 +66,8 @@ TEST_F(SessionItemTagsTest, registerTag) {
 
 //! Insert item.
 
-TEST_F(SessionItemTagsTest, insertItem) {
+TEST_F(SessionItemTagsTest, insertItem)
+{
     const std::string tag1 = "tag1";
     const std::string tag2 = "tag2";
 
@@ -105,7 +108,8 @@ TEST_F(SessionItemTagsTest, insertItem) {
 
 //! Testing method tagRowOfItem.
 
-TEST_F(SessionItemTagsTest, tagRowOfItem) {
+TEST_F(SessionItemTagsTest, tagRowOfItem)
+{
     const std::string tag1 = "tag1";
     const std::string tag2 = "tag2";
 
@@ -142,7 +146,8 @@ TEST_F(SessionItemTagsTest, tagRowOfItem) {
 
 //! Testing method getItem.
 
-TEST_F(SessionItemTagsTest, getItem) {
+TEST_F(SessionItemTagsTest, getItem)
+{
     const std::string tag1 = "tag1";
     const std::string tag2 = "tag2";
 
@@ -167,7 +172,8 @@ TEST_F(SessionItemTagsTest, getItem) {
 
 //! Testing method getItem.
 
-TEST_F(SessionItemTagsTest, takeItem) {
+TEST_F(SessionItemTagsTest, takeItem)
+{
     const std::string tag1 = "tag1";
     const std::string tag2 = "tag2";
     const std::string model_type("model");
@@ -208,7 +214,8 @@ TEST_F(SessionItemTagsTest, takeItem) {
 
 //! Testing isSinglePropertyTag.
 
-TEST_F(SessionItemTagsTest, isSinglePropertyTag) {
+TEST_F(SessionItemTagsTest, isSinglePropertyTag)
+{
     SessionItemTags tag;
     tag.registerTag(TagInfo::universalTag("universal"), /*set_as_default*/ true);
     EXPECT_FALSE(tag.isSinglePropertyTag("universal"));

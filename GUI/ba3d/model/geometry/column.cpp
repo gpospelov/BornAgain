@@ -18,7 +18,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides) {
+Geometry::Mesh Geometry::meshColumn(float ratio_Rt_Rb, float numSides)
+{
     int const sides = qRound(numSides);
     bool const smooth = (0 == sides); // sides = 0 implies smooth -> e.g. cylinder
     int const slices = smooth ? SLICES : sides;

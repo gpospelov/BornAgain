@@ -16,12 +16,16 @@
 #include "Base/Math/Functions.h"
 
 PoissonNoiseBackground::PoissonNoiseBackground()
-    : IBackground({"PoissonNoiseBackground", "class_tooltip", {}}, {}) {}
+    : IBackground({"PoissonNoiseBackground", "class_tooltip", {}}, {})
+{
+}
 
-PoissonNoiseBackground* PoissonNoiseBackground::clone() const {
+PoissonNoiseBackground* PoissonNoiseBackground::clone() const
+{
     return new PoissonNoiseBackground;
 }
 
-double PoissonNoiseBackground::addBackground(double intensity) const {
+double PoissonNoiseBackground::addBackground(double intensity) const
+{
     return Math::GeneratePoissonRandom(intensity);
 }

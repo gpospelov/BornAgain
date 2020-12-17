@@ -2,9 +2,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <string>
 
-class MultiOptionTest : public ::testing::Test {};
+class MultiOptionTest : public ::testing::Test {
+};
 
-TEST_F(MultiOptionTest, Variant) {
+TEST_F(MultiOptionTest, Variant)
+{
     MultiOption::variant_t v1(1);
 
     EXPECT_EQ(0, v1.which());
@@ -23,7 +25,8 @@ TEST_F(MultiOptionTest, Variant) {
     EXPECT_EQ(text, boost::get<std::string>(v1));
 }
 
-TEST_F(MultiOptionTest, Construction) {
+TEST_F(MultiOptionTest, Construction)
+{
     const std::string name("name");
     const std::string description("description");
     const double double_value(2.0);
@@ -41,7 +44,8 @@ TEST_F(MultiOptionTest, Construction) {
     EXPECT_EQ(double_value, opt.getDefault<double>());
 }
 
-TEST_F(MultiOptionTest, Copying) {
+TEST_F(MultiOptionTest, Copying)
+{
     const std::string name("name");
     const std::string description("description");
     const double double_value(2.0);
@@ -54,7 +58,8 @@ TEST_F(MultiOptionTest, Copying) {
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }
 
-TEST_F(MultiOptionTest, Assignment) {
+TEST_F(MultiOptionTest, Assignment)
+{
     const std::string name("name");
     const std::string description("description");
     const double double_value(2.0);
@@ -72,7 +77,8 @@ TEST_F(MultiOptionTest, Assignment) {
     EXPECT_EQ(double_value, copy.getDefault<double>());
 }
 
-TEST_F(MultiOptionTest, SetFromString) {
+TEST_F(MultiOptionTest, SetFromString)
+{
     MultiOption opt("name", 2.0);
     opt.setFromString("2.1");
     EXPECT_EQ(2.1, opt.get<double>());

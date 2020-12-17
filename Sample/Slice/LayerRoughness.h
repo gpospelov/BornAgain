@@ -30,7 +30,8 @@ public:
     LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength);
     LayerRoughness();
 
-    LayerRoughness* clone() const {
+    LayerRoughness* clone() const
+    {
         return new LayerRoughness(m_sigma, m_hurstParameter, m_lateralCorrLength);
     }
     virtual void accept(INodeVisitor* visitor) const { visitor->visit(this); }
@@ -51,7 +52,8 @@ public:
     double getHurstParameter() const { return m_hurstParameter; }
 
     //! Sets lateral correlation length
-    void setLatteralCorrLength(double lateralCorrLength) {
+    void setLatteralCorrLength(double lateralCorrLength)
+    {
         m_lateralCorrLength = lateralCorrLength;
     }
     //! Returns lateral correlation length

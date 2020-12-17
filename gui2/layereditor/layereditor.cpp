@@ -27,7 +27,8 @@ LayerEditor::LayerEditor(QWidget* parent)
     : QWidget(parent)
     , m_actions(new LayerEditorActions(this))
     , m_editorWidget(new LayerEditorWidget(this))
-    , m_toolBar(new LayerEditorToolBar(m_actions)) {
+    , m_toolBar(new LayerEditorToolBar(m_actions))
+{
     setWindowTitle("Layer editor");
     auto layout = new QVBoxLayout;
     layout->addWidget(m_toolBar);
@@ -38,7 +39,8 @@ LayerEditor::LayerEditor(QWidget* parent)
 }
 
 //! Set the mododel for the different items
-void LayerEditor::setModels(ApplicationModels* models) {
+void LayerEditor::setModels(ApplicationModels* models)
+{
     m_actions->setModel(models->sampleModel());
     m_editorWidget->setModels(models);
 
@@ -48,15 +50,18 @@ void LayerEditor::setModels(ApplicationModels* models) {
     m_actions->setSelectionModel(m_editorWidget->selectionModel());
 }
 
-QSize LayerEditor::sizeHint() const {
+QSize LayerEditor::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize LayerEditor::minimumSizeHint() const {
+QSize LayerEditor::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 
-void LayerEditor::selectionChanged() {
+void LayerEditor::selectionChanged()
+{
     dynamic_cast<LayerEditorToolBar*>(m_toolBar)->updateToolButtonStates(
         m_editorWidget->selectionModel()->firstSelected(),
         m_editorWidget->selectionModel()->lastSelected());

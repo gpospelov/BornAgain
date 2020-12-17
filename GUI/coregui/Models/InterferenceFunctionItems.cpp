@@ -33,14 +33,16 @@ const QString InterferenceFunctionItem::P_POSITION_VARIANCE =
     QString::fromStdString("PositionVariance");
 
 InterferenceFunctionItem::InterferenceFunctionItem(const QString& modelType)
-    : SessionGraphicsItem(modelType) {
+    : SessionGraphicsItem(modelType)
+{
     addProperty(P_POSITION_VARIANCE, 0.0)
         ->setToolTip("Variance of the position in each dimension (nm^2)");
 }
 
 InterferenceFunctionItem::~InterferenceFunctionItem() = default;
 
-void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff) const {
+void InterferenceFunctionItem::setPositionVariance(IInterferenceFunction* p_iff) const
+{
     p_iff->setPositionVariance(getItemValue(P_POSITION_VARIANCE).toDouble());
 }
 
@@ -51,7 +53,8 @@ const QString InterferenceFunction1DLatticeItem::P_ROTATION_ANGLE = QString::fro
 const QString InterferenceFunction1DLatticeItem::P_DECAY_FUNCTION = decay_function_tag;
 
 InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
-    : InterferenceFunctionItem("Interference1DLattice") {
+    : InterferenceFunctionItem("Interference1DLattice")
+{
     setToolTip("Interference function of a 1D lattice");
     addProperty(P_LENGTH, 20.0 * Units::nm)->setToolTip("Lattice length in nanometers");
     addProperty(P_ROTATION_ANGLE, 0.0)
@@ -62,7 +65,8 @@ InterferenceFunction1DLatticeItem::InterferenceFunction1DLatticeItem()
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunction1DLatticeItem::createInterferenceFunction() const {
+InterferenceFunction1DLatticeItem::createInterferenceFunction() const
+{
     auto result = std::make_unique<InterferenceFunction1DLattice>(
         getItemValue(P_LENGTH).toDouble(),
         Units::deg2rad(getItemValue(P_ROTATION_ANGLE).toDouble()));
@@ -80,7 +84,8 @@ const QString InterferenceFunction2DLatticeItem::P_DECAY_FUNCTION = decay_functi
 const QString InterferenceFunction2DLatticeItem::P_XI_INTEGRATION = "Integration_over_xi";
 
 InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
-    : InterferenceFunctionItem("Interference2DLattice") {
+    : InterferenceFunctionItem("Interference2DLattice")
+{
     setToolTip("Interference function of a 2D lattice");
     addGroupProperty(P_LATTICE_TYPE, "Lattice group")->setToolTip("Type of lattice");
     addGroupProperty(P_DECAY_FUNCTION, "Decay function 2D")
@@ -102,7 +107,8 @@ InterferenceFunction2DLatticeItem::InterferenceFunction2DLatticeItem()
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunction2DLatticeItem::createInterferenceFunction() const {
+InterferenceFunction2DLatticeItem::createInterferenceFunction() const
+{
     auto& latticeItem = groupItem<Lattice2DItem>(P_LATTICE_TYPE);
     std::unique_ptr<InterferenceFunction2DLattice> result(
         new InterferenceFunction2DLattice(*latticeItem.createLattice()));
@@ -115,7 +121,8 @@ InterferenceFunction2DLatticeItem::createInterferenceFunction() const {
     return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
-void InterferenceFunction2DLatticeItem::update_rotation_availability() {
+void InterferenceFunction2DLatticeItem::update_rotation_availability()
+{
     auto p_lattice_item = getGroupItem(P_LATTICE_TYPE);
     if (p_lattice_item) {
         auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
@@ -136,7 +143,8 @@ const QString InterferenceFunction2DParaCrystalItem::P_PDF1 = "PDF #1";
 const QString InterferenceFunction2DParaCrystalItem::P_PDF2 = "PDF #2";
 
 InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
-    : InterferenceFunctionItem("Interference2DParaCrystal") {
+    : InterferenceFunctionItem("Interference2DParaCrystal")
+{
     setToolTip("Interference function of a two-dimensional paracrystal");
 
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, "Lattice group")
@@ -179,7 +187,8 @@ InterferenceFunction2DParaCrystalItem::InterferenceFunction2DParaCrystalItem()
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const {
+InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const
+{
     auto& latticeItem = groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
 
     std::unique_ptr<InterferenceFunction2DParaCrystal> result(
@@ -201,7 +210,8 @@ InterferenceFunction2DParaCrystalItem::createInterferenceFunction() const {
 
 //! Sets rotation property of the lattice enabled/disabled depending on integration flag.
 
-void InterferenceFunction2DParaCrystalItem::update_rotation_availability() {
+void InterferenceFunction2DParaCrystalItem::update_rotation_availability()
+{
     auto p_lattice_item = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
     if (p_lattice_item) {
         auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
@@ -209,7 +219,8 @@ void InterferenceFunction2DParaCrystalItem::update_rotation_availability() {
     }
 }
 
-void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames() {
+void InterferenceFunction2DParaCrystalItem::update_distribution_displaynames()
+{
     GroupItem* group1 = dynamic_cast<GroupItem*>(getItem(P_PDF1));
     GroupItem* group2 = dynamic_cast<GroupItem*>(getItem(P_PDF2));
 
@@ -237,7 +248,8 @@ const QString InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_1 = "Domain
 const QString InterferenceFunctionFinite2DLatticeItem::P_DOMAIN_SIZE_2 = "Domain_size_2";
 
 InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem()
-    : InterferenceFunctionItem("InterferenceFinite2DLattice") {
+    : InterferenceFunctionItem("InterferenceFinite2DLattice")
+{
     setToolTip("Interference function of a finite 2D lattice");
     addGroupProperty(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE, "Lattice group")
         ->setToolTip("Type of lattice");
@@ -260,7 +272,8 @@ InterferenceFunctionFinite2DLatticeItem::InterferenceFunctionFinite2DLatticeItem
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const {
+InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const
+{
     auto& latticeItem = groupItem<Lattice2DItem>(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
     auto size_1 = getItemValue(P_DOMAIN_SIZE_1).toUInt();
     auto size_2 = getItemValue(P_DOMAIN_SIZE_2).toUInt();
@@ -273,7 +286,8 @@ InterferenceFunctionFinite2DLatticeItem::createInterferenceFunction() const {
     return std::unique_ptr<IInterferenceFunction>(result.release());
 }
 
-void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability() {
+void InterferenceFunctionFinite2DLatticeItem::update_rotation_availability()
+{
     auto p_lattice_item = getGroupItem(InterferenceFunction2DLatticeItem::P_LATTICE_TYPE);
     if (p_lattice_item) {
         auto angle_item = p_lattice_item->getItem(Lattice2DItem::P_LATTICE_ROTATION_ANGLE);
@@ -288,14 +302,16 @@ const QString InterferenceFunctionHardDiskItem::P_DENSITY =
     QString::fromStdString("TotalParticleDensity");
 
 InterferenceFunctionHardDiskItem::InterferenceFunctionHardDiskItem()
-    : InterferenceFunctionItem("InterferenceHardDisk") {
+    : InterferenceFunctionItem("InterferenceHardDisk")
+{
     setToolTip("Interference function for hard disk Percus-Yevick");
     addProperty(P_RADIUS, 5.0 * Units::nm)->setToolTip("Hard disk radius in nanometers");
     addProperty(P_DENSITY, 0.002)->setToolTip("Particle density in particles per square nanometer");
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunctionHardDiskItem::createInterferenceFunction() const {
+InterferenceFunctionHardDiskItem::createInterferenceFunction() const
+{
     auto result = std::make_unique<InterferenceFunctionHardDisk>(
         getItemValue(P_RADIUS).toDouble(), getItemValue(P_DENSITY).toDouble());
     setPositionVariance(result.get());
@@ -315,7 +331,8 @@ const QString InterferenceFunctionRadialParaCrystalItem::P_KAPPA =
 const QString InterferenceFunctionRadialParaCrystalItem::P_PDF = "PDF";
 
 InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystalItem()
-    : InterferenceFunctionItem("InterferenceRadialParaCrystal") {
+    : InterferenceFunctionItem("InterferenceRadialParaCrystal")
+{
     setToolTip("Interference function of a radial paracrystal");
     addProperty(P_PEAK_DISTANCE, 20.0 * Units::nm)
         ->setToolTip("Average distance to the next neighbor in nanometers");
@@ -332,7 +349,8 @@ InterferenceFunctionRadialParaCrystalItem::InterferenceFunctionRadialParaCrystal
 }
 
 std::unique_ptr<IInterferenceFunction>
-InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const {
+InterferenceFunctionRadialParaCrystalItem::createInterferenceFunction() const
+{
     auto result = std::make_unique<InterferenceFunctionRadialParaCrystal>(
         getItemValue(P_PEAK_DISTANCE).toDouble(), getItemValue(P_DAMPING_LENGTH).toDouble());
     result->setDomainSize(getItemValue(P_DOMAIN_SIZE).toDouble());

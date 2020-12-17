@@ -34,12 +34,14 @@ ViewModelControllerBuilderTest::~ViewModelControllerBuilderTest() = default;
 //! Initial state of the builder.
 //! It can't build anything without configuration.
 
-TEST_F(ViewModelControllerBuilderTest, initialState) {
+TEST_F(ViewModelControllerBuilderTest, initialState)
+{
     EXPECT_THROW(std::unique_ptr<ViewModelController> controller = ViewModelControllerBuilder(),
                  std::runtime_error);
 }
 
-TEST_F(ViewModelControllerBuilderTest, allItemsControllerBuild) {
+TEST_F(ViewModelControllerBuilderTest, allItemsControllerBuild)
+{
     SessionModel session_model;
     ViewModelBase view_model;
 

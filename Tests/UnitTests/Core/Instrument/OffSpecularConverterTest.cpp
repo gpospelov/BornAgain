@@ -17,9 +17,12 @@ protected:
 OffSpecularConverterTest::OffSpecularConverterTest()
     : m_detector(100, 0.0, 5.0 * Units::deg, 70, -2.0 * Units::deg, 1.5)
     , m_alpha_i_axis("alpha_i", 51, 0.0, 7.0 * Units::deg)
-    , m_beam(1.0, 1.0, {1.0 * Units::deg, 0.0}) {}
+    , m_beam(1.0, 1.0, {1.0 * Units::deg, 0.0})
+{
+}
 
-TEST_F(OffSpecularConverterTest, OffSpecularConverter) {
+TEST_F(OffSpecularConverterTest, OffSpecularConverter)
+{
     OffSpecularConverter converter(m_detector, m_beam, m_alpha_i_axis);
 
     EXPECT_EQ(converter.dimension(), 2u);
@@ -71,7 +74,8 @@ TEST_F(OffSpecularConverterTest, OffSpecularConverter) {
     EXPECT_THROW(converter.createConvertedAxis(1, Axes::Units::QSPACE), std::runtime_error);
 }
 
-TEST_F(OffSpecularConverterTest, OffSpecularConverterClone) {
+TEST_F(OffSpecularConverterTest, OffSpecularConverterClone)
+{
     OffSpecularConverter converter(m_detector, m_beam, m_alpha_i_axis);
     std::unique_ptr<OffSpecularConverter> P_clone(converter.clone());
 

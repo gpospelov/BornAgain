@@ -31,7 +31,8 @@ namespace Utils {
 
 //! Returns all top level items of given type.
 
-template <typename T = SessionItem> std::vector<T*> TopItems(const SessionModel* model) {
+template <typename T = SessionItem> std::vector<T*> TopItems(const SessionModel* model)
+{
     std::vector<T*> result;
     for (auto child : model->rootItem()->children()) {
         if (auto item = dynamic_cast<T*>(child); item)
@@ -43,14 +44,16 @@ template <typename T = SessionItem> std::vector<T*> TopItems(const SessionModel*
 
 //! Returns top level item of given type.
 
-template <typename T = SessionItem> T* TopItem(const SessionModel* model) {
+template <typename T = SessionItem> T* TopItem(const SessionModel* model)
+{
     auto items = TopItems<T>(model);
     return items.empty() ? nullptr : items.front();
 }
 
 //! Returns all items in a tree of given type.
 
-template <typename T = SessionItem> std::vector<T*> FindItems(const SessionModel* model) {
+template <typename T = SessionItem> std::vector<T*> FindItems(const SessionModel* model)
+{
     std::vector<T*> result;
 
     auto func = [&result](SessionItem* item) {
@@ -75,7 +78,8 @@ MVVM_MODEL_EXPORT void PopulateEmptyModel(const JsonModelConverterInterface* con
                                           const SessionModel& source, SessionModel& target);
 
 //! Creates full deep copy of given model. All item's ID will be generated.
-template <typename T = SessionModel> std::unique_ptr<T> CreateCopy(const T& model) {
+template <typename T = SessionModel> std::unique_ptr<T> CreateCopy(const T& model)
+{
     auto result = std::make_unique<T>();
     auto converter = CreateModelCopyConverter();
     PopulateEmptyModel(converter.get(), model, *result.get());
@@ -83,7 +87,8 @@ template <typename T = SessionModel> std::unique_ptr<T> CreateCopy(const T& mode
 }
 
 //! Creates exact clone of given model. All item's ID will be preserved.
-template <typename T = SessionModel> std::unique_ptr<T> CreateClone(const T& model) {
+template <typename T = SessionModel> std::unique_ptr<T> CreateClone(const T& model)
+{
     auto result = std::make_unique<T>();
     auto converter = CreateModelCloneConverter();
     PopulateEmptyModel(converter.get(), model, *result.get());

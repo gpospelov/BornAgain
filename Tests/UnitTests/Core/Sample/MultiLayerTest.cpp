@@ -20,8 +20,11 @@ protected:
         , topLayer(air, 0 * Units::nm)
         , layer1(iron, 20 * Units::nm)
         , layer2(chromium, 40 * Units::nm)
-        , substrate(stone, 0 * Units::nm) {}
-    void set_four() {
+        , substrate(stone, 0 * Units::nm)
+    {
+    }
+    void set_four()
+    {
         mLayer.addLayer(topLayer);
         mLayer.addLayer(layer1);
         mLayer.addLayer(layer2);
@@ -33,7 +36,8 @@ protected:
     Layer topLayer, layer1, layer2, substrate;
 };
 
-TEST_F(MultiLayerTest, BasicProperty) {
+TEST_F(MultiLayerTest, BasicProperty)
+{
     // check default properties
     EXPECT_EQ(0.0, mLayer.crossCorrLength());
     EXPECT_EQ(size_t(0), mLayer.numberOfLayers());
@@ -52,7 +56,8 @@ TEST_F(MultiLayerTest, BasicProperty) {
     EXPECT_EQ(size_t(4), mLayer.numberOfLayers());
 }
 
-TEST_F(MultiLayerTest, LayerThicknesses) {
+TEST_F(MultiLayerTest, LayerThicknesses)
+{
     set_four();
 
     // check layer thickness
@@ -62,7 +67,8 @@ TEST_F(MultiLayerTest, LayerThicknesses) {
     EXPECT_EQ(mLayer.layer(3)->thickness(), 0);
 }
 
-TEST_F(MultiLayerTest, CheckAllLayers) {
+TEST_F(MultiLayerTest, CheckAllLayers)
+{
     set_four();
 
     // check individual layer
@@ -79,7 +85,8 @@ TEST_F(MultiLayerTest, CheckAllLayers) {
     EXPECT_EQ(0, got3->thickness());
 }
 
-TEST_F(MultiLayerTest, LayerInterfaces) {
+TEST_F(MultiLayerTest, LayerInterfaces)
+{
     set_four();
 
     // check interfaces
@@ -96,7 +103,8 @@ TEST_F(MultiLayerTest, LayerInterfaces) {
     EXPECT_EQ(nullptr, interface2->getRoughness());
 }
 
-TEST_F(MultiLayerTest, Clone) {
+TEST_F(MultiLayerTest, Clone)
+{
     set_four();
 
     MultiLayer* mLayerClone = mLayer.clone();
@@ -127,7 +135,8 @@ TEST_F(MultiLayerTest, Clone) {
     delete mLayerClone;
 }
 
-TEST_F(MultiLayerTest, WithRoughness) {
+TEST_F(MultiLayerTest, WithRoughness)
+{
     // LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength);
     LayerRoughness lr(1.1, -7.3, 0.1);
     mLayer.addLayer(topLayer);
@@ -148,7 +157,8 @@ TEST_F(MultiLayerTest, WithRoughness) {
     EXPECT_EQ(0.1, roughness0->getLatteralCorrLength());
 }
 
-TEST_F(MultiLayerTest, CloneWithRoughness) {
+TEST_F(MultiLayerTest, CloneWithRoughness)
+{
     LayerRoughness lr0(-2.1, 7.3, 12.1);
     LayerRoughness lr1(1.1, -7.3, 0.1);
 
@@ -177,7 +187,8 @@ TEST_F(MultiLayerTest, CloneWithRoughness) {
     delete mLayerClone;
 }
 
-TEST_F(MultiLayerTest, MultiLayerCompositeTest) {
+TEST_F(MultiLayerTest, MultiLayerCompositeTest)
+{
     MultiLayer mLayer;
     kvector_t magnetic_field(0.0, 0.0, 0.0);
     Material magMaterial0 = HomogeneousMaterial("MagMat0", 6e-4, 2e-8, magnetic_field);

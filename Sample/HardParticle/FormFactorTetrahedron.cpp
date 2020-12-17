@@ -33,15 +33,19 @@ FormFactorTetrahedron::FormFactorTetrahedron(const std::vector<double> P)
         P)
     , m_base_edge(m_P[0])
     , m_height(m_P[1])
-    , m_alpha(m_P[2]) {
+    , m_alpha(m_P[2])
+{
     onChange();
 }
 
 FormFactorTetrahedron::FormFactorTetrahedron(double base_edge, double height, double alpha)
-    : FormFactorTetrahedron(std::vector<double>{base_edge, height, alpha}) {}
+    : FormFactorTetrahedron(std::vector<double>{base_edge, height, alpha})
+{
+}
 
 IFormFactor* FormFactorTetrahedron::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                    kvector_t translation) const {
+                                                    kvector_t translation) const
+{
     auto effects = computeSlicingEffects(limits, translation, m_height);
     double dbase_edge = 2 * sqrt(3) * effects.dz_bottom * Math::cot(m_alpha);
     FormFactorTetrahedron slicedff(m_base_edge - dbase_edge,
@@ -49,7 +53,8 @@ IFormFactor* FormFactorTetrahedron::sliceFormFactor(ZLimits limits, const IRotat
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorTetrahedron::onChange() {
+void FormFactorTetrahedron::onChange()
+{
     double cot_alpha = Math::cot(m_alpha);
     if (!std::isfinite(cot_alpha) || cot_alpha < 0)
         throw std::runtime_error("pyramid angle alpha out of bounds");

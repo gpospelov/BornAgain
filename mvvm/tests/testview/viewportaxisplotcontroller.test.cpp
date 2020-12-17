@@ -31,12 +31,14 @@ class ViewportAxisPlotControllerTest : public ::testing::Test {
 public:
     ~ViewportAxisPlotControllerTest();
 
-    std::unique_ptr<QSignalSpy> createSpy(QCPAxis* axis) {
+    std::unique_ptr<QSignalSpy> createSpy(QCPAxis* axis)
+    {
         return std::make_unique<QSignalSpy>(
             axis, static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged));
     }
 
-    std::unique_ptr<QSignalSpy> createSpy2(QCPAxis* axis) {
+    std::unique_ptr<QSignalSpy> createSpy2(QCPAxis* axis)
+    {
         return std::make_unique<QSignalSpy>(
             axis, static_cast<void (QCPAxis::*)(const QCPRange&, const QCPRange&)>(
                       &QCPAxis::rangeChanged));
@@ -47,7 +49,8 @@ ViewportAxisPlotControllerTest::~ViewportAxisPlotControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(ViewportAxisPlotControllerTest, initialState) {
+TEST_F(ViewportAxisPlotControllerTest, initialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     auto axis = custom_plot->xAxis;
@@ -77,7 +80,8 @@ TEST_F(ViewportAxisPlotControllerTest, initialState) {
 //! Controller subscribed to ViewportAxisItem.
 //! Checking that QCPAxis get same parameters as in AxisItem.
 
-TEST_F(ViewportAxisPlotControllerTest, setViewportAxisItem) {
+TEST_F(ViewportAxisPlotControllerTest, setViewportAxisItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     const double expected_min = 1.0;
     const double expected_max = 2.0;
@@ -111,7 +115,8 @@ TEST_F(ViewportAxisPlotControllerTest, setViewportAxisItem) {
 //! Controller subscribed to ViewportAxisItem.
 //! Change QCPAxis and check that ViewportAxisItem got new values.
 
-TEST_F(ViewportAxisPlotControllerTest, changeQCPAxis) {
+TEST_F(ViewportAxisPlotControllerTest, changeQCPAxis)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -146,7 +151,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeQCPAxis) {
 //! Controller subscribed to ViewportAxisItem.
 //! Change ViewportAxisItem and check that QCPAxis got new values.
 
-TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItem) {
+TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -178,7 +184,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItem) {
 //! Change ViewportAxisItem and check that QCPAxis got new values.
 //! Check correctness of signals issued by QCPAxisItem.
 
-TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemSignaling) {
+TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemSignaling)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -228,7 +235,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemSignaling) {
 //! Change ViewportAxisItem and check that QCPAxis got new values.
 //! Check correctness that there is not extra looping and item doesn't start changing many times
 
-TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemMapping) {
+TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemMapping)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -258,7 +266,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemMapping) {
 
 //! Set ViewportAxisItem logz, subscribe controller and check that QCPAxis has it.
 
-TEST_F(ViewportAxisPlotControllerTest, viewportLogz) {
+TEST_F(ViewportAxisPlotControllerTest, viewportLogz)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -278,7 +287,8 @@ TEST_F(ViewportAxisPlotControllerTest, viewportLogz) {
 //! Controller subscribed to ViewportAxisItem.
 //! Change ViewportAxisItem logz and check that QCPAxis got new values.
 
-TEST_F(ViewportAxisPlotControllerTest, changeViewportLogz) {
+TEST_F(ViewportAxisPlotControllerTest, changeViewportLogz)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -304,7 +314,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeViewportLogz) {
 //! Change ViewportAxisItem and check that QCPAxis got new values.
 //! Same test as before, only QCPAxis y-axis checked.
 
-TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemYCase) {
+TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemYCase)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -334,7 +345,8 @@ TEST_F(ViewportAxisPlotControllerTest, changeViewportAxisItemYCase) {
 
 //! Model with two AxisItem's. Controller first is subscribed to one item, then to another.
 
-TEST_F(ViewportAxisPlotControllerTest, oneControllerTwoAxisItems) {
+TEST_F(ViewportAxisPlotControllerTest, oneControllerTwoAxisItems)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem
@@ -399,7 +411,8 @@ TEST_F(ViewportAxisPlotControllerTest, oneControllerTwoAxisItems) {
 //! Controller subscribed to ViewportAxisItem.
 //! Change ViewportAxisItem title and check that QCPAxis got new values.
 
-TEST_F(ViewportAxisPlotControllerTest, changeAxisTitle) {
+TEST_F(ViewportAxisPlotControllerTest, changeAxisTitle)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
 
     // creating the model with single ViewportAxisItem

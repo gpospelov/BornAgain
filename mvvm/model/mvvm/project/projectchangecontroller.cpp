@@ -25,11 +25,13 @@ struct ProjectChangedController::ProjectChangedControllerImpl {
     bool m_project_has_changed{false};
 
     ProjectChangedControllerImpl(const std::vector<SessionModel*>& models, callback_t callback)
-        : m_models(models), m_project_changed_callback(callback) {
+        : m_models(models), m_project_changed_callback(callback)
+    {
         create_controllers();
     }
 
-    void create_controllers() {
+    void create_controllers()
+    {
         auto on_model_changed = [this]() { onProjectHasChanged(); };
         change_controllers.clear();
         for (auto model : m_models)
@@ -39,13 +41,15 @@ struct ProjectChangedController::ProjectChangedControllerImpl {
 
     bool hasChanged() const { return m_project_has_changed; }
 
-    void resetChanged() {
+    void resetChanged()
+    {
         for (auto& controller : change_controllers)
             controller->resetChanged();
         m_project_has_changed = false;
     }
 
-    void onProjectHasChanged() {
+    void onProjectHasChanged()
+    {
         if (!m_project_has_changed) {
             m_project_has_changed = true;
             if (m_project_changed_callback)
@@ -56,19 +60,23 @@ struct ProjectChangedController::ProjectChangedControllerImpl {
 
 ProjectChangedController::ProjectChangedController(const std::vector<SessionModel*>& models,
                                                    callback_t project_changed_callback)
-    : p_impl(std::make_unique<ProjectChangedControllerImpl>(models, project_changed_callback)) {}
+    : p_impl(std::make_unique<ProjectChangedControllerImpl>(models, project_changed_callback))
+{
+}
 
 ProjectChangedController::~ProjectChangedController() = default;
 
 //! Returns true if the change in the models has been registered since the last call of
 //! resetChanged.
 
-bool ProjectChangedController::hasChanged() const {
+bool ProjectChangedController::hasChanged() const
+{
     return p_impl->hasChanged();
 }
 
 //! Reset controller to initial state, pretending that no changes has been registered.
 
-void ProjectChangedController::resetChanged() {
+void ProjectChangedController::resetChanged()
+{
     return p_impl->resetChanged();
 }

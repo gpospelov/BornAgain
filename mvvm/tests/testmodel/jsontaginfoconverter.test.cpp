@@ -36,7 +36,8 @@ JsonTagInfoConverterTest::~JsonTagInfoConverterTest() = default;
 
 //! Checks if json object is correctly identified as representing TagInfo.
 
-TEST_F(JsonTagInfoConverterTest, isItemTag) {
+TEST_F(JsonTagInfoConverterTest, isItemTag)
+{
     JsonTagInfoConverter converter;
 
     // valid json object representing DataRole
@@ -56,7 +57,8 @@ TEST_F(JsonTagInfoConverterTest, isItemTag) {
 
 //! Creating QJsonArray from TagInfo.
 
-TEST_F(JsonTagInfoConverterTest, toJson) {
+TEST_F(JsonTagInfoConverterTest, toJson)
+{
     JsonTagInfoConverter converter;
 
     TagInfo tag("tag1", 0, -1, std::vector<std::string>() = {});
@@ -68,7 +70,8 @@ TEST_F(JsonTagInfoConverterTest, toJson) {
 
 //! From TagInfo to json and back.
 
-TEST_F(JsonTagInfoConverterTest, tagInfoToJsonAndBack) {
+TEST_F(JsonTagInfoConverterTest, tagInfoToJsonAndBack)
+{
     JsonTagInfoConverter converter;
 
     TagInfo tag("tag", 0, 42, std::vector<std::string>() = {"aaa", "bbb"});
@@ -84,7 +87,8 @@ TEST_F(JsonTagInfoConverterTest, tagInfoToJsonAndBack) {
 
 //! To file and back.
 
-TEST_F(JsonTagInfoConverterTest, tagInfoToFileAndBack) {
+TEST_F(JsonTagInfoConverterTest, tagInfoToFileAndBack)
+{
     const std::string tag_name("tag");
     const std::string model_type("model");
     JsonTagInfoConverter converter;

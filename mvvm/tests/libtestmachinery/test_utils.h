@@ -68,7 +68,8 @@ std::string CreateEmptyFile(const std::string& dirname, const std::string& fileN
 
 //! Deletes items in the container and cleans container afterwards.
 
-template <typename T> void clean_items(T& items) {
+template <typename T> void clean_items(T& items)
+{
     for (auto item : items)
         delete item;
     items.clear();
@@ -76,7 +77,8 @@ template <typename T> void clean_items(T& items) {
 
 //! Creates vector of unique_ptr of given type.
 
-template <typename B, typename D> auto create_row(int ncolumns) {
+template <typename B, typename D> auto create_row(int ncolumns)
+{
     std::vector<std::unique_ptr<B>> result;
     for (int i = 0; i < ncolumns; ++i)
         result.emplace_back(std::make_unique<D>());
@@ -85,7 +87,8 @@ template <typename B, typename D> auto create_row(int ncolumns) {
 
 //! Creates vector of pointers from vector of unique_ptr.
 
-template <typename T> auto create_pointers(const std::vector<std::unique_ptr<T>>& vec) {
+template <typename T> auto create_pointers(const std::vector<std::unique_ptr<T>>& vec)
+{
     std::vector<T*> result;
     std::transform(vec.begin(), vec.end(), std::back_inserter(result),
                    [](auto& x) { return x.get(); });
@@ -94,7 +97,8 @@ template <typename T> auto create_pointers(const std::vector<std::unique_ptr<T>>
 
 //! Creates vector of T from argument list. Used in EXPECT_EQ macros for convenience.
 
-template <typename T, typename... Args> std::vector<T> toVector(Args&&... args) {
+template <typename T, typename... Args> std::vector<T> toVector(Args&&... args)
+{
     std::vector<T> v;
     (v.push_back(T(args)), ...);
     return v;

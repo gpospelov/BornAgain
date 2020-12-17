@@ -23,11 +23,13 @@
 
 using namespace ModelView;
 
-bool DefaultCellDecorator::hasCustomDecoration(const QModelIndex& index) const {
+bool DefaultCellDecorator::hasCustomDecoration(const QModelIndex& index) const
+{
     return cellText(index).has_value();
 }
 
-std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& index) const {
+std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& index) const
+{
     auto variant = index.data();
 
     if (Utils::IsComboVariant(variant))
@@ -52,7 +54,8 @@ std::optional<std::string> DefaultCellDecorator::cellText(const QModelIndex& ind
     return {};
 }
 
-void DefaultCellDecorator::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index) {
+void DefaultCellDecorator::initStyleOption(QStyleOptionViewItem* option, const QModelIndex& index)
+{
     if (!hasCustomDecoration(index))
         return;
 

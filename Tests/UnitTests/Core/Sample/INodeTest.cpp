@@ -16,23 +16,27 @@ public:
     class TestClass : public INode {
     public:
         TestClass(const std::string& name = test_class_name, double value = test_par1_value)
-            : m_parameter1(value) {
+            : m_parameter1(value)
+        {
             setName(name);
             registerParameter("par1", &m_parameter1);
         }
 
-        virtual ~TestClass() {
+        virtual ~TestClass()
+        {
             for (auto child : m_nodes)
                 delete child;
         }
         void accept(INodeVisitor* visitor) const final { visitor->visit(this); }
 
-        void appendChild(INode* node) {
+        void appendChild(INode* node)
+        {
             m_nodes.push_back(node);
             registerChild(node);
         }
 
-        virtual std::vector<const INode*> getChildren() const {
+        virtual std::vector<const INode*> getChildren() const
+        {
             return {m_nodes.begin(), m_nodes.end()};
         }
 
@@ -41,13 +45,15 @@ public:
     };
 };
 
-TEST_F(INodeTest, initialState) {
+TEST_F(INodeTest, initialState)
+{
     INodeTest::TestClass node;
     EXPECT_EQ(node.getChildren().size(), 0u);
     EXPECT_EQ(node.parent(), nullptr);
 }
 
-TEST_F(INodeTest, appendChild) {
+TEST_F(INodeTest, appendChild)
+{
     INodeTest::TestClass node;
 
     INodeTest::TestClass* child0 = new INodeTest::TestClass();
@@ -63,7 +69,8 @@ TEST_F(INodeTest, appendChild) {
 
 //! Checks change of parentship on insert/detach.
 
-TEST_F(INodeTest, parentship) {
+TEST_F(INodeTest, parentship)
+{
     INodeTest::TestClass node;
     EXPECT_EQ(node.parent(), nullptr);
 
@@ -74,7 +81,8 @@ TEST_F(INodeTest, parentship) {
 
 //! Checks the display name.
 
-TEST_F(INodeTest, displayName) {
+TEST_F(INodeTest, displayName)
+{
     INodeTest::TestClass node;
 
     // Adding first child and checking its displayName
@@ -97,7 +105,8 @@ TEST_F(INodeTest, displayName) {
 //! Checking the path of the node, which is a path composed of node's displayName and
 //! the displayName of parent.
 
-TEST_F(INodeTest, nodePath) {
+TEST_F(INodeTest, nodePath)
+{
     INodeTest::TestClass root("root");
     EXPECT_EQ(NodeUtils::nodePath(&root), "/root");
 
@@ -126,7 +135,8 @@ TEST_F(INodeTest, nodePath) {
 
 //! Checking parameter tree for INode structure.
 
-TEST_F(INodeTest, createParameterTree) {
+TEST_F(INodeTest, createParameterTree)
+{
     INodeTest::TestClass root("root");
 
     std::unique_ptr<ParameterPool> pool(root.createParameterTree());
@@ -145,7 +155,8 @@ TEST_F(INodeTest, createParameterTree) {
 
 //! Checking parameter tree for INode structure (for one of children).
 
-TEST_F(INodeTest, createChildParameterTree) {
+TEST_F(INodeTest, createChildParameterTree)
+{
     INodeTest::TestClass root("root");
     INodeTest::TestClass* child = new INodeTest::TestClass("child", 1.0);
     root.appendChild(child);

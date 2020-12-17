@@ -23,7 +23,8 @@ SSCApproximationStrategy::SSCApproximationStrategy(
     double kappa)
     : IInterferenceFunctionStrategy(weighted_formfactors, sim_params, polarized)
     , m_iff(iff->clone())
-    , m_kappa(kappa) {
+    , m_kappa(kappa)
+{
     m_mean_radius = 0.0;
     for (const auto& ffw : m_weighted_formfactors)
         m_mean_radius += ffw.relativeAbundance() * ffw.radialExtension();
@@ -32,7 +33,8 @@ SSCApproximationStrategy::SSCApproximationStrategy(
 //! Returns the total scattering intensity for given kf and
 //! for one particle layout (implied by the given particle form factors).
 //! This is the scalar version
-double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const {
+double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_element) const
+{
     const double qp = sim_element.meanQ().magxy();
     double diffuse_intensity = 0.0;
     complex_t ff_orig = 0., ff_conj = 0.; // original and conjugated mean formfactor
@@ -55,7 +57,8 @@ double SSCApproximationStrategy::scalarCalculation(const SimulationElement& sim_
 }
 
 //! This is the polarized version
-double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const {
+double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& sim_element) const
+{
     const double qp = sim_element.meanQ().magxy();
     Eigen::Matrix2cd diffuse_matrix = Eigen::Matrix2cd::Zero();
     const auto& polarization_handler = sim_element.polarizationHandler();
@@ -85,7 +88,8 @@ double SSCApproximationStrategy::polarizedCalculation(const SimulationElement& s
 }
 
 complex_t SSCApproximationStrategy::getCharacteristicSizeCoupling(
-    double qp, const std::vector<FormFactorCoherentSum>& ff_wrappers) const {
+    double qp, const std::vector<FormFactorCoherentSum>& ff_wrappers) const
+{
     complex_t result = 0;
     for (const auto& ffw : ff_wrappers)
         result +=
@@ -94,6 +98,7 @@ complex_t SSCApproximationStrategy::getCharacteristicSizeCoupling(
 }
 
 complex_t SSCApproximationStrategy::calculatePositionOffsetPhase(double qp,
-                                                                 double radial_extension) const {
+                                                                 double radial_extension) const
+{
     return exp_I(m_kappa * qp * (radial_extension - m_mean_radius));
 }

@@ -33,7 +33,8 @@ FitSessionController::FitSessionController(QObject* parent)
     , m_runFitManager(new FitWorkerLauncher(this))
     , m_observer(new GUIFitObserver)
     , m_fitlog(new FitLog)
-    , m_block_progress_update(false) {
+    , m_block_progress_update(false)
+{
     connect(m_observer.get(), &GUIFitObserver::updateReady, this,
             &FitSessionController::onObserverUpdate);
 
@@ -47,7 +48,8 @@ FitSessionController::FitSessionController(QObject* parent)
 
 FitSessionController::~FitSessionController() = default;
 
-void FitSessionController::setItem(JobItem* item) {
+void FitSessionController::setItem(JobItem* item)
+{
     if (m_jobItem && m_jobItem != item)
         throw GUIHelpers::Error("FitSuiteManager::setItem() -> Item was already set.");
 
@@ -69,7 +71,8 @@ void FitSessionController::setItem(JobItem* item) {
         this);
 }
 
-void FitSessionController::onStartFittingRequest() {
+void FitSessionController::onStartFittingRequest()
+{
     if (!m_jobItem)
         return;
 
@@ -88,15 +91,18 @@ void FitSessionController::onStartFittingRequest() {
     }
 }
 
-FitLog* FitSessionController::fitLog() {
+FitLog* FitSessionController::fitLog()
+{
     return m_fitlog.get();
 }
 
-void FitSessionController::onStopFittingRequest() {
+void FitSessionController::onStopFittingRequest()
+{
     m_runFitManager->interruptFitting();
 }
 
-void FitSessionController::onObserverUpdate() {
+void FitSessionController::onObserverUpdate()
+{
     auto progressInfo = m_observer->progressInfo();
     m_jobItem->dataItem()->setRawDataVector(progressInfo.simValues());
 
@@ -113,7 +119,8 @@ void FitSessionController::onObserverUpdate() {
     m_observer->finishedPlotting();
 }
 
-void FitSessionController::onFittingStarted() {
+void FitSessionController::onFittingStarted()
+{
     m_fitlog->clearLog();
 
     m_jobItem->setStatus("Fitting");
@@ -125,7 +132,8 @@ void FitSessionController::onFittingStarted() {
     emit fittingStarted();
 }
 
-void FitSessionController::onFittingFinished() {
+void FitSessionController::onFittingFinished()
+{
     if (m_jobItem->getStatus() != "Failed")
         m_jobItem->setStatus("Completed");
     m_jobItem->setEndTime(GUIHelpers::currentDateTime());
@@ -138,7 +146,8 @@ void FitSessionController::onFittingFinished() {
     emit fittingFinished();
 }
 
-void FitSessionController::onFittingError(const QString& text) {
+void FitSessionController::onFittingError(const QString& text)
+{
     QString message;
     message.append("Current settings cause fitting failure.\n\n");
     message.append(text);
@@ -147,7 +156,8 @@ void FitSessionController::onFittingError(const QString& text) {
     emit fittingError(message);
 }
 
-void FitSessionController::updateIterationCount(const FitProgressInfo& info) {
+void FitSessionController::updateIterationCount(const FitProgressInfo& info)
+{
     FitSuiteItem* fitSuiteItem = m_jobItem->fitSuiteItem();
     // FIXME FitFlowWidget updates chi2 and n_iteration on P_ITERATION_COUNT change
     // The order of two lines below is important
@@ -155,13 +165,15 @@ void FitSessionController::updateIterationCount(const FitProgressInfo& info) {
     fitSuiteItem->setItemValue(FitSuiteItem::P_ITERATION_COUNT, info.iterationCount());
 }
 
-void FitSessionController::updateFitParameterValues(const FitProgressInfo& info) {
+void FitSessionController::updateFitParameterValues(const FitProgressInfo& info)
+{
     QVector<double> values = GUIHelpers::fromStdVector(info.parValues());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     fitParContainer->setValuesInParameterContainer(values, m_jobItem->parameterContainerItem());
 }
 
-void FitSessionController::updateLog(const FitProgressInfo& info) {
+void FitSessionController::updateLog(const FitProgressInfo& info)
+{
     QString message = QString("NCalls:%1 chi2:%2 \n").arg(info.iterationCount()).arg(info.chi2());
     FitParameterContainerItem* fitParContainer = m_jobItem->fitParameterContainerItem();
     int index(0);

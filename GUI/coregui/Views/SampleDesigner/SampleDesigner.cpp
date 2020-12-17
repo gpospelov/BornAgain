@@ -19,20 +19,23 @@
 #include "Sample/Scattering/ISampleNode.h"
 
 SampleDesigner::SampleDesigner(QWidget* parent)
-    : SampleDesignerInterface(parent), m_designerScene(0), m_designerView(0) {
+    : SampleDesignerInterface(parent), m_designerScene(0), m_designerView(0)
+{
     m_designerScene = new DesignerScene(parent);
     m_designerView = new DesignerView(m_designerScene, parent);
 }
 
 SampleDesigner::~SampleDesigner() = default;
 
-void SampleDesigner::setModels(ApplicationModels* models) {
+void SampleDesigner::setModels(ApplicationModels* models)
+{
     m_designerScene->setSampleModel(models->sampleModel());
     m_designerScene->setInstrumentModel(models->instrumentModel());
     m_designerScene->setMaterialModel(models->materialModel());
 }
 
-void SampleDesigner::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy) {
+void SampleDesigner::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy)
+{
     if (model)
         m_designerScene->setSelectionModel(model, proxy);
 }

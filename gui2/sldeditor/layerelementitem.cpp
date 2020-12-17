@@ -20,7 +20,8 @@
 
 namespace gui2 {
 
-LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement") {
+LayerElementItem::LayerElementItem() : ModelView::CompoundItem("LayerElement")
+{
     addProperty(P_X_POS, 0.)->setDisplayName("Position");
     addProperty(P_WIDTH, 10.)->setDisplayName("Width");
     addProperty(P_HEIGHT, 10.)->setDisplayName("Height");

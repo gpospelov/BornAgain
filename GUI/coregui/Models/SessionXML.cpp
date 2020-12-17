@@ -35,7 +35,8 @@ void report_error(MessageService* messageService, SessionItem* item, const QStri
 SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag);
 } // namespace
 
-void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent) {
+void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent)
+{
     writer->writeStartElement(parent->model()->getModelTag());
     writer->writeAttribute(SessionXML::ModelNameAttribute, parent->model()->getModelName());
 
@@ -44,7 +45,8 @@ void SessionXML::writeTo(QXmlStreamWriter* writer, SessionItem* parent) {
     writer->writeEndElement(); // m_model_tag
 }
 
-void SessionXML::writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item) {
+void SessionXML::writeItemAndChildItems(QXmlStreamWriter* writer, const SessionItem* item)
+{
     if (item->parent()) {
         writer->writeStartElement(SessionXML::ItemTag);
         writer->writeAttribute(SessionXML::ModelTypeAttribute, item->modelType());
@@ -65,7 +67,8 @@ void SessionXML::writeItemAndChildItems(QXmlStreamWriter* writer, const SessionI
         writer->writeEndElement(); // ItemTag
 }
 
-void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int role) {
+void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int role)
+{
     if (variant.isValid()) {
         writer->writeStartElement(SessionXML::ParameterTag);
         QString type_name = variant.typeName();
@@ -108,7 +111,8 @@ void SessionXML::writeVariant(QXmlStreamWriter* writer, QVariant variant, int ro
 }
 
 void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QString topTag,
-                           MessageService* messageService) {
+                           MessageService* messageService)
+{
     ASSERT(parent);
     const QString start_type = parent->model()->getModelTag();
     while (!reader->atEnd()) {
@@ -152,7 +156,8 @@ void SessionXML::readItems(QXmlStreamReader* reader, SessionItem* parent, QStrin
 }
 
 QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
-                                 MessageService* messageService) {
+                                 MessageService* messageService)
+{
     const QString parameter_name =
         reader->attributes().value(SessionXML::ParameterNameAttribute).toString();
     const QString parameter_type =
@@ -223,7 +228,8 @@ QString SessionXML::readProperty(QXmlStreamReader* reader, SessionItem* item,
 }
 
 namespace {
-void report_error(MessageService* messageService, SessionItem* item, const QString& message) {
+void report_error(MessageService* messageService, SessionItem* item, const QString& message)
+{
     if (messageService) {
         messageService->send_warning(item->model(), message);
     } else {
@@ -231,7 +237,8 @@ void report_error(MessageService* messageService, SessionItem* item, const QStri
     }
 }
 
-SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag) {
+SessionItem* createItem(SessionItem* item, const QString& modelType, const QString& tag)
+{
     SessionItem* result(nullptr);
 
     if (item->modelType() == "GroupProperty") {

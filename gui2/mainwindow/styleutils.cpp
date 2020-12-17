@@ -21,19 +21,23 @@
 
 namespace gui2 {
 
-QSize StyleUtils::ToolBarIconSize() {
+QSize StyleUtils::ToolBarIconSize()
+{
     return QSize(24, 24);
 }
 
-QSize StyleUtils::DockSizeHint() {
+QSize StyleUtils::DockSizeHint()
+{
     return QSize(480, 360);
 }
 
-QSize StyleUtils::DockMinimumSizeHint() {
+QSize StyleUtils::DockMinimumSizeHint()
+{
     return QSize(320, 240);
 }
 
-void StyleUtils::SetToolBarStyleTextBesides(QToolBar* toolbar) {
+void StyleUtils::SetToolBarStyleTextBesides(QToolBar* toolbar)
+{
     InitIconResources();
     toolbar->setIconSize(StyleUtils::ToolBarIconSize());
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);

@@ -22,7 +22,8 @@
 
 using namespace ModelView;
 
-std::string Utils::DoubleToString(double input, int precision) {
+std::string Utils::DoubleToString(double input, int precision)
+{
     std::ostringstream inter;
     inter << std::setprecision(precision);
     if (std::abs(input) < std::numeric_limits<double>::epsilon()) {
@@ -35,7 +36,8 @@ std::string Utils::DoubleToString(double input, int precision) {
     return inter.str();
 }
 
-std::string Utils::ScientificDoubleToString(double input, int precision) {
+std::string Utils::ScientificDoubleToString(double input, int precision)
+{
     std::ostringstream inter;
     inter << std::scientific;
     inter << std::setprecision(precision);
@@ -55,7 +57,8 @@ std::string Utils::ScientificDoubleToString(double input, int precision) {
     return part1 + part2;
 }
 
-std::string Utils::TrimWhitespace(const std::string& str) {
+std::string Utils::TrimWhitespace(const std::string& str)
+{
     const char whitespace[]{" \t\n"};
     const size_t first = str.find_first_not_of(whitespace);
     if (std::string::npos == first)
@@ -64,7 +67,8 @@ std::string Utils::TrimWhitespace(const std::string& str) {
     return str.substr(first, (last - first + 1));
 }
 
-std::string Utils::RemoveRepeatedSpaces(std::string str) {
+std::string Utils::RemoveRepeatedSpaces(std::string str)
+{
     if (str.empty())
         return {};
     auto it = std::unique(str.begin(), str.end(),
@@ -73,7 +77,8 @@ std::string Utils::RemoveRepeatedSpaces(std::string str) {
     return str;
 }
 
-std::optional<double> Utils::StringToDouble(const std::string& str) {
+std::optional<double> Utils::StringToDouble(const std::string& str)
+{
     std::istringstream iss(Utils::TrimWhitespace(str));
     iss.imbue(std::locale::classic());
     double value;
@@ -81,14 +86,16 @@ std::optional<double> Utils::StringToDouble(const std::string& str) {
     return (!iss.fail() && iss.eof()) ? std::optional<double>(value) : std::optional<double>{};
 }
 
-std::optional<int> Utils::StringToInteger(const std::string& str) {
+std::optional<int> Utils::StringToInteger(const std::string& str)
+{
     std::istringstream iss(Utils::TrimWhitespace(str));
     int value;
     iss >> value;
     return (!iss.fail() && iss.eof()) ? std::optional<int>(value) : std::optional<int>{};
 }
 
-std::vector<std::string> Utils::SplitString(const std::string& str, const std::string& delimeter) {
+std::vector<std::string> Utils::SplitString(const std::string& str, const std::string& delimeter)
+{
     // splitting string following Python's str.split()
     if (delimeter.empty())
         throw std::runtime_error("Empty delimeter");
@@ -107,13 +114,15 @@ std::vector<std::string> Utils::SplitString(const std::string& str, const std::s
     return result;
 }
 
-std::vector<double> Utils::ParseSpaceSeparatedDoubles(const std::string& str) {
+std::vector<double> Utils::ParseSpaceSeparatedDoubles(const std::string& str)
+{
     std::vector<double> result;
     ParseSpaceSeparatedDoubles(str, result);
     return result;
 }
 
-void Utils::ParseSpaceSeparatedDoubles(const std::string& str, std::vector<double>& result) {
+void Utils::ParseSpaceSeparatedDoubles(const std::string& str, std::vector<double>& result)
+{
     std::istringstream iss(str);
     iss.imbue(std::locale::classic());
     std::copy(std::istream_iterator<double>(iss), std::istream_iterator<double>(),

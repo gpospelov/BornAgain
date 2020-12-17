@@ -40,7 +40,8 @@ const int m_ny = 1024;
 const double m_center_x = 108.2;
 const double m_center_y = 942.0;
 
-std::unique_ptr<RectangularDetector> create_detector() {
+std::unique_ptr<RectangularDetector> create_detector()
+{
     double width = m_nx * m_pixel_size;
     double height = m_ny * m_pixel_size;
     double u0 = m_center_x * m_pixel_size;
@@ -51,7 +52,8 @@ std::unique_ptr<RectangularDetector> create_detector() {
     return result;
 }
 
-Lattice3D createLattice(double a, double c) {
+Lattice3D createLattice(double a, double c)
+{
     Lattice3D result = bake::HexagonalLattice(a, c);
     result.setSelectionRule(SimpleSelectionRule(-1, 1, 1, 3));
     return result;
@@ -107,9 +109,12 @@ MesoCrystalPerformanceBuilder::MesoCrystalPerformanceBuilder()
     , m_phi_rotation_steps(5)
     , m_tilt_start(0.0 * deg)
     , m_tilt_stop(1.0 * deg)
-    , m_tilt_steps(1) {}
+    , m_tilt_steps(1)
+{
+}
 
-MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const {
+MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const
+{
     double surface_density = m_surface_filling_ratio / M_PI / m_meso_radius / m_meso_radius;
     complex_t n_particle(1.0 - 2.84e-5, 4.7e-7);
     auto avg_n_squared_meso = 0.7886 * n_particle * n_particle + 0.2114;
@@ -161,7 +166,8 @@ MultiLayer* MesoCrystalPerformanceBuilder::buildSample() const {
 }
 
 std::unique_ptr<MesoCrystal>
-MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& form_factor) const {
+MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& form_factor) const
+{
 
     auto lattice = createLattice(m_lattice_length_a, m_lattice_length_c);
     auto bas_a = lattice.getBasisVectorA();
@@ -185,7 +191,8 @@ MesoCrystalPerformanceBuilder::createMeso(Material material, const IFormFactor& 
     return std::make_unique<MesoCrystal>(npc, form_factor);
 }
 
-int main() {
+int main()
+{
     GISASSimulation simulation;
 
     simulation.setTerminalProgressMonitor();

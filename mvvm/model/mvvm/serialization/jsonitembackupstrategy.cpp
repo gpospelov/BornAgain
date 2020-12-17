@@ -25,16 +25,19 @@ struct JsonItemBackupStrategy::JsonItemBackupStrategyImpl {
 };
 
 JsonItemBackupStrategy::JsonItemBackupStrategy(const ItemFactoryInterface* item_factory)
-    : p_impl(std::make_unique<JsonItemBackupStrategyImpl>()) {
+    : p_impl(std::make_unique<JsonItemBackupStrategyImpl>())
+{
     p_impl->m_converter = CreateItemCloneConverter(item_factory);
 }
 
 JsonItemBackupStrategy::~JsonItemBackupStrategy() = default;
 
-std::unique_ptr<SessionItem> JsonItemBackupStrategy::restoreItem() const {
+std::unique_ptr<SessionItem> JsonItemBackupStrategy::restoreItem() const
+{
     return p_impl->m_converter->from_json(p_impl->m_json);
 }
 
-void JsonItemBackupStrategy::saveItem(const SessionItem* item) {
+void JsonItemBackupStrategy::saveItem(const SessionItem* item)
+{
     p_impl->m_json = p_impl->m_converter->to_json(item);
 }

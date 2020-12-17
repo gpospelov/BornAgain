@@ -16,7 +16,8 @@
 #include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Slice/LayerRoughness.h"
 
-MultiLayer* MultiLayerWithNCRoughnessBuilder::buildSample() const {
+MultiLayer* MultiLayerWithNCRoughnessBuilder::buildSample() const
+{
     auto multi_layer = MultiLayerWithRoughnessBuilder::buildSample();
     multi_layer->setRoughnessModel(RoughnessModel::NEVOT_CROCE);
     return multi_layer;

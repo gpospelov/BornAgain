@@ -17,7 +17,8 @@
 #include <QApplication>
 #include <QStandardItem>
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     ::testing::InitGoogleTest(&argc, argv);
 
     ModelView::Comparators::registerComparators();

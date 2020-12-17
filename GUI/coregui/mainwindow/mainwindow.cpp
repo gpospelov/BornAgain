@@ -62,7 +62,8 @@ MainWindow::MainWindow()
     , m_importDataView(0)
     , m_simulationView(0)
     , m_jobView(0)
-    , m_sessionModelView(0) {
+    , m_sessionModelView(0)
+{
 
     s_instance = this;
 
@@ -112,77 +113,94 @@ MainWindow::MainWindow()
     //    m_applicationModels->createTestRealData();
 }
 
-MainWindow::~MainWindow() {
+MainWindow::~MainWindow()
+{
     s_instance = nullptr;
 }
 
-MainWindow* MainWindow::instance() {
+MainWindow* MainWindow::instance()
+{
     return s_instance;
 }
 
-MaterialModel* MainWindow::materialModel() {
+MaterialModel* MainWindow::materialModel()
+{
     return models()->materialModel();
 }
 
-InstrumentModel* MainWindow::instrumentModel() {
+InstrumentModel* MainWindow::instrumentModel()
+{
     return models()->instrumentModel();
 }
 
-SampleModel* MainWindow::sampleModel() {
+SampleModel* MainWindow::sampleModel()
+{
     return models()->sampleModel();
 }
 
-RealDataModel* MainWindow::realDataModel() {
+RealDataModel* MainWindow::realDataModel()
+{
     return models()->realDataModel();
 }
 
-JobModel* MainWindow::jobModel() {
+JobModel* MainWindow::jobModel()
+{
     return models()->jobModel();
 }
 
-ApplicationModels* MainWindow::models() {
+ApplicationModels* MainWindow::models()
+{
     return m_applicationModels;
 }
 
-QProgressBar* MainWindow::progressBar() {
+QProgressBar* MainWindow::progressBar()
+{
     return m_progressBar;
 }
 
-QStatusBar* MainWindow::statusBar() {
+QStatusBar* MainWindow::statusBar()
+{
     return m_statusBar;
 }
 
-ProjectManager* MainWindow::projectManager() {
+ProjectManager* MainWindow::projectManager()
+{
     return m_projectManager;
 }
 
-UpdateNotifier* MainWindow::updateNotifier() {
+UpdateNotifier* MainWindow::updateNotifier()
+{
     return m_updateNotifier;
 }
 
-QWidget* MainWindow::currentView() const {
+QWidget* MainWindow::currentView() const
+{
     return m_viewsStack->currentWidget();
 }
 
-void MainWindow::setCurrentView(int viewId) {
+void MainWindow::setCurrentView(int viewId)
+{
     if (m_viewsStack->currentIndex() != viewId) {
         m_viewsStack->setCurrentIndex(viewId);
         emit currentViewChanged(ViewId(viewId));
     }
 }
 
-void MainWindow::onFocusRequest(int index) {
+void MainWindow::onFocusRequest(int index)
+{
     m_viewSelectionButtons->button(index)->click();
 }
 
-void MainWindow::openRecentProject() {
+void MainWindow::openRecentProject()
+{
     if (const QAction* action = qobject_cast<const QAction*>(sender())) {
         QString file = action->data().value<QString>();
         m_projectManager->openProject(file);
     }
 }
 
-void MainWindow::onRunSimulationShortcut() {
+void MainWindow::onRunSimulationShortcut()
+{
     // This clearFocus is needed for the propagation of the current editor value,
     // since the runSimulation method will only change focus after finishing the simulation
     if (auto widget = QApplication::focusWidget())
@@ -191,7 +209,8 @@ void MainWindow::onRunSimulationShortcut() {
 }
 
 //! Inserts/removes developers SessionModelView on the left tabbar.
-void MainWindow::onSessionModelViewActive(bool isActive) {
+void MainWindow::onSessionModelViewActive(bool isActive)
+{
     auto btn = m_viewSelectionButtons->button(ViewId::SESSIONMODEL);
     ASSERT(btn != nullptr);
     if (btn == nullptr)
@@ -204,7 +223,8 @@ void MainWindow::onSessionModelViewActive(bool isActive) {
     btn->setVisible(isActive);
 }
 
-void MainWindow::closeEvent(QCloseEvent* event) {
+void MainWindow::closeEvent(QCloseEvent* event)
+{
     if (jobModel()->hasUnfinishedJobs()) {
         QMessageBox::warning(this, "Can't quit the application.",
                              "Can't quit the application while jobs are running.\n"
@@ -220,7 +240,8 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     }
 }
 
-void MainWindow::initApplication() {
+void MainWindow::initApplication()
+{
     QCoreApplication::setApplicationName(QLatin1String(Constants::APPLICATION_NAME));
     QCoreApplication::setApplicationVersion(GUIHelpers::getBornAgainVersionString());
     QCoreApplication::setOrganizationName(QLatin1String(Constants::APPLICATION_NAME));
@@ -235,7 +256,8 @@ void MainWindow::initApplication() {
     setCorner(Qt::BottomRightCorner, Qt::BottomDockWidgetArea);
 }
 
-void MainWindow::initProgressBar() {
+void MainWindow::initProgressBar()
+{
     m_progressBar->hide();
     m_progressBar->setTextVisible(false);
     m_progressBar->setFixedHeight(QApplication::fontMetrics().boundingRect("M").height());
@@ -243,7 +265,8 @@ void MainWindow::initProgressBar() {
     m_viewSelectionButtonsLayout->addWidget(m_progressBar);
 }
 
-void MainWindow::initViews() {
+void MainWindow::initViews()
+{
     m_welcomeView = new WelcomeView(this);
     m_instrumentView = new InstrumentView(this);
     m_sampleView = new SampleView(this);
@@ -280,7 +303,8 @@ void MainWindow::initViews() {
     settings.endGroup();
 }
 
-void MainWindow::readSettings() {
+void MainWindow::readSettings()
+{
     QSettings settings;
     if (settings.childGroups().contains(Constants::S_MAINWINDOW)) {
         settings.beginGroup(Constants::S_MAINWINDOW);
@@ -291,7 +315,8 @@ void MainWindow::readSettings() {
     m_projectManager->readSettings();
 }
 
-void MainWindow::writeSettings() {
+void MainWindow::writeSettings()
+{
     QSettings settings;
     settings.beginGroup(Constants::S_MAINWINDOW);
     settings.setValue(Constants::S_WINDOWSIZE, size());
@@ -301,12 +326,14 @@ void MainWindow::writeSettings() {
     settings.sync();
 }
 
-void MainWindow::initConnections() {
+void MainWindow::initConnections()
+{
     connect(m_jobView, &JobView::focusRequest, this, &MainWindow::onFocusRequest);
 }
 
 void MainWindow::addView(ViewId id, const QIcon& icon, const QString& title, const QString& tooltip,
-                         QWidget* view) {
+                         QWidget* view)
+{
     QToolButton* btn = createViewSelectionButton();
     m_viewSelectionButtonsLayout->insertWidget(id, btn);
 
@@ -320,7 +347,8 @@ void MainWindow::addView(ViewId id, const QIcon& icon, const QString& title, con
     m_viewsStack->insertWidget(id, view);
 }
 
-void MainWindow::updateViewSelectionButtonsGeometry() const {
+void MainWindow::updateViewSelectionButtonsGeometry() const
+{
     if (m_viewSelectionButtons->buttons().isEmpty())
         return;
 
@@ -357,7 +385,8 @@ void MainWindow::updateViewSelectionButtonsGeometry() const {
     m_progressBar->setFixedWidth(buttonExtent);
 }
 
-QToolButton* MainWindow::createViewSelectionButton() const {
+QToolButton* MainWindow::createViewSelectionButton() const
+{
 
     const QString viewSelectionButtonStyle =
         "QToolButton { border: none; color: white; background-color: qlineargradient(x1: 0, "

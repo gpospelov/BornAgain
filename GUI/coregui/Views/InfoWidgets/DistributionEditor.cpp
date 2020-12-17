@@ -28,7 +28,8 @@ DistributionEditor::DistributionEditor(QWidget* parent)
     , m_propertyEditor(new ComponentFlatView)
     , m_item(nullptr)
     , m_plotwidget(new DistributionWidget)
-    , m_box(new QGroupBox) {
+    , m_box(new QGroupBox)
+{
 
     auto boxLayout = new QVBoxLayout;
     m_propertyEditor->setMaximumWidth(minimum_width);
@@ -48,7 +49,8 @@ DistributionEditor::DistributionEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void DistributionEditor::subscribeToItem() {
+void DistributionEditor::subscribeToItem()
+{
     m_propertyEditor->clearEditor();
     m_propertyEditor->setItem(currentItem());
 
@@ -58,24 +60,28 @@ void DistributionEditor::subscribeToItem() {
     m_plotwidget->setItem(distributionItem());
 }
 
-void DistributionEditor::onPropertyChanged(const QString& property_name) {
+void DistributionEditor::onPropertyChanged(const QString& property_name)
+{
     if (property_name == GroupItem::T_ITEMS)
         m_plotwidget->setItem(distributionItem());
 }
 
-GroupItem* DistributionEditor::groupItem() {
+GroupItem* DistributionEditor::groupItem()
+{
     auto result = dynamic_cast<GroupItem*>(currentItem());
     ASSERT(result);
     return result;
 }
 
-DistributionItem* DistributionEditor::distributionItem() {
+DistributionItem* DistributionEditor::distributionItem()
+{
     auto result = dynamic_cast<DistributionItem*>(groupItem()->currentItem());
     ASSERT(result);
     return result;
 }
 
-void DistributionEditor::setNameOfEditor(QString name) {
+void DistributionEditor::setNameOfEditor(QString name)
+{
     m_box->setTitle(name);
     m_plotwidget->setXAxisName(name);
 }

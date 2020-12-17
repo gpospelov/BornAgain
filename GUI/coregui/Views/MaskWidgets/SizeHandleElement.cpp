@@ -18,7 +18,8 @@
 #include <QPainter>
 
 namespace {
-QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map() {
+QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map()
+{
     QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> result;
     result[SizeHandleElement::NONE] = Qt::ArrowCursor;
     result[SizeHandleElement::TOPLEFT] = Qt::SizeFDiagCursor;
@@ -33,7 +34,8 @@ QMap<SizeHandleElement::EHandleLocation, Qt::CursorShape> create_cursors_map() {
 }
 
 QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleType>
-create_location_to_type_map() {
+create_location_to_type_map()
+{
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleType> result;
     result[SizeHandleElement::NONE] = SizeHandleElement::RESIZE;
     result[SizeHandleElement::TOPLEFT] = SizeHandleElement::RESIZE;
@@ -48,7 +50,8 @@ create_location_to_type_map() {
 }
 
 QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation>
-getMapOfOppositeCorners() {
+getMapOfOppositeCorners()
+{
     QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation> result;
     result[SizeHandleElement::TOPLEFT] = SizeHandleElement::BOTTOMRIGHT;
     result[SizeHandleElement::TOPMIDDLE] = SizeHandleElement::BOTTOMMIDLE;
@@ -77,16 +80,19 @@ QMap<SizeHandleElement::EHandleLocation, SizeHandleElement::EHandleLocation>
 SizeHandleElement::SizeHandleElement(EHandleLocation pointType, QGraphicsObject* parent)
     : QGraphicsObject(parent)
     , m_handleLocation(pointType)
-    , m_handleType(m_location_to_type[pointType]) {
+    , m_handleType(m_location_to_type[pointType])
+{
     setCursor(m_cursors[m_handleLocation]);
     setParentItem(parent);
 }
 
-QRectF SizeHandleElement::boundingRect() const {
+QRectF SizeHandleElement::boundingRect() const
+{
     return QRectF(-4, -4, 8, 8);
 }
 
-void SizeHandleElement::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void SizeHandleElement::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     painter->setRenderHints(QPainter::Antialiasing);
 
     painter->setBrush(MaskEditorHelper::getSelectionMarkerBrush());
@@ -98,18 +104,21 @@ void SizeHandleElement::paint(QPainter* painter, const QStyleOptionGraphicsItem*
     }
 }
 
-void SizeHandleElement::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+void SizeHandleElement::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
     emit resize_request(true);
     QGraphicsObject::mousePressEvent(event);
 }
 
-void SizeHandleElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+void SizeHandleElement::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
     emit resize_request(false);
     QGraphicsObject::mouseReleaseEvent(event);
 }
 
 //! set position from location type using coordinates of external rectangle
-void SizeHandleElement::updateHandleElementPosition(const QRectF& rect) {
+void SizeHandleElement::updateHandleElementPosition(const QRectF& rect)
+{
     if (m_handleLocation == TOPLEFT) {
         setPos(rect.topLeft());
     }
@@ -143,18 +152,22 @@ void SizeHandleElement::updateHandleElementPosition(const QRectF& rect) {
     }
 }
 
-SizeHandleElement::EHandleLocation SizeHandleElement::getHandleLocation() const {
+SizeHandleElement::EHandleLocation SizeHandleElement::getHandleLocation() const
+{
     return m_handleLocation;
 }
 
-SizeHandleElement::EHandleLocation SizeHandleElement::getOppositeHandleLocation() const {
+SizeHandleElement::EHandleLocation SizeHandleElement::getOppositeHandleLocation() const
+{
     return m_opposite_handle_location[m_handleLocation];
 }
 
-SizeHandleElement::EHandleType SizeHandleElement::getHandleType() const {
+SizeHandleElement::EHandleType SizeHandleElement::getHandleType() const
+{
     return m_handleType;
 }
 
-void SizeHandleElement::update_view() {
+void SizeHandleElement::update_view()
+{
     update();
 }

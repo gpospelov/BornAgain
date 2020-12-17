@@ -25,7 +25,8 @@ const int min_val = -max_val;
 
 using namespace ModelView;
 
-IntegerEditor::IntegerEditor(QWidget* parent) : CustomEditor(parent), m_intEditor(new QSpinBox) {
+IntegerEditor::IntegerEditor(QWidget* parent) : CustomEditor(parent), m_intEditor(new QSpinBox)
+{
     setAutoFillBackground(true);
     m_intEditor->setFocusPolicy(Qt::StrongFocus);
     m_intEditor->setKeyboardTracking(false);
@@ -45,17 +46,20 @@ IntegerEditor::IntegerEditor(QWidget* parent) : CustomEditor(parent), m_intEdito
     setFocusProxy(m_intEditor);
 }
 
-void IntegerEditor::setRange(int minimum, int maximum) {
+void IntegerEditor::setRange(int minimum, int maximum)
+{
     m_intEditor->setRange(minimum, maximum);
 }
 
-void IntegerEditor::onEditingFinished() {
+void IntegerEditor::onEditingFinished()
+{
     int new_value = m_intEditor->value();
     if (new_value != m_data.value<int>())
         setDataIntern(QVariant::fromValue(new_value));
 }
 
-void IntegerEditor::update_components() {
+void IntegerEditor::update_components()
+{
     if (m_data.type() != QVariant::Int)
         throw std::runtime_error("IntegerEditor::update_components() -> Error. Wrong variant type");
 

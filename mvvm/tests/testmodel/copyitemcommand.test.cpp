@@ -30,7 +30,8 @@ public:
 
 CopyItemCommandTest::~CopyItemCommandTest() = default;
 
-TEST_F(CopyItemCommandTest, copyChild) {
+TEST_F(CopyItemCommandTest, copyChild)
+{
     SessionModel model;
 
     // parent with children and data
@@ -64,7 +65,8 @@ TEST_F(CopyItemCommandTest, copyChild) {
 
 //! Attempt to copy item to invalid tag
 
-TEST_F(CopyItemCommandTest, invalidCopyAttempt) {
+TEST_F(CopyItemCommandTest, invalidCopyAttempt)
+{
     SessionModel model;
 
     // parent with children and data

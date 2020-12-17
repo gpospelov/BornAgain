@@ -26,7 +26,8 @@ public:
     FormFactorTruncatedSpheroid(const std::vector<double> P);
     FormFactorTruncatedSpheroid(double radius, double height, double height_flattening, double dh);
 
-    FormFactorTruncatedSpheroid* clone() const final {
+    FormFactorTruncatedSpheroid* clone() const final
+    {
         return new FormFactorTruncatedSpheroid(m_radius, m_height, m_height_flattening, m_dh);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -19,7 +19,8 @@
 #include <memory>
 
 //! Defines correspondance between example name and real name of simulation from SimulationFactory
-QMap<QString, QString> init_NameToRegistry() {
+QMap<QString, QString> init_NameToRegistry()
+{
     QMap<QString, QString> result;
     result["example01"] = "CylindersAndPrismsBuilder";
     result["example02"] = "RadialParaCrystalBuilder";
@@ -53,13 +54,15 @@ QMap<QString, QString> init_NameToRegistry() {
 
 QMap<QString, QString> GUIExamplesFactory::m_name_to_registry = init_NameToRegistry();
 
-bool GUIExamplesFactory::isValidExampleName(const QString& name) {
+bool GUIExamplesFactory::isValidExampleName(const QString& name)
+{
     return m_name_to_registry.contains(name);
 }
 
 //! Populate sample model with
 SessionItem* GUIExamplesFactory::createSampleItems(const QString& name, SampleModel* sampleModel,
-                                                   MaterialModel* materialModel) {
+                                                   MaterialModel* materialModel)
+{
     QString exampleName = m_name_to_registry[name];
 
     SampleBuilderFactory factory;

@@ -17,25 +17,30 @@
 #include "Base/Py/PyUtils.h"
 #include <memory>
 
-Histogram1D::Histogram1D(int nbinsx, double xlow, double xup) {
+Histogram1D::Histogram1D(int nbinsx, double xlow, double xup)
+{
     m_data.addAxis(FixedBinAxis("x-axis", nbinsx, xlow, xup));
 }
 
-Histogram1D::Histogram1D(int nbinsx, const std::vector<double>& xbins) {
+Histogram1D::Histogram1D(int nbinsx, const std::vector<double>& xbins)
+{
     m_data.addAxis(VariableBinAxis("x-axis", nbinsx, xbins));
 }
 
 Histogram1D::Histogram1D(const IAxis& axis) : IHistogram(axis) {}
 
-Histogram1D::Histogram1D(const OutputData<double>& data) {
+Histogram1D::Histogram1D(const OutputData<double>& data)
+{
     init_from_data(data);
 }
 
-Histogram1D* Histogram1D::clone() const {
+Histogram1D* Histogram1D::clone() const
+{
     return new Histogram1D(*this);
 }
 
-int Histogram1D::fill(double x, double weight) {
+int Histogram1D::fill(double x, double weight)
+{
     const IAxis& axis = xAxis();
     if (!axis.contains(x))
         return -1;
@@ -44,35 +49,42 @@ int Histogram1D::fill(double x, double weight) {
     return (int)index;
 }
 
-std::vector<double> Histogram1D::binCenters() const {
+std::vector<double> Histogram1D::binCenters() const
+{
     return xAxis().binCenters();
 }
 
-std::vector<double> Histogram1D::binValues() const {
+std::vector<double> Histogram1D::binValues() const
+{
     return IHistogram::getDataVector(IHistogram::DataType::INTEGRAL);
 }
 
-std::vector<double> Histogram1D::binErrors() const {
+std::vector<double> Histogram1D::binErrors() const
+{
     return IHistogram::getDataVector(IHistogram::DataType::STANDARD_ERROR);
 }
 
 #ifdef BORNAGAIN_PYTHON
 
-PyObject* Histogram1D::binCentersNumpy() const {
+PyObject* Histogram1D::binCentersNumpy() const
+{
     return PyUtils::createNumpyArray(binCenters());
 }
 
-PyObject* Histogram1D::binValuesNumpy() const {
+PyObject* Histogram1D::binValuesNumpy() const
+{
     return PyUtils::createNumpyArray(binValues());
 }
 
-PyObject* Histogram1D::binErrorsNumpy() const {
+PyObject* Histogram1D::binErrorsNumpy() const
+{
     return PyUtils::createNumpyArray(binErrors());
 }
 
 #endif // BORNAGAIN_PYTHON
 
-Histogram1D* Histogram1D::crop(double xmin, double xmax) {
+Histogram1D* Histogram1D::crop(double xmin, double xmax)
+{
     const std::unique_ptr<IAxis> xaxis(xAxis().createClippedAxis(xmin, xmax));
     Histogram1D* result = new Histogram1D(*xaxis);
     OutputData<CumulativeValue>::const_iterator it_origin = m_data.begin();

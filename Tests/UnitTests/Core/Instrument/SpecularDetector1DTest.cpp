@@ -6,10 +6,12 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class SpecularDetectorTest : public ::testing::Test {};
+class SpecularDetectorTest : public ::testing::Test {
+};
 
 // Default detector construction
-TEST_F(SpecularDetectorTest, basicBehaviour) {
+TEST_F(SpecularDetectorTest, basicBehaviour)
+{
     FixedBinAxis axis("axis0", 10, 0.0, 10.0);
     SpecularDetector1D detector(axis);
 
@@ -29,7 +31,8 @@ TEST_F(SpecularDetectorTest, basicBehaviour) {
 }
 
 // Creation of the detector map with axes in given units
-TEST_F(SpecularDetectorTest, createDetectorMap) {
+TEST_F(SpecularDetectorTest, createDetectorMap)
+{
     FixedBinAxis axis("axis0", 10, 1.0 * Units::deg, 10.0 * Units::deg);
     SpecularDetector1D detector(axis);
 
@@ -40,7 +43,8 @@ TEST_F(SpecularDetectorTest, createDetectorMap) {
     EXPECT_EQ(data->axis(0).upperBound(), 10.0 * Units::deg);
 }
 
-TEST_F(SpecularDetectorTest, Clone) {
+TEST_F(SpecularDetectorTest, Clone)
+{
     FixedBinAxis axis("axis0", 5, 1.0 * Units::deg, 10.0 * Units::deg);
     SpecularDetector1D detector(axis);
     std::unique_ptr<SpecularDetector1D> clone(detector.clone());

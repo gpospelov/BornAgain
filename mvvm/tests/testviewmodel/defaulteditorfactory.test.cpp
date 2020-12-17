@@ -47,7 +47,8 @@ public:
     //! Helper function to build temporary model and create editor for cell.
     std::unique_ptr<CustomEditor> createEditor(const QVariant& variant,
                                                RealLimits limits = RealLimits::limitless(),
-                                               const std::string& editor_type = {}) {
+                                               const std::string& editor_type = {})
+    {
         // populating model with data
         SessionModel model;
         auto propertyItem = model.insertItem<PropertyItem>();
@@ -70,14 +71,16 @@ DefaultEditorFactoryTest::~DefaultEditorFactoryTest() = default;
 
 //! Tests editor creation on bool property.
 
-TEST_F(DefaultEditorFactoryTest, boolProperty) {
+TEST_F(DefaultEditorFactoryTest, boolProperty)
+{
     auto editor = createEditor(QVariant::fromValue(true));
     EXPECT_TRUE(dynamic_cast<BoolEditor*>(editor.get()));
 }
 
 //! Tests editor creation on integer property.
 
-TEST_F(DefaultEditorFactoryTest, integerProperty) {
+TEST_F(DefaultEditorFactoryTest, integerProperty)
+{
     auto editor = createEditor(QVariant::fromValue(42));
     EXPECT_TRUE(dynamic_cast<IntegerEditor*>(editor.get()));
 
@@ -90,7 +93,8 @@ TEST_F(DefaultEditorFactoryTest, integerProperty) {
 
 //! Tests editor creation on integer property with limits.
 
-TEST_F(DefaultEditorFactoryTest, integerPropertyWithLimits) {
+TEST_F(DefaultEditorFactoryTest, integerPropertyWithLimits)
+{
     auto editor = createEditor(QVariant::fromValue(42), RealLimits::limited(-1, 1));
     EXPECT_TRUE(dynamic_cast<IntegerEditor*>(editor.get()));
 
@@ -102,7 +106,8 @@ TEST_F(DefaultEditorFactoryTest, integerPropertyWithLimits) {
 
 //! Tests editor creation on double property.
 
-TEST_F(DefaultEditorFactoryTest, doubleProperty) {
+TEST_F(DefaultEditorFactoryTest, doubleProperty)
+{
     auto editor = createEditor(QVariant::fromValue(42.42));
     EXPECT_TRUE(dynamic_cast<ScientificSpinBoxEditor*>(editor.get()));
 
@@ -114,7 +119,8 @@ TEST_F(DefaultEditorFactoryTest, doubleProperty) {
 
 //! Tests editor creation on double property with limits.
 
-TEST_F(DefaultEditorFactoryTest, doublePropertyWithLimits) {
+TEST_F(DefaultEditorFactoryTest, doublePropertyWithLimits)
+{
     auto editor = createEditor(QVariant::fromValue(42.42), RealLimits::limited(41, 43));
     EXPECT_TRUE(dynamic_cast<ScientificSpinBoxEditor*>(editor.get()));
 
@@ -126,28 +132,32 @@ TEST_F(DefaultEditorFactoryTest, doublePropertyWithLimits) {
 
 //! Tests editor creation on color property.
 
-TEST_F(DefaultEditorFactoryTest, colorProperty) {
+TEST_F(DefaultEditorFactoryTest, colorProperty)
+{
     auto editor = createEditor(QVariant::fromValue(QColor(Qt::green)));
     EXPECT_TRUE(dynamic_cast<ColorEditor*>(editor.get()));
 }
 
 //! Tests editor creation on combo property.
 
-TEST_F(DefaultEditorFactoryTest, comboProperty) {
+TEST_F(DefaultEditorFactoryTest, comboProperty)
+{
     auto editor = createEditor(QVariant::fromValue(ComboProperty()));
     EXPECT_TRUE(dynamic_cast<ComboPropertyEditor*>(editor.get()));
 }
 
 //! Tests editor creation on combo property.
 
-TEST_F(DefaultEditorFactoryTest, externalProperty) {
+TEST_F(DefaultEditorFactoryTest, externalProperty)
+{
     auto editor = createEditor(QVariant::fromValue(ExternalProperty()));
     EXPECT_TRUE(dynamic_cast<ExternalPropertyEditor*>(editor.get()));
 }
 
 //! Tests editor creation on some unsupported property.
 
-TEST_F(DefaultEditorFactoryTest, unsupportedProperty) {
+TEST_F(DefaultEditorFactoryTest, unsupportedProperty)
+{
     // no dedicated editor for std::string yet
     auto editor = createEditor(QVariant::fromValue(std::string("text")));
     EXPECT_EQ(editor.get(), nullptr);
@@ -166,7 +176,8 @@ TEST_F(DefaultEditorFactoryTest, unsupportedProperty) {
 
 //! Create test editor using EDITOR role.
 
-TEST_F(DefaultEditorFactoryTest, editorType) {
+TEST_F(DefaultEditorFactoryTest, editorType)
+{
     auto editor = createEditor(QVariant::fromValue(ComboProperty()), RealLimits(),
                                Constants::SelectableComboPropertyEditorType);
     EXPECT_TRUE(dynamic_cast<SelectableComboBoxEditor*>(editor.get()));
@@ -174,7 +185,8 @@ TEST_F(DefaultEditorFactoryTest, editorType) {
 
 //! Tests editor creation on combo property in QStandardItemModel with our variant.
 
-TEST_F(DefaultEditorFactoryTest, comboPropertyInStandardModel) {
+TEST_F(DefaultEditorFactoryTest, comboPropertyInStandardModel)
+{
     QStandardItemModel model;
     auto parent = model.invisibleRootItem();
     QList<QStandardItem*> children{new QStandardItem};

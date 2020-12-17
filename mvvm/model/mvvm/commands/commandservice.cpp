@@ -26,7 +26,8 @@ using namespace ModelView;
 
 CommandService::CommandService(SessionModel* model) : m_model(model), m_pause_record(false) {}
 
-void CommandService::setUndoRedoEnabled(bool value) {
+void CommandService::setUndoRedoEnabled(bool value)
+{
     if (value)
         m_commands = std::make_unique<UndoStack>();
     else
@@ -34,7 +35,8 @@ void CommandService::setUndoRedoEnabled(bool value) {
 }
 
 SessionItem* CommandService::insertNewItem(const item_factory_func_t& func, SessionItem* parent,
-                                           const TagRow& tagrow) {
+                                           const TagRow& tagrow)
+{
     if (!parent)
         parent = m_model->rootItem();
 
@@ -45,7 +47,8 @@ SessionItem* CommandService::insertNewItem(const item_factory_func_t& func, Sess
 }
 
 SessionItem* CommandService::copyItem(const SessionItem* item, SessionItem* parent,
-                                      const TagRow& tagrow) {
+                                      const TagRow& tagrow)
+{
     if (!item)
         return nullptr;
 
@@ -59,14 +62,16 @@ SessionItem* CommandService::copyItem(const SessionItem* item, SessionItem* pare
         process_command<CopyItemCommand>(item, parent, TagRow{tagrow.tag, actual_row}));
 }
 
-bool CommandService::setData(SessionItem* item, const Variant& value, int role) {
+bool CommandService::setData(SessionItem* item, const Variant& value, int role)
+{
     if (!item)
         return false;
 
     return std::get<bool>(process_command<SetValueCommand>(item, value, role));
 }
 
-void CommandService::removeItem(SessionItem* parent, const TagRow& tagrow) {
+void CommandService::removeItem(SessionItem* parent, const TagRow& tagrow)
+{
     if (parent->model() != m_model)
         throw std::runtime_error(
             "CommandService::removeRow() -> Item doesn't belong to given model");
@@ -74,7 +79,8 @@ void CommandService::removeItem(SessionItem* parent, const TagRow& tagrow) {
     process_command<RemoveItemCommand>(parent, tagrow);
 }
 
-void CommandService::moveItem(SessionItem* item, SessionItem* new_parent, const TagRow& tagrow) {
+void CommandService::moveItem(SessionItem* item, SessionItem* new_parent, const TagRow& tagrow)
+{
     if (item->model() != m_model)
         throw std::runtime_error(
             "CommandService::removeRow() -> Item doesn't belong to given model");
@@ -88,14 +94,17 @@ void CommandService::moveItem(SessionItem* item, SessionItem* new_parent, const 
     process_command<MoveItemCommand>(item, new_parent, TagRow{tagrow.tag, actual_row});
 }
 
-UndoStackInterface* CommandService::undoStack() const {
+UndoStackInterface* CommandService::undoStack() const
+{
     return m_commands.get();
 }
 
-void CommandService::setCommandRecordPause(bool value) {
+void CommandService::setCommandRecordPause(bool value)
+{
     m_pause_record = value;
 }
 
-bool CommandService::provideUndo() const {
+bool CommandService::provideUndo() const
+{
     return m_commands && !m_pause_record;
 }

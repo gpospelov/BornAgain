@@ -109,15 +109,18 @@ private:
 
 template <class T>
 OptionContainer::option_t MinimizerAdapter::addOption(const std::string& optionName, T value,
-                                                      const std::string& description) {
+                                                      const std::string& description)
+{
     return m_options.addOption(optionName, value, description);
 }
 
-template <class T> void MinimizerAdapter::setOptionValue(const std::string& optionName, T value) {
+template <class T> void MinimizerAdapter::setOptionValue(const std::string& optionName, T value)
+{
     m_options.setOptionValue(optionName, value);
 }
 
-template <class T> T MinimizerAdapter::optionValue(const std::string& optionName) const {
+template <class T> T MinimizerAdapter::optionValue(const std::string& optionName) const
+{
     return m_options.optionValue<T>(optionName);
 }
 

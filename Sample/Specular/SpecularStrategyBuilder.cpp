@@ -20,7 +20,8 @@
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 
 std::unique_ptr<ISpecularStrategy> SpecularStrategyBuilder::build(const MultiLayer& sample,
-                                                                  const bool magnetic) {
+                                                                  const bool magnetic)
+{
     auto roughnessModel = sample.roughnessModel();
 
     if (magnetic) {

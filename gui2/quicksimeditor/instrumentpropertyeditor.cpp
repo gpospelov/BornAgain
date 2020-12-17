@@ -28,8 +28,7 @@ using namespace ModelView;
 namespace gui2 {
 
 InstrumentPropertyEditor::InstrumentPropertyEditor(QWidget* parent)
-    : QWidget(parent)
-    , m_beamPropertyEditor(new ModelView::PropertyTreeView)
+    : QWidget(parent), m_beamPropertyEditor(new ModelView::PropertyTreeView)
 
 {
     auto layout = new QVBoxLayout(this);
@@ -38,7 +37,8 @@ InstrumentPropertyEditor::InstrumentPropertyEditor(QWidget* parent)
 
 InstrumentPropertyEditor::~InstrumentPropertyEditor() = default;
 
-void InstrumentPropertyEditor::setModels(ApplicationModels* models) {
+void InstrumentPropertyEditor::setModels(ApplicationModels* models)
+{
     auto instrument = models->instrumentModel()->topItem<SpecularInstrumentItem>();
 
     auto delegate = std::make_unique<ViewModelDelegate>();
@@ -52,11 +52,13 @@ void InstrumentPropertyEditor::setModels(ApplicationModels* models) {
     m_beamPropertyEditor->treeView()->expandAll();
 }
 
-QSize InstrumentPropertyEditor::sizeHint() const {
+QSize InstrumentPropertyEditor::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize InstrumentPropertyEditor::minimumSizeHint() const {
+QSize InstrumentPropertyEditor::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 

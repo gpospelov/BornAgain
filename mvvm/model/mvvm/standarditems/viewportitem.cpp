@@ -20,11 +20,13 @@ using namespace ModelView;
 
 ViewportItem::ViewportItem(const ModelView::model_type& model) : CompoundItem(model) {}
 
-ViewportAxisItem* ViewportItem::xAxis() const {
+ViewportAxisItem* ViewportItem::xAxis() const
+{
     return item<ViewportAxisItem>(P_XAXIS);
 }
 
-ViewportAxisItem* ViewportItem::yAxis() const {
+ViewportAxisItem* ViewportItem::yAxis() const
+{
     return item<ViewportAxisItem>(P_YAXIS);
 }
 
@@ -34,7 +36,8 @@ ViewportAxisItem* ViewportItem::yAxis() const {
 //! Example: setViewportToContent(0.0, 0.1, 0.0, 0.1) will set axes to show all graphs with 10% gap
 //! above and below graph's max and min.
 
-void ViewportItem::setViewportToContent(double left, double top, double right, double bottom) {
+void ViewportItem::setViewportToContent(double left, double top, double right, double bottom)
+{
     Utils::BeginMacros(this, "setViewportToContent");
     auto [xmin, xmax] = data_xaxis_range();
     xAxis()->set_range(xmin - (xmax - xmin) * left, xmax + (xmax - xmin) * right);
@@ -46,7 +49,8 @@ void ViewportItem::setViewportToContent(double left, double top, double right, d
 
 //! Sets range of x,y window to show all data.
 
-void ViewportItem::setViewportToContent() {
+void ViewportItem::setViewportToContent()
+{
     Utils::BeginMacros(this, "setViewportToContent");
     auto [xmin, xmax] = data_xaxis_range();
     xAxis()->set_range(xmin, xmax);
@@ -56,7 +60,8 @@ void ViewportItem::setViewportToContent() {
     Utils::EndMacros(this);
 }
 
-void ViewportItem::register_xy_axes() {
+void ViewportItem::register_xy_axes()
+{
     addProperty<ViewportAxisItem>(P_XAXIS)->setDisplayName("X axis");
     addProperty<ViewportAxisItem>(P_YAXIS)->setDisplayName("Y axis");
 }

@@ -7,9 +7,11 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class TestAxesItems : public ::testing::Test {};
+class TestAxesItems : public ::testing::Test {
+};
 
-TEST_F(TestAxesItems, transformFromDomain) {
+TEST_F(TestAxesItems, transformFromDomain)
+{
     BasicAxisItem item;
 
     // transform domain axis without scale factor

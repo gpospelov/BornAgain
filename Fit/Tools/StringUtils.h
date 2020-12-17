@@ -38,7 +38,8 @@ std::vector<std::string> split(const std::string& text, const std::string& delim
 //! Returns scientific string representing given value of any numeric type.
 template <typename T> std::string scientific(const T value, int n = 10);
 
-template <typename T> std::string scientific(const T value, int n) {
+template <typename T> std::string scientific(const T value, int n)
+{
     std::ostringstream out;
     out << std::scientific << std::setprecision(n) << value;
     return out.str();

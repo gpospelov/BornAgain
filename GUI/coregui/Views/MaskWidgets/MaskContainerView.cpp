@@ -18,16 +18,19 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-MaskContainerView::MaskContainerView() {
+MaskContainerView::MaskContainerView()
+{
     // the key flag to not to draw children going outside ot given shape
     setFlag(QGraphicsItem::ItemClipsChildrenToShape, true);
 }
 
-void MaskContainerView::update_view() {
+void MaskContainerView::update_view()
+{
     m_bounding_rect = m_adaptor->viewportRectangle();
     update();
 }
 
-void MaskContainerView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void MaskContainerView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     Q_UNUSED(painter);
 }

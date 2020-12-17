@@ -50,7 +50,8 @@ public:
 
     std::string toString() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m) {
+    friend std::ostream& operator<<(std::ostream& ostr, const AttLimits& m)
+    {
         ostr << m.toString();
         return ostr;
     }

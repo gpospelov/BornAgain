@@ -14,7 +14,8 @@
 
 #include "Sample/Shapes/RippleSawtooth.h"
 
-RippleSawtooth::RippleSawtooth(double length, double width, double height, double asymmetry) {
+RippleSawtooth::RippleSawtooth(double length, double width, double height, double asymmetry)
+{
     double ymax = width / 2.0 - asymmetry;
     double ymin = -width / 2.0 - asymmetry;
     m_vertices.resize(6);

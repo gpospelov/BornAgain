@@ -18,14 +18,18 @@
 #include <limits>
 
 FixedBinAxis::FixedBinAxis(const std::string& name, size_t nbins, double start, double end)
-    : IAxis(name), m_nbins(nbins), m_start(start), m_end(end) {}
+    : IAxis(name), m_nbins(nbins), m_start(start), m_end(end)
+{
+}
 
-FixedBinAxis* FixedBinAxis::clone() const {
+FixedBinAxis* FixedBinAxis::clone() const
+{
     FixedBinAxis* result = new FixedBinAxis(getName(), m_nbins, m_start, m_end);
     return result;
 }
 
-double FixedBinAxis::operator[](size_t index) const {
+double FixedBinAxis::operator[](size_t index) const
+{
     if (index >= m_nbins)
         throw std::runtime_error("FixedBinAxis::operator[] -> Error. Wrong index.");
 
@@ -33,7 +37,8 @@ double FixedBinAxis::operator[](size_t index) const {
     return m_start + (index + 0.5) * step;
 }
 
-Bin1D FixedBinAxis::bin(size_t index) const {
+Bin1D FixedBinAxis::bin(size_t index) const
+{
     if (index >= m_nbins)
         throw std::runtime_error("FixedBinAxis::bin() -> Error. Wrong index.");
 
@@ -42,7 +47,8 @@ Bin1D FixedBinAxis::bin(size_t index) const {
     return result;
 }
 
-size_t FixedBinAxis::findClosestIndex(double value) const {
+size_t FixedBinAxis::findClosestIndex(double value) const
+{
     if (value < lowerBound()) {
         return 0;
     } else if (value >= upperBound()) {
@@ -53,7 +59,8 @@ size_t FixedBinAxis::findClosestIndex(double value) const {
     return int((value - m_start) / step);
 }
 
-std::vector<double> FixedBinAxis::binCenters() const {
+std::vector<double> FixedBinAxis::binCenters() const
+{
     std::vector<double> result;
     result.resize(size(), 0.0);
     for (size_t i = 0; i < size(); ++i) {
@@ -62,7 +69,8 @@ std::vector<double> FixedBinAxis::binCenters() const {
     return result;
 }
 
-std::vector<double> FixedBinAxis::binBoundaries() const {
+std::vector<double> FixedBinAxis::binBoundaries() const
+{
     std::vector<double> result;
     result.resize(size() + 1, 0.0);
     for (size_t i = 0; i < size(); ++i) {
@@ -72,7 +80,8 @@ std::vector<double> FixedBinAxis::binBoundaries() const {
     return result;
 }
 
-FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const {
+FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const
+{
     if (left >= right)
         throw std::runtime_error("FixedBinAxis::createClippedAxis() -> Error. "
                                  "'left' should be smaller than 'right'");
@@ -88,13 +97,15 @@ FixedBinAxis* FixedBinAxis::createClippedAxis(double left, double right) const {
     return new FixedBinAxis(getName(), nbin2 - nbin1 + 1, bin(nbin1).m_lower, bin(nbin2).m_upper);
 }
 
-void FixedBinAxis::print(std::ostream& ostr) const {
+void FixedBinAxis::print(std::ostream& ostr) const
+{
     ostr << "FixedBinAxis(\"" << getName() << "\", " << size() << ", "
          << std::setprecision(std::numeric_limits<double>::digits10 + 2) << lowerBound() << ", "
          << upperBound() << ")";
 }
 
-bool FixedBinAxis::equals(const IAxis& other) const {
+bool FixedBinAxis::equals(const IAxis& other) const
+{
     if (!IAxis::equals(other))
         return false;
     if (const FixedBinAxis* otherAxis = dynamic_cast<const FixedBinAxis*>(&other)) {

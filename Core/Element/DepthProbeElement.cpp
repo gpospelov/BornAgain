@@ -22,7 +22,8 @@ DepthProbeElement::DepthProbeElement(double wavelength, double alpha_i, const IA
     : m_wavelength(wavelength)
     , m_alpha_i(alpha_i)
     , m_z_positions(z_positions)
-    , m_calculation_flag(true) {
+    , m_calculation_flag(true)
+{
     if (!z_positions)
         throw std::runtime_error(
             "Error in DepthProbeElement::DepthProbeElement: z positions are not specified");
@@ -34,18 +35,23 @@ DepthProbeElement::DepthProbeElement(const DepthProbeElement& other)
     , m_alpha_i(other.m_alpha_i)
     , m_intensities(other.m_intensities)
     , m_z_positions(other.m_z_positions)
-    , m_calculation_flag(other.m_calculation_flag) {}
+    , m_calculation_flag(other.m_calculation_flag)
+{
+}
 
 DepthProbeElement::DepthProbeElement(DepthProbeElement&& other) noexcept
     : m_wavelength(other.m_wavelength)
     , m_alpha_i(other.m_alpha_i)
     , m_intensities(std::move(other.m_intensities))
     , m_z_positions(other.m_z_positions)
-    , m_calculation_flag(other.m_calculation_flag) {}
+    , m_calculation_flag(other.m_calculation_flag)
+{
+}
 
 DepthProbeElement::~DepthProbeElement() = default;
 
-DepthProbeElement& DepthProbeElement::operator=(const DepthProbeElement& other) {
+DepthProbeElement& DepthProbeElement::operator=(const DepthProbeElement& other)
+{
     if (this != &other) {
         DepthProbeElement tmp(other);
         tmp.swapContent(*this);
@@ -53,11 +59,13 @@ DepthProbeElement& DepthProbeElement::operator=(const DepthProbeElement& other) 
     return *this;
 }
 
-kvector_t DepthProbeElement::getKi() const {
+kvector_t DepthProbeElement::getKi() const
+{
     return vecOfLambdaAlphaPhi(m_wavelength, m_alpha_i, phi_i_0);
 }
 
-void DepthProbeElement::swapContent(DepthProbeElement& other) {
+void DepthProbeElement::swapContent(DepthProbeElement& other)
+{
     std::swap(m_wavelength, other.m_wavelength);
     std::swap(m_alpha_i, other.m_alpha_i);
     m_intensities.swap(other.m_intensities);

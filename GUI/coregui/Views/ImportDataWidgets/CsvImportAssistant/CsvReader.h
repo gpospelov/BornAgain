@@ -37,7 +37,8 @@ private:
     char separator = '-';
 };
 
-inline std::istream& operator>>(std::istream& str, CSVRow& data) {
+inline std::istream& operator>>(std::istream& str, CSVRow& data)
+{
     data.readNextRow(str);
     return str;
 }
@@ -50,14 +51,16 @@ public:
     typedef CSVRow* pointer;
     typedef CSVRow& reference;
 
-    CSVIterator(std::istream& str, char sep) : m_str(str.good() ? &str : nullptr) {
+    CSVIterator(std::istream& str, char sep) : m_str(str.good() ? &str : nullptr)
+    {
         m_sep = sep;
         ++(*this);
     }
     CSVIterator() : m_str(nullptr) {}
 
     // Pre Increment
-    CSVIterator& operator++() {
+    CSVIterator& operator++()
+    {
         if (m_str) {
             m_row.setSeparator(m_sep);
             if (!((*m_str) >> m_row)) {
@@ -67,14 +70,16 @@ public:
         return *this;
     }
     // Post increment
-    CSVIterator operator++(int) {
+    CSVIterator operator++(int)
+    {
         CSVIterator tmp(*this);
         ++(*this);
         return tmp;
     }
     CSVRow const& operator*() const { return m_row; }
     CSVRow const* operator->() const { return &m_row; }
-    bool operator==(CSVIterator const& rhs) {
+    bool operator==(CSVIterator const& rhs)
+    {
         return ((this == &rhs) || ((this->m_str == nullptr) && (rhs.m_str == nullptr)));
     }
     bool operator!=(CSVIterator const& rhs) { return !((*this) == rhs); }
@@ -90,7 +95,8 @@ public:
     CSVFile(std::string path_to_file) : filepath(path_to_file) { Init(); }
     CSVFile(std::string path_to_file, char sep) : filepath(path_to_file), separator(sep) { Init(); }
     CSVFile(std::string path_to_file, char sep, unsigned headRow)
-        : filepath(path_to_file), separator(sep), headersRow(headRow) {
+        : filepath(path_to_file), separator(sep), headersRow(headRow)
+    {
         Init();
     }
 

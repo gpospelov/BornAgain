@@ -32,13 +32,15 @@ namespace {
 const int row_sim_graph = 0;
 const int row_reference_graph = 1;
 
-GraphItem* create_reference_graph(JobItem* item) {
+GraphItem* create_reference_graph(JobItem* item)
+{
     auto model = item->model();
     return model->insertItem<GraphItem>(item->specularViewport(),
                                         {ViewportItem::T_ITEMS, row_reference_graph});
 }
 
-GraphItem* create_difference_graph(JobItem* item) {
+GraphItem* create_difference_graph(JobItem* item)
+{
     auto model = item->model();
     return model->insertItem<GraphItem>(item->diffViewport(), {ViewportItem::T_ITEMS, 0});
 }
@@ -49,7 +51,8 @@ GraphItem* create_difference_graph(JobItem* item) {
 
 template <typename Data, typename Graph, typename Viewport>
 void initViewport(CompoundItem* item, const std::string& data_name,
-                  const std::string& viewport_name) {
+                  const std::string& viewport_name)
+{
     auto data = item->addProperty<Data>(data_name);
     auto viewport = item->addProperty<Viewport>(viewport_name);
     auto graph = std::make_unique<GraphItem>();
@@ -61,7 +64,8 @@ void initViewport(CompoundItem* item, const std::string& data_name,
 
 SLDCanvasItem::SLDCanvasItem() : GraphViewportItem(Constants::SLDCanvasItemType) {}
 
-std::pair<double, double> SLDCanvasItem::data_yaxis_range() const {
+std::pair<double, double> SLDCanvasItem::data_yaxis_range() const
+{
     auto [ymin, ymax] = GraphViewportItem::data_yaxis_range();
     double range = ymax - ymin;
     return {ymin - range / 10.0, ymax + range / 10.0};
@@ -69,29 +73,35 @@ std::pair<double, double> SLDCanvasItem::data_yaxis_range() const {
 
 // ----------------------------------------------------------------------------
 
-JobItem::JobItem() : ModelView::CompoundItem(Constants::JobItemType) {
+JobItem::JobItem() : ModelView::CompoundItem(Constants::JobItemType)
+{
     setup_sld_viewport();
     setup_specular_viewport();
     setup_diff_viewport();
 }
 
-Data1DItem* JobItem::sldData() const {
+Data1DItem* JobItem::sldData() const
+{
     return item<Data1DItem>(P_SLD_DATA);
 }
 
-SLDCanvasItem* JobItem::sldViewport() const {
+SLDCanvasItem* JobItem::sldViewport() const
+{
     return item<SLDCanvasItem>(P_SLD_VIEWPORT);
 }
 
-Data1DItem* JobItem::specularData() const {
+Data1DItem* JobItem::specularData() const
+{
     return item<Data1DItem>(P_SPECULAR_DATA);
 }
 
-CanvasItem* JobItem::specularViewport() const {
+CanvasItem* JobItem::specularViewport() const
+{
     return item<CanvasItem>(P_SPECULAR_VIEWPORT);
 }
 
-GraphViewportItem* JobItem::diffViewport() const {
+GraphViewportItem* JobItem::diffViewport() const
+{
     return item<GraphViewportItem>(P_DIFF_VIEWPORT);
 }
 
@@ -100,7 +110,8 @@ GraphViewportItem* JobItem::diffViewport() const {
 //! is comming from another viewport (i.e. containing user imported data),
 //! and it is used
 
-void JobItem::updateReferenceGraph(const GraphItem* graph) {
+void JobItem::updateReferenceGraph(const GraphItem* graph)
+{
     if (graph) {
         setupReferenceGraphFrom(graph);
         setupDifferenceGraphFrom(graph);
@@ -113,7 +124,8 @@ void JobItem::updateReferenceGraph(const GraphItem* graph) {
 //! Updates values stored in Data1DItem representing the difference between specular and reference
 //! graphs.
 
-void JobItem::updateDifferenceData() {
+void JobItem::updateDifferenceData()
+{
     if (auto reference_graph = referenceGraph(); reference_graph) {
         const auto reference_data = reference_graph->dataItem();
         const auto specular_data = specularData();
@@ -122,13 +134,15 @@ void JobItem::updateDifferenceData() {
     }
 }
 
-Data1DItem* JobItem::differenceData() const {
+Data1DItem* JobItem::differenceData() const
+{
     return item<Data1DItem>(P_DIFF_DATA);
 }
 
 //! Returns specular graph.
 
-GraphItem* JobItem::specularGraph() const {
+GraphItem* JobItem::specularGraph() const
+{
     auto graphs = specularViewport()->graphItems();
     return graphs.size() > 0 ? graphs.at(row_sim_graph) : nullptr;
 }
@@ -136,25 +150,29 @@ GraphItem* JobItem::specularGraph() const {
 //! Returns reference graph, if exists. It represents imported user data from ExperimentalScanItem.
 //! Here it is stored in SpecularViewport.
 
-GraphItem* JobItem::referenceGraph() const {
+GraphItem* JobItem::referenceGraph() const
+{
     auto graphs = specularViewport()->graphItems();
     return graphs.size() > 1 ? graphs.at(row_reference_graph) : nullptr;
 }
 
 //! Returns graph representing a numeric difference between simulated and reference curve.
 
-GraphItem* JobItem::differenceGraph() const {
+GraphItem* JobItem::differenceGraph() const
+{
     auto graphs = diffViewport()->graphItems();
     return graphs.size() > 0 ? graphs.at(0) : nullptr;
 }
 
-void JobItem::setupReferenceGraphFrom(const GraphItem* graph) {
+void JobItem::setupReferenceGraphFrom(const GraphItem* graph)
+{
     assert(graph);
     auto reference_graph = referenceGraph() ? referenceGraph() : create_reference_graph(this);
     reference_graph->setFromGraphItem(graph);
 }
 
-void JobItem::setupDifferenceGraphFrom(const GraphItem* /*graph*/) {
+void JobItem::setupDifferenceGraphFrom(const GraphItem* /*graph*/)
+{
     // FIXME rename unused graph
     if (!differenceGraph()) {
         create_difference_graph(this);
@@ -166,19 +184,22 @@ void JobItem::setupDifferenceGraphFrom(const GraphItem* /*graph*/) {
 
 //! Removes reference graph from specular viewport.
 
-void JobItem::removeReferenceGraph() {
+void JobItem::removeReferenceGraph()
+{
     if (auto graph = referenceGraph(); graph)
         ModelView::Utils::DeleteItemFromModel(graph);
 }
 
 //! Removes difference graph from specular viewport.
 
-void JobItem::removeDifferenceGraph() {
+void JobItem::removeDifferenceGraph()
+{
     if (auto graph = differenceGraph(); graph)
         ModelView::Utils::DeleteItemFromModel(graph);
 }
 
-void JobItem::setup_sld_viewport() {
+void JobItem::setup_sld_viewport()
+{
     initViewport<Data1DItem, GraphItem, SLDCanvasItem>(this, P_SLD_DATA, P_SLD_VIEWPORT);
     sldData()->setAxis<FixedBinAxisItem>(1, 0.0, 1.0);
 }
@@ -186,7 +207,8 @@ void JobItem::setup_sld_viewport() {
 //! Setups a specular viewport together with a single graph in it and corresponding data item.
 //! Intended to store simulated specular curve, and possibly reference graphs.
 
-void JobItem::setup_specular_viewport() {
+void JobItem::setup_specular_viewport()
+{
     initViewport<Data1DItem, GraphItem, CanvasItem>(this, P_SPECULAR_DATA, P_SPECULAR_VIEWPORT);
     auto graph = specularGraph();
     graph->setNamedColor("cornflowerblue");
@@ -196,7 +218,8 @@ void JobItem::setup_specular_viewport() {
 //! Setups viewport, difference graph, and its underlying data to show the difference between
 //! simulated and reference curves.
 
-void JobItem::setup_diff_viewport() {
+void JobItem::setup_diff_viewport()
+{
     initViewport<Data1DItem, GraphItem, GraphViewportItem>(this, P_DIFF_DATA, P_DIFF_VIEWPORT);
     differenceData()->setAxis<PointwiseAxisItem>(std::vector<double>());
 }

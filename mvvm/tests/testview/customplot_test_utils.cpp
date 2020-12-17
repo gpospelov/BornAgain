@@ -15,15 +15,18 @@
 #include "customplot_test_utils.h"
 #include <qcustomplot.h>
 
-std::vector<double> TestUtils::binCenters(const QCPGraph* graph) {
+std::vector<double> TestUtils::binCenters(const QCPGraph* graph)
+{
     return get_values(graph, [](auto x) { return x.key; });
 }
 
-std::vector<double> TestUtils::binValues(const QCPGraph* graph) {
+std::vector<double> TestUtils::binValues(const QCPGraph* graph)
+{
     return get_values(graph, [](auto x) { return x.value; });
 }
 
-std::vector<double> TestUtils::binErrors(const QCPGraph* graph) {
+std::vector<double> TestUtils::binErrors(const QCPGraph* graph)
+{
     std::vector<double> result;
     if (auto errorBars = GetPlottable<QCPErrorBars>(graph->parentPlot()); errorBars) {
         auto container = errorBars->data();

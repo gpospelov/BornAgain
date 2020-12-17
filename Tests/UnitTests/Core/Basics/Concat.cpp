@@ -3,9 +3,11 @@
 #include <string>
 #include <vector>
 
-class ConcatTest : public ::testing::Test {};
+class ConcatTest : public ::testing::Test {
+};
 
-TEST_F(ConcatTest, SimpleType) {
+TEST_F(ConcatTest, SimpleType)
+{
     std::vector<int> A{1, 2, 3};
     std::vector<int> B{4, 5};
     std::vector<int> N;
@@ -16,7 +18,8 @@ TEST_F(ConcatTest, SimpleType) {
     EXPECT_EQ(algo::concat(N, B), B);
 }
 
-TEST_F(ConcatTest, Struct) {
+TEST_F(ConcatTest, Struct)
+{
     struct S {
         std::string nam;
         double val;

@@ -48,20 +48,24 @@ public:
     //! Scalar value getters; these throw errors by default as they should only
     //! be used when the derived object is really scalar
 #endif
-    virtual complex_t getScalarT() const {
+    virtual complex_t getScalarT() const
+    {
         throw std::runtime_error("ILayerRTCoefficients::"
                                  "getScalarT(): coefficients are not scalar.");
     }
-    virtual complex_t getScalarR() const {
+    virtual complex_t getScalarR() const
+    {
         throw std::runtime_error("ILayerRTCoefficients::"
                                  "getScalarR(): coefficients are not scalar.");
     }
-    virtual complex_t getScalarKz() const {
+    virtual complex_t getScalarKz() const
+    {
         throw std::runtime_error("ILayerRTCoefficients::"
                                  "getScalarKz(): coefficients are not scalar.");
     }
 
-    virtual Eigen::Matrix2cd getReflectionMatrix() const {
+    virtual Eigen::Matrix2cd getReflectionMatrix() const
+    {
         throw std::runtime_error("Only defined for Matrix coefficeints");
     }
 };

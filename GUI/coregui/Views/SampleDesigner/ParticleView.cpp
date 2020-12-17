@@ -23,7 +23,8 @@
 #include <QPainter>
 #include <QStyleOptionGraphicsItem>
 
-ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent) {
+ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent)
+{
     setName("Particle");
     setColor(DesignerHelper::getDefaultParticleColor());
     setRectangle(DesignerHelper::getParticleBoundingRect());
@@ -34,8 +35,8 @@ ParticleView::ParticleView(QGraphicsItem* parent) : ConnectableView(parent) {
     m_label_vspace = StyleUtils::SizeOfLetterM().height() * 3.0;
 }
 
-void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option,
-                         QWidget* widget) {
+void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* option, QWidget* widget)
+{
     Q_UNUSED(widget);
     painter->setRenderHint(QPainter::SmoothPixmapTransform);
     painter->setRenderHint(QPainter::Antialiasing);
@@ -67,14 +68,16 @@ void ParticleView::paint(QPainter* painter, const QStyleOptionGraphicsItem* opti
     //    painter->drawImage(target, m_pixmap);
 }
 
-void ParticleView::onPropertyChange(const QString& propertyName) {
+void ParticleView::onPropertyChange(const QString& propertyName)
+{
     if (propertyName == ParticleItem::P_FORM_FACTOR)
         update_appearance();
 
     IView::onPropertyChange(propertyName);
 }
 
-void ParticleView::addView(IView* childView, int /*row*/) {
+void ParticleView::addView(IView* childView, int /*row*/)
+{
     if (childView->type() == ViewTypes::TRANSFORMATION) {
         connectInputPort(dynamic_cast<ConnectableView*>(childView), 0);
     } else {
@@ -82,13 +85,15 @@ void ParticleView::addView(IView* childView, int /*row*/) {
     }
 }
 
-void ParticleView::update_appearance() {
+void ParticleView::update_appearance()
+{
     updatePixmap();
     updateToolTip();
     ConnectableView::update_appearance();
 }
 
-void ParticleView::updatePixmap() {
+void ParticleView::updatePixmap()
+{
     if (!getItem())
         return;
 
@@ -97,7 +102,8 @@ void ParticleView::updatePixmap() {
     m_pixmap = QPixmap(filename);
 }
 
-void ParticleView::updateToolTip() {
+void ParticleView::updateToolTip()
+{
     if (!getItem())
         return;
 

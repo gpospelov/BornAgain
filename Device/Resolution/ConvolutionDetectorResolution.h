@@ -66,7 +66,8 @@ private:
     std::unique_ptr<IResolutionFunction2D> m_res_function_2d;
 };
 
-inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const {
+inline const IResolutionFunction2D* ConvolutionDetectorResolution::getResolutionFunction2D() const
+{
     return m_res_function_2d.get();
 }
 

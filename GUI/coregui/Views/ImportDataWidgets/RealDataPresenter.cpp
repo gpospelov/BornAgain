@@ -21,18 +21,21 @@
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include <QAction>
 
-RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent) {
+RealDataPresenter::RealDataPresenter(QWidget* parent) : ItemComboWidget(parent)
+{
     registerWidget("Color Map", create_new<IntensityDataWidget>);
     registerWidget("Projections", create_new<IntensityDataProjectionsWidget>);
     registerWidget("Mask Editor", create_new<RealDataMaskWidget>);
     registerWidget("Reflectometry", create_new<SpecularDataWidget>);
 }
 
-QList<QAction*> RealDataPresenter::actionList() {
+QList<QAction*> RealDataPresenter::actionList()
+{
     return QList<QAction*>();
 }
 
-QStringList RealDataPresenter::activePresentationList(SessionItem* item) {
+QStringList RealDataPresenter::activePresentationList(SessionItem* item)
+{
     ASSERT(item && dynamic_cast<RealDataItem*>(item));
     const auto& underlying_data_model = dynamic_cast<RealDataItem*>(item)->underlyingDataModel();
 

@@ -18,7 +18,8 @@
 
 namespace gui2 {
 
-DefaultParser::DefaultParser(const ParserOptions& options) {
+DefaultParser::DefaultParser(const ParserOptions& options)
+{
     m_isSkipLineNumber = Utils::CreateLineNumberPatternValidator(options.m_skip_index_pattern);
     m_isValidLineContent = Utils::CreateLinePrefixValidator(options.m_header_prefix);
     m_line_splitter = Utils::CreateSeparatorBasedSplitter(options.m_separator);
@@ -26,7 +27,8 @@ DefaultParser::DefaultParser(const ParserOptions& options) {
 
 //! Parse data representing content of ASCII file.
 
-void DefaultParser::process(const std::vector<std::string>& raw_data) {
+void DefaultParser::process(const std::vector<std::string>& raw_data)
+{
     m_rawData = raw_data;
     m_parsedData.clear();
 
@@ -43,25 +45,29 @@ void DefaultParser::process(const std::vector<std::string>& raw_data) {
 
 //! Returns total number of lines in raw data.
 
-size_t DefaultParser::totalLineCount() const {
+size_t DefaultParser::totalLineCount() const
+{
     return m_rawData.size();
 }
 
 //! Returns a pair representing raw line and flag describing parsing results.
 
-std::string DefaultParser::getLine(size_t index) const {
+std::string DefaultParser::getLine(size_t index) const
+{
     if (index >= m_rawData.size())
         throw std::runtime_error("Error in DefaultParser: out of bounds.");
 
     return m_rawData[index];
 }
 
-std::vector<std::string> DefaultParser::parseResults(size_t index) const {
+std::vector<std::string> DefaultParser::parseResults(size_t index) const
+{
     auto it = m_parsedData.find(index);
     return it == m_parsedData.end() ? std::vector<std::string>() : it->second;
 }
 
-std::vector<std::vector<std::string>> DefaultParser::parsedData() const {
+std::vector<std::vector<std::string>> DefaultParser::parsedData() const
+{
     std::vector<std::vector<std::string>> result;
     for (size_t index = 0; index < totalLineCount(); ++index) {
         if (auto it = m_parsedData.find(index); it != m_parsedData.end())

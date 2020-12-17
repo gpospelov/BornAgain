@@ -21,14 +21,18 @@
 FormFactorFullSphere::FormFactorFullSphere(const std::vector<double> P, bool position_at_center)
     : IBornFF({"FullSphere", "sphere", {{"Radius", "nm", "radius", 0, +INF, 0}}}, P)
     , m_radius(m_P[0])
-    , m_position_at_center(position_at_center) {
+    , m_position_at_center(position_at_center)
+{
     onChange();
 }
 
 FormFactorFullSphere::FormFactorFullSphere(double radius, bool position_at_center)
-    : FormFactorFullSphere(std::vector<double>{radius}, position_at_center) {}
+    : FormFactorFullSphere(std::vector<double>{radius}, position_at_center)
+{
+}
 
-double FormFactorFullSphere::bottomZ(const IRotation& rotation) const {
+double FormFactorFullSphere::bottomZ(const IRotation& rotation) const
+{
     if (m_position_at_center)
         return -m_radius;
     kvector_t centre(0.0, 0.0, m_radius);
@@ -36,7 +40,8 @@ double FormFactorFullSphere::bottomZ(const IRotation& rotation) const {
     return new_centre.z() - m_radius;
 }
 
-double FormFactorFullSphere::topZ(const IRotation& rotation) const {
+double FormFactorFullSphere::topZ(const IRotation& rotation) const
+{
     if (m_position_at_center)
         return m_radius;
     kvector_t centre(0.0, 0.0, m_radius);
@@ -44,7 +49,8 @@ double FormFactorFullSphere::topZ(const IRotation& rotation) const {
     return new_centre.z() + m_radius;
 }
 
-complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const
+{
     complex_t ret = someff::ffSphere(q, m_radius);
     if (!m_position_at_center)
         ret *= exp_I(q.z() * m_radius);
@@ -52,7 +58,8 @@ complex_t FormFactorFullSphere::evaluate_for_q(cvector_t q) const {
 }
 
 IFormFactor* FormFactorFullSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                   kvector_t translation) const {
+                                                   kvector_t translation) const
+{
     kvector_t center(0.0, 0.0, m_radius);
     kvector_t rotation_offset =
         m_position_at_center ? kvector_t(0.0, 0.0, 0.0) : rot.transformed(center) - center;

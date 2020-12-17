@@ -31,7 +31,8 @@ OffSpecularInstrumentEditor::OffSpecularInstrumentEditor(QWidget* parent)
     //, m_environmentEditor(new EnvironmentEditor(m_columnResizer))
     //, m_polarizationAnalysisEditor(new PolarizationAnalysisEditor(m_columnResizer))
     , m_environmentEditor(nullptr)
-    , m_polarizationAnalysisEditor(nullptr) {
+    , m_polarizationAnalysisEditor(nullptr)
+{
     auto mainLayout = new QVBoxLayout;
 
     mainLayout->addWidget(StyleUtils::createDetailsWidget(m_beamEditor, "Beam parameters"));
@@ -41,14 +42,16 @@ OffSpecularInstrumentEditor::OffSpecularInstrumentEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void OffSpecularInstrumentEditor::subscribeToItem() {
+void OffSpecularInstrumentEditor::subscribeToItem()
+{
     m_beamEditor->setItem(instrumentItem());
     m_detectorEditor->setItem(instrumentItem());
     //    m_environmentEditor->setItem(instrumentItem());
     //    m_polarizationAnalysisEditor->setItem(instrumentItem());
 }
 
-OffSpecularInstrumentItem* OffSpecularInstrumentEditor::instrumentItem() {
+OffSpecularInstrumentItem* OffSpecularInstrumentEditor::instrumentItem()
+{
     auto result = dynamic_cast<OffSpecularInstrumentItem*>(currentItem());
     ASSERT(result);
     return result;

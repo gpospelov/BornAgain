@@ -30,7 +30,8 @@ namespace ModelView ::Utils {
 #define CR 13
 #define SUB 26
 
-bool is_binary(const std::string& filename) {
+bool is_binary(const std::string& filename)
+{
     int buffer[BYTE_LENGTH];
 
     // get buffer size
@@ -49,7 +50,8 @@ bool is_binary(const std::string& filename) {
     return null_check(buffer, buffer_size);
 }
 
-bool is_text(const std::string& filename) {
+bool is_text(const std::string& filename)
+{
 
     return (!is_binary(filename));
 }
@@ -58,7 +60,8 @@ bool is_text(const std::string& filename) {
 
 namespace {
 
-int get_buffer_size(const std::string& filename) {
+int get_buffer_size(const std::string& filename)
+{
     std::ifstream mySource;
     mySource.open(filename, std::ios_base::binary);
     mySource.seekg(0, std::ios_base::end);
@@ -67,17 +70,20 @@ int get_buffer_size(const std::string& filename) {
     return (size > BYTE_LENGTH) ? BYTE_LENGTH : size;
 }
 
-void get_buffer_data(const std::string& filename, int* buffer, int byte_length) {
+void get_buffer_data(const std::string& filename, int* buffer, int byte_length)
+{
     std::ifstream fstr(filename, std::ios::in | std::ios::binary);
     for (int i = 0; i < byte_length; i++)
         buffer[i] = fstr.get();
 }
 
-bool is_control_char(int ch) {
+bool is_control_char(int ch)
+{
     return ((ch > NUL && ch < BS) || (ch > CR && ch < SUB));
 }
 
-bool null_check(int* buffer, int buffer_size) {
+bool null_check(int* buffer, int buffer_size)
+{
     for (int i = 1; i < buffer_size; ++i)
         if (buffer[i] == NULL_CHR && buffer[i - 1] == NULL_CHR)
             return true;

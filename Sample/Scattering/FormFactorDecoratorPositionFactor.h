@@ -29,7 +29,8 @@ class FormFactorDecoratorPositionFactor : public IFormFactorDecorator {
 public:
     FormFactorDecoratorPositionFactor(const IFormFactor& ff, const kvector_t& position);
 
-    FormFactorDecoratorPositionFactor* clone() const final {
+    FormFactorDecoratorPositionFactor* clone() const final
+    {
         return new FormFactorDecoratorPositionFactor(*m_ff, m_position);
     }
 

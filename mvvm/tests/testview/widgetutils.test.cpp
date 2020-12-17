@@ -47,7 +47,8 @@ WidgetUtilsTest::~WidgetUtilsTest() = default;
 //     }
 // }
 
-TEST_F(WidgetUtilsTest, ProjectWindowTitle) {
+TEST_F(WidgetUtilsTest, ProjectWindowTitle)
+{
     // untitled and unmodified project
     EXPECT_EQ(Utils::ProjectWindowTitle(QString(""), false), "Untitled");
 
@@ -67,23 +68,27 @@ TEST_F(WidgetUtilsTest, ProjectWindowTitle) {
     EXPECT_EQ(Utils::ProjectWindowTitle(QString("/home/user/project1"), true), "*project1");
 }
 
-TEST_F(WidgetUtilsTest, ClickableText) {
+TEST_F(WidgetUtilsTest, ClickableText)
+{
     EXPECT_EQ(Utils::ClickableText("abc", "site.com"), QString("<a href=\"site.com\">abc</a>"));
 }
 
-TEST_F(WidgetUtilsTest, toStringList) {
+TEST_F(WidgetUtilsTest, toStringList)
+{
     using vec_t = std::vector<std::string>;
     EXPECT_EQ(Utils::toStringList(vec_t()), QStringList());
     EXPECT_EQ(Utils::toStringList(vec_t({"abc", "cde"})), QStringList({"abc", "cde"}));
 }
 
-TEST_F(WidgetUtilsTest, fromStringList) {
+TEST_F(WidgetUtilsTest, fromStringList)
+{
     using vec_t = std::vector<std::string>;
     EXPECT_EQ(Utils::fromStringList(QStringList()), vec_t());
     EXPECT_EQ(Utils::fromStringList(QStringList({"abc", "cde"})), vec_t({"abc", "cde"}));
 }
 
-TEST_F(WidgetUtilsTest, toFromByteArray) {
+TEST_F(WidgetUtilsTest, toFromByteArray)
+{
     QStringList expected = QStringList() << "aaa"
                                          << "bbb"
                                          << "ccc";

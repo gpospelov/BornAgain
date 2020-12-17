@@ -31,7 +31,8 @@ MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel* materialModel, QWidg
     , m_selectionModel(nullptr)
     , m_newMaterialAction(nullptr)
     , m_cloneMaterialAction(nullptr)
-    , m_removeMaterialAction(nullptr) {
+    , m_removeMaterialAction(nullptr)
+{
     setIconSize(QSize(toolbar_icon_size, toolbar_icon_size));
     setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
 
@@ -57,11 +58,13 @@ MaterialEditorToolBar::MaterialEditorToolBar(MaterialModel* materialModel, QWidg
     addAction(m_removeMaterialAction);
 }
 
-void MaterialEditorToolBar::setSelectionModel(QItemSelectionModel* selectionModel) {
+void MaterialEditorToolBar::setSelectionModel(QItemSelectionModel* selectionModel)
+{
     m_selectionModel = selectionModel;
 }
 
-void MaterialEditorToolBar::onCustomContextMenuRequested(const QPoint& point) {
+void MaterialEditorToolBar::onCustomContextMenuRequested(const QPoint& point)
+{
     QListView* listView = qobject_cast<QListView*>(sender());
     ASSERT(listView);
     QMenu menu;
@@ -69,18 +72,21 @@ void MaterialEditorToolBar::onCustomContextMenuRequested(const QPoint& point) {
     menu.exec(listView->mapToGlobal(point));
 }
 
-void MaterialEditorToolBar::onNewMaterialAction() {
+void MaterialEditorToolBar::onNewMaterialAction()
+{
     m_materialModel->addRefractiveMaterial("unnamed", 0.0, 0.0); // vacuum
 }
 
-void MaterialEditorToolBar::onCloneMaterialAction() {
+void MaterialEditorToolBar::onCloneMaterialAction()
+{
     auto selected = m_selectionModel->currentIndex();
 
     if (selected.isValid())
         m_materialModel->cloneMaterial(selected);
 }
 
-void MaterialEditorToolBar::onRemoveMaterialAction() {
+void MaterialEditorToolBar::onRemoveMaterialAction()
+{
     ASSERT(m_materialModel);
     ASSERT(m_selectionModel);
 
@@ -90,7 +96,8 @@ void MaterialEditorToolBar::onRemoveMaterialAction() {
         m_materialModel->removeRows(selected.row(), 1, selected.parent());
 }
 
-void MaterialEditorToolBar::initItemContextMenu(QMenu& menu) {
+void MaterialEditorToolBar::initItemContextMenu(QMenu& menu)
+{
     menu.addAction(m_newMaterialAction);
     menu.addAction(m_cloneMaterialAction);
     menu.addSeparator();

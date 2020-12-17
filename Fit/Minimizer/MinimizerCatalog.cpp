@@ -17,7 +17,8 @@
 #include <boost/format.hpp>
 #include <sstream>
 
-MinimizerCatalog::MinimizerCatalog() {
+MinimizerCatalog::MinimizerCatalog()
+{
     addMinimizerInfo(MinimizerInfo::buildMinuit2Info());
     addMinimizerInfo(MinimizerInfo::buildGSLMultiMinInfo());
     addMinimizerInfo(MinimizerInfo::buildGSLLMAInfo());
@@ -28,7 +29,8 @@ MinimizerCatalog::MinimizerCatalog() {
 
 //! Returns multiline string representing catalog content.
 
-std::string MinimizerCatalog::toString() const {
+std::string MinimizerCatalog::toString() const
+{
     const int text_width = 80;
     std::ostringstream result;
 
@@ -43,7 +45,8 @@ std::string MinimizerCatalog::toString() const {
     return result.str();
 }
 
-std::vector<std::string> MinimizerCatalog::minimizerNames() const {
+std::vector<std::string> MinimizerCatalog::minimizerNames() const
+{
     std::vector<std::string> result;
     for (const auto& info : m_minimizers)
         result.push_back(info.name());
@@ -53,20 +56,23 @@ std::vector<std::string> MinimizerCatalog::minimizerNames() const {
 
 //! Returns list of algorithms defined for the minimizer with a given name.
 
-std::vector<std::string> MinimizerCatalog::algorithmNames(const std::string& minimizerName) const {
+std::vector<std::string> MinimizerCatalog::algorithmNames(const std::string& minimizerName) const
+{
     return minimizerInfo(minimizerName).algorithmNames();
 }
 
 //! Returns list of algorithm's descriptions for the minimizer with a given name    .
 
 std::vector<std::string>
-MinimizerCatalog::algorithmDescriptions(const std::string& minimizerName) const {
+MinimizerCatalog::algorithmDescriptions(const std::string& minimizerName) const
+{
     return minimizerInfo(minimizerName).algorithmDescriptions();
 }
 
 //! Returns info for minimizer with given name.
 
-const MinimizerInfo& MinimizerCatalog::minimizerInfo(const std::string& minimizerName) const {
+const MinimizerInfo& MinimizerCatalog::minimizerInfo(const std::string& minimizerName) const
+{
     for (const auto& info : m_minimizers)
         if (info.name() == minimizerName)
             return info;
@@ -78,6 +84,7 @@ const MinimizerInfo& MinimizerCatalog::minimizerInfo(const std::string& minimize
 
 //! Adds minimizer info to the catalog.
 
-void MinimizerCatalog::addMinimizerInfo(const MinimizerInfo& info) {
+void MinimizerCatalog::addMinimizerInfo(const MinimizerInfo& info)
+{
     m_minimizers.push_back(info);
 }

@@ -38,7 +38,8 @@ public:
     //! First vector is intended to be moved inside a model, second vector is to validate
     //! the content of a model after the move.
 
-    std::pair<children_t, expected_t> test_data(int ncolumns) {
+    std::pair<children_t, expected_t> test_data(int ncolumns)
+    {
         auto vector_of_unique = TestUtils::create_row<ViewItem, TestItem>(ncolumns);
         auto vector_of_pointers = TestUtils::create_pointers(vector_of_unique);
         return std::make_pair(std::move(vector_of_unique), std::move(vector_of_pointers));
@@ -50,7 +51,8 @@ ViewItemTest::TestItem::~TestItem() = default;
 
 //! Initial state of RefViewItem.
 
-TEST_F(ViewItemTest, initialState) {
+TEST_F(ViewItemTest, initialState)
+{
     TestItem view_item;
 
     EXPECT_EQ(view_item.rowCount(), 0);
@@ -65,7 +67,8 @@ TEST_F(ViewItemTest, initialState) {
 
 //! Append single item as row.
 
-TEST_F(ViewItemTest, appendRow) {
+TEST_F(ViewItemTest, appendRow)
+{
     auto [children, expected] = test_data(/*ncolumns*/ 1);
 
     // appending row with single item
@@ -86,7 +89,8 @@ TEST_F(ViewItemTest, appendRow) {
 
 //! Remove row.
 
-TEST_F(ViewItemTest, removeRow) {
+TEST_F(ViewItemTest, removeRow)
+{
     auto [children, expected] = test_data(/*ncolumns*/ 1);
 
     // appending row with single item
@@ -101,7 +105,8 @@ TEST_F(ViewItemTest, removeRow) {
 
 //! Append two rows with two items each.
 
-TEST_F(ViewItemTest, appendTwoRows) {
+TEST_F(ViewItemTest, appendTwoRows)
+{
     // preparing two rows of children, two columns each
     auto [children_row0, expected_row0] = test_data(/*ncolumns*/ 2);
     auto [children_row1, expected_row1] = test_data(/*ncolumns*/ 2);
@@ -144,7 +149,8 @@ TEST_F(ViewItemTest, appendTwoRows) {
 
 //! Append two rows with two items each.
 
-TEST_F(ViewItemTest, insertRowsThenRemove) {
+TEST_F(ViewItemTest, insertRowsThenRemove)
+{
     // preparing two rows of children, two columns each
     auto [children_row0, expected_row0] = test_data(/*ncolumns*/ 2);
     auto [children_row1, expected_row1] = test_data(/*ncolumns*/ 2);
@@ -197,7 +203,8 @@ TEST_F(ViewItemTest, insertRowsThenRemove) {
 
 //! Clean item's children.
 
-TEST_F(ViewItemTest, clear) {
+TEST_F(ViewItemTest, clear)
+{
     auto [children, expected] = test_data(/*ncolumns*/ 1);
 
     TestItem view_item;
@@ -208,7 +215,8 @@ TEST_F(ViewItemTest, clear) {
     EXPECT_EQ(view_item.columnCount(), 0);
 }
 
-TEST_F(ViewItemTest, children) {
+TEST_F(ViewItemTest, children)
+{
     auto [children_row0, expected_row0] = test_data(/*ncolumns*/ 2);
     auto [children_row1, expected_row1] = test_data(/*ncolumns*/ 2);
 

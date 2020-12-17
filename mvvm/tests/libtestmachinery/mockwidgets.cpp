@@ -21,16 +21,19 @@
 
 // ----------------------------------------------------------------------------
 
-MockWidgetForItem::MockWidgetForItem(ModelView::SessionItem* item) : m_item(nullptr) {
+MockWidgetForItem::MockWidgetForItem(ModelView::SessionItem* item) : m_item(nullptr)
+{
     setItem(item);
 }
 
-MockWidgetForItem::~MockWidgetForItem() {
+MockWidgetForItem::~MockWidgetForItem()
+{
     if (m_item)
         m_item->mapper()->unsubscribe(this);
 }
 
-void MockWidgetForItem::setItem(ModelView::SessionItem* item) {
+void MockWidgetForItem::setItem(ModelView::SessionItem* item)
+{
     if (m_item == item)
         return;
 
@@ -81,16 +84,19 @@ void MockWidgetForItem::setItem(ModelView::SessionItem* item) {
 
 // ----------------------------------------------------------------------------
 
-MockWidgetForModel::MockWidgetForModel(ModelView::SessionModel* model) : m_model(nullptr) {
+MockWidgetForModel::MockWidgetForModel(ModelView::SessionModel* model) : m_model(nullptr)
+{
     setModel(model);
 }
 
-MockWidgetForModel::~MockWidgetForModel() {
+MockWidgetForModel::~MockWidgetForModel()
+{
     if (m_model)
         m_model->mapper()->unsubscribe(this);
 }
 
-void MockWidgetForModel::setModel(ModelView::SessionModel* model) {
+void MockWidgetForModel::setModel(ModelView::SessionModel* model)
+{
     if (m_model == model)
         return;
 

@@ -32,7 +32,8 @@ StandardViewItemsTest::~StandardViewItemsTest() = default;
 // Tests for ViewLabelItem
 // ----------------------------------------------------------------------------
 
-TEST_F(StandardViewItemsTest, ViewLabelItem_initialState) {
+TEST_F(StandardViewItemsTest, ViewLabelItem_initialState)
+{
     SessionItem item;
     ViewLabelItem viewItem(&item);
     EXPECT_EQ(viewItem.item(), &item);
@@ -42,7 +43,8 @@ TEST_F(StandardViewItemsTest, ViewLabelItem_initialState) {
 //! ViewLabelItem::data method
 //! Checks that the data method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewLabelItem_data) {
+TEST_F(StandardViewItemsTest, ViewLabelItem_data)
+{
     // create SessionItem with data on board
     SessionItem item;
     const std::string expected("Layer");
@@ -58,7 +60,8 @@ TEST_F(StandardViewItemsTest, ViewLabelItem_data) {
 //! ViewLabelItem::setData
 //! Checks that the setData method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewLabelItem_setData) {
+TEST_F(StandardViewItemsTest, ViewLabelItem_setData)
+{
     // create SessionItem with data on board
     SessionItem item;
     const std::string expected("Layer");
@@ -82,7 +85,8 @@ TEST_F(StandardViewItemsTest, ViewLabelItem_setData) {
 
 //! Testing ViewLabelItem::flags.
 
-TEST_F(StandardViewItemsTest, ViewLabelItem_flags) {
+TEST_F(StandardViewItemsTest, ViewLabelItem_flags)
+{
     SessionItem item;
     const std::string expected("Layer");
     EXPECT_TRUE(item.setData(expected, ItemDataRole::DISPLAY));
@@ -93,7 +97,8 @@ TEST_F(StandardViewItemsTest, ViewLabelItem_flags) {
 
 //! Testing tooltip tole.
 
-TEST_F(StandardViewItemsTest, ViewLabelItem_toolTipRole) {
+TEST_F(StandardViewItemsTest, ViewLabelItem_toolTipRole)
+{
     SessionItem item;
 
     ViewLabelItem viewItem(&item);
@@ -107,7 +112,8 @@ TEST_F(StandardViewItemsTest, ViewLabelItem_toolTipRole) {
 // Tests for ViewDataItem
 // ----------------------------------------------------------------------------
 
-TEST_F(StandardViewItemsTest, ViewDataItem_initialState) {
+TEST_F(StandardViewItemsTest, ViewDataItem_initialState)
+{
     SessionItem item;
     ViewDataItem viewItem(&item);
     EXPECT_EQ(viewItem.item(), &item);
@@ -117,7 +123,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_initialState) {
 //! ViewDataItem::data method for double values.
 //! Checks that the data method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_dataForDouble) {
+TEST_F(StandardViewItemsTest, ViewDataItem_dataForDouble)
+{
     // create SessionItem with data on board
     SessionItem item;
     QVariant expected(42.0);
@@ -132,7 +139,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_dataForDouble) {
 //! ViewDataItem::setData for double values.
 //! Checks that the setData method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_setDataForDouble) {
+TEST_F(StandardViewItemsTest, ViewDataItem_setDataForDouble)
+{
     // create SessionItem with data on board
     SessionItem item;
     QVariant expected(42.0);
@@ -156,7 +164,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_setDataForDouble) {
 //! ViewDataItem::setData for double values.
 //! Checks that setting of same data returns false.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_setSameData) {
+TEST_F(StandardViewItemsTest, ViewDataItem_setSameData)
+{
     // create SessionItem with data on board
     SessionItem item;
     QVariant expected(42.0);
@@ -172,7 +181,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_setSameData) {
 //! ViewDataItem::data method for QColor.
 //! Checks that the data method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_dataForColor) {
+TEST_F(StandardViewItemsTest, ViewDataItem_dataForColor)
+{
     // create SessionItem with data on board
     SessionItem item;
     QVariant expected = QVariant::fromValue(QColor(Qt::green));
@@ -187,7 +197,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_dataForColor) {
 //! ViewDataItem::setData for QColor.
 //! Checks that the setData method is correctly forwarded to underlying SessionItem.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_setDataForColor) {
+TEST_F(StandardViewItemsTest, ViewDataItem_setDataForColor)
+{
     // create SessionItem with data on board
     SessionItem item;
     QVariant expected = QVariant::fromValue(QColor(Qt::green));
@@ -211,7 +222,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_setDataForColor) {
 
 //! Testing ViewLabelItem::flags.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_flags) {
+TEST_F(StandardViewItemsTest, ViewDataItem_flags)
+{
     SessionItem item;
     QVariant expected = QVariant::fromValue(std::string("Layer"));
     EXPECT_TRUE(item.setData(expected, ItemDataRole::DATA));
@@ -222,7 +234,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_flags) {
 
 //! Testing tooltip tole.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_toolTipRole) {
+TEST_F(StandardViewItemsTest, ViewDataItem_toolTipRole)
+{
     SessionItem item;
 
     ViewDataItem viewItem(&item);
@@ -235,7 +248,8 @@ TEST_F(StandardViewItemsTest, ViewDataItem_toolTipRole) {
 //! Behavior of ViewDataItem with SessionItem which initially contains invalid data.
 //! It should be possible to set data after.
 
-TEST_F(StandardViewItemsTest, ViewDataItem_invalidTheValidData) {
+TEST_F(StandardViewItemsTest, ViewDataItem_invalidTheValidData)
+{
     SessionItem item;
     ViewDataItem viewItem(&item);
 

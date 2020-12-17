@@ -23,25 +23,29 @@
 namespace ModelView {
 
 //! Returns major project version.
-inline int ProjectVersionMajor() {
+inline int ProjectVersionMajor()
+{
     const int project_version_major = 0;
     return project_version_major;
 }
 
 //! Returns minor project version.
-inline int ProjectVersionMinor() {
+inline int ProjectVersionMinor()
+{
     const int project_version_minor = 2;
     return project_version_minor;
 }
 
 //! Returns patch project version.
-inline int ProjectVersionPatch() {
+inline int ProjectVersionPatch()
+{
     const int project_version_path = 0;
     return project_version_path;
 }
 
 //! Returns project version string
-inline std::string ProjectVersion() {
+inline std::string ProjectVersion()
+{
     const std::string project_version = "0.2.0";
     return project_version;
 }

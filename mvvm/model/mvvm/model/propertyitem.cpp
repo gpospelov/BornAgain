@@ -20,12 +20,14 @@ using namespace ModelView;
 
 PropertyItem::PropertyItem() : SessionItem(Constants::PropertyType) {}
 
-PropertyItem* PropertyItem::setDisplayName(const std::string& name) {
+PropertyItem* PropertyItem::setDisplayName(const std::string& name)
+{
     SessionItem::setDisplayName(name);
     return this;
 }
 
-PropertyItem* PropertyItem::setLimits(const RealLimits& value) {
+PropertyItem* PropertyItem::setLimits(const RealLimits& value)
+{
     this->setData(value, ItemDataRole::LIMITS);
     return this;
 }

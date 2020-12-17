@@ -17,7 +17,8 @@
 #include <QAbstractItemModel>
 #include <QModelIndex>
 
-QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelType) {
+QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelType)
+{
     QStringList result;
 
     for (auto item : model->topItems())
@@ -30,7 +31,8 @@ QStringList ModelUtils::topItemNames(SessionModel* model, const QString& modelTy
 }
 
 void ModelUtils::iterate(const QModelIndex& index, const QAbstractItemModel* model,
-                         const std::function<void(const QModelIndex&)>& fun) {
+                         const std::function<void(const QModelIndex&)>& fun)
+{
     if (index.isValid())
         fun(index);
 
@@ -43,7 +45,8 @@ void ModelUtils::iterate(const QModelIndex& index, const QAbstractItemModel* mod
 }
 
 void ModelUtils::iterate_if(const QModelIndex& index, const QAbstractItemModel* model,
-                            const std::function<bool(const QModelIndex&)>& fun) {
+                            const std::function<bool(const QModelIndex&)>& fun)
+{
     bool proceed_with_children(true);
     if (index.isValid())
         proceed_with_children = fun(index);

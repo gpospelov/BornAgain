@@ -28,13 +28,15 @@ public:
 
 ContainerItemTest::~ContainerItemTest() = default;
 
-TEST_F(ContainerItemTest, initialState) {
+TEST_F(ContainerItemTest, initialState)
+{
     ContainerItem item;
     EXPECT_EQ(item.size(), 0);
     EXPECT_TRUE(item.empty());
 }
 
-TEST_F(ContainerItemTest, isEmpty) {
+TEST_F(ContainerItemTest, isEmpty)
+{
     ContainerItem item;
 
     // inserting two children

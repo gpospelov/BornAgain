@@ -18,14 +18,16 @@
 using namespace ModelView;
 
 namespace {
-bool has_custom_display_name(const SessionItem* item) {
+bool has_custom_display_name(const SessionItem* item)
+{
     return item->SessionItem::displayName() != item->modelType();
 }
 } // namespace
 
 CompoundItem::CompoundItem(const std::string& modelType) : SessionItem(modelType) {}
 
-std::string CompoundItem::displayName() const {
+std::string CompoundItem::displayName() const
+{
     if (has_custom_display_name(this))
         return SessionItem::displayName();
 

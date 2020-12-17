@@ -9,9 +9,11 @@
 #include "Sample/Specular/SpecularScalarTanhStrategy.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class SpecularMagnetic_v1Test : public ::testing::Test {};
+class SpecularMagnetic_v1Test : public ::testing::Test {
+};
 
-TEST_F(SpecularMagnetic_v1Test, initial) {
+TEST_F(SpecularMagnetic_v1Test, initial)
+{
     MultiLayer mLayer;
     kvector_t v;
 
@@ -26,7 +28,8 @@ TEST_F(SpecularMagnetic_v1Test, initial) {
     std::make_unique<SpecularMagneticStrategy_v1>()->Execute(sample.slices(), v);
 }
 
-TEST_F(SpecularMagnetic_v1Test, zerofield) {
+TEST_F(SpecularMagnetic_v1Test, zerofield)
+{
     double eps = 1e-10;
 
     kvector_t substr_field(0.0, 0.0, 0.0);

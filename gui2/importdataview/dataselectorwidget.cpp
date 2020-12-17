@@ -35,7 +35,8 @@ DataSelectorWidget::DataSelectorWidget(DataViewModel* view_model, QWidget* paren
     , m_selectorTree(new QTreeView)
     , m_canvasPropertyEditor(new ModelView::PropertyTreeView)
     , m_graphPropertyEditor(new ModelView::PropertyTreeView)
-    , m_collapsibleWidget(new ModelView::CollapsibleListWidget) {
+    , m_collapsibleWidget(new ModelView::CollapsibleListWidget)
+{
     auto layout = new QVBoxLayout(this);
 
     m_collapsibleWidget->addWidget(m_selectorTree, "Canvas list");
@@ -56,11 +57,13 @@ DataSelectorWidget::DataSelectorWidget(DataViewModel* view_model, QWidget* paren
             &DataSelectorWidget::onSelectionChanged);
 }
 
-DataSelectionModel* DataSelectorWidget::selectionModel() const {
+DataSelectionModel* DataSelectorWidget::selectionModel() const
+{
     return m_selectionModel;
 }
 
-void DataSelectorWidget::onSelectionChanged() {
+void DataSelectorWidget::onSelectionChanged()
+{
     m_canvasPropertyEditor->setItem(m_selectionModel->activeCanvas());
     m_graphPropertyEditor->setItem(m_selectionModel->selectedGraph());
 

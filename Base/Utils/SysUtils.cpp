@@ -19,7 +19,8 @@
 #include <sstream>
 #include <stdexcept>
 
-std::string SysUtils::getCurrentDateAndTime() {
+std::string SysUtils::getCurrentDateAndTime()
+{
     using clock = std::chrono::system_clock;
 
     std::stringstream output;
@@ -29,7 +30,8 @@ std::string SysUtils::getCurrentDateAndTime() {
 }
 
 //! enables exception throw in the case of NaN, Inf
-void SysUtils::enableFloatingPointExceptions() {
+void SysUtils::enableFloatingPointExceptions()
+{
 #ifdef DEBUG_FPE
 #ifndef _WIN32
     std::cout << "SysUtils::EnableFloatingPointExceptions() -> "
@@ -43,14 +45,16 @@ void SysUtils::enableFloatingPointExceptions() {
 #endif
 }
 
-std::string SysUtils::getenv(const std::string& name) {
+std::string SysUtils::getenv(const std::string& name)
+{
     if (char* c = std::getenv(name.c_str()))
         return c;
     else
         return "";
 }
 
-bool SysUtils::isWindowsHost() {
+bool SysUtils::isWindowsHost()
+{
 #ifdef _WIN32
     return true;
 #else

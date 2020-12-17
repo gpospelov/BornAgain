@@ -23,7 +23,8 @@
 #include <QStyleOptionProgressBarV2>
 #include <QWidget>
 
-JobListViewDelegate::JobListViewDelegate(QWidget* parent) : QItemDelegate(parent) {
+JobListViewDelegate::JobListViewDelegate(QWidget* parent) : QItemDelegate(parent)
+{
     m_buttonState = QStyle::State_Enabled;
     m_status_to_color["Idle"] = QColor(255, 286, 12);
     m_status_to_color["Running"] = QColor(5, 150, 230);
@@ -33,7 +34,8 @@ JobListViewDelegate::JobListViewDelegate(QWidget* parent) : QItemDelegate(parent
 }
 
 void JobListViewDelegate::paint(QPainter* painter, const QStyleOptionViewItem& option,
-                                const QModelIndex& index) const {
+                                const QModelIndex& index) const
+{
     if (option.state & QStyle::State_Selected)
         painter->fillRect(option.rect, option.palette.highlight());
 
@@ -67,8 +69,8 @@ void JobListViewDelegate::paint(QPainter* painter, const QStyleOptionViewItem& o
 }
 
 bool JobListViewDelegate::editorEvent(QEvent* event, QAbstractItemModel* model,
-                                      const QStyleOptionViewItem& option,
-                                      const QModelIndex& index) {
+                                      const QStyleOptionViewItem& option, const QModelIndex& index)
+{
     if (event->type() == QEvent::MouseButtonPress || event->type() == QEvent::MouseButtonRelease) {
     } else {
         m_buttonState = QStyle::State_Raised;
@@ -103,7 +105,8 @@ bool JobListViewDelegate::editorEvent(QEvent* event, QAbstractItemModel* model,
 }
 
 void JobListViewDelegate::drawCustomProjectBar(const JobItem* item, QPainter* painter,
-                                               const QStyleOptionViewItem& option) const {
+                                               const QStyleOptionViewItem& option) const
+{
     int progress = item->getProgress();
     QRect rect = getProgressBarRect(option.rect);
 
@@ -126,7 +129,8 @@ void JobListViewDelegate::drawCustomProjectBar(const JobItem* item, QPainter* pa
 }
 
 //! returns rectangle for text
-QRect JobListViewDelegate::getTextRect(QRect optionRect) const {
+QRect JobListViewDelegate::getTextRect(QRect optionRect) const
+{
     int width = optionRect.width() * 0.4;
     int height = optionRect.height();
     int x = optionRect.x() + 3;
@@ -136,7 +140,8 @@ QRect JobListViewDelegate::getTextRect(QRect optionRect) const {
 }
 
 //! returns rectangle for progress bar
-QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const {
+QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const
+{
     int width = optionRect.width() * 0.4;
     int height = optionRect.height() * 0.6;
     int x = optionRect.x() + optionRect.width() * 0.5;
@@ -146,7 +151,8 @@ QRect JobListViewDelegate::getProgressBarRect(QRect optionRect) const {
 }
 
 //! returns rectangle for button
-QRect JobListViewDelegate::getButtonRect(QRect optionRect) const {
+QRect JobListViewDelegate::getButtonRect(QRect optionRect) const
+{
     int height = 10;
     int width = 10;
     int x = optionRect.x() + optionRect.width() * 0.92;

@@ -21,7 +21,8 @@ using namespace ModelView;
 
 LostFocusFilter::LostFocusFilter(QObject* parent) : QObject(parent) {}
 
-bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event) {
+bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event)
+{
     if (event->type() == QEvent::FocusOut)
         return true;
 
@@ -32,7 +33,8 @@ bool LostFocusFilter::eventFilter(QObject* obj, QEvent* event) {
 
 WheelEventFilter::WheelEventFilter(QObject* parent) : QObject(parent) {}
 
-bool WheelEventFilter::eventFilter(QObject* obj, QEvent* event) {
+bool WheelEventFilter::eventFilter(QObject* obj, QEvent* event)
+{
     if (auto spinBox = qobject_cast<QAbstractSpinBox*>(obj); spinBox) {
         if (event->type() == QEvent::Wheel) {
             if (spinBox->focusPolicy() == Qt::WheelFocus) {

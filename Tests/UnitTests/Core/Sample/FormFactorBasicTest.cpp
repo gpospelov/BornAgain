@@ -6,7 +6,8 @@
 
 class FormFactorBasicTest : public ::testing::Test {
 protected:
-    void test_eps_q(const IBornFF* p, cvector_t qdir, double eps) {
+    void test_eps_q(const IBornFF* p, cvector_t qdir, double eps)
+    {
         cvector_t q = eps * qdir;
         complex_t ff = p->evaluate_for_q(q);
         // std::cout<<"q="<<q<<" -> "<<std::setprecision(16)<<" ff0="<<V<<", ff ="<<ff<<"\n";
@@ -17,14 +18,16 @@ protected:
         EXPECT_GT(real(ff), V * (1 - std::max(3e-16, 2 * eps * R * eps * R)));
         EXPECT_LT(std::abs(imag(ff)), 2 * eps * V * R);
     }
-    void test_small_q(const IBornFF* p, complex_t x, complex_t y, complex_t z) {
+    void test_small_q(const IBornFF* p, complex_t x, complex_t y, complex_t z)
+    {
         cvector_t q(x, y, z);
         test_eps_q(p, q, 1e-14);
         test_eps_q(p, q, 1e-11);
         test_eps_q(p, q, 1e-8);
         test_eps_q(p, q, 1e-5);
     }
-    void test_ff(const IBornFF* p) {
+    void test_ff(const IBornFF* p)
+    {
         complex_t ff0 = p->evaluate_for_q(cvector_t(0., 0., 0.));
         EXPECT_EQ(imag(ff0), 0.);
         V = real(ff0);
@@ -59,7 +62,8 @@ protected:
     double V, R;
 };
 
-TEST_F(FormFactorBasicTest, AnisoPyramid) {
+TEST_F(FormFactorBasicTest, AnisoPyramid)
+{
     double length = 12.;
     double height = 5.;
     double width = 14.;
@@ -81,7 +85,8 @@ TEST_F(FormFactorBasicTest, AnisoPyramid) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, HemiEllipsoid) {
+TEST_F(FormFactorBasicTest, HemiEllipsoid)
+{
     double radiusx = 6.;
     double radiusy = 7.;
     double height = 5.;
@@ -97,7 +102,8 @@ TEST_F(FormFactorBasicTest, HemiEllipsoid) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Box) {
+TEST_F(FormFactorBasicTest, Box)
+{
     double length = 6.;
     double height = 5.;
     double width = 7.;
@@ -121,7 +127,8 @@ TEST_F(FormFactorBasicTest, Box) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Cone) {
+TEST_F(FormFactorBasicTest, Cone)
+{
     double radius = 6.;
     double height = 5.;
     double alpha = 0.8;
@@ -141,7 +148,8 @@ TEST_F(FormFactorBasicTest, Cone) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Cone6) {
+TEST_F(FormFactorBasicTest, Cone6)
+{
     double base_edge = 6.;
     double height = 5.;
     double alpha = 0.8;
@@ -159,7 +167,8 @@ TEST_F(FormFactorBasicTest, Cone6) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Cuboctahedron) {
+TEST_F(FormFactorBasicTest, Cuboctahedron)
+{
     double length = 10.;
     double height = 4;
     double height_ratio = .7;
@@ -184,7 +193,8 @@ TEST_F(FormFactorBasicTest, Cuboctahedron) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Cylinder) {
+TEST_F(FormFactorBasicTest, Cylinder)
+{
     double radius = 3.;
     double height = 5.;
     double volume = M_PI * radius * radius * height;
@@ -214,7 +224,8 @@ TEST_F(FormFactorBasicTest, Cylinder) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Dodecahedron) {
+TEST_F(FormFactorBasicTest, Dodecahedron)
+{
     double edge = 3.;
     double volume = (15 + 7 * sqrt(5)) / 4 * pow(edge, 3);
 
@@ -228,7 +239,8 @@ TEST_F(FormFactorBasicTest, Dodecahedron) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, EllipsoidalCylinder) {
+TEST_F(FormFactorBasicTest, EllipsoidalCylinder)
+{
     double radiusx = 3.;
     double radiusy = 5.;
     double height = 4;
@@ -245,7 +257,8 @@ TEST_F(FormFactorBasicTest, EllipsoidalCylinder) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, CantellatedCube) {
+TEST_F(FormFactorBasicTest, CantellatedCube)
+{
     double L = 10.;
     double t = 2.; // side length of removed trirectangular tetrahedron at each vertex
     double volume = L * L * L - 6 * L * t * t + 16 * t * t * t / 3;
@@ -261,7 +274,8 @@ TEST_F(FormFactorBasicTest, CantellatedCube) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, FullSphere) {
+TEST_F(FormFactorBasicTest, FullSphere)
+{
     double radius = 5.;
     double volume = 4. / 3. * M_PI * radius * radius * radius;
 
@@ -274,7 +288,8 @@ TEST_F(FormFactorBasicTest, FullSphere) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, FullSpheroid) {
+TEST_F(FormFactorBasicTest, FullSpheroid)
+{
     double radius = 3.;
     double height = 5.;
     double volume = 2. / 3. * M_PI * radius * radius * height;
@@ -289,7 +304,8 @@ TEST_F(FormFactorBasicTest, FullSpheroid) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Icosahedron) {
+TEST_F(FormFactorBasicTest, Icosahedron)
+{
     double edge = 7.;
     double volume = 5 * (3 + sqrt(5)) / 12 * pow(edge, 3);
 
@@ -303,7 +319,8 @@ TEST_F(FormFactorBasicTest, Icosahedron) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Prism3) {
+TEST_F(FormFactorBasicTest, Prism3)
+{
     double height = 4.;
     double base_edge = 6.;
     double volume = sqrt(3.) / 4. * height * base_edge * base_edge;
@@ -318,7 +335,8 @@ TEST_F(FormFactorBasicTest, Prism3) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Prism6) {
+TEST_F(FormFactorBasicTest, Prism6)
+{
     double height = 4.;
     double base_edge = 3.;
     double volume = 3. * sqrt(3.) / 2. * height * base_edge * base_edge;
@@ -333,7 +351,8 @@ TEST_F(FormFactorBasicTest, Prism6) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Pyramid) {
+TEST_F(FormFactorBasicTest, Pyramid)
+{
     double height = 4.;
     double base_edge = 10.;
     double alpha = 0.8;
@@ -353,7 +372,8 @@ TEST_F(FormFactorBasicTest, Pyramid) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, TruncatedSphere) {
+TEST_F(FormFactorBasicTest, TruncatedSphere)
+{
     double radius = 5.;
     double height = 3.;
     double HdivR = height / radius;
@@ -369,7 +389,8 @@ TEST_F(FormFactorBasicTest, TruncatedSphere) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, TruncatedSpheroid) {
+TEST_F(FormFactorBasicTest, TruncatedSpheroid)
+{
     double radius = 3.;
     double height = 5.;
     double flattening = 1.5;
@@ -386,7 +407,8 @@ TEST_F(FormFactorBasicTest, TruncatedSpheroid) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, Tetrahedron) {
+TEST_F(FormFactorBasicTest, Tetrahedron)
+{
     double base_edge = 16.;
     double height = 4.;
     double alpha = 0.8;
@@ -404,7 +426,8 @@ TEST_F(FormFactorBasicTest, Tetrahedron) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, CosineRippleBox) {
+TEST_F(FormFactorBasicTest, CosineRippleBox)
+{
     double width = 20.;
     double height = 4.;
     double length = 100.0;
@@ -421,7 +444,8 @@ TEST_F(FormFactorBasicTest, CosineRippleBox) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, TruncatedCube) {
+TEST_F(FormFactorBasicTest, TruncatedCube)
+{
     double length = 15.;
     double t = 6.; // side length of removed trirectangular tetrahedron at each vertex
     double volume = length * length * length - 4. / 3. * t * t * t;
@@ -436,7 +460,8 @@ TEST_F(FormFactorBasicTest, TruncatedCube) {
     test_ff(&particle);
 }
 
-TEST_F(FormFactorBasicTest, SawtoothRippleBox) {
+TEST_F(FormFactorBasicTest, SawtoothRippleBox)
+{
     double width = 20.;
     double height = 4.;
     double length = 100.0;

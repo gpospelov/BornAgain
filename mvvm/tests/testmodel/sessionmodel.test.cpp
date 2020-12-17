@@ -37,13 +37,15 @@ public:
 
 SessionModelTest::~SessionModelTest() = default;
 
-TEST_F(SessionModelTest, initialState) {
+TEST_F(SessionModelTest, initialState)
+{
     SessionModel model;
     EXPECT_EQ(model.rootItem()->model(), &model);
     EXPECT_EQ(model.rootItem()->parent(), nullptr);
 }
 
-TEST_F(SessionModelTest, insertItem) {
+TEST_F(SessionModelTest, insertItem)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Test", pool);
 
@@ -84,7 +86,8 @@ TEST_F(SessionModelTest, insertItem) {
     delete taken;
 }
 
-TEST_F(SessionModelTest, insertNewItem) {
+TEST_F(SessionModelTest, insertNewItem)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Test", pool);
 
@@ -125,7 +128,8 @@ TEST_F(SessionModelTest, insertNewItem) {
     delete taken;
 }
 
-TEST_F(SessionModelTest, insertNewItemWithTag) {
+TEST_F(SessionModelTest, insertNewItemWithTag)
+{
     const std::string tag1("tag1");
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
@@ -143,7 +147,8 @@ TEST_F(SessionModelTest, insertNewItemWithTag) {
     EXPECT_EQ(Utils::IndexOfChild(parent, child2), 0);
 }
 
-TEST_F(SessionModelTest, setData) {
+TEST_F(SessionModelTest, setData)
+{
     SessionModel model;
 
     // inserting single item
@@ -162,7 +167,8 @@ TEST_F(SessionModelTest, setData) {
     EXPECT_FALSE(model.setData(item, value, ItemDataRole::DATA));
 }
 
-TEST_F(SessionModelTest, removeItem) {
+TEST_F(SessionModelTest, removeItem)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Test", pool);
 
@@ -182,7 +188,8 @@ TEST_F(SessionModelTest, removeItem) {
     EXPECT_EQ(pool->key_for_item(child2), "");
 }
 
-TEST_F(SessionModelTest, removeNonExistingItem) {
+TEST_F(SessionModelTest, removeNonExistingItem)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Test", pool);
 
@@ -193,7 +200,8 @@ TEST_F(SessionModelTest, removeNonExistingItem) {
     EXPECT_NO_THROW(model.removeItem(parent, {"", 0}));
 }
 
-TEST_F(SessionModelTest, takeRowFromRootItem) {
+TEST_F(SessionModelTest, takeRowFromRootItem)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Test", pool);
 
@@ -214,7 +222,8 @@ TEST_F(SessionModelTest, takeRowFromRootItem) {
     delete taken;
 }
 
-TEST_F(SessionModelTest, moveItem) {
+TEST_F(SessionModelTest, moveItem)
+{
     SessionModel model;
 
     // parent with child
@@ -235,7 +244,8 @@ TEST_F(SessionModelTest, moveItem) {
     EXPECT_EQ(parent0->children().size(), 0);
 }
 
-TEST_F(SessionModelTest, clearModel) {
+TEST_F(SessionModelTest, clearModel)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("test", pool);
 
@@ -255,7 +265,8 @@ TEST_F(SessionModelTest, clearModel) {
     EXPECT_EQ(pool->size(), 1);
 }
 
-TEST_F(SessionModelTest, clearRebuildModel) {
+TEST_F(SessionModelTest, clearRebuildModel)
+{
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("test", pool);
 
@@ -281,7 +292,8 @@ TEST_F(SessionModelTest, clearRebuildModel) {
 
 //! Tests item copy when from root item to root item.
 
-TEST_F(SessionModelTest, copyModelItemRootContext) {
+TEST_F(SessionModelTest, copyModelItemRootContext)
+{
     SessionModel model;
 
     // create single item with value
@@ -305,7 +317,8 @@ TEST_F(SessionModelTest, copyModelItemRootContext) {
 
 //! Tests item copy from parent to root item.
 
-TEST_F(SessionModelTest, copyParentWithProperty) {
+TEST_F(SessionModelTest, copyParentWithProperty)
+{
     SessionModel model;
 
     // parent with single child and data on ite
@@ -327,7 +340,8 @@ TEST_F(SessionModelTest, copyParentWithProperty) {
 
 //! Tests item copy for property item.
 
-TEST_F(SessionModelTest, copyFreeItem) {
+TEST_F(SessionModelTest, copyFreeItem)
+{
     SessionModel model;
 
     // single parent in a model
@@ -345,7 +359,8 @@ TEST_F(SessionModelTest, copyFreeItem) {
 
 //! Attempt to copy property item into the same tag.
 
-TEST_F(SessionModelTest, forbiddenCopy) {
+TEST_F(SessionModelTest, forbiddenCopy)
+{
     SessionModel model;
 
     // single parent in a model
@@ -361,7 +376,8 @@ TEST_F(SessionModelTest, forbiddenCopy) {
 
 //! Test item find using identifier.
 
-TEST_F(SessionModelTest, findItem) {
+TEST_F(SessionModelTest, findItem)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
 
@@ -376,7 +392,8 @@ TEST_F(SessionModelTest, findItem) {
 
 //! Test items in different models.
 
-TEST_F(SessionModelTest, findItemInAlienModel) {
+TEST_F(SessionModelTest, findItemInAlienModel)
+{
     // two models with common pool
     auto pool = std::make_shared<ItemPool>();
     SessionModel model1("Test1", pool);
@@ -402,7 +419,8 @@ TEST_F(SessionModelTest, findItemInAlienModel) {
     EXPECT_EQ(model2.findItem(id2), parent2);
 }
 
-TEST_F(SessionModelTest, topItem) {
+TEST_F(SessionModelTest, topItem)
+{
     SessionModel model;
     EXPECT_EQ(model.topItem<>(), nullptr);
     EXPECT_EQ(model.topItem(), nullptr);
@@ -414,7 +432,8 @@ TEST_F(SessionModelTest, topItem) {
     EXPECT_EQ(model.topItem<CompoundItem>(), compound);
 }
 
-TEST_F(SessionModelTest, topItems) {
+TEST_F(SessionModelTest, topItems)
+{
     std::vector<SessionItem*> expected;
 
     SessionModel model;
@@ -434,7 +453,8 @@ TEST_F(SessionModelTest, topItems) {
     EXPECT_EQ(model.topItems<CompoundItem>(), expected2);
 }
 
-TEST_F(SessionModelTest, registerItem) {
+TEST_F(SessionModelTest, registerItem)
+{
     const std::string expectedModelType("TestItemType");
 
     SessionModel model;

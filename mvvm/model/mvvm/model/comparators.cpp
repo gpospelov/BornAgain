@@ -23,7 +23,8 @@ using namespace ModelView;
 
 bool Comparators::m_is_registered = false;
 
-void Comparators::registerComparators() {
+void Comparators::registerComparators()
+{
     if (!m_is_registered) {
         QMetaType::registerComparators<std::string>();
         QMetaType::registerComparators<std::vector<double>>();
@@ -34,6 +35,7 @@ void Comparators::registerComparators() {
     }
 }
 
-bool Comparators::registered() {
+bool Comparators::registered()
+{
     return m_is_registered;
 }

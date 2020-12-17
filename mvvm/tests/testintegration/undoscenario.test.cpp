@@ -33,7 +33,8 @@ UndoScenarioTest::~UndoScenarioTest() = default;
 //! Check undo/redo of ViewportAxisItem range, when it is listened by the controller.
 //! Real-life bug.
 
-TEST_F(UndoScenarioTest, undoViewportSetRange) {
+TEST_F(UndoScenarioTest, undoViewportSetRange)
+{
     // initialzing model, custom plot and controller
     SessionModel model;
     auto axisItem = model.insertItem<ViewportAxisItem>();

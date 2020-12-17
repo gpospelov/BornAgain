@@ -18,7 +18,8 @@
 RealParameter::RealParameter(const std::string& name, double* par, const std::string& parent_name,
                              const std::function<void()>& onChange, const RealLimits& limits,
                              const Attributes& attr)
-    : IParameter<double>(name, par, parent_name, onChange), m_limits(limits), m_attr(attr) {
+    : IParameter<double>(name, par, parent_name, onChange), m_limits(limits), m_attr(attr)
+{
     if (!m_limits.isInRange(value())) {
         std::ostringstream message;
         message << "Cannot initialize parameter " << fullName() << " with value " << value()
@@ -27,14 +28,16 @@ RealParameter::RealParameter(const std::string& name, double* par, const std::st
     }
 }
 
-RealParameter* RealParameter::clone(const std::string& new_name) const {
+RealParameter* RealParameter::clone(const std::string& new_name) const
+{
     auto* ret = new RealParameter(new_name != "" ? new_name : getName(), m_data, m_parent_name,
                                   m_onChange, m_limits);
     ret->setUnit(unit());
     return ret;
 }
 
-void RealParameter::setValue(double value) {
+void RealParameter::setValue(double value)
+{
     if (value == *m_data)
         return; // nothing to do
 
@@ -57,35 +60,42 @@ void RealParameter::setValue(double value) {
         m_onChange();
 }
 
-double RealParameter::value() const {
+double RealParameter::value() const
+{
     return *m_data;
 }
 
-RealParameter& RealParameter::setLimits(const RealLimits& limits) {
+RealParameter& RealParameter::setLimits(const RealLimits& limits)
+{
     m_limits = limits;
     return *this;
 }
 
-RealLimits RealParameter::limits() const {
+RealLimits RealParameter::limits() const
+{
     return m_limits;
 }
 
-RealParameter& RealParameter::setLimited(double lower, double upper) {
+RealParameter& RealParameter::setLimited(double lower, double upper)
+{
     setLimits(RealLimits::limited(lower, upper));
     return *this;
 }
 
-RealParameter& RealParameter::setPositive() {
+RealParameter& RealParameter::setPositive()
+{
     setLimits(RealLimits::positive());
     return *this;
 }
 
-RealParameter& RealParameter::setNonnegative() {
+RealParameter& RealParameter::setNonnegative()
+{
     setLimits(RealLimits::nonnegative());
     return *this;
 }
 
-RealParameter& RealParameter::setUnit(const std::string& name) {
+RealParameter& RealParameter::setUnit(const std::string& name)
+{
     if (!(name == "" || name == "nm" || name == "rad" || name == "nm^2"))
         throw std::runtime_error("RealParameter::setUnit() -> Error. Unexpected unit name " + name);
 
@@ -93,6 +103,7 @@ RealParameter& RealParameter::setUnit(const std::string& name) {
     return *this;
 }
 
-std::string RealParameter::unit() const {
+std::string RealParameter::unit() const
+{
     return m_unit.getName();
 }

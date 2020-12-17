@@ -1,9 +1,11 @@
 #include "Base/Vector/Transform3D.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class KVectorTest : public ::testing::Test {};
+class KVectorTest : public ::testing::Test {
+};
 
-TEST_F(KVectorTest, BasicMethods) {
+TEST_F(KVectorTest, BasicMethods)
+{
     kvector_t v;
     EXPECT_EQ(double(0), v.x());
     EXPECT_EQ(double(0), v.y());
@@ -32,7 +34,8 @@ TEST_F(KVectorTest, BasicMethods) {
     EXPECT_DOUBLE_EQ(v3.mag(), std::sqrt(1 * 1 + 2 * 2 + 3 * 3));
 }
 
-TEST_F(KVectorTest, BasicArithmetics) {
+TEST_F(KVectorTest, BasicArithmetics)
+{
     // assignment, self assignment, copy constructor
     kvector_t v1;
     kvector_t v2(v1);
@@ -141,7 +144,8 @@ TEST_F(KVectorTest, BasicArithmetics) {
     EXPECT_TRUE(a != kvector_t(1., 1., 3.));
 }
 
-TEST_F(KVectorTest, BasicTransformation) {
+TEST_F(KVectorTest, BasicTransformation)
+{
     const double epsilon = 1e-12;
     kvector_t a, v;
 

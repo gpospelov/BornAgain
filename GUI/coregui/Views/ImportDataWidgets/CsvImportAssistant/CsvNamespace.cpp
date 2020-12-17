@@ -16,7 +16,8 @@
 #include <fstream>
 #include <sstream>
 
-bool csv::isAscii(QString filename) {
+bool csv::isAscii(QString filename)
+{
     return true;
     // TODO
     // This function needs to be defined properly (if at all)

@@ -30,7 +30,8 @@ SphericalDetectorEditor::SphericalDetectorEditor(QWidget* parent)
     , m_alphaAxisEditor(new ComponentEditor(ComponentEditor::GroupWidget, alpha_axis_title))
     , m_resolutionFunctionEditor(
           new ComponentEditor(ComponentEditor::GroupWidget, resolution_title))
-    , m_gridLayout(new QGridLayout) {
+    , m_gridLayout(new QGridLayout)
+{
     m_gridLayout->addWidget(m_phiAxisEditor, 1, 0);
     m_gridLayout->addWidget(m_alphaAxisEditor, 1, 1);
     m_gridLayout->addWidget(m_resolutionFunctionEditor, 1, 2);
@@ -42,7 +43,8 @@ SphericalDetectorEditor::SphericalDetectorEditor(QWidget* parent)
     setLayout(mainLayout);
 }
 
-void SphericalDetectorEditor::subscribeToItem() {
+void SphericalDetectorEditor::subscribeToItem()
+{
     auto phiAxisItem = detectorItem()->getItem(SphericalDetectorItem::P_PHI_AXIS);
     m_phiAxisEditor->setItem(phiAxisItem);
 
@@ -53,13 +55,15 @@ void SphericalDetectorEditor::subscribeToItem() {
     m_resolutionFunctionEditor->setItem(resFuncGroup);
 }
 
-void SphericalDetectorEditor::unsubscribeFromItem() {
+void SphericalDetectorEditor::unsubscribeFromItem()
+{
     m_phiAxisEditor->clearEditor();
     m_alphaAxisEditor->clearEditor();
     m_resolutionFunctionEditor->clearEditor();
 }
 
-SphericalDetectorItem* SphericalDetectorEditor::detectorItem() {
+SphericalDetectorItem* SphericalDetectorEditor::detectorItem()
+{
     auto result = dynamic_cast<SphericalDetectorItem*>(currentItem());
     ASSERT(result);
     return result;

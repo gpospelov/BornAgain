@@ -17,7 +17,8 @@
 #include "Sample/Multilayer/Layer.h"
 #include "Sample/Multilayer/MultiLayer.h"
 
-MultiLayer* HomogeneousMultilayerBuilder::buildSample() const {
+MultiLayer* HomogeneousMultilayerBuilder::buildSample() const
+{
     const size_t number_of_layers = 10;
     const double delta_ti = -7.36e-7;
     const double delta_ni = 3.557e-6;

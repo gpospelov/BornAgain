@@ -27,7 +27,8 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vect
               P)
     , m_mean(m_P[0])
     , m_scale_param(m_P[1])
-    , m_n_samples(n_samples) {
+    , m_n_samples(n_samples)
+{
 
     DistributionLogNormal distri(m_mean, m_scale_param);
     m_radii.clear();
@@ -42,19 +43,24 @@ FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(const std::vect
 
 FormFactorSphereLogNormalRadius::FormFactorSphereLogNormalRadius(double mean, double scale_param,
                                                                  size_t n_samples)
-    : FormFactorSphereLogNormalRadius(std::vector<double>{mean, scale_param}, n_samples) {}
+    : FormFactorSphereLogNormalRadius(std::vector<double>{mean, scale_param}, n_samples)
+{
+}
 
-FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const {
+FormFactorSphereLogNormalRadius* FormFactorSphereLogNormalRadius::clone() const
+{
     return new FormFactorSphereLogNormalRadius(m_mean, m_scale_param, m_n_samples);
 }
 
-complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorSphereLogNormalRadius::evaluate_for_q(cvector_t q) const
+{
     complex_t result = 0;
     for (size_t i = 0; i < m_radii.size(); ++i)
         result += someff::ffSphere(q, m_radii[i]) * m_probabilities[i];
     return result;
 }
 
-void FormFactorSphereLogNormalRadius::onChange() {
+void FormFactorSphereLogNormalRadius::onChange()
+{
     m_shape = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
 }

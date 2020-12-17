@@ -29,7 +29,8 @@ struct ColorMapCanvas::ColorMapCanvasImpl {
     std::unique_ptr<StatusStringReporter> reporter;
     StatusLabel* status_label{nullptr};
 
-    ColorMapCanvasImpl() : custom_plot(new QCustomPlot), status_label(new StatusLabel) {
+    ColorMapCanvasImpl() : custom_plot(new QCustomPlot), status_label(new StatusLabel)
+    {
         viewport_controller = std::make_unique<ColorMapViewportPlotController>(custom_plot);
 
         auto on_mouse_move = [this](const std::string& str) {
@@ -42,7 +43,8 @@ struct ColorMapCanvas::ColorMapCanvasImpl {
 };
 
 ColorMapCanvas::ColorMapCanvas(QWidget* parent)
-    : QWidget(parent), p_impl(std::make_unique<ColorMapCanvasImpl>()) {
+    : QWidget(parent), p_impl(std::make_unique<ColorMapCanvasImpl>())
+{
     auto layout = new QVBoxLayout(this);
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -56,13 +58,15 @@ ColorMapCanvas::ColorMapCanvas(QWidget* parent)
 
 ColorMapCanvas::~ColorMapCanvas() = default;
 
-void ColorMapCanvas::setItem(ColorMapViewportItem* viewport_item) {
+void ColorMapCanvas::setItem(ColorMapViewportItem* viewport_item)
+{
     p_impl->viewport_controller->setItem(viewport_item);
 }
 
 //! Creates adapter to convert widget coordinates, to QCustomPlot internal coordinate system
 //! (defined by its axes).
 
-std::unique_ptr<SceneAdapterInterface> ColorMapCanvas::createSceneAdapter() const {
+std::unique_ptr<SceneAdapterInterface> ColorMapCanvas::createSceneAdapter() const
+{
     return std::make_unique<CustomPlotSceneAdapter>(p_impl->customPlot());
 }

@@ -18,7 +18,8 @@
 
 using namespace ModelView;
 
-AdjustingScrollArea::AdjustingScrollArea(QWidget* parent) : QScrollArea(parent) {
+AdjustingScrollArea::AdjustingScrollArea(QWidget* parent) : QScrollArea(parent)
+{
     setObjectName("AdjustingScrollArea");
     setContentsMargins(0, 0, 0, 0);
     setWidgetResizable(true);
@@ -26,18 +27,21 @@ AdjustingScrollArea::AdjustingScrollArea(QWidget* parent) : QScrollArea(parent) 
     setStyleSheet("QScrollArea#AdjustingScrollArea {border: 0px; background-color:transparent;}");
 }
 
-void AdjustingScrollArea::setWidget(QWidget* w) {
+void AdjustingScrollArea::setWidget(QWidget* w)
+{
     QScrollArea::setWidget(w);
     w->installEventFilter(this);
 }
 
-QSize AdjustingScrollArea::sizeHint() const {
+QSize AdjustingScrollArea::sizeHint() const
+{
     auto horizontal = horizontalScrollBar();
     QSize result(viewport()->width(), widget()->height() + horizontal->height() * 2);
     return result;
 }
 
-bool AdjustingScrollArea::eventFilter(QObject* obj, QEvent* ev) {
+bool AdjustingScrollArea::eventFilter(QObject* obj, QEvent* ev)
+{
     if (obj == widget() && ev->type() != QEvent::Resize) {
         widget()->setMaximumWidth(viewport()->width());
         setMaximumHeight(height() - viewport()->height() + widget()->height());

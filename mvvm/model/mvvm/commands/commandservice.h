@@ -66,7 +66,8 @@ private:
 //! Creates and processes command of given type using given argument list.
 
 template <typename C, typename... Args>
-CommandResult CommandService::process_command(Args&&... args) {
+CommandResult CommandService::process_command(Args&&... args)
+{
     if (provideUndo()) {
         // making shared because underlying QUndoStack requires ownership
         auto command = std::make_shared<C>(std::forward<Args>(args)...);

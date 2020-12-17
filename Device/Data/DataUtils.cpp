@@ -20,7 +20,8 @@
 
 namespace {
 
-std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>>& signal) {
+std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>>& signal)
+{
     FourierTransform ft;
     std::vector<std::vector<double>> ret;
     ft.fft(signal, ret);
@@ -32,7 +33,8 @@ std::vector<std::vector<double>> FT2DArray(const std::vector<std::vector<double>
 
 //! Returns relative difference between two data sets sum(dat[i] - ref[i])/ref[i]).
 double DataUtils::relativeDataDifference(const OutputData<double>& dat,
-                                         const OutputData<double>& ref) {
+                                         const OutputData<double>& ref)
+{
     if (!dat.hasSameDimensions(ref))
         throw std::runtime_error("OutputData dimension differs from reference");
 
@@ -47,7 +49,8 @@ double DataUtils::relativeDataDifference(const OutputData<double>& dat,
 
 //! Returns true is relative difference is below threshold; prints informative output
 bool DataUtils::checkRelativeDifference(const OutputData<double>& dat,
-                                        const OutputData<double>& ref, const double threshold) {
+                                        const OutputData<double>& ref, const double threshold)
+{
     const double diff = relativeDataDifference(dat, ref);
     if (diff > threshold) {
         std::cerr << "FAILED: relative deviation of dat from ref is " << diff
@@ -64,7 +67,8 @@ bool DataUtils::checkRelativeDifference(const OutputData<double>& dat,
 
 std::unique_ptr<OutputData<double>>
 DataUtils::createRelativeDifferenceData(const OutputData<double>& data,
-                                        const OutputData<double>& reference) {
+                                        const OutputData<double>& reference)
+{
     if (!data.hasSameDimensions(reference))
         throw std::runtime_error("DataUtils::createRelativeDifferenceData() -> "
                                  "Error. Different dimensions of data and reference.");
@@ -75,7 +79,8 @@ DataUtils::createRelativeDifferenceData(const OutputData<double>& data,
 }
 
 std::unique_ptr<OutputData<double>>
-DataUtils::createRearrangedDataSet(const OutputData<double>& data, int n) {
+DataUtils::createRearrangedDataSet(const OutputData<double>& data, int n)
+{
     if (data.rank() != 2)
         throw std::runtime_error("DataUtils::rotateDataByN90Deg()"
                                  " -> Error! Works only on two-dimensional data");
@@ -121,7 +126,8 @@ DataUtils::createRearrangedDataSet(const OutputData<double>& data, int n) {
 
 std::unique_ptr<OutputData<double>>
 DataUtils::createClippedDataSet(const OutputData<double>& origin, double x1, double y1, double x2,
-                                double y2) {
+                                double y2)
+{
     if (origin.rank() != 2)
         throw std::runtime_error("DataUtils::createClippedData()"
                                  " -> Error! Works only on two-dimensional data");
@@ -160,14 +166,16 @@ DataUtils::createClippedDataSet(const OutputData<double>& origin, double x1, dou
 // (center of non-existing bin #-1).
 // Used for Mask conversion.
 
-double DataUtils::coordinateToBinf(double coordinate, const IAxis& axis) {
+double DataUtils::coordinateToBinf(double coordinate, const IAxis& axis)
+{
     size_t index = axis.findClosestIndex(coordinate);
     Bin1D bin = axis.bin(index);
     double f = (coordinate - bin.m_lower) / bin.binSize();
     return static_cast<double>(index) + f;
 }
 
-double DataUtils::coordinateFromBinf(double value, const IAxis& axis) {
+double DataUtils::coordinateFromBinf(double value, const IAxis& axis)
+{
     int index = static_cast<int>(value);
 
     double result(0);
@@ -185,18 +193,21 @@ double DataUtils::coordinateFromBinf(double value, const IAxis& axis) {
     return result;
 }
 
-void DataUtils::coordinateToBinf(double& x, double& y, const OutputData<double>& data) {
+void DataUtils::coordinateToBinf(double& x, double& y, const OutputData<double>& data)
+{
     x = coordinateToBinf(x, data.axis(0));
     y = coordinateToBinf(y, data.axis(1));
 }
 
-void DataUtils::coordinateFromBinf(double& x, double& y, const OutputData<double>& data) {
+void DataUtils::coordinateFromBinf(double& x, double& y, const OutputData<double>& data)
+{
     x = coordinateFromBinf(x, data.axis(0));
     y = coordinateFromBinf(y, data.axis(1));
 }
 
 std::vector<std::vector<double>>
-DataUtils::create2DArrayfromOutputData(const OutputData<double>& data) {
+DataUtils::create2DArrayfromOutputData(const OutputData<double>& data)
+{
     if (data.rank() != 2)
         throw std::runtime_error("DataUtils::create2DArrayfromOutputData() -> "
                                  "Error! Works only on two-dimensional data");
@@ -221,7 +232,8 @@ DataUtils::create2DArrayfromOutputData(const OutputData<double>& data) {
 }
 
 std::unique_ptr<OutputData<double>>
-DataUtils::createOutputDatafrom2DArray(const std::vector<std::vector<double>>& array_2d) {
+DataUtils::createOutputDatafrom2DArray(const std::vector<std::vector<double>>& array_2d)
+{
     std::unique_ptr<OutputData<double>> result(new OutputData<double>);
     size_t nrows = array_2d.size();
     size_t ncols = array_2d[0].size();
@@ -241,17 +253,19 @@ DataUtils::createOutputDatafrom2DArray(const std::vector<std::vector<double>>& a
     return result;
 }
 
-std::unique_ptr<OutputData<double>> DataUtils::createFFT(const OutputData<double>& data) {
+std::unique_ptr<OutputData<double>> DataUtils::createFFT(const OutputData<double>& data)
+{
     auto array_2d = DataUtils::create2DArrayfromOutputData(data);
     auto fft_array_2d = FT2DArray(array_2d);
     return DataUtils::createOutputDatafrom2DArray(fft_array_2d);
 }
 
-OutputData<double>* DataUtils::importArrayToOutputData(const std::vector<double>& vec) {
+OutputData<double>* DataUtils::importArrayToOutputData(const std::vector<double>& vec)
+{
     return ArrayUtils::createData(vec).release();
 }
 
-OutputData<double>*
-DataUtils::importArrayToOutputData(const std::vector<std::vector<double>>& vec) {
+OutputData<double>* DataUtils::importArrayToOutputData(const std::vector<std::vector<double>>& vec)
+{
     return ArrayUtils::createData(vec).release();
 }

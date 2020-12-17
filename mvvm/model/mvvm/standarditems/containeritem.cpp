@@ -16,14 +16,17 @@
 
 using namespace ModelView;
 
-ContainerItem::ContainerItem(const std::string& modelType) : CompoundItem(modelType) {
+ContainerItem::ContainerItem(const std::string& modelType) : CompoundItem(modelType)
+{
     registerTag(ModelView::TagInfo::universalTag(T_ITEMS), /*set_as_default*/ true);
 }
 
-bool ContainerItem::empty() const {
+bool ContainerItem::empty() const
+{
     return childrenCount() == 0;
 }
 
-size_t ContainerItem::size() const {
+size_t ContainerItem::size() const
+{
     return static_cast<size_t>(childrenCount());
 }

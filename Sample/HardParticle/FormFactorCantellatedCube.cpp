@@ -54,14 +54,18 @@ FormFactorCantellatedCube::FormFactorCantellatedCube(const std::vector<double> P
            "side length of the trirectangular tetrahedron removed one corner", 0, +INF, 0}}},
         P)
     , m_length(m_P[0])
-    , m_removed_length(m_P[1]) {
+    , m_removed_length(m_P[1])
+{
     onChange();
 }
 
 FormFactorCantellatedCube::FormFactorCantellatedCube(double length, double removed_length)
-    : FormFactorCantellatedCube(std::vector<double>{length, removed_length}) {}
+    : FormFactorCantellatedCube(std::vector<double>{length, removed_length})
+{
+}
 
-void FormFactorCantellatedCube::onChange() {
+void FormFactorCantellatedCube::onChange()
+{
     if (m_removed_length > 0.5 * m_length) {
         std::ostringstream ostr;
         ostr << "::FormFactorCantellatedCube() -> Error in class initialization ";

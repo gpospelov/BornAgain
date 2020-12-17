@@ -26,7 +26,8 @@ ImportTableWidget::ImportTableWidget(QWidget* parent)
     : QWidget(parent)
     , m_tableModel(new ImportTableModel(this))
     , m_tableView(new QTableView)
-    , m_delegate(new ModelView::ViewModelDelegate) {
+    , m_delegate(new ModelView::ViewModelDelegate)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
     layout->addWidget(m_tableView);
@@ -37,11 +38,13 @@ ImportTableWidget::ImportTableWidget(QWidget* parent)
 
 ImportTableWidget::~ImportTableWidget() = default;
 
-void ImportTableWidget::setRawData(const std::vector<std::vector<std::string>>& table_data) {
+void ImportTableWidget::setRawData(const std::vector<std::vector<std::string>>& table_data)
+{
     m_tableModel->setRawData(table_data);
 }
 
-std::vector<ColumnInfo> ImportTableWidget::columnInfo() const {
+std::vector<ColumnInfo> ImportTableWidget::columnInfo() const
+{
     return m_tableModel->columnInfo();
 }
 

@@ -24,11 +24,13 @@ const QString group_key = "welcomeview";
 const QString current_workdir_key = "currentworkdir";
 const QString recent_projects_key = "recentprojects";
 
-const QString workdir_setting_name() {
+const QString workdir_setting_name()
+{
     return group_key + "/" + current_workdir_key;
 }
 
-const QString recent_projects_setting_name() {
+const QString recent_projects_setting_name()
+{
     return group_key + "/" + recent_projects_key;
 }
 
@@ -36,22 +38,26 @@ const QString recent_projects_setting_name() {
 
 namespace gui2 {
 
-RecentProjectSettings::RecentProjectSettings() {
+RecentProjectSettings::RecentProjectSettings()
+{
     readSettings();
 }
 
-RecentProjectSettings::~RecentProjectSettings() {
+RecentProjectSettings::~RecentProjectSettings()
+{
     writeSettings();
 }
 
 //! Returns current workdir.
-QString RecentProjectSettings::currentWorkdir() const {
+QString RecentProjectSettings::currentWorkdir() const
+{
     return m_currentWorkdir;
 }
 
 //! Updates current workdir value from user selection.
 //! Workdir will be set as parent director of selected `dirname`.
-void RecentProjectSettings::updateWorkdirFromSelection(const QString& dirname) {
+void RecentProjectSettings::updateWorkdirFromSelection(const QString& dirname)
+{
     if (!dirname.isEmpty()) {
         auto parent_path = ModelView::Utils::parent_path(dirname.toStdString());
         m_currentWorkdir = QString::fromStdString(parent_path);
@@ -59,7 +65,8 @@ void RecentProjectSettings::updateWorkdirFromSelection(const QString& dirname) {
 }
 
 //! Returns list of recent projects, validates if projects still exists on disk.
-QStringList RecentProjectSettings::recentProjects() {
+QStringList RecentProjectSettings::recentProjects()
+{
     QStringList updatedList;
     for (const auto& fileName : m_recentProjects) {
         if (ModelView::Utils::exists(fileName.toStdString()))
@@ -70,26 +77,30 @@ QStringList RecentProjectSettings::recentProjects() {
 }
 
 //! Adds directory to the list of recent projects.
-void RecentProjectSettings::addToRecentProjects(const QString& dirname) {
+void RecentProjectSettings::addToRecentProjects(const QString& dirname)
+{
     m_recentProjects.removeAll(dirname);
     m_recentProjects.prepend(dirname);
     while (m_recentProjects.size() > max_recent_projects)
         m_recentProjects.removeLast();
 }
 
-void RecentProjectSettings::clearRecentProjectsList() {
+void RecentProjectSettings::clearRecentProjectsList()
+{
     m_recentProjects.clear();
 }
 
 //! Write all settings to file.
-void RecentProjectSettings::writeSettings() {
+void RecentProjectSettings::writeSettings()
+{
     QSettings settings;
     settings.setValue(workdir_setting_name(), m_currentWorkdir);
     settings.setValue(recent_projects_setting_name(), m_recentProjects);
 }
 
 //! Reads all settings from file.
-void RecentProjectSettings::readSettings() {
+void RecentProjectSettings::readSettings()
+{
     QSettings settings;
     m_currentWorkdir = QDir::homePath();
 

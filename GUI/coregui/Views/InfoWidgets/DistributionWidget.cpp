@@ -40,7 +40,8 @@ DistributionWidget::DistributionWidget(QWidget* parent)
     , m_item(0)
     , m_label(new QLabel)
     , m_resetAction(new QAction(this))
-    , m_warningSign(new WarningSign(this)) {
+    , m_warningSign(new WarningSign(this))
+{
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_resetAction->setText("Reset View");
@@ -62,12 +63,14 @@ DistributionWidget::DistributionWidget(QWidget* parent)
     connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
 }
 
-DistributionWidget::~DistributionWidget() {
+DistributionWidget::~DistributionWidget()
+{
     if (m_item)
         m_item->mapper()->unsubscribe(this);
 }
 
-void DistributionWidget::setItem(DistributionItem* item) {
+void DistributionWidget::setItem(DistributionItem* item)
+{
     if (m_item == item) {
         return;
 
@@ -89,7 +92,8 @@ void DistributionWidget::setItem(DistributionItem* item) {
     }
 }
 
-void DistributionWidget::plotItem() {
+void DistributionWidget::plotItem()
+{
     init_plot();
 
     try {
@@ -107,7 +111,8 @@ void DistributionWidget::plotItem() {
 
 //! Generates label with current mouse position.
 
-void DistributionWidget::onMouseMove(QMouseEvent* event) {
+void DistributionWidget::onMouseMove(QMouseEvent* event)
+{
     QPoint point = event->pos();
     double xPos = m_plot->xAxis->pixelToCoord(point.x());
     double yPos = m_plot->yAxis->pixelToCoord(point.y());
@@ -118,7 +123,8 @@ void DistributionWidget::onMouseMove(QMouseEvent* event) {
     }
 }
 
-void DistributionWidget::onMousePress(QMouseEvent* event) {
+void DistributionWidget::onMousePress(QMouseEvent* event)
+{
     if (event->button() == Qt::RightButton) {
         QPoint point = event->globalPos();
         QMenu menu;
@@ -129,7 +135,8 @@ void DistributionWidget::onMousePress(QMouseEvent* event) {
 
 //! Reset zoom range to initial state.
 
-void DistributionWidget::resetView() {
+void DistributionWidget::resetView()
+{
     m_plot->xAxis->setRange(m_xRange);
     m_plot->yAxis->setRange(m_yRange);
     m_plot->replot();
@@ -137,7 +144,8 @@ void DistributionWidget::resetView() {
 
 //! Clears all plottables, resets axes to initial state.
 
-void DistributionWidget::init_plot() {
+void DistributionWidget::init_plot()
+{
     m_warningSign->clear();
 
     m_plot->clearGraphs();
@@ -156,7 +164,8 @@ void DistributionWidget::init_plot() {
     setPlotRange(default_xrange, default_yrange);
 }
 
-void DistributionWidget::plot_distributions() {
+void DistributionWidget::plot_distributions()
+{
     if (m_item->modelType() == "DistributionNone")
         plot_single_value();
 
@@ -166,7 +175,8 @@ void DistributionWidget::plot_distributions() {
 
 //! Plots a single bar corresponding to the value in DistributionNoteItem.
 
-void DistributionWidget::plot_single_value() {
+void DistributionWidget::plot_single_value()
+{
     ASSERT(m_item->displayName() == "DistributionNone");
 
     double value = m_item->getItemValue(DistributionNoneItem::P_MEAN).toDouble();
@@ -178,7 +188,8 @@ void DistributionWidget::plot_single_value() {
     plotVerticalLine(value, default_yrange.first, value, default_yrange.second);
 }
 
-void DistributionWidget::plot_multiple_values() {
+void DistributionWidget::plot_multiple_values()
+{
     ASSERT(m_item->displayName() != "DistributionNone");
 
     int numberOfSamples = m_item->getItemValue(DistributionItem::P_NUMBER_OF_SAMPLES).toInt();
@@ -237,14 +248,16 @@ void DistributionWidget::plot_multiple_values() {
 }
 
 void DistributionWidget::setPlotRange(const QPair<double, double>& xRange,
-                                      const QPair<double, double>& yRange) {
+                                      const QPair<double, double>& yRange)
+{
     m_xRange = QCPRange(xRange.first, xRange.second);
     m_yRange = QCPRange(yRange.first, yRange.second);
     m_plot->xAxis->setRange(m_xRange);
     m_plot->yAxis->setRange(m_yRange);
 }
 
-void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<double>& ybars) {
+void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<double>& ybars)
+{
     ASSERT(xbars.size() > 0);
 
     auto xRange = xRangeForValues(xbars);
@@ -263,7 +276,8 @@ void DistributionWidget::plotBars(const QVector<double>& xbars, const QVector<do
     bars->setData(xbars, ybars);
 }
 
-void DistributionWidget::plotFunction(const QVector<double>& xFunc, const QVector<double>& yFunc) {
+void DistributionWidget::plotFunction(const QVector<double>& xFunc, const QVector<double>& yFunc)
+{
     auto xRange = xRangeForValues(xFunc);
     auto yRange = yRangeForValues(yFunc);
     setPlotRange(xRange, yRange);
@@ -273,7 +287,8 @@ void DistributionWidget::plotFunction(const QVector<double>& xFunc, const QVecto
 }
 
 void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax, double yMax,
-                                          const QColor& color) {
+                                          const QColor& color)
+{
     QCPItemLine* line = new QCPItemLine(m_plot);
 
     QPen pen(color, 1, Qt::DashLine);
@@ -286,7 +301,8 @@ void DistributionWidget::plotVerticalLine(double xMin, double yMin, double xMax,
 
 //! Plots red line denoting lower and upper limits, if any.
 
-void DistributionWidget::plotLimits(const RealLimits& limits) {
+void DistributionWidget::plotLimits(const RealLimits& limits)
+{
     if (limits.hasLowerLimit()) {
         double value = limits.lowerLimit();
         plotVerticalLine(value, default_yrange.first, value, default_yrange.second, Qt::red);
@@ -298,13 +314,15 @@ void DistributionWidget::plotLimits(const RealLimits& limits) {
     }
 }
 
-void DistributionWidget::setXAxisName(const QString& xAxisName) {
+void DistributionWidget::setXAxisName(const QString& xAxisName)
+{
     m_plot->xAxis->setLabel(xAxisName);
 }
 
 namespace {
 //! Returns (xmin, xmax) of x-axis to display single value.
-QPair<double, double> xRangeForValue(double value) {
+QPair<double, double> xRangeForValue(double value)
+{
     const double range_factor(0.1);
 
     double dr = (value == 0.0 ? 1.0 * range_factor : std::abs(value) * range_factor);
@@ -316,7 +334,8 @@ QPair<double, double> xRangeForValue(double value) {
 
 //! Returns (xmin, xmax) of x-axis to display two values.
 
-QPair<double, double> xRangeForValues(double value1, double value2) {
+QPair<double, double> xRangeForValues(double value1, double value2)
+{
     const double range_factor(0.1);
     double dr = (value2 - value1) * range_factor;
     ASSERT(dr > 0.0);
@@ -324,13 +343,15 @@ QPair<double, double> xRangeForValues(double value1, double value2) {
     return QPair<double, double>(value1 - dr, value2 + dr);
 }
 
-QPair<double, double> xRangeForValues(const QVector<double>& xvec) {
+QPair<double, double> xRangeForValues(const QVector<double>& xvec)
+{
     ASSERT(!xvec.isEmpty());
     return xvec.size() == 1 ? xRangeForValue(xvec.front())
                             : xRangeForValues(xvec.front(), xvec.back());
 }
 
-QPair<double, double> yRangeForValues(const QVector<double>& yvec) {
+QPair<double, double> yRangeForValues(const QVector<double>& yvec)
+{
     const double range_factor(1.1);
     double ymax = *std::max_element(yvec.begin(), yvec.end());
     return QPair<double, double>(default_yrange.first, ymax * range_factor);
@@ -338,7 +359,8 @@ QPair<double, double> yRangeForValues(const QVector<double>& yvec) {
 
 //! Returns width of the bar, which will be optimally looking for x-axis range (xmin, xmax)
 
-double optimalBarWidth(double xmin, double xmax, int nbars) {
+double optimalBarWidth(double xmin, double xmax, int nbars)
+{
     double optimalWidth = (xmax - xmin) / 40.;
     double width = (xmax - xmin) / nbars;
 

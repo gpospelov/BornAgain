@@ -26,7 +26,8 @@ class SessionItem;
 using item_factory_func_t = std::function<std::unique_ptr<SessionItem>()>;
 
 //! Creates factory function for item of specific type.
-template <typename T> item_factory_func_t ItemFactoryFunction() {
+template <typename T> item_factory_func_t ItemFactoryFunction()
+{
     return []() { return std::make_unique<T>(); };
 }
 

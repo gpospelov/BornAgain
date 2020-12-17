@@ -28,7 +28,8 @@ using Math::Laue;
 //! @param N_2: number of lattice cells in the second lattice direction
 InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const Lattice2D& lattice,
                                                                          unsigned N_1, unsigned N_2)
-    : IInterferenceFunction(0), m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2) {
+    : IInterferenceFunction(0), m_integrate_xi(false), m_N_1(N_1), m_N_2(N_2)
+{
     setName("InterferenceFinite2DLattice");
     m_lattice.reset(lattice.clone());
     registerChild(m_lattice.get());
@@ -36,35 +37,41 @@ InterferenceFunctionFinite2DLattice::InterferenceFunctionFinite2DLattice(const L
 
 InterferenceFunctionFinite2DLattice::~InterferenceFunctionFinite2DLattice() = default;
 
-InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone() const {
+InterferenceFunctionFinite2DLattice* InterferenceFunctionFinite2DLattice::clone() const
+{
     auto* ret = new InterferenceFunctionFinite2DLattice(*m_lattice, m_N_1, m_N_2);
     ret->setPositionVariance(m_position_var);
     ret->setIntegrationOverXi(integrationOverXi());
     return ret;
 }
 
-void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi) {
+void InterferenceFunctionFinite2DLattice::setIntegrationOverXi(bool integrate_xi)
+{
     m_integrate_xi = integrate_xi;
     m_lattice->setRotationEnabled(!m_integrate_xi); // deregister Xi in the case of integration
 }
 
-const Lattice2D& InterferenceFunctionFinite2DLattice::lattice() const {
+const Lattice2D& InterferenceFunctionFinite2DLattice::lattice() const
+{
     if (!m_lattice)
         throw std::runtime_error("InterferenceFunctionFinite2DLattice::lattice() -> Error. "
                                  "No lattice defined.");
     return *m_lattice;
 }
 
-double InterferenceFunctionFinite2DLattice::getParticleDensity() const {
+double InterferenceFunctionFinite2DLattice::getParticleDensity() const
+{
     double area = m_lattice->unitCellArea();
     return area == 0.0 ? 0.0 : 1.0 / area;
 }
 
-std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() const {
+std::vector<const INode*> InterferenceFunctionFinite2DLattice::getChildren() const
+{
     return std::vector<const INode*>() << m_lattice;
 }
 
-double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const {
+double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) const
+{
     m_qx = q.x();
     m_qy = q.y();
     if (!m_integrate_xi)
@@ -74,7 +81,8 @@ double InterferenceFunctionFinite2DLattice::iff_without_dw(const kvector_t q) co
            / M_TWOPI;
 }
 
-double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const {
+double InterferenceFunctionFinite2DLattice::interferenceForXi(double xi) const
+{
     double a = m_lattice->length1();
     double b = m_lattice->length2();
     double xialpha = xi + m_lattice->latticeAngle();

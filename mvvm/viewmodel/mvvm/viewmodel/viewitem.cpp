@@ -32,11 +32,13 @@ struct ViewItem::ViewItemImpl {
     ViewItem* parent_view_item{nullptr};
     ViewItemImpl(SessionItem* item, int role) : item(item), role(role) {}
 
-    void appendRow(std::vector<std::unique_ptr<ViewItem>> items) {
+    void appendRow(std::vector<std::unique_ptr<ViewItem>> items)
+    {
         insertRow(rows, std::move(items));
     }
 
-    void insertRow(int row, std::vector<std::unique_ptr<ViewItem>> items) {
+    void insertRow(int row, std::vector<std::unique_ptr<ViewItem>> items)
+    {
         if (items.empty())
             throw std::runtime_error("Error in ViewItemImpl: attempt to insert empty row");
 
@@ -54,7 +56,8 @@ struct ViewItem::ViewItemImpl {
         ++rows;
     }
 
-    void removeRow(int row) {
+    void removeRow(int row)
+    {
         if (row < 0 || row >= rows)
             throw std::runtime_error("Error in RefViewItem: invalid row index.");
 
@@ -66,7 +69,8 @@ struct ViewItem::ViewItemImpl {
             columns = 0;
     }
 
-    ViewItem* child(int row, int column) const {
+    ViewItem* child(int row, int column) const
+    {
         if (row < 0 || row >= rows)
             throw std::runtime_error("Error in RefViewItem: wrong row)");
 
@@ -78,7 +82,8 @@ struct ViewItem::ViewItemImpl {
 
     ViewItem* parent() { return parent_view_item; }
 
-    int index_of_child(const ViewItem* child) {
+    int index_of_child(const ViewItem* child)
+    {
         return Utils::IndexOfItem(children.begin(), children.end(), child);
     }
 
@@ -88,7 +93,8 @@ struct ViewItem::ViewItemImpl {
 
     //! Returns vector of children.
 
-    std::vector<ViewItem*> get_children() const {
+    std::vector<ViewItem*> get_children() const
+    {
         std::vector<ViewItem*> result;
         std::transform(children.begin(), children.end(), std::back_inserter(result),
                        [](const auto& x) { return x.get(); });
@@ -96,27 +102,31 @@ struct ViewItem::ViewItemImpl {
     }
 };
 
-ViewItem::ViewItem(SessionItem* item, int role)
-    : p_impl(std::make_unique<ViewItemImpl>(item, role)) {}
+ViewItem::ViewItem(SessionItem* item, int role) : p_impl(std::make_unique<ViewItemImpl>(item, role))
+{
+}
 
 ViewItem::~ViewItem() = default;
 
 //! Returns the number of child item rows that the item has.
 
-int ViewItem::rowCount() const {
+int ViewItem::rowCount() const
+{
     return p_impl->rows;
 }
 
 //! Returns the number of child item columns that the item has.
 
-int ViewItem::columnCount() const {
+int ViewItem::columnCount() const
+{
     return p_impl->columns;
 }
 
 //! Appends a row containing items. Number of items should be the same as columnCount()
 //! (if there are already some rows). If it is a first row, then items can be of any size.
 
-void ViewItem::appendRow(std::vector<std::unique_ptr<ViewItem>> items) {
+void ViewItem::appendRow(std::vector<std::unique_ptr<ViewItem>> items)
+{
     for (auto& x : items)
         x->setParent(this);
     p_impl->appendRow(std::move(items));
@@ -124,7 +134,8 @@ void ViewItem::appendRow(std::vector<std::unique_ptr<ViewItem>> items) {
 
 //! Insert a row of items at index 'row'.
 
-void ViewItem::insertRow(int row, std::vector<std::unique_ptr<ViewItem>> items) {
+void ViewItem::insertRow(int row, std::vector<std::unique_ptr<ViewItem>> items)
+{
     for (auto& x : items)
         x->setParent(this);
     p_impl->insertRow(row, std::move(items));
@@ -132,36 +143,43 @@ void ViewItem::insertRow(int row, std::vector<std::unique_ptr<ViewItem>> items) 
 
 //! Removes row of items at given 'row'. Items will be deleted.
 
-void ViewItem::removeRow(int row) {
+void ViewItem::removeRow(int row)
+{
     p_impl->removeRow(row);
 }
 
-void ViewItem::clear() {
+void ViewItem::clear()
+{
     p_impl->children.clear();
     p_impl->rows = 0;
     p_impl->columns = 0;
 }
 
-ViewItem* ViewItem::parent() const {
+ViewItem* ViewItem::parent() const
+{
     return p_impl->parent();
 }
 
-ViewItem* ViewItem::child(int row, int column) const {
+ViewItem* ViewItem::child(int row, int column) const
+{
     return p_impl->child(row, column);
 }
 
-SessionItem* ViewItem::item() const {
+SessionItem* ViewItem::item() const
+{
     return p_impl->item;
 }
 
-int ViewItem::item_role() const {
+int ViewItem::item_role() const
+{
     return p_impl->role;
 }
 
 //! Returns the row where the item is located in its parent's child table, or -1 if the item has no
 //! parent.
 
-int ViewItem::row() const {
+int ViewItem::row() const
+{
     auto index = parent() ? parent()->p_impl->index_of_child(this) : -1;
     return index >= 0 ? index / parent()->p_impl->columns : -1;
 }
@@ -169,7 +187,8 @@ int ViewItem::row() const {
 //! Returns the column where the item is located in its parent's child table, or -1 if the item has
 //! no parent.
 
-int ViewItem::column() const {
+int ViewItem::column() const
+{
     auto index = parent() ? parent()->p_impl->index_of_child(this) : -1;
     return index >= 0 ? index % parent()->p_impl->columns : -1;
 }
@@ -177,7 +196,8 @@ int ViewItem::column() const {
 //! Returns the data for given role according to Qt::ItemDataRole namespace definitions.
 //! Converts data and roles from underlying SessionItem to what Qt expects.
 
-QVariant ViewItem::data(int qt_role) const {
+QVariant ViewItem::data(int qt_role) const
+{
     if (!p_impl->item)
         return QVariant();
 
@@ -198,7 +218,8 @@ QVariant ViewItem::data(int qt_role) const {
 //! Sets the data to underlying SessionItem.
 //! Converts data and roles from Qt definitions to what SessionItem expects.
 
-bool ViewItem::setData(const QVariant& value, int qt_role) {
+bool ViewItem::setData(const QVariant& value, int qt_role)
+{
     if (p_impl->item && qt_role == Qt::EditRole)
         return p_impl->item->setData(Utils::toCustomVariant(value), p_impl->role);
     return false;
@@ -207,15 +228,18 @@ bool ViewItem::setData(const QVariant& value, int qt_role) {
 //! Returns Qt's item flags.
 //! Converts internal SessionItem's status enable/disabled/readonly to what Qt expects.
 
-Qt::ItemFlags ViewItem::flags() const {
+Qt::ItemFlags ViewItem::flags() const
+{
     Qt::ItemFlags result = Qt::ItemIsSelectable | Qt::ItemIsEnabled;
     return result;
 }
 
-std::vector<ViewItem*> ViewItem::children() const {
+std::vector<ViewItem*> ViewItem::children() const
+{
     return p_impl->get_children();
 }
 
-void ViewItem::setParent(ViewItem* parent) {
+void ViewItem::setParent(ViewItem* parent)
+{
     p_impl->parent_view_item = parent;
 }

@@ -33,7 +33,8 @@ LinkedItemTest::~LinkedItemTest() = default;
 
 //! Initial state of item when it is created outside of model context.
 
-TEST_F(LinkedItemTest, initialState) {
+TEST_F(LinkedItemTest, initialState)
+{
     LinkedItem item;
     EXPECT_EQ(item.get(), nullptr);
     EXPECT_EQ(item.data<std::string>(), std::string());
@@ -41,7 +42,8 @@ TEST_F(LinkedItemTest, initialState) {
 
 //! Link in single model context.
 
-TEST_F(LinkedItemTest, sameModelContext) {
+TEST_F(LinkedItemTest, sameModelContext)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
     auto link = model.insertItem<LinkedItem>();
@@ -59,7 +61,8 @@ TEST_F(LinkedItemTest, sameModelContext) {
 
 //! Link in different model context.
 
-TEST_F(LinkedItemTest, differentModelContext) {
+TEST_F(LinkedItemTest, differentModelContext)
+{
     auto pool = std::make_shared<ItemPool>();
 
     SessionModel model1("TestModel1", pool);
@@ -80,7 +83,8 @@ TEST_F(LinkedItemTest, differentModelContext) {
 
 //! Signals when links is set.
 
-TEST_F(LinkedItemTest, onSetLink) {
+TEST_F(LinkedItemTest, onSetLink)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
     auto link = model.insertItem<LinkedItem>();
@@ -101,7 +105,8 @@ TEST_F(LinkedItemTest, onSetLink) {
 
 //! Link in different model context.
 
-TEST_F(LinkedItemTest, setNullAsLink) {
+TEST_F(LinkedItemTest, setNullAsLink)
+{
     auto pool = std::make_shared<ItemPool>();
 
     SessionModel model("TestModel", pool);

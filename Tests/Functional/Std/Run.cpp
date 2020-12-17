@@ -28,7 +28,8 @@ bool checkSimulation(const std::string& name, const ISimulation& direct_simulati
 //! It then compares with reference data, or with results from Py or GUI runs.
 
 int run(const std::string& test_name, const std::string& sim_name,
-        const std::string& sample_builder_name, const double limit) {
+        const std::string& sample_builder_name, const double limit)
+{
     std::cout << "run std test " << test_name << std::endl;
     std::cout << "- create sim " << sim_name << std::endl;
     std::unique_ptr<ISimulation> simulation{SimulationFactory().createItem(sim_name)};

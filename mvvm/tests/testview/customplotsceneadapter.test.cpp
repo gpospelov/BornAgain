@@ -29,7 +29,8 @@ CustomPlotSceneAdapterTest::~CustomPlotSceneAdapterTest() = default;
 
 //! Scenario when QCustomPlot destroyed before adapter.
 
-TEST_F(CustomPlotSceneAdapterTest, customPlotBeforeAdapter) {
+TEST_F(CustomPlotSceneAdapterTest, customPlotBeforeAdapter)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto adapter = std::make_unique<CustomPlotSceneAdapter>(custom_plot.get());
 
@@ -42,7 +43,8 @@ TEST_F(CustomPlotSceneAdapterTest, customPlotBeforeAdapter) {
     EXPECT_EQ(42, adapter->fromSceneY(42));
 }
 
-TEST_F(CustomPlotSceneAdapterTest, adapterBeforeCustomPlot) {
+TEST_F(CustomPlotSceneAdapterTest, adapterBeforeCustomPlot)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto adapter = std::make_unique<CustomPlotSceneAdapter>(custom_plot.get());
 

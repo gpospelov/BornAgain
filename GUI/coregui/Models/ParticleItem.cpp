@@ -41,7 +41,8 @@ const QString ParticleItem::P_MATERIAL = "Material";
 const QString ParticleItem::P_POSITION = "Position Offset";
 const QString ParticleItem::T_TRANSFORMATION = "Transformation Tag";
 
-ParticleItem::ParticleItem() : SessionGraphicsItem("Particle") {
+ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
+{
     addGroupProperty(P_FORM_FACTOR, "Form Factor");
     addProperty(P_MATERIAL, MaterialItemUtils::defaultMaterialProperty().variant())
         ->setToolTip("Material of particle")
@@ -63,7 +64,8 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle") {
         [this](SessionItem* newParent) { updatePropertiesAppearance(newParent); });
 }
 
-std::unique_ptr<Particle> ParticleItem::createParticle() const {
+std::unique_ptr<Particle> ParticleItem::createParticle() const
+{
     auto& ffItem = groupItem<FormFactorItem>(ParticleItem::P_FORM_FACTOR);
     auto material = TransformToDomain::createDomainMaterial(*this);
     double abundance = getItemValue(ParticleItem::P_ABUNDANCE).toDouble();
@@ -76,7 +78,8 @@ std::unique_ptr<Particle> ParticleItem::createParticle() const {
     return particle;
 }
 
-QVector<SessionItem*> ParticleItem::materialPropertyItems() {
+QVector<SessionItem*> ParticleItem::materialPropertyItems()
+{
     auto item = getItem(P_MATERIAL);
     if (!item)
         return {};
@@ -85,7 +88,8 @@ QVector<SessionItem*> ParticleItem::materialPropertyItems() {
 
 //! Updates enabled/disabled for particle position and particle abundance depending on context.
 
-void ParticleItem::updatePropertiesAppearance(SessionItem* newParent) {
+void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
+{
     if (SessionItemUtils::HasOwnAbundance(newParent)) {
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
@@ -103,7 +107,8 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent) {
 
 //! Returns true if this particle is a shell particle.
 
-bool ParticleItem::isShellParticle() const {
+bool ParticleItem::isShellParticle() const
+{
     if (!parent())
         return false;
 
@@ -113,7 +118,8 @@ bool ParticleItem::isShellParticle() const {
 
 //! Returns true if this particle is directly connected to a ParticleLayout
 
-bool ParticleItem::parentIsParticleLayout() const {
+bool ParticleItem::parentIsParticleLayout() const
+{
     if (!parent())
         return false;
 

@@ -39,14 +39,18 @@ FormFactorTruncatedCube::FormFactorTruncatedCube(const std::vector<double> P)
           {"RemovedLength", "nm", "edge length removed from one corner", 0, +INF, 0}}},
         P)
     , m_length(m_P[0])
-    , m_removed_length(m_P[1]) {
+    , m_removed_length(m_P[1])
+{
     onChange();
 }
 
 FormFactorTruncatedCube::FormFactorTruncatedCube(double length, double removed_length)
-    : FormFactorTruncatedCube(std::vector<double>{length, removed_length}) {}
+    : FormFactorTruncatedCube(std::vector<double>{length, removed_length})
+{
+}
 
-void FormFactorTruncatedCube::onChange() {
+void FormFactorTruncatedCube::onChange()
+{
     if (m_removed_length > 0.5 * m_length) {
         std::ostringstream ostr;
         ostr << "::FormFactorTruncatedCube() -> Error in class initialization ";

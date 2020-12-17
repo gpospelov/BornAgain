@@ -28,9 +28,12 @@ struct SLDEditorActions::SLDEditorActionsImpl {
 };
 
 SLDEditorActions::SLDEditorActions(QObject* parent)
-    : QObject(parent), p_impl(std::make_unique<SLDEditorActionsImpl>()) {}
+    : QObject(parent), p_impl(std::make_unique<SLDEditorActionsImpl>())
+{
+}
 
-void SLDEditorActions::setModel(SLDElementModel* model) {
+void SLDEditorActions::setModel(SLDElementModel* model)
+{
     p_impl->sld_element_model = model;
 }
 

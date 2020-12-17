@@ -24,7 +24,8 @@ ItemsTreeView::ItemsTreeView(QWidget* parent)
     : QWidget(parent)
     , m_treeView(new QTreeView)
     , m_delegate(std::make_unique<ViewModelDelegate>())
-    , m_block_selection(false) {
+    , m_block_selection(false)
+{
     auto layout = new QVBoxLayout;
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -34,7 +35,8 @@ ItemsTreeView::ItemsTreeView(QWidget* parent)
 
 ItemsTreeView::~ItemsTreeView() = default;
 
-void ItemsTreeView::setViewModel(std::unique_ptr<ViewModel> viewModel) {
+void ItemsTreeView::setViewModel(std::unique_ptr<ViewModel> viewModel)
+{
     m_viewModel = std::move(viewModel);
     m_treeView->setItemDelegate(m_delegate.get());
     m_treeView->setModel(m_viewModel.get());
@@ -43,13 +45,15 @@ void ItemsTreeView::setViewModel(std::unique_ptr<ViewModel> viewModel) {
     set_connected(true);
 }
 
-void ItemsTreeView::setViewModelDelegate(std::unique_ptr<ViewModelDelegate> delegate) {
+void ItemsTreeView::setViewModelDelegate(std::unique_ptr<ViewModelDelegate> delegate)
+{
     m_delegate = std::move(delegate);
 }
 
 //! Make given item selected in QTreeView.
 
-void ItemsTreeView::setSelected(SessionItem* item) {
+void ItemsTreeView::setSelected(SessionItem* item)
+{
     if (!m_viewModel)
         return;
 
@@ -58,19 +62,22 @@ void ItemsTreeView::setSelected(SessionItem* item) {
         selectionModel()->select(indexes.at(0), QItemSelectionModel::SelectCurrent);
 }
 
-void ItemsTreeView::setRootSessionItem(SessionItem* item) {
+void ItemsTreeView::setRootSessionItem(SessionItem* item)
+{
     m_viewModel->setRootSessionItem(item);
     m_treeView->expandAll();
 }
 
-ViewModel* ItemsTreeView::viewModel() const {
+ViewModel* ItemsTreeView::viewModel() const
+{
     return m_viewModel.get();
 }
 
 //! Processes selections in QTreeView. Finds SessionItem corresponding to selected indexes
 //! and emit itemSelected signal.
 
-void ItemsTreeView::onSelectionChanged(const QItemSelection&, const QItemSelection&) {
+void ItemsTreeView::onSelectionChanged(const QItemSelection&, const QItemSelection&)
+{
     if (m_block_selection)
         return;
 
@@ -83,7 +90,8 @@ void ItemsTreeView::onSelectionChanged(const QItemSelection&, const QItemSelecti
     }
 }
 
-void ItemsTreeView::set_connected(bool flag) {
+void ItemsTreeView::set_connected(bool flag)
+{
     Q_ASSERT(selectionModel());
 
     if (flag)
@@ -94,10 +102,12 @@ void ItemsTreeView::set_connected(bool flag) {
                    &ItemsTreeView::onSelectionChanged);
 }
 
-QTreeView* ItemsTreeView::treeView() {
+QTreeView* ItemsTreeView::treeView()
+{
     return m_treeView;
 }
 
-QItemSelectionModel* ItemsTreeView::selectionModel() {
+QItemSelectionModel* ItemsTreeView::selectionModel()
+{
     return m_treeView->selectionModel();
 }

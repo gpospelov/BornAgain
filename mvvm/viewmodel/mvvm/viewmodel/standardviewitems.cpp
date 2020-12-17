@@ -24,7 +24,8 @@ RootViewItem::RootViewItem(SessionItem* item) : ViewItem(item, ItemDataRole::DAT
 
 ViewLabelItem::ViewLabelItem(SessionItem* item) : ViewItem(item, ItemDataRole::DISPLAY) {}
 
-QVariant ViewLabelItem::data(int role) const {
+QVariant ViewLabelItem::data(int role) const
+{
     if (!item())
         return QVariant();
 
@@ -39,7 +40,8 @@ QVariant ViewLabelItem::data(int role) const {
 
 ViewDataItem::ViewDataItem(SessionItem* item) : ViewItem(item, ItemDataRole::DATA) {}
 
-Qt::ItemFlags ViewDataItem::flags() const {
+Qt::ItemFlags ViewDataItem::flags() const
+{
     Qt::ItemFlags result = ViewItem::flags();
     if (item() && item()->isEditable() && item()->isEnabled() && item()->data<QVariant>().isValid())
         result |= Qt::ItemIsEditable;
@@ -47,7 +49,8 @@ Qt::ItemFlags ViewDataItem::flags() const {
     return result;
 }
 
-QVariant ViewDataItem::data(int role) const {
+QVariant ViewDataItem::data(int role) const
+{
     if (role == Qt::DecorationRole)
         return Utils::DecorationRole(*item());
     else if (role == Qt::CheckStateRole)
@@ -58,6 +61,7 @@ QVariant ViewDataItem::data(int role) const {
 
 ViewEmptyItem::ViewEmptyItem() : ViewItem(nullptr, 0) {}
 
-QVariant ViewEmptyItem::data(int) const {
+QVariant ViewEmptyItem::data(int) const
+{
     return QVariant();
 }

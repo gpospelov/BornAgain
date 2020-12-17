@@ -28,7 +28,8 @@ TestUtilsTest::~TestUtilsTest() = default;
 
 //! Testing toVector function.
 
-TEST_F(TestUtilsTest, toVector) {
+TEST_F(TestUtilsTest, toVector)
+{
     std::vector<int> expected_int = {1, 2, 3};
     EXPECT_EQ(toVector<int>(1, 2, 3), expected_int);
 

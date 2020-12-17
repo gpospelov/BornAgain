@@ -16,12 +16,14 @@
 #include <sstream>
 
 //! Returns true if option with such name already exists.
-OptionContainer::OptionContainer(const OptionContainer& other) {
+OptionContainer::OptionContainer(const OptionContainer& other)
+{
     for (const auto& option : other.m_options)
         m_options.push_back(option_t(new MultiOption(*option)));
 }
 
-OptionContainer& OptionContainer::operator=(const OptionContainer& other) {
+OptionContainer& OptionContainer::operator=(const OptionContainer& other)
+{
     if (this != &other) {
         OptionContainer tmp(other);
         tmp.swapContent(*this);
@@ -29,7 +31,8 @@ OptionContainer& OptionContainer::operator=(const OptionContainer& other) {
     return *this;
 }
 
-OptionContainer::option_t OptionContainer::option(const std::string& optionName) {
+OptionContainer::option_t OptionContainer::option(const std::string& optionName)
+{
     for (const auto& option : m_options) {
         if (option->name() == optionName)
             return option;
@@ -39,7 +42,8 @@ OptionContainer::option_t OptionContainer::option(const std::string& optionName)
                              + optionName + "'.");
 }
 
-const OptionContainer::option_t OptionContainer::option(const std::string& optionName) const {
+const OptionContainer::option_t OptionContainer::option(const std::string& optionName) const
+{
     for (const auto& option : m_options) {
         if (option->name() == optionName)
             return option;
@@ -49,7 +53,8 @@ const OptionContainer::option_t OptionContainer::option(const std::string& optio
                              + optionName + "'.");
 }
 
-bool OptionContainer::exists(const std::string& name) {
+bool OptionContainer::exists(const std::string& name)
+{
     for (const auto& option : m_options) {
         if (option->name() == name)
             return true;
@@ -57,6 +62,7 @@ bool OptionContainer::exists(const std::string& name) {
     return false;
 }
 
-void OptionContainer::swapContent(OptionContainer& other) {
+void OptionContainer::swapContent(OptionContainer& other)
+{
     std::swap(m_options, other.m_options);
 }

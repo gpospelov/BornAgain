@@ -25,7 +25,8 @@ ObjectiveFunctionAdapter::ObjectiveFunctionAdapter() = default;
 ObjectiveFunctionAdapter::~ObjectiveFunctionAdapter() = default;
 
 const RootScalarFunction*
-ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters& parameters) {
+ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Parameters& parameters)
+{
     std::unique_ptr<ScalarFunctionAdapter> tem_adapter(new ScalarFunctionAdapter(fcn, parameters));
     auto result = tem_adapter->rootObjectiveFunction();
     m_adapter.reset(tem_adapter.release());
@@ -33,7 +34,8 @@ ObjectiveFunctionAdapter::rootObjectiveFunction(fcn_scalar_t fcn, const Paramete
 }
 
 const RootResidualFunction*
-ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters& parameters) {
+ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Parameters& parameters)
+{
     std::unique_ptr<ResidualFunctionAdapter> tem_adapter(
         new ResidualFunctionAdapter(fcn, parameters));
     auto result = tem_adapter->rootResidualFunction();
@@ -41,10 +43,12 @@ ObjectiveFunctionAdapter::rootResidualFunction(fcn_residual_t fcn, const Paramet
     return result;
 }
 
-int ObjectiveFunctionAdapter::numberOfCalls() const {
+int ObjectiveFunctionAdapter::numberOfCalls() const
+{
     return m_adapter ? m_adapter->numberOfCalls() : 0;
 }
 
-int ObjectiveFunctionAdapter::numberOfGradientCalls() const {
+int ObjectiveFunctionAdapter::numberOfGradientCalls() const
+{
     return m_adapter ? m_adapter->numberOfGradientCalls() : 0;
 }

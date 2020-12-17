@@ -31,14 +31,16 @@ const std::string separator = " ";
 } // namespace
 using namespace ModelView;
 
-std::string JsonUtils::ModelToJsonString(const ModelView::SessionModel& model) {
+std::string JsonUtils::ModelToJsonString(const ModelView::SessionModel& model)
+{
     auto converter = CreateModelCopyConverter();
     QJsonObject json_source = converter->to_json(model);
     QJsonDocument document(json_source);
     return QString(document.toJson(QJsonDocument::Indented)).toStdString();
 }
 
-std::string JsonUtils::ToString(const ModelView::RealLimits& limits) {
+std::string JsonUtils::ToString(const ModelView::RealLimits& limits)
+{
     if (limits.isLimitless())
         return text_limitless;
     else if (limits.isPositive())
@@ -55,7 +57,8 @@ std::string JsonUtils::ToString(const ModelView::RealLimits& limits) {
         throw std::runtime_error("JsonUtils::ToString() -> Unknown type");
 }
 
-RealLimits JsonUtils::CreateLimits(const std::string& text, double min, double max) {
+RealLimits JsonUtils::CreateLimits(const std::string& text, double min, double max)
+{
     if (text == text_limitless)
         return RealLimits();
     else if (text == text_positive)

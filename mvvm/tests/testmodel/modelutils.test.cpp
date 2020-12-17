@@ -26,7 +26,8 @@ public:
 
 ModelUtilsTest::~ModelUtilsTest() = default;
 
-TEST_F(ModelUtilsTest, topItem) {
+TEST_F(ModelUtilsTest, topItem)
+{
     ToyItems::SampleModel model;
     EXPECT_EQ(Utils::TopItem<>(&model), nullptr);
     EXPECT_EQ(Utils::TopItem<SessionItem>(&model), nullptr);
@@ -40,7 +41,8 @@ TEST_F(ModelUtilsTest, topItem) {
     EXPECT_EQ(Utils::TopItem<ToyItems::MultiLayerItem>(&model), multilayer1);
 }
 
-TEST_F(ModelUtilsTest, topItems) {
+TEST_F(ModelUtilsTest, topItems)
+{
     ToyItems::SampleModel model;
     EXPECT_EQ(Utils::TopItems<>(&model).size(), 0);
     EXPECT_EQ(Utils::TopItems<SessionItem>(&model).size(), 0);
@@ -56,7 +58,8 @@ TEST_F(ModelUtilsTest, topItems) {
     EXPECT_EQ(Utils::TopItems<ToyItems::MultiLayerItem>(&model), expected2);
 }
 
-TEST_F(ModelUtilsTest, findItems) {
+TEST_F(ModelUtilsTest, findItems)
+{
     ToyItems::SampleModel model;
     EXPECT_EQ(Utils::FindItems<>(&model).size(), 1);            // because of rootItem
     EXPECT_EQ(Utils::FindItems<SessionItem>(&model).size(), 1); // because of rootItem
@@ -77,7 +80,8 @@ TEST_F(ModelUtilsTest, findItems) {
     EXPECT_EQ(Utils::FindItems<ToyItems::LayerItem>(&model), expected3);
 }
 
-TEST_F(ModelUtilsTest, CreateCopy) {
+TEST_F(ModelUtilsTest, CreateCopy)
+{
     ToyItems::SampleModel model;
     auto layer = model.insertItem<ToyItems::LayerItem>();
     layer->setProperty(ToyItems::LayerItem::P_THICKNESS, 42.0);
@@ -91,7 +95,8 @@ TEST_F(ModelUtilsTest, CreateCopy) {
     EXPECT_FALSE(layerCopy->identifier() == layer->identifier());
 }
 
-TEST_F(ModelUtilsTest, CreateClone) {
+TEST_F(ModelUtilsTest, CreateClone)
+{
     ToyItems::SampleModel model;
     auto layer = model.insertItem<ToyItems::LayerItem>();
     layer->setProperty(ToyItems::LayerItem::P_THICKNESS, 42.0);
@@ -109,7 +114,8 @@ TEST_F(ModelUtilsTest, CreateClone) {
     EXPECT_FALSE(model.rootItem()->identifier() == modelCopy->rootItem()->identifier());
 }
 
-TEST_F(ModelUtilsTest, DeleteItemFromModel) {
+TEST_F(ModelUtilsTest, DeleteItemFromModel)
+{
     ToyItems::SampleModel model;
 
     auto item = model.insertItem<SessionItem>();
@@ -118,7 +124,8 @@ TEST_F(ModelUtilsTest, DeleteItemFromModel) {
     EXPECT_EQ(model.rootItem()->childrenCount(), 0);
 }
 
-TEST_F(ModelUtilsTest, MoveItemUp) {
+TEST_F(ModelUtilsTest, MoveItemUp)
+{
     ToyItems::SampleModel model;
 
     auto multilayer = model.insertItem<ToyItems::MultiLayerItem>();
@@ -141,7 +148,8 @@ TEST_F(ModelUtilsTest, MoveItemUp) {
     EXPECT_EQ(multilayer->getItems(ToyItems::MultiLayerItem::T_LAYERS), expected);
 }
 
-TEST_F(ModelUtilsTest, MoveItemDown) {
+TEST_F(ModelUtilsTest, MoveItemDown)
+{
     ToyItems::SampleModel model;
 
     auto multilayer = model.insertItem<ToyItems::MultiLayerItem>();

@@ -2,15 +2,18 @@
 #include "Param/Base/RealParameter.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class ParameterPoolTest : public ::testing::Test {};
+class ParameterPoolTest : public ::testing::Test {
+};
 
-TEST_F(ParameterPoolTest, initialState) {
+TEST_F(ParameterPoolTest, initialState)
+{
     ParameterPool pool;
     EXPECT_EQ(pool.size(), 0u);
     EXPECT_EQ(pool.parameterNames().size(), 0u);
 }
 
-TEST_F(ParameterPoolTest, addParameter) {
+TEST_F(ParameterPoolTest, addParameter)
+{
     double par1(1.0), par2(2.0);
     ParameterPool pool;
     RealParameter* rp1 = new RealParameter("rp1", &par1);
@@ -39,7 +42,8 @@ TEST_F(ParameterPoolTest, addParameter) {
     EXPECT_EQ(pool.size(), 0u);
 }
 
-TEST_F(ParameterPoolTest, matchedParameters) {
+TEST_F(ParameterPoolTest, matchedParameters)
+{
     double par1(1.0), par2(2.0), par3(3.0);
     ParameterPool pool;
     RealParameter* rp1 = new RealParameter("par1", &par1);
@@ -60,7 +64,8 @@ TEST_F(ParameterPoolTest, matchedParameters) {
     EXPECT_THROW(pool.getUniqueMatch("*par*"), std::runtime_error);
 }
 
-TEST_F(ParameterPoolTest, setValue) {
+TEST_F(ParameterPoolTest, setValue)
+{
     double par1(1.0), par2(2.0), par3(3.0);
     ParameterPool pool;
 
@@ -85,7 +90,8 @@ TEST_F(ParameterPoolTest, setValue) {
     EXPECT_THROW(pool.setUniqueMatchValue("*non-existing*", 10.0), std::runtime_error);
 }
 
-TEST_F(ParameterPoolTest, clone) {
+TEST_F(ParameterPoolTest, clone)
+{
     double par1(1.0), par2(2.0), par3(3.0);
     ParameterPool* pool = new ParameterPool;
     pool->addParameter(new RealParameter("par1", &par1));
@@ -103,7 +109,8 @@ TEST_F(ParameterPoolTest, clone) {
     EXPECT_EQ(double(3.0), clone->parameter("par3")->value());
 }
 
-TEST_F(ParameterPoolTest, copyToExternalPool) {
+TEST_F(ParameterPoolTest, copyToExternalPool)
+{
     double par1(1.0), par2(2.0);
     ParameterPool* pool = new ParameterPool;
     pool->addParameter(new RealParameter("par1", &par1));
@@ -125,7 +132,8 @@ TEST_F(ParameterPoolTest, copyToExternalPool) {
     EXPECT_EQ(externalPool.parameterNames(), names);
 }
 
-TEST_F(ParameterPoolTest, removeParameter) {
+TEST_F(ParameterPoolTest, removeParameter)
+{
     double par1(1.0), par2(2.0);
     ParameterPool pool;
     pool.addParameter(new RealParameter("par1", &par1));

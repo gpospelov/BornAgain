@@ -31,7 +31,8 @@
 namespace algo {
 
 //! Returns true if two doubles agree within machine epsilon.
-inline bool almostEqual(double a, double b) {
+inline bool almostEqual(double a, double b)
+{
     constexpr double eps = std::numeric_limits<double>::epsilon();
     return std::abs(a - b) <= eps * std::max(eps, (std::abs(a) + std::abs(b)) / 2);
 }
@@ -54,7 +55,8 @@ template <class T> std::vector<T> concat(const std::vector<T>& v1, const std::ve
 //  ************************************************************************************************
 
 template <typename Evaluator, typename Iterator>
-double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate) {
+double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
+{
     ASSERT(begin != end);
     double ret = evaluate(*begin);
     Iterator it = begin;
@@ -64,7 +66,8 @@ double algo::min_value(const Iterator& begin, const Iterator& end, const Evaluat
 }
 
 template <typename Evaluator, typename Iterator>
-double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate) {
+double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluator& evaluate)
+{
     ASSERT(begin != end);
     double ret = evaluate(*begin);
     Iterator it = begin;
@@ -73,7 +76,8 @@ double algo::max_value(const Iterator& begin, const Iterator& end, const Evaluat
     return ret;
 }
 
-template <class T> std::vector<T> algo::concat(const std::vector<T>& v1, const std::vector<T>& v2) {
+template <class T> std::vector<T> algo::concat(const std::vector<T>& v1, const std::vector<T>& v2)
+{
     std::vector<T> v = v1;
     v.insert(v.end(), v2.begin(), v2.end());
     return v;

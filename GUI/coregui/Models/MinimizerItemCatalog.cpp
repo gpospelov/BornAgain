@@ -18,7 +18,8 @@
 
 //! Returns ComboProperty representing list of algorithms defined for given minimizerType.
 
-ComboProperty MinimizerItemCatalog::algorithmCombo(const QString& minimizerType) {
+ComboProperty MinimizerItemCatalog::algorithmCombo(const QString& minimizerType)
+{
     ComboProperty result = ComboProperty() << algorithmNames(minimizerType);
     result.setToolTips(algorithmDescriptions(minimizerType));
     return result;
@@ -26,7 +27,8 @@ ComboProperty MinimizerItemCatalog::algorithmCombo(const QString& minimizerType)
 
 //! Returns list of algorithm names defined for given minimizer.
 
-QStringList MinimizerItemCatalog::algorithmNames(const QString& minimizerType) {
+QStringList MinimizerItemCatalog::algorithmNames(const QString& minimizerType)
+{
     std::vector<std::string> algos =
         MinimizerFactory::catalog().algorithmNames(minimizerType.toStdString());
     return GUIHelpers::fromStdStrings(algos);
@@ -34,7 +36,8 @@ QStringList MinimizerItemCatalog::algorithmNames(const QString& minimizerType) {
 
 //! Returns list of algoritm descriptions defined for given minimizer.
 
-QStringList MinimizerItemCatalog::algorithmDescriptions(const QString& minimizerType) {
+QStringList MinimizerItemCatalog::algorithmDescriptions(const QString& minimizerType)
+{
     std::vector<std::string> descr =
         MinimizerFactory::catalog().algorithmDescriptions(minimizerType.toStdString());
     return GUIHelpers::fromStdStrings(descr);

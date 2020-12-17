@@ -47,7 +47,8 @@ RealSpaceBuilder::~RealSpaceBuilder() = default;
 
 void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
                                 const SceneGeometry& sceneGeometry,
-                                const RealSpace::Camera::Position& cameraPosition) {
+                                const RealSpace::Camera::Position& cameraPosition)
+{
     // default value of cameraPosition is in RealSpaceBuilder.h
 
     model->defCamPos = cameraPosition;
@@ -78,7 +79,8 @@ void RealSpaceBuilder::populate(RealSpaceModel* model, const SessionItem& item,
 }
 
 void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionItem& item,
-                                          const SceneGeometry& sceneGeometry, const QVector3D&) {
+                                          const SceneGeometry& sceneGeometry, const QVector3D&)
+{
     double total_height(0.0);
     int index(0);
     for (auto layer : item.getItems(MultiLayerItem::T_LAYERS)) {
@@ -96,7 +98,8 @@ void RealSpaceBuilder::populateMultiLayer(RealSpaceModel* model, const SessionIt
 
 void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& layerItem,
                                      const SceneGeometry& sceneGeometry, const QVector3D& origin,
-                                     const bool isTopLayer) {
+                                     const bool isTopLayer)
+{
     auto layer = TransformTo3D::createLayer(layerItem, sceneGeometry, origin);
     if (layer && !isTopLayer)
         model->addBlend(layer.release());
@@ -106,7 +109,8 @@ void RealSpaceBuilder::populateLayer(RealSpaceModel* model, const SessionItem& l
 }
 
 void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& layoutItem,
-                                      const SceneGeometry& sceneGeometry, const QVector3D& origin) {
+                                      const SceneGeometry& sceneGeometry, const QVector3D& origin)
+{
     ASSERT(layoutItem.modelType() == "ParticleLayout");
 
     // If there is no particle to populate
@@ -130,7 +134,8 @@ void RealSpaceBuilder::populateLayout(RealSpaceModel* model, const SessionItem& 
 }
 
 void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
-                                                        const SessionItem& particleItem) const {
+                                                        const SessionItem& particleItem) const
+{
     Particle3DContainer particle3DContainer;
     if (particleItem.modelType() == "Particle") {
         auto pItem = dynamic_cast<const ParticleItem*>(&particleItem);
@@ -173,7 +178,8 @@ void RealSpaceBuilder::populateParticleFromParticleItem(RealSpaceModel* model,
 
 void RealSpaceBuilder::populateParticleFromParticle3DContainer(
     RealSpaceModel* model, const Particle3DContainer& particle3DContainer,
-    const QVector3D& lattice_position) const {
+    const QVector3D& lattice_position) const
+{
     if (particle3DContainer.containerSize()) {
         for (size_t i = 0; i < particle3DContainer.containerSize(); ++i) {
             auto particle3D = particle3DContainer.createParticle(i);
@@ -189,7 +195,8 @@ void RealSpaceBuilder::populateParticleFromParticle3DContainer(
 }
 
 namespace {
-std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem) {
+std::unique_ptr<IInterferenceFunction> GetInterferenceFunction(const SessionItem& layoutItem)
+{
     auto interferenceLattice = layoutItem.getItem(ParticleLayoutItem::T_INTERFERENCE);
     if (interferenceLattice) {
         auto interferenceItem = static_cast<const InterferenceFunctionItem*>(interferenceLattice);

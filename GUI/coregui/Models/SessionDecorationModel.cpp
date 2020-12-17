@@ -27,7 +27,8 @@ struct IconCatalog {
     QIcon specularIcon;
     QIcon depthIcon;
 
-    IconCatalog() {
+    IconCatalog()
+    {
         gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument.svg"), QIcon::Selected);
         gisasIcon.addPixmap(QPixmap(":/images/gisas_instrument_shaded.svg"), QIcon::Normal);
         offspecIcon.addPixmap(QPixmap(":/images/offspec_instrument.svg"), QIcon::Selected);
@@ -39,12 +40,14 @@ struct IconCatalog {
     }
 };
 
-IconCatalog& iconCatalog() {
+IconCatalog& iconCatalog()
+{
     static IconCatalog result;
     return result;
 }
 
-QIcon materialIcon(const QColor& color) {
+QIcon materialIcon(const QColor& color)
+{
     QIcon result;
     QPixmap pixmap(10, 10);
     pixmap.fill(color);
@@ -52,7 +55,8 @@ QIcon materialIcon(const QColor& color) {
     return result;
 }
 
-QVariant itemIcon(const SessionItem* item) {
+QVariant itemIcon(const SessionItem* item)
+{
     QVariant result;
 
     auto modelType = item->modelType();
@@ -81,16 +85,19 @@ QVariant itemIcon(const SessionItem* item) {
 } // namespace
 
 SessionDecorationModel::SessionDecorationModel(QObject* parent, SessionModel* model)
-    : QIdentityProxyModel(parent), m_model(nullptr) {
+    : QIdentityProxyModel(parent), m_model(nullptr)
+{
     setSessionModel(model);
 }
 
-void SessionDecorationModel::setSessionModel(SessionModel* model) {
+void SessionDecorationModel::setSessionModel(SessionModel* model)
+{
     QIdentityProxyModel::setSourceModel(model);
     m_model = model;
 }
 
-QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const {
+QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const
+{
     if (role == Qt::DecorationRole) {
         QVariant result = createIcon(index);
         if (result.isValid())
@@ -106,7 +113,8 @@ QVariant SessionDecorationModel::data(const QModelIndex& index, int role) const 
     return QIdentityProxyModel::data(index, role);
 }
 
-QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const {
+QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const
+{
     if (SessionItem* item = m_model->itemForIndex(index))
         return itemIcon(item);
 
@@ -115,7 +123,8 @@ QVariant SessionDecorationModel::createIcon(const QModelIndex& index) const {
 
 //! Returns text color. Disabled SessionItem's will appear in gray.
 
-QVariant SessionDecorationModel::textColor(const QModelIndex& index) const {
+QVariant SessionDecorationModel::textColor(const QModelIndex& index) const
+{
     QVariant result;
 
     if (SessionItem* item = m_model->itemForIndex(index)) {

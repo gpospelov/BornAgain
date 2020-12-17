@@ -20,7 +20,8 @@ using namespace ModelView;
 
 namespace {
 
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
+{
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<gui2::SpecularInstrumentItem>();
     result->registerItem<gui2::SpecularBeamItem>();
@@ -35,7 +36,8 @@ std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
 namespace gui2 {
 
 InstrumentModel::InstrumentModel(std::shared_ptr<ItemPool> pool)
-    : ModelView::SessionModel("InstrumentModel", pool) {
+    : ModelView::SessionModel("InstrumentModel", pool)
+{
     setItemCatalogue(CreateItemCatalogue());
     insertItem<SpecularInstrumentItem>();
 }

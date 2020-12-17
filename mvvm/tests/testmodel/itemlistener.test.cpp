@@ -29,7 +29,8 @@ public:
         ~TestController();
         size_t ondata_change_call_count{0};
         size_t on_unsubscribe_call_count{0};
-        void subscribe() {
+        void subscribe()
+        {
             auto on_data_change = [this](SessionItem*, int) { ondata_change_call_count++; };
             setOnDataChange(on_data_change);
         }
@@ -45,14 +46,16 @@ ItemListenerTest::TestController::~TestController() = default;
 
 //! Initial state.
 
-TEST_F(ItemListenerTest, initialState) {
+TEST_F(ItemListenerTest, initialState)
+{
     TestController controller;
     EXPECT_EQ(controller.currentItem(), nullptr);
 }
 
 //! Check that controller aware of item deletion.
 
-TEST_F(ItemListenerTest, itemDeletedBeforeController) {
+TEST_F(ItemListenerTest, itemDeletedBeforeController)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
 
@@ -69,7 +72,8 @@ TEST_F(ItemListenerTest, itemDeletedBeforeController) {
 
 //! Checks unsubscribe scenario.
 
-TEST_F(ItemListenerTest, unsubscribeScenario) {
+TEST_F(ItemListenerTest, unsubscribeScenario)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
 
@@ -92,7 +96,8 @@ TEST_F(ItemListenerTest, unsubscribeScenario) {
 
 //! Checks that controller can be deleted before item.
 
-TEST_F(ItemListenerTest, controllerDeletedBeforeItem) {
+TEST_F(ItemListenerTest, controllerDeletedBeforeItem)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
 

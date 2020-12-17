@@ -51,11 +51,13 @@ protected:
     SessionItem* m_item;
 };
 
-inline int IView::type() const {
+inline int IView::type() const
+{
     return ViewTypes::IVIEW;
 }
 
-inline SessionItem* IView::getItem() {
+inline SessionItem* IView::getItem()
+{
     return m_item;
 }
 

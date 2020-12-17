@@ -17,7 +17,8 @@
 #include <sstream>
 #include <stdexcept> // need overlooked by g++ 5.4
 
-Convolve::Convolve() : m_mode(FFTW_UNDEFINED) {
+Convolve::Convolve() : m_mode(FFTW_UNDEFINED)
+{
     // storing favorite fftw3 prime factors
     const size_t FFTW_FACTORS[] = {13, 11, 7, 5, 3, 2};
     m_implemented_factors.assign(FFTW_FACTORS,
@@ -44,13 +45,17 @@ Convolve::Workspace::Workspace()
     , w_offset(0)
     , p_forw_src(nullptr)
     , p_forw_kernel(nullptr)
-    , p_back(nullptr) {}
+    , p_back(nullptr)
+{
+}
 
-Convolve::Workspace::~Workspace() {
+Convolve::Workspace::~Workspace()
+{
     clear();
 }
 
-void Convolve::Workspace::clear() {
+void Convolve::Workspace::clear()
+{
     h_src = 0;
     w_src = 0;
     h_kernel = 0;
@@ -94,7 +99,8 @@ void Convolve::Workspace::clear() {
 /* ************************************************************************* */
 // convolution in 2d
 /* ************************************************************************* */
-void Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result) {
+void Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, double2d_t& result)
+{
     // set default convolution mode, if not defined
     if (m_mode == FFTW_UNDEFINED)
         setMode(FFTW_LINEAR_SAME);
@@ -129,7 +135,8 @@ void Convolve::fftconvolve(const double2d_t& source, const double2d_t& kernel, d
 /* ************************************************************************* */
 // convolution in 1d
 /* ************************************************************************* */
-void Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result) {
+void Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, double1d_t& result)
+{
     // we simply create 2d arrays with length of first dimension equal to 1, and call 2d convolution
     double2d_t source2d, kernel2d;
     source2d.push_back(source);
@@ -145,7 +152,8 @@ void Convolve::fftconvolve(const double1d_t& source, const double1d_t& kernel, d
 /* ************************************************************************* */
 // initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
-void Convolve::init(int h_src, int w_src, int h_kernel, int w_kernel) {
+void Convolve::init(int h_src, int w_src, int h_kernel, int w_kernel)
+{
     if (!h_src || !w_src || !h_kernel || !w_kernel) {
         std::ostringstream os;
         os << "Convolve::init() -> Panic! Wrong dimensions " << h_src << " " << w_src << " "
@@ -262,7 +270,8 @@ void Convolve::init(int h_src, int w_src, int h_kernel, int w_kernel) {
 // initialise input and output arrays for fast Fourier transformation
 /* ************************************************************************* */
 
-void Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t& kernel) {
+void Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t& kernel)
+{
     if (ws.h_fftw <= 0 || ws.w_fftw <= 0)
         throw std::runtime_error("Convolve::fftw_convolve() -> Panic! Initialisation is missed.");
 
@@ -316,7 +325,8 @@ void Convolve::fftw_circular_convolution(const double2d_t& src, const double2d_t
 // to fftw3 favorite factorisation
 /* ************************************************************************* */
 
-int Convolve::find_closest_factor(int n) {
+int Convolve::find_closest_factor(int n)
+{
     if (is_optimal(n)) {
         return n;
     } else {
@@ -330,7 +340,8 @@ int Convolve::find_closest_factor(int n) {
 /* ************************************************************************* */
 // if a number can be factorised using only favorite fftw3 factors
 /* ************************************************************************* */
-bool Convolve::is_optimal(int n) {
+bool Convolve::is_optimal(int n)
+{
     if (n == 1)
         return false;
     size_t ntest = n;

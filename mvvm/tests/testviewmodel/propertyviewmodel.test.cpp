@@ -33,7 +33,8 @@ public:
 
 PropertyViewModelTest::~PropertyViewModelTest() = default;
 
-TEST_F(PropertyViewModelTest, initialState) {
+TEST_F(PropertyViewModelTest, initialState)
+{
     SessionModel model;
     PropertyViewModel viewModel(&model);
     EXPECT_EQ(viewModel.rowCount(), 0);
@@ -41,7 +42,8 @@ TEST_F(PropertyViewModelTest, initialState) {
     EXPECT_EQ(viewModel.sessionItemFromIndex(QModelIndex()), model.rootItem());
 }
 
-TEST_F(PropertyViewModelTest, baseItem) {
+TEST_F(PropertyViewModelTest, baseItem)
+{
     SessionModel model;
     model.insertItem<SessionItem>();
 
@@ -53,7 +55,8 @@ TEST_F(PropertyViewModelTest, baseItem) {
     EXPECT_EQ(viewModel.columnCount(), 0);
 }
 
-TEST_F(PropertyViewModelTest, propertyItem) {
+TEST_F(PropertyViewModelTest, propertyItem)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
 
@@ -74,7 +77,8 @@ TEST_F(PropertyViewModelTest, propertyItem) {
 
 //! VectorItem in a model.
 
-TEST_F(PropertyViewModelTest, vectorItem) {
+TEST_F(PropertyViewModelTest, vectorItem)
+{
     SessionModel model;
     auto parent = model.insertItem<VectorItem>();
 
@@ -91,7 +95,8 @@ TEST_F(PropertyViewModelTest, vectorItem) {
 
 //! LayerItem in a MultiLayer.
 
-TEST_F(PropertyViewModelTest, layerInMultiLayerAsRootItem) {
+TEST_F(PropertyViewModelTest, layerInMultiLayerAsRootItem)
+{
     SessionModel model;
     auto multilayer = model.insertItem<ToyItems::MultiLayerItem>();
     auto layer = model.insertItem<ToyItems::LayerItem>(multilayer);

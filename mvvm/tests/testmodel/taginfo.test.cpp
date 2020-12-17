@@ -26,7 +26,8 @@ public:
 
 TagInfoTest::~TagInfoTest() = default;
 
-TEST_F(TagInfoTest, initialState) {
+TEST_F(TagInfoTest, initialState)
+{
     TagInfo tag;
     EXPECT_EQ(tag.name(), std::string());
     EXPECT_EQ(tag.min(), 0);
@@ -38,7 +39,8 @@ TEST_F(TagInfoTest, initialState) {
 
 //! Testing default tag intended for storing unlimited amount of items of any type.
 
-TEST_F(TagInfoTest, defaultTag) {
+TEST_F(TagInfoTest, defaultTag)
+{
     // initial state
     TagInfo tag = TagInfo::universalTag("name");
     EXPECT_EQ(tag.name(), std::string("name"));
@@ -51,7 +53,8 @@ TEST_F(TagInfoTest, defaultTag) {
 
 //! Testing property tag intended for storing single PropertyItem.
 
-TEST_F(TagInfoTest, propertyTag) {
+TEST_F(TagInfoTest, propertyTag)
+{
     // initial state
     TagInfo tag = TagInfo::propertyTag("name", "model_type");
 
@@ -65,7 +68,8 @@ TEST_F(TagInfoTest, propertyTag) {
 
 //! Testing equality operators.
 
-TEST_F(TagInfoTest, equalityOperator) {
+TEST_F(TagInfoTest, equalityOperator)
+{
     // default constructor
     TagInfo tag1, tag2;
     EXPECT_TRUE(tag1 == tag2);

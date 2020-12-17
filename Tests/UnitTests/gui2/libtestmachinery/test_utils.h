@@ -51,8 +51,8 @@ std::string CreateTestFile(const std::string& dirname, const std::string& fileNa
 //! Returns full path of the file.
 std::string CreateEmptyFile(const std::string& dirname, const std::string& fileName);
 
-template <typename T = std::string, typename... Args>
-std::vector<T> toStringVector(Args&&... args) {
+template <typename T = std::string, typename... Args> std::vector<T> toStringVector(Args&&... args)
+{
     std::vector<T> v;
     (v.push_back(std::string(args)), ...);
     return v;

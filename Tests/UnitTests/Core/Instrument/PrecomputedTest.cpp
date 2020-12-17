@@ -6,9 +6,11 @@ namespace {
 constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 }
 
-class PrecomputedTest : public ::testing::Test {};
+class PrecomputedTest : public ::testing::Test {
+};
 
-TEST_F(PrecomputedTest, ReciprocalFactorial) {
+TEST_F(PrecomputedTest, ReciprocalFactorial)
+{
     const double eps = 2.3e-16; // about the machine precision
     EXPECT_TRUE(ReciprocalFactorialArray.size() > 150);
     EXPECT_DOUBLE_EQ(ReciprocalFactorialArray[0], 1.);

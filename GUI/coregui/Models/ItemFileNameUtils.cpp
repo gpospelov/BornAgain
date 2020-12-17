@@ -31,38 +31,45 @@ QString intensityDataFileName(const QString& itemName, const QString& prefix);
 
 //! Constructs the name of the file with simulated intensities.
 
-QString ItemFileNameUtils::jobResultsFileName(const JobItem& jobItem) {
+QString ItemFileNameUtils::jobResultsFileName(const JobItem& jobItem)
+{
     return intensityDataFileName(jobItem.itemName(), jobdata_file_prefix);
 }
 
 //! Constructs the name of the file with reference data.
 
-QString ItemFileNameUtils::jobReferenceFileName(const JobItem& jobItem) {
+QString ItemFileNameUtils::jobReferenceFileName(const JobItem& jobItem)
+{
     return intensityDataFileName(jobItem.itemName(), refdata_file_prefix);
 }
 
-QString ItemFileNameUtils::jobNativeDataFileName(const JobItem& jobItem) {
+QString ItemFileNameUtils::jobNativeDataFileName(const JobItem& jobItem)
+{
     return intensityDataFileName(jobItem.getIdentifier(), nativedata_file_prefix);
 }
 
 //! Constructs the name of the intensity file belonging to real data item.
 
-QString ItemFileNameUtils::realDataFileName(const RealDataItem& realDataItem) {
+QString ItemFileNameUtils::realDataFileName(const RealDataItem& realDataItem)
+{
     return intensityDataFileName(realDataItem.itemName(), realdata_file_prefix);
 }
 
-QString ItemFileNameUtils::nativeDataFileName(const RealDataItem& realDataItem) {
+QString ItemFileNameUtils::nativeDataFileName(const RealDataItem& realDataItem)
+{
     return intensityDataFileName(realDataItem.itemName(), nativedata_file_prefix);
 }
 
-QString ItemFileNameUtils::instrumentDataFileName(const InstrumentItem& instrumentItem) {
+QString ItemFileNameUtils::instrumentDataFileName(const InstrumentItem& instrumentItem)
+{
     auto instrument_id = instrumentItem.getItemValue(InstrumentItem::P_IDENTIFIER).toString();
     return intensityDataFileName(instrument_id, instrument_file_prefix);
 }
 
 //! Returns list of fileName filters related to nonXML data stored by JobModel and RealDataModel.
 
-QStringList ItemFileNameUtils::nonXMLFileNameFilters() {
+QStringList ItemFileNameUtils::nonXMLFileNameFilters()
+{
     QStringList result = QStringList() << QString(jobdata_file_prefix + "_*.int.gz")
                                        << QString(refdata_file_prefix + "_*.int.gz")
                                        << QString(realdata_file_prefix + "_*.int.gz")
@@ -73,7 +80,8 @@ QStringList ItemFileNameUtils::nonXMLFileNameFilters() {
 }
 
 namespace {
-QString intensityDataFileName(const QString& itemName, const QString& prefix) {
+QString intensityDataFileName(const QString& itemName, const QString& prefix)
+{
     QString bodyName = GUIHelpers::getValidFileName(itemName);
     return QString("%1_%2_0.int.gz").arg(prefix).arg(bodyName);
 }

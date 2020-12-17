@@ -20,7 +20,8 @@
 
 template <class T> class ISingleton {
 public:
-    static T& instance() {
+    static T& instance()
+    {
         static T m_instance;
         return m_instance;
     }

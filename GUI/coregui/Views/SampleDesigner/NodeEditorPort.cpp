@@ -29,7 +29,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem* parent, const QString& name,
     , m_port_type(port_type)
     , m_radius(0)
     , m_margin(0)
-    , m_label(nullptr) {
+    , m_label(nullptr)
+{
     m_radius = StyleUtils::SizeOfLetterM().width() * 0.4;
     m_margin = m_radius * 0.5;
     m_color = getPortTypeColor(port_type);
@@ -48,7 +49,8 @@ NodeEditorPort::NodeEditorPort(QGraphicsItem* parent, const QString& name,
     }
 }
 
-NodeEditorPort::~NodeEditorPort() {
+NodeEditorPort::~NodeEditorPort()
+{
     while (m_connections.size() > 0) {
         auto conn = m_connections.last();
         conn->setSelected(false);
@@ -56,24 +58,29 @@ NodeEditorPort::~NodeEditorPort() {
     }
 }
 
-bool NodeEditorPort::isOutput() {
+bool NodeEditorPort::isOutput()
+{
     return (m_direction == OUTPUT);
 }
 
-bool NodeEditorPort::isInput() {
+bool NodeEditorPort::isInput()
+{
     return !isOutput();
 }
 
-void NodeEditorPort::remove(NodeEditorConnection* connection) {
+void NodeEditorPort::remove(NodeEditorConnection* connection)
+{
     if (m_connections.contains(connection))
         m_connections.remove(m_connections.indexOf(connection));
 }
 
-void NodeEditorPort::append(NodeEditorConnection* connection) {
+void NodeEditorPort::append(NodeEditorConnection* connection)
+{
     m_connections.append(connection);
 }
 
-bool NodeEditorPort::isConnected(NodeEditorPort* other) {
+bool NodeEditorPort::isConnected(NodeEditorPort* other)
+{
     for (auto conn : m_connections)
         if (conn->port1() == other || conn->port2() == other)
             return true;
@@ -81,7 +88,8 @@ bool NodeEditorPort::isConnected(NodeEditorPort* other) {
     return false;
 }
 
-QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type) {
+QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type)
+{
     switch (port_type) {
     case DEFAULT:
         return QColor(Qt::gray);
@@ -98,7 +106,8 @@ QColor NodeEditorPort::getPortTypeColor(NodeEditorPort::EPortType port_type) {
     }
 }
 
-QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant& value) {
+QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant& value)
+{
     if (change == ItemScenePositionHasChanged) {
         for (auto conn : m_connections) {
             conn->updatePosFromPorts();
@@ -108,7 +117,8 @@ QVariant NodeEditorPort::itemChange(GraphicsItemChange change, const QVariant& v
     return value;
 }
 
-void NodeEditorPort::setLabel(QString name) {
+void NodeEditorPort::setLabel(QString name)
+{
     if (!m_label)
         m_label = new QGraphicsTextItem(this);
     m_label->setPlainText(name);

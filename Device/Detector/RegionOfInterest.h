@@ -81,11 +81,13 @@ private:
     std::vector<size_t> m_roi_dims;
 };
 
-inline size_t RegionOfInterest::xcoord(size_t index, const std::vector<size_t>& dims) const {
+inline size_t RegionOfInterest::xcoord(size_t index, const std::vector<size_t>& dims) const
+{
     return index / dims[1] % dims[0];
 }
 
-inline size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t>& dims) const {
+inline size_t RegionOfInterest::ycoord(size_t index, const std::vector<size_t>& dims) const
+{
     return index % dims[1];
 }
 

@@ -38,13 +38,15 @@ ModelListenerTest::TestListener::~TestListener() = default;
 
 //! Initial state.
 
-TEST_F(ModelListenerTest, initialState) {
+TEST_F(ModelListenerTest, initialState)
+{
     SessionModel model;
     TestListener listener(&model);
     EXPECT_EQ(listener.model(), &model);
 }
 
-TEST_F(ModelListenerTest, onDataChange) {
+TEST_F(ModelListenerTest, onDataChange)
+{
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());
 
@@ -60,7 +62,8 @@ TEST_F(ModelListenerTest, onDataChange) {
 
 //! Check that controller aware of item deletion.
 
-TEST_F(ModelListenerTest, modelDeletedBeforeListener) {
+TEST_F(ModelListenerTest, modelDeletedBeforeListener)
+{
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());
 
@@ -72,7 +75,8 @@ TEST_F(ModelListenerTest, modelDeletedBeforeListener) {
 
 //! Checks that the listenerr can be deleted before the model.
 
-TEST_F(ModelListenerTest, listenerDeletedBeforeTheModel) {
+TEST_F(ModelListenerTest, listenerDeletedBeforeTheModel)
+{
     // create model and its listener
     auto model = std::make_unique<SessionModel>();
     auto listener = std::make_unique<TestListener>(model.get());

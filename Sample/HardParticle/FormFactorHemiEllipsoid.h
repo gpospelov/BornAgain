@@ -27,7 +27,8 @@ public:
     FormFactorHemiEllipsoid(double radius_x, double radius_y, double height);
     virtual ~FormFactorHemiEllipsoid() {}
 
-    FormFactorHemiEllipsoid* clone() const final {
+    FormFactorHemiEllipsoid* clone() const final
+    {
         return new FormFactorHemiEllipsoid(m_radius_x, m_radius_y, m_height);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

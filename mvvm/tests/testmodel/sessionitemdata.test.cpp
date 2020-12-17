@@ -31,7 +31,8 @@ SessionItemDataTest::~SessionItemDataTest() = default;
 
 //! Initial state of SessionItemData object.
 
-TEST_F(SessionItemDataTest, initialState) {
+TEST_F(SessionItemDataTest, initialState)
+{
     SessionItemData data;
     EXPECT_TRUE(data.roles().empty());
     EXPECT_FALSE(data.data(Qt::DisplayRole).isValid());
@@ -39,7 +40,8 @@ TEST_F(SessionItemDataTest, initialState) {
 
 //! Basic setData, data operations.
 
-TEST_F(SessionItemDataTest, setDataDouble) {
+TEST_F(SessionItemDataTest, setDataDouble)
+{
     SessionItemData data;
 
     const int role(ItemDataRole::DATA);
@@ -69,7 +71,8 @@ TEST_F(SessionItemDataTest, setDataDouble) {
 
 //! Basic setData, data operations.
 
-TEST_F(SessionItemDataTest, setDataComboProperty) {
+TEST_F(SessionItemDataTest, setDataComboProperty)
+{
     SessionItemData data;
     ComboProperty c1 = ComboProperty::createFrom({"a1", "a2"});
     ComboProperty c2 = ComboProperty::createFrom({"a1", "a2"});
@@ -92,7 +95,8 @@ TEST_F(SessionItemDataTest, setDataComboProperty) {
 
 //! Using different roles.
 
-TEST_F(SessionItemDataTest, differentRoles) {
+TEST_F(SessionItemDataTest, differentRoles)
+{
     SessionItemData data;
 
     const int role1(1);
@@ -112,7 +116,8 @@ TEST_F(SessionItemDataTest, differentRoles) {
 
 //! Changing type of variant for role should not be allowed.
 
-TEST_F(SessionItemDataTest, changingRole) {
+TEST_F(SessionItemDataTest, changingRole)
+{
     SessionItemData data;
 
     const int role(1);
@@ -128,7 +133,8 @@ TEST_F(SessionItemDataTest, changingRole) {
     EXPECT_THROW(data.setData(s, role), std::runtime_error);
 }
 
-TEST_F(SessionItemDataTest, rangeLoop) {
+TEST_F(SessionItemDataTest, rangeLoop)
+{
     SessionItemData data;
     const std::vector<double> expected_values = {1.2, 1.3};
     const std::vector<int> expected_roles = {1, 2};
@@ -149,7 +155,8 @@ TEST_F(SessionItemDataTest, rangeLoop) {
     EXPECT_EQ(roles, expected_roles);
 }
 
-TEST_F(SessionItemDataTest, hasRole) {
+TEST_F(SessionItemDataTest, hasRole)
+{
     SessionItemData data;
     EXPECT_FALSE(data.hasData(0));
     EXPECT_FALSE(data.hasData(1));

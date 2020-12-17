@@ -29,7 +29,8 @@ namespace gui2 {
 
 namespace {
 
-std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
+std::unique_ptr<ItemCatalogue> CreateItemCatalogue()
+{
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<JobItem>();
     result->registerItem<CanvasItem>();
@@ -39,30 +40,36 @@ std::unique_ptr<ItemCatalogue> CreateItemCatalogue() {
 
 } // namespace
 
-JobModel::JobModel(std::shared_ptr<ItemPool> pool) : SessionModel("JobModel", pool) {
+JobModel::JobModel(std::shared_ptr<ItemPool> pool) : SessionModel("JobModel", pool)
+{
     setItemCatalogue(CreateItemCatalogue());
     insertItem<JobItem>();
 }
 
-GraphViewportItem* JobModel::sldViewport() const {
+GraphViewportItem* JobModel::sldViewport() const
+{
     return jobItem()->sldViewport();
 }
 
-CanvasItem* JobModel::specularViewport() const {
+CanvasItem* JobModel::specularViewport() const
+{
     return jobItem()->specularViewport();
 }
 
-GraphViewportItem* JobModel::diffViewport() const {
+GraphViewportItem* JobModel::diffViewport() const
+{
     return jobItem()->diffViewport();
 }
 
-void JobModel::updateReferenceGraph(const ModelView::GraphItem* graph) {
+void JobModel::updateReferenceGraph(const ModelView::GraphItem* graph)
+{
     jobItem()->updateReferenceGraph(graph);
 }
 
 //! Updates specular data in JobItem from simulation results.
 
-void JobModel::updateSpecularData(const SimulationResult& data) {
+void JobModel::updateSpecularData(const SimulationResult& data)
+{
     auto specularData = jobItem()->specularData();
     //    specularData->setAxis<ModelView::PointwiseAxisItem>(data.qvalues);
     specularData->item<PointwiseAxisItem>(Data1DItem::T_AXIS)->setParameters(data.qvalues);
@@ -74,7 +81,8 @@ void JobModel::updateSpecularData(const SimulationResult& data) {
 
 //! Updates SLD profile data.
 
-void JobModel::updateSLDProfile(const SLDProfile& data) {
+void JobModel::updateSLDProfile(const SLDProfile& data)
+{
     auto sldData = jobItem()->sldData();
     // sldData->setAxis<FixedBinAxisItem>(data.sld_real_values.size(), data.zmin, data.zmax);
     sldData->item<FixedBinAxisItem>(Data1DItem::T_AXIS)
@@ -82,7 +90,8 @@ void JobModel::updateSLDProfile(const SLDProfile& data) {
     sldData->setValues(data.sld_real_values);
 }
 
-JobItem* JobModel::jobItem() const {
+JobItem* JobModel::jobItem() const
+{
     return Utils::TopItem<JobItem>(this);
 }
 

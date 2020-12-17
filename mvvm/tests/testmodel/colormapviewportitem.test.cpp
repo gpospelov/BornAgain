@@ -34,7 +34,8 @@ ColorMapViewportItemTest::~ColorMapViewportItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ColorMapViewportItemTest, initialState) {
+TEST_F(ColorMapViewportItemTest, initialState)
+{
     ColorMapViewportItem viewport;
     EXPECT_EQ(viewport.xAxis()->modelType(), Constants::ViewportAxisItemType);
     EXPECT_EQ(viewport.yAxis()->modelType(), Constants::ViewportAxisItemType);
@@ -44,7 +45,8 @@ TEST_F(ColorMapViewportItemTest, initialState) {
 
 //! Update on unitialized viewport.
 
-TEST_F(ColorMapViewportItemTest, uninitializedViewportUpdate) {
+TEST_F(ColorMapViewportItemTest, uninitializedViewportUpdate)
+{
     SessionModel model;
 
     auto viewport_item = model.insertItem<ColorMapViewportItem>();
@@ -69,7 +71,8 @@ TEST_F(ColorMapViewportItemTest, uninitializedViewportUpdate) {
 
 //! Add graph to viewport.
 
-TEST_F(ColorMapViewportItemTest, addItem) {
+TEST_F(ColorMapViewportItemTest, addItem)
+{
     SessionModel model;
 
     auto viewport_item = model.insertItem<ColorMapViewportItem>();
@@ -105,7 +108,8 @@ TEST_F(ColorMapViewportItemTest, addItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(ColorMapViewportItemTest, onAddItem) {
+TEST_F(ColorMapViewportItemTest, onAddItem)
+{
     SessionModel model;
     auto viewport_item = model.insertItem<ColorMapViewportItem>();
 
@@ -124,7 +128,8 @@ TEST_F(ColorMapViewportItemTest, onAddItem) {
 
 //! Check signaling on set data item.
 
-TEST_F(ColorMapViewportItemTest, onSetDataItem) {
+TEST_F(ColorMapViewportItemTest, onSetDataItem)
+{
     SessionModel model;
     auto viewport_item = model.insertItem<ColorMapViewportItem>();
 

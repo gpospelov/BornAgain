@@ -33,13 +33,15 @@ ToyParticleItemTest::~ToyParticleItemTest() = default;
 
 //! Initial state.
 
-TEST_F(ToyParticleItemTest, initialState) {
+TEST_F(ToyParticleItemTest, initialState)
+{
     ToyItems::ParticleItem item;
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::ParticleItem::P_POSITION));
     EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::ParticleItem::P_SHAPES));
 }
 
-TEST_F(ToyParticleItemTest, TopLevelItems) {
+TEST_F(ToyParticleItemTest, TopLevelItems)
+{
     ToyItems::SampleModel model;
     auto particle = model.insertItem<ToyItems::ParticleItem>();
 
@@ -47,7 +49,8 @@ TEST_F(ToyParticleItemTest, TopLevelItems) {
     EXPECT_EQ(Utils::TopLevelItems(*particle), std::vector<SessionItem*>{});
 }
 
-TEST_F(ToyParticleItemTest, SinglePropertyItems) {
+TEST_F(ToyParticleItemTest, SinglePropertyItems)
+{
     ToyItems::SampleModel model;
     auto particle = model.insertItem<ToyItems::ParticleItem>();
 

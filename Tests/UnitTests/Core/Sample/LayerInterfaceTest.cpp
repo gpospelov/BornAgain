@@ -5,9 +5,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <memory>
 
-class LayerInterfaceTest : public ::testing::Test {};
+class LayerInterfaceTest : public ::testing::Test {
+};
 
-TEST_F(LayerInterfaceTest, createSmoothInterface) {
+TEST_F(LayerInterfaceTest, createSmoothInterface)
+{
     std::unique_ptr<Layer> layer0(new Layer(HomogeneousMaterial("Vacuum", 0.0, 0.0)));
     std::unique_ptr<Layer> layer1(new Layer(HomogeneousMaterial("Vacuum", 0.0, 0.0)));
 
@@ -20,7 +22,8 @@ TEST_F(LayerInterfaceTest, createSmoothInterface) {
     EXPECT_EQ(interface->getChildren().size(), 0u);
 }
 
-TEST_F(LayerInterfaceTest, createRoughInterface) {
+TEST_F(LayerInterfaceTest, createRoughInterface)
+{
     std::unique_ptr<Layer> layer0(new Layer(HomogeneousMaterial("Vacuum", 0.0, 0.0)));
     std::unique_ptr<Layer> layer1(new Layer(HomogeneousMaterial("Vacuum", 0.0, 0.0)));
 

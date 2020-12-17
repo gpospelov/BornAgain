@@ -17,7 +17,8 @@
 
 DetectionProperties::DetectionProperties(kvector_t direction, double efficiency,
                                          double total_transmission)
-    : m_direction(direction), m_efficiency(efficiency), m_total_transmission(total_transmission) {
+    : m_direction(direction), m_efficiency(efficiency), m_total_transmission(total_transmission)
+{
     setName("Analyzer");
     registerVector("Direction", &m_direction, "");
     registerParameter("Efficiency", &m_efficiency);
@@ -27,10 +28,13 @@ DetectionProperties::DetectionProperties(kvector_t direction, double efficiency,
 DetectionProperties::DetectionProperties() : DetectionProperties({}, {}, 1.0) {}
 
 DetectionProperties::DetectionProperties(const DetectionProperties& other)
-    : DetectionProperties(other.m_direction, other.m_efficiency, other.m_total_transmission) {}
+    : DetectionProperties(other.m_direction, other.m_efficiency, other.m_total_transmission)
+{
+}
 
 void DetectionProperties::setAnalyzerProperties(const kvector_t direction, double efficiency,
-                                                double total_transmission) {
+                                                double total_transmission)
+{
     if (!checkAnalyzerProperties(direction, efficiency, total_transmission))
         throw std::runtime_error("IDetector2D::setAnalyzerProperties: the "
                                  "given properties are not physical");
@@ -44,7 +48,8 @@ void DetectionProperties::setAnalyzerProperties(const kvector_t direction, doubl
     m_total_transmission = total_transmission;
 }
 
-Eigen::Matrix2cd DetectionProperties::analyzerOperator() const {
+Eigen::Matrix2cd DetectionProperties::analyzerOperator() const
+{
     if (m_direction.mag() == 0.0 || m_efficiency == 0.0)
         return m_total_transmission * Eigen::Matrix2cd::Identity();
     Eigen::Matrix2cd result;
@@ -61,20 +66,24 @@ Eigen::Matrix2cd DetectionProperties::analyzerOperator() const {
     return result;
 }
 
-kvector_t DetectionProperties::analyzerDirection() const {
+kvector_t DetectionProperties::analyzerDirection() const
+{
     return m_direction;
 }
 
-double DetectionProperties::analyzerEfficiency() const {
+double DetectionProperties::analyzerEfficiency() const
+{
     return m_efficiency;
 }
 
-double DetectionProperties::analyzerTotalTransmission() const {
+double DetectionProperties::analyzerTotalTransmission() const
+{
     return m_total_transmission;
 }
 
 bool DetectionProperties::checkAnalyzerProperties(const kvector_t direction, double efficiency,
-                                                  double total_transmission) const {
+                                                  double total_transmission) const
+{
     if (direction.mag() == 0.0)
         return false;
     double aplus = total_transmission * (1.0 + efficiency);

@@ -30,7 +30,8 @@ TagRowTest::~TagRowTest() = default;
 
 //! Initial state.
 
-TEST_F(TagRowTest, initialState) {
+TEST_F(TagRowTest, initialState)
+{
     TagRow tagrow;
     EXPECT_EQ(tagrow.tag, "");
     EXPECT_EQ(tagrow.row, -1);
@@ -38,7 +39,8 @@ TEST_F(TagRowTest, initialState) {
 
 //! Brace initializer.
 
-TEST_F(TagRowTest, braceInitializer) {
+TEST_F(TagRowTest, braceInitializer)
+{
     TagRow tagrow{"abc", 42};
     EXPECT_EQ(tagrow.tag, "abc");
     EXPECT_EQ(tagrow.row, 42);
@@ -58,7 +60,8 @@ TEST_F(TagRowTest, braceInitializer) {
 
 //! Equality operators.
 
-TEST_F(TagRowTest, equalityOperators) {
+TEST_F(TagRowTest, equalityOperators)
+{
     TagRow tag1;
     TagRow tag2;
     EXPECT_TRUE(tag1 == tag2);
@@ -82,7 +85,8 @@ TEST_F(TagRowTest, equalityOperators) {
 
 //! Assignment operators.
 
-TEST_F(TagRowTest, assignmentOperator) {
+TEST_F(TagRowTest, assignmentOperator)
+{
     TagRow tag1;
     TagRow tag2{"abc", 42};
 
@@ -93,7 +97,8 @@ TEST_F(TagRowTest, assignmentOperator) {
 
 //! Factory methods.
 
-TEST_F(TagRowTest, factoryMethods) {
+TEST_F(TagRowTest, factoryMethods)
+{
     auto tagrow = TagRow::append();
     EXPECT_EQ(tagrow.tag, "");
     EXPECT_EQ(tagrow.row, -1);
@@ -110,7 +115,8 @@ TEST_F(TagRowTest, factoryMethods) {
 
 //! Implicit type convertion
 
-TEST_F(TagRowTest, implicitConvertion) {
+TEST_F(TagRowTest, implicitConvertion)
+{
     auto tagrow = test_method("abc");
     EXPECT_EQ(tagrow.tag, "abc");
     EXPECT_EQ(tagrow.row, -1);
@@ -118,7 +124,8 @@ TEST_F(TagRowTest, implicitConvertion) {
 
 //! Find next tagrow.
 
-TEST_F(TagRowTest, next) {
+TEST_F(TagRowTest, next)
+{
     TagRow tagrow{"tag", 0};
     EXPECT_EQ(tagrow.next().tag, "tag");
     EXPECT_EQ(tagrow.next().row, 1);
@@ -126,7 +133,8 @@ TEST_F(TagRowTest, next) {
 
 //! Find previous tagrow.
 
-TEST_F(TagRowTest, prev) {
+TEST_F(TagRowTest, prev)
+{
     TagRow tagrow{"tag", 1};
     EXPECT_EQ(tagrow.prev().tag, "tag");
     EXPECT_EQ(tagrow.prev().row, 0);

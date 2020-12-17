@@ -17,11 +17,13 @@
 #include <set>
 #include <stdexcept>
 
-void ComponentKeyHandler::insertModel(const std::string& tag, const IComponent* s) {
+void ComponentKeyHandler::insertModel(const std::string& tag, const IComponent* s)
+{
     m_objects[tag].emplace_back(s);
 }
 
-std::string ComponentKeyHandler::obj2key(const IComponent* s) const {
+std::string ComponentKeyHandler::obj2key(const IComponent* s) const
+{
     for (auto it : m_objects) {
         const std::vector<const IComponent*>& v = it.second;
         const auto vpos = std::find(v.begin(), v.end(), s);

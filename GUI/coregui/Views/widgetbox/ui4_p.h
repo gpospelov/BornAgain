@@ -170,7 +170,8 @@ public:
     // attribute accessors
     inline bool hasAttributeVersion() const { return m_has_attr_version; }
     inline QString attributeVersion() const { return m_attr_version; }
-    inline void setAttributeVersion(const QString& a) {
+    inline void setAttributeVersion(const QString& a)
+    {
         m_attr_version = a;
         m_has_attr_version = true;
     }
@@ -178,7 +179,8 @@ public:
 
     inline bool hasAttributeLanguage() const { return m_has_attr_language; }
     inline QString attributeLanguage() const { return m_attr_language; }
-    inline void setAttributeLanguage(const QString& a) {
+    inline void setAttributeLanguage(const QString& a)
+    {
         m_attr_language = a;
         m_has_attr_language = true;
     }
@@ -186,7 +188,8 @@ public:
 
     inline bool hasAttributeDisplayname() const { return m_has_attr_displayname; }
     inline QString attributeDisplayname() const { return m_attr_displayname; }
-    inline void setAttributeDisplayname(const QString& a) {
+    inline void setAttributeDisplayname(const QString& a)
+    {
         m_attr_displayname = a;
         m_has_attr_displayname = true;
     }
@@ -194,7 +197,8 @@ public:
 
     inline bool hasAttributeStdsetdef() const { return m_has_attr_stdsetdef; }
     inline int attributeStdsetdef() const { return m_attr_stdsetdef; }
-    inline void setAttributeStdsetdef(int a) {
+    inline void setAttributeStdsetdef(int a)
+    {
         m_attr_stdsetdef = a;
         m_has_attr_stdsetdef = true;
     }
@@ -202,7 +206,8 @@ public:
 
     inline bool hasAttributeStdSetDef() const { return m_has_attr_stdSetDef; }
     inline int attributeStdSetDef() const { return m_attr_stdSetDef; }
-    inline void setAttributeStdSetDef(int a) {
+    inline void setAttributeStdSetDef(int a)
+    {
         m_attr_stdSetDef = a;
         m_has_attr_stdSetDef = true;
     }
@@ -411,7 +416,8 @@ public:
     // attribute accessors
     inline bool hasAttributeLocation() const { return m_has_attr_location; }
     inline QString attributeLocation() const { return m_attr_location; }
-    inline void setAttributeLocation(const QString& a) {
+    inline void setAttributeLocation(const QString& a)
+    {
         m_attr_location = a;
         m_has_attr_location = true;
     }
@@ -419,7 +425,8 @@ public:
 
     inline bool hasAttributeImpldecl() const { return m_has_attr_impldecl; }
     inline QString attributeImpldecl() const { return m_attr_impldecl; }
-    inline void setAttributeImpldecl(const QString& a) {
+    inline void setAttributeImpldecl(const QString& a)
+    {
         m_attr_impldecl = a;
         m_has_attr_impldecl = true;
     }
@@ -457,7 +464,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -497,7 +505,8 @@ public:
     // attribute accessors
     inline bool hasAttributeLocation() const { return m_has_attr_location; }
     inline QString attributeLocation() const { return m_attr_location; }
-    inline void setAttributeLocation(const QString& a) {
+    inline void setAttributeLocation(const QString& a)
+    {
         m_attr_location = a;
         m_has_attr_location = true;
     }
@@ -532,7 +541,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -584,7 +594,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -592,7 +603,8 @@ public:
 
     inline bool hasAttributeMenu() const { return m_has_attr_menu; }
     inline QString attributeMenu() const { return m_attr_menu; }
-    inline void setAttributeMenu(const QString& a) {
+    inline void setAttributeMenu(const QString& a)
+    {
         m_attr_menu = a;
         m_has_attr_menu = true;
     }
@@ -639,7 +651,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -674,7 +687,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -776,7 +790,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -819,7 +834,8 @@ public:
     // attribute accessors
     inline bool hasAttributeFormat() const { return m_has_attr_format; }
     inline QString attributeFormat() const { return m_attr_format; }
-    inline void setAttributeFormat(const QString& a) {
+    inline void setAttributeFormat(const QString& a)
+    {
         m_attr_format = a;
         m_has_attr_format = true;
     }
@@ -827,7 +843,8 @@ public:
 
     inline bool hasAttributeLength() const { return m_has_attr_length; }
     inline int attributeLength() const { return m_attr_length; }
-    inline void setAttributeLength(int a) {
+    inline void setAttributeLength(int a)
+    {
         m_attr_length = a;
         m_has_attr_length = true;
     }
@@ -894,7 +911,8 @@ public:
     // attribute accessors
     inline bool hasAttributeLocation() const { return m_has_attr_location; }
     inline QString attributeLocation() const { return m_attr_location; }
-    inline void setAttributeLocation(const QString& a) {
+    inline void setAttributeLocation(const QString& a)
+    {
         m_attr_location = a;
         m_has_attr_location = true;
     }
@@ -989,12 +1007,14 @@ public:
     inline bool hasElementSlots() const { return m_children & Slots; }
     void clearElementSlots();
 
-    inline DomPropertySpecifications* elementPropertyspecifications() const {
+    inline DomPropertySpecifications* elementPropertyspecifications() const
+    {
         return m_propertyspecifications;
     }
     DomPropertySpecifications* takeElementPropertyspecifications();
     void setElementPropertyspecifications(DomPropertySpecifications* a);
-    inline bool hasElementPropertyspecifications() const {
+    inline bool hasElementPropertyspecifications() const
+    {
         return m_children & Propertyspecifications;
     }
     void clearElementPropertyspecifications();
@@ -1079,7 +1099,8 @@ public:
     // attribute accessors
     inline bool hasAttributeType() const { return m_has_attr_type; }
     inline QString attributeType() const { return m_attr_type; }
-    inline void setAttributeType(const QString& a) {
+    inline void setAttributeType(const QString& a)
+    {
         m_attr_type = a;
         m_has_attr_type = true;
     }
@@ -1151,7 +1172,8 @@ public:
     // attribute accessors
     inline bool hasAttributeSpacing() const { return m_has_attr_spacing; }
     inline int attributeSpacing() const { return m_attr_spacing; }
-    inline void setAttributeSpacing(int a) {
+    inline void setAttributeSpacing(int a)
+    {
         m_attr_spacing = a;
         m_has_attr_spacing = true;
     }
@@ -1159,7 +1181,8 @@ public:
 
     inline bool hasAttributeMargin() const { return m_has_attr_margin; }
     inline int attributeMargin() const { return m_attr_margin; }
-    inline void setAttributeMargin(int a) {
+    inline void setAttributeMargin(int a)
+    {
         m_attr_margin = a;
         m_has_attr_margin = true;
     }
@@ -1197,7 +1220,8 @@ public:
     // attribute accessors
     inline bool hasAttributeSpacing() const { return m_has_attr_spacing; }
     inline QString attributeSpacing() const { return m_attr_spacing; }
-    inline void setAttributeSpacing(const QString& a) {
+    inline void setAttributeSpacing(const QString& a)
+    {
         m_attr_spacing = a;
         m_has_attr_spacing = true;
     }
@@ -1205,7 +1229,8 @@ public:
 
     inline bool hasAttributeMargin() const { return m_has_attr_margin; }
     inline QString attributeMargin() const { return m_attr_margin; }
-    inline void setAttributeMargin(const QString& a) {
+    inline void setAttributeMargin(const QString& a)
+    {
         m_attr_margin = a;
         m_has_attr_margin = true;
     }
@@ -1272,7 +1297,8 @@ public:
     // attribute accessors
     inline bool hasAttributeClass() const { return m_has_attr_class; }
     inline QString attributeClass() const { return m_attr_class; }
-    inline void setAttributeClass(const QString& a) {
+    inline void setAttributeClass(const QString& a)
+    {
         m_attr_class = a;
         m_has_attr_class = true;
     }
@@ -1280,7 +1306,8 @@ public:
 
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -1288,7 +1315,8 @@ public:
 
     inline bool hasAttributeStretch() const { return m_has_attr_stretch; }
     inline QString attributeStretch() const { return m_attr_stretch; }
-    inline void setAttributeStretch(const QString& a) {
+    inline void setAttributeStretch(const QString& a)
+    {
         m_attr_stretch = a;
         m_has_attr_stretch = true;
     }
@@ -1296,7 +1324,8 @@ public:
 
     inline bool hasAttributeRowStretch() const { return m_has_attr_rowStretch; }
     inline QString attributeRowStretch() const { return m_attr_rowStretch; }
-    inline void setAttributeRowStretch(const QString& a) {
+    inline void setAttributeRowStretch(const QString& a)
+    {
         m_attr_rowStretch = a;
         m_has_attr_rowStretch = true;
     }
@@ -1304,7 +1333,8 @@ public:
 
     inline bool hasAttributeColumnStretch() const { return m_has_attr_columnStretch; }
     inline QString attributeColumnStretch() const { return m_attr_columnStretch; }
-    inline void setAttributeColumnStretch(const QString& a) {
+    inline void setAttributeColumnStretch(const QString& a)
+    {
         m_attr_columnStretch = a;
         m_has_attr_columnStretch = true;
     }
@@ -1312,7 +1342,8 @@ public:
 
     inline bool hasAttributeRowMinimumHeight() const { return m_has_attr_rowMinimumHeight; }
     inline QString attributeRowMinimumHeight() const { return m_attr_rowMinimumHeight; }
-    inline void setAttributeRowMinimumHeight(const QString& a) {
+    inline void setAttributeRowMinimumHeight(const QString& a)
+    {
         m_attr_rowMinimumHeight = a;
         m_has_attr_rowMinimumHeight = true;
     }
@@ -1320,7 +1351,8 @@ public:
 
     inline bool hasAttributeColumnMinimumWidth() const { return m_has_attr_columnMinimumWidth; }
     inline QString attributeColumnMinimumWidth() const { return m_attr_columnMinimumWidth; }
-    inline void setAttributeColumnMinimumWidth(const QString& a) {
+    inline void setAttributeColumnMinimumWidth(const QString& a)
+    {
         m_attr_columnMinimumWidth = a;
         m_has_attr_columnMinimumWidth = true;
     }
@@ -1386,7 +1418,8 @@ public:
     // attribute accessors
     inline bool hasAttributeRow() const { return m_has_attr_row; }
     inline int attributeRow() const { return m_attr_row; }
-    inline void setAttributeRow(int a) {
+    inline void setAttributeRow(int a)
+    {
         m_attr_row = a;
         m_has_attr_row = true;
     }
@@ -1394,7 +1427,8 @@ public:
 
     inline bool hasAttributeColumn() const { return m_has_attr_column; }
     inline int attributeColumn() const { return m_attr_column; }
-    inline void setAttributeColumn(int a) {
+    inline void setAttributeColumn(int a)
+    {
         m_attr_column = a;
         m_has_attr_column = true;
     }
@@ -1402,7 +1436,8 @@ public:
 
     inline bool hasAttributeRowSpan() const { return m_has_attr_rowSpan; }
     inline int attributeRowSpan() const { return m_attr_rowSpan; }
-    inline void setAttributeRowSpan(int a) {
+    inline void setAttributeRowSpan(int a)
+    {
         m_attr_rowSpan = a;
         m_has_attr_rowSpan = true;
     }
@@ -1410,7 +1445,8 @@ public:
 
     inline bool hasAttributeColSpan() const { return m_has_attr_colSpan; }
     inline int attributeColSpan() const { return m_attr_colSpan; }
-    inline void setAttributeColSpan(int a) {
+    inline void setAttributeColSpan(int a)
+    {
         m_attr_colSpan = a;
         m_has_attr_colSpan = true;
     }
@@ -1418,7 +1454,8 @@ public:
 
     inline bool hasAttributeAlignment() const { return m_has_attr_alignment; }
     inline QString attributeAlignment() const { return m_attr_alignment; }
-    inline void setAttributeAlignment(const QString& a) {
+    inline void setAttributeAlignment(const QString& a)
+    {
         m_attr_alignment = a;
         m_has_attr_alignment = true;
     }
@@ -1541,7 +1578,8 @@ public:
     // attribute accessors
     inline bool hasAttributeRow() const { return m_has_attr_row; }
     inline int attributeRow() const { return m_attr_row; }
-    inline void setAttributeRow(int a) {
+    inline void setAttributeRow(int a)
+    {
         m_attr_row = a;
         m_has_attr_row = true;
     }
@@ -1549,7 +1587,8 @@ public:
 
     inline bool hasAttributeColumn() const { return m_has_attr_column; }
     inline int attributeColumn() const { return m_attr_column; }
-    inline void setAttributeColumn(int a) {
+    inline void setAttributeColumn(int a)
+    {
         m_attr_column = a;
         m_has_attr_column = true;
     }
@@ -1596,7 +1635,8 @@ public:
     // attribute accessors
     inline bool hasAttributeClass() const { return m_has_attr_class; }
     inline QString attributeClass() const { return m_attr_class; }
-    inline void setAttributeClass(const QString& a) {
+    inline void setAttributeClass(const QString& a)
+    {
         m_attr_class = a;
         m_has_attr_class = true;
     }
@@ -1604,7 +1644,8 @@ public:
 
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -1612,7 +1653,8 @@ public:
 
     inline bool hasAttributeNative() const { return m_has_attr_native; }
     inline bool attributeNative() const { return m_attr_native; }
-    inline void setAttributeNative(bool a) {
+    inline void setAttributeNative(bool a)
+    {
         m_attr_native = a;
         m_has_attr_native = true;
     }
@@ -1725,7 +1767,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -1765,7 +1808,8 @@ public:
     // attribute accessors
     inline bool hasAttributeAlpha() const { return m_has_attr_alpha; }
     inline int attributeAlpha() const { return m_attr_alpha; }
-    inline void setAttributeAlpha(int a) {
+    inline void setAttributeAlpha(int a)
+    {
         m_attr_alpha = a;
         m_has_attr_alpha = true;
     }
@@ -1819,7 +1863,8 @@ public:
     // attribute accessors
     inline bool hasAttributePosition() const { return m_has_attr_position; }
     inline double attributePosition() const { return m_attr_position; }
-    inline void setAttributePosition(double a) {
+    inline void setAttributePosition(double a)
+    {
         m_attr_position = a;
         m_has_attr_position = true;
     }
@@ -1862,7 +1907,8 @@ public:
     // attribute accessors
     inline bool hasAttributeStartX() const { return m_has_attr_startX; }
     inline double attributeStartX() const { return m_attr_startX; }
-    inline void setAttributeStartX(double a) {
+    inline void setAttributeStartX(double a)
+    {
         m_attr_startX = a;
         m_has_attr_startX = true;
     }
@@ -1870,7 +1916,8 @@ public:
 
     inline bool hasAttributeStartY() const { return m_has_attr_startY; }
     inline double attributeStartY() const { return m_attr_startY; }
-    inline void setAttributeStartY(double a) {
+    inline void setAttributeStartY(double a)
+    {
         m_attr_startY = a;
         m_has_attr_startY = true;
     }
@@ -1878,7 +1925,8 @@ public:
 
     inline bool hasAttributeEndX() const { return m_has_attr_endX; }
     inline double attributeEndX() const { return m_attr_endX; }
-    inline void setAttributeEndX(double a) {
+    inline void setAttributeEndX(double a)
+    {
         m_attr_endX = a;
         m_has_attr_endX = true;
     }
@@ -1886,7 +1934,8 @@ public:
 
     inline bool hasAttributeEndY() const { return m_has_attr_endY; }
     inline double attributeEndY() const { return m_attr_endY; }
-    inline void setAttributeEndY(double a) {
+    inline void setAttributeEndY(double a)
+    {
         m_attr_endY = a;
         m_has_attr_endY = true;
     }
@@ -1894,7 +1943,8 @@ public:
 
     inline bool hasAttributeCentralX() const { return m_has_attr_centralX; }
     inline double attributeCentralX() const { return m_attr_centralX; }
-    inline void setAttributeCentralX(double a) {
+    inline void setAttributeCentralX(double a)
+    {
         m_attr_centralX = a;
         m_has_attr_centralX = true;
     }
@@ -1902,7 +1952,8 @@ public:
 
     inline bool hasAttributeCentralY() const { return m_has_attr_centralY; }
     inline double attributeCentralY() const { return m_attr_centralY; }
-    inline void setAttributeCentralY(double a) {
+    inline void setAttributeCentralY(double a)
+    {
         m_attr_centralY = a;
         m_has_attr_centralY = true;
     }
@@ -1910,7 +1961,8 @@ public:
 
     inline bool hasAttributeFocalX() const { return m_has_attr_focalX; }
     inline double attributeFocalX() const { return m_attr_focalX; }
-    inline void setAttributeFocalX(double a) {
+    inline void setAttributeFocalX(double a)
+    {
         m_attr_focalX = a;
         m_has_attr_focalX = true;
     }
@@ -1918,7 +1970,8 @@ public:
 
     inline bool hasAttributeFocalY() const { return m_has_attr_focalY; }
     inline double attributeFocalY() const { return m_attr_focalY; }
-    inline void setAttributeFocalY(double a) {
+    inline void setAttributeFocalY(double a)
+    {
         m_attr_focalY = a;
         m_has_attr_focalY = true;
     }
@@ -1926,7 +1979,8 @@ public:
 
     inline bool hasAttributeRadius() const { return m_has_attr_radius; }
     inline double attributeRadius() const { return m_attr_radius; }
-    inline void setAttributeRadius(double a) {
+    inline void setAttributeRadius(double a)
+    {
         m_attr_radius = a;
         m_has_attr_radius = true;
     }
@@ -1934,7 +1988,8 @@ public:
 
     inline bool hasAttributeAngle() const { return m_has_attr_angle; }
     inline double attributeAngle() const { return m_attr_angle; }
-    inline void setAttributeAngle(double a) {
+    inline void setAttributeAngle(double a)
+    {
         m_attr_angle = a;
         m_has_attr_angle = true;
     }
@@ -1942,7 +1997,8 @@ public:
 
     inline bool hasAttributeType() const { return m_has_attr_type; }
     inline QString attributeType() const { return m_attr_type; }
-    inline void setAttributeType(const QString& a) {
+    inline void setAttributeType(const QString& a)
+    {
         m_attr_type = a;
         m_has_attr_type = true;
     }
@@ -1950,7 +2006,8 @@ public:
 
     inline bool hasAttributeSpread() const { return m_has_attr_spread; }
     inline QString attributeSpread() const { return m_attr_spread; }
-    inline void setAttributeSpread(const QString& a) {
+    inline void setAttributeSpread(const QString& a)
+    {
         m_attr_spread = a;
         m_has_attr_spread = true;
     }
@@ -1958,7 +2015,8 @@ public:
 
     inline bool hasAttributeCoordinateMode() const { return m_has_attr_coordinateMode; }
     inline QString attributeCoordinateMode() const { return m_attr_coordinateMode; }
-    inline void setAttributeCoordinateMode(const QString& a) {
+    inline void setAttributeCoordinateMode(const QString& a)
+    {
         m_attr_coordinateMode = a;
         m_has_attr_coordinateMode = true;
     }
@@ -2034,7 +2092,8 @@ public:
     // attribute accessors
     inline bool hasAttributeBrushStyle() const { return m_has_attr_brushStyle; }
     inline QString attributeBrushStyle() const { return m_attr_brushStyle; }
-    inline void setAttributeBrushStyle(const QString& a) {
+    inline void setAttributeBrushStyle(const QString& a)
+    {
         m_attr_brushStyle = a;
         m_has_attr_brushStyle = true;
     }
@@ -2087,7 +2146,8 @@ public:
     // attribute accessors
     inline bool hasAttributeRole() const { return m_has_attr_role; }
     inline QString attributeRole() const { return m_attr_role; }
-    inline void setAttributeRole(const QString& a) {
+    inline void setAttributeRole(const QString& a)
+    {
         m_attr_role = a;
         m_has_attr_role = true;
     }
@@ -2391,7 +2451,8 @@ public:
     // attribute accessors
     inline bool hasAttributeLanguage() const { return m_has_attr_language; }
     inline QString attributeLanguage() const { return m_attr_language; }
-    inline void setAttributeLanguage(const QString& a) {
+    inline void setAttributeLanguage(const QString& a)
+    {
         m_attr_language = a;
         m_has_attr_language = true;
     }
@@ -2399,7 +2460,8 @@ public:
 
     inline bool hasAttributeCountry() const { return m_has_attr_country; }
     inline QString attributeCountry() const { return m_attr_country; }
-    inline void setAttributeCountry(const QString& a) {
+    inline void setAttributeCountry(const QString& a)
+    {
         m_attr_country = a;
         m_has_attr_country = true;
     }
@@ -2437,7 +2499,8 @@ public:
     // attribute accessors
     inline bool hasAttributeHSizeType() const { return m_has_attr_hSizeType; }
     inline QString attributeHSizeType() const { return m_attr_hSizeType; }
-    inline void setAttributeHSizeType(const QString& a) {
+    inline void setAttributeHSizeType(const QString& a)
+    {
         m_attr_hSizeType = a;
         m_has_attr_hSizeType = true;
     }
@@ -2445,7 +2508,8 @@ public:
 
     inline bool hasAttributeVSizeType() const { return m_has_attr_vSizeType; }
     inline QString attributeVSizeType() const { return m_attr_vSizeType; }
-    inline void setAttributeVSizeType(const QString& a) {
+    inline void setAttributeVSizeType(const QString& a)
+    {
         m_attr_vSizeType = a;
         m_has_attr_vSizeType = true;
     }
@@ -2692,7 +2756,8 @@ public:
     // attribute accessors
     inline bool hasAttributeNotr() const { return m_has_attr_notr; }
     inline QString attributeNotr() const { return m_attr_notr; }
-    inline void setAttributeNotr(const QString& a) {
+    inline void setAttributeNotr(const QString& a)
+    {
         m_attr_notr = a;
         m_has_attr_notr = true;
     }
@@ -2700,7 +2765,8 @@ public:
 
     inline bool hasAttributeComment() const { return m_has_attr_comment; }
     inline QString attributeComment() const { return m_attr_comment; }
-    inline void setAttributeComment(const QString& a) {
+    inline void setAttributeComment(const QString& a)
+    {
         m_attr_comment = a;
         m_has_attr_comment = true;
     }
@@ -2708,7 +2774,8 @@ public:
 
     inline bool hasAttributeExtraComment() const { return m_has_attr_extraComment; }
     inline QString attributeExtraComment() const { return m_attr_extraComment; }
-    inline void setAttributeExtraComment(const QString& a) {
+    inline void setAttributeExtraComment(const QString& a)
+    {
         m_attr_extraComment = a;
         m_has_attr_extraComment = true;
     }
@@ -2754,7 +2821,8 @@ public:
     // attribute accessors
     inline bool hasAttributeResource() const { return m_has_attr_resource; }
     inline QString attributeResource() const { return m_attr_resource; }
-    inline void setAttributeResource(const QString& a) {
+    inline void setAttributeResource(const QString& a)
+    {
         m_attr_resource = a;
         m_has_attr_resource = true;
     }
@@ -2762,7 +2830,8 @@ public:
 
     inline bool hasAttributeAlias() const { return m_has_attr_alias; }
     inline QString attributeAlias() const { return m_attr_alias; }
-    inline void setAttributeAlias(const QString& a) {
+    inline void setAttributeAlias(const QString& a)
+    {
         m_attr_alias = a;
         m_has_attr_alias = true;
     }
@@ -2800,7 +2869,8 @@ public:
     // attribute accessors
     inline bool hasAttributeTheme() const { return m_has_attr_theme; }
     inline QString attributeTheme() const { return m_attr_theme; }
-    inline void setAttributeTheme(const QString& a) {
+    inline void setAttributeTheme(const QString& a)
+    {
         m_attr_theme = a;
         m_has_attr_theme = true;
     }
@@ -2808,7 +2878,8 @@ public:
 
     inline bool hasAttributeResource() const { return m_has_attr_resource; }
     inline QString attributeResource() const { return m_attr_resource; }
-    inline void setAttributeResource(const QString& a) {
+    inline void setAttributeResource(const QString& a)
+    {
         m_attr_resource = a;
         m_has_attr_resource = true;
     }
@@ -2912,7 +2983,8 @@ public:
     // attribute accessors
     inline bool hasAttributeNotr() const { return m_has_attr_notr; }
     inline QString attributeNotr() const { return m_attr_notr; }
-    inline void setAttributeNotr(const QString& a) {
+    inline void setAttributeNotr(const QString& a)
+    {
         m_attr_notr = a;
         m_has_attr_notr = true;
     }
@@ -2920,7 +2992,8 @@ public:
 
     inline bool hasAttributeComment() const { return m_has_attr_comment; }
     inline QString attributeComment() const { return m_attr_comment; }
-    inline void setAttributeComment(const QString& a) {
+    inline void setAttributeComment(const QString& a)
+    {
         m_attr_comment = a;
         m_has_attr_comment = true;
     }
@@ -2928,7 +3001,8 @@ public:
 
     inline bool hasAttributeExtraComment() const { return m_has_attr_extraComment; }
     inline QString attributeExtraComment() const { return m_attr_extraComment; }
-    inline void setAttributeExtraComment(const QString& a) {
+    inline void setAttributeExtraComment(const QString& a)
+    {
         m_attr_extraComment = a;
         m_has_attr_extraComment = true;
     }
@@ -3155,7 +3229,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -3163,7 +3238,8 @@ public:
 
     inline bool hasAttributeStdset() const { return m_has_attr_stdset; }
     inline int attributeStdset() const { return m_attr_stdset; }
-    inline void setAttributeStdset(int a) {
+    inline void setAttributeStdset(int a)
+    {
         m_attr_stdset = a;
         m_has_attr_stdset = true;
     }
@@ -3506,7 +3582,8 @@ public:
     // attribute accessors
     inline bool hasAttributeType() const { return m_has_attr_type; }
     inline QString attributeType() const { return m_attr_type; }
-    inline void setAttributeType(const QString& a) {
+    inline void setAttributeType(const QString& a)
+    {
         m_attr_type = a;
         m_has_attr_type = true;
     }
@@ -3554,7 +3631,8 @@ public:
     // attribute accessors
     inline bool hasAttributeSource() const { return m_has_attr_source; }
     inline QString attributeSource() const { return m_attr_source; }
-    inline void setAttributeSource(const QString& a) {
+    inline void setAttributeSource(const QString& a)
+    {
         m_attr_source = a;
         m_has_attr_source = true;
     }
@@ -3562,7 +3640,8 @@ public:
 
     inline bool hasAttributeLanguage() const { return m_has_attr_language; }
     inline QString attributeLanguage() const { return m_attr_language; }
-    inline void setAttributeLanguage(const QString& a) {
+    inline void setAttributeLanguage(const QString& a)
+    {
         m_attr_language = a;
         m_has_attr_language = true;
     }
@@ -3690,7 +3769,8 @@ public:
 
     // attribute accessors
     // child element accessors
-    inline QList<DomStringPropertySpecification*> elementStringpropertyspecification() const {
+    inline QList<DomStringPropertySpecification*> elementStringpropertyspecification() const
+    {
         return m_stringpropertyspecification;
     }
     void setElementStringpropertyspecification(const QList<DomStringPropertySpecification*>& a);
@@ -3722,7 +3802,8 @@ public:
     // attribute accessors
     inline bool hasAttributeName() const { return m_has_attr_name; }
     inline QString attributeName() const { return m_attr_name; }
-    inline void setAttributeName(const QString& a) {
+    inline void setAttributeName(const QString& a)
+    {
         m_attr_name = a;
         m_has_attr_name = true;
     }
@@ -3730,7 +3811,8 @@ public:
 
     inline bool hasAttributeType() const { return m_has_attr_type; }
     inline QString attributeType() const { return m_attr_type; }
-    inline void setAttributeType(const QString& a) {
+    inline void setAttributeType(const QString& a)
+    {
         m_attr_type = a;
         m_has_attr_type = true;
     }
@@ -3738,7 +3820,8 @@ public:
 
     inline bool hasAttributeNotr() const { return m_has_attr_notr; }
     inline QString attributeNotr() const { return m_attr_notr; }
-    inline void setAttributeNotr(const QString& a) {
+    inline void setAttributeNotr(const QString& a)
+    {
         m_attr_notr = a;
         m_has_attr_notr = true;
     }

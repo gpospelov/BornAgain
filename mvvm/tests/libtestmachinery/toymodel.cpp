@@ -17,7 +17,8 @@
 #include "toyitems.h"
 
 namespace {
-std::unique_ptr<ModelView::ItemCatalogue> CreateItemCatalogue() {
+std::unique_ptr<ModelView::ItemCatalogue> CreateItemCatalogue()
+{
     auto result = std::make_unique<ModelView::ItemCatalogue>();
     result->registerItem<ToyItems::MultiLayerItem>();
     result->registerItem<ToyItems::LayerItem>();
@@ -31,11 +32,13 @@ std::unique_ptr<ModelView::ItemCatalogue> CreateItemCatalogue() {
 }
 } // namespace
 
-ToyItems::SampleModel::SampleModel() : SessionModel("ToyModel") {
+ToyItems::SampleModel::SampleModel() : SessionModel("ToyModel")
+{
     setItemCatalogue(CreateItemCatalogue());
 }
 
 ToyItems::SampleModel::SampleModel(std::shared_ptr<ModelView::ItemPool> pool)
-    : SessionModel("ToyModel", pool) {
+    : SessionModel("ToyModel", pool)
+{
     setItemCatalogue(CreateItemCatalogue());
 }

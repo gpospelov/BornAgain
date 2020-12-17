@@ -20,7 +20,8 @@
 using namespace ModelView;
 
 namespace {
-QCPColorMap* find_colormap(QCustomPlot* custom_plot) {
+QCPColorMap* find_colormap(QCustomPlot* custom_plot)
+{
     for (int i = 0; i < custom_plot->plottableCount(); ++i) {
         if (auto plottable = dynamic_cast<QCPColorMap*>(custom_plot->plottable()); plottable)
             return plottable;
@@ -37,7 +38,8 @@ struct Context {
     double value{0.0};
 };
 
-std::string compose_string(const Context& context) {
+std::string compose_string(const Context& context)
+{
     std::ostringstream ostr;
     ostr << "[x: " << Utils::DoubleToString(context.xpos, 3) << ", ";
     ostr << "y: " << Utils::DoubleToString(context.ypos, 3) << "] ";
@@ -49,8 +51,8 @@ std::string compose_string(const Context& context) {
 
 } // namespace
 
-std::string ColorMapInfoFormatter::status_string(QCustomPlot* custom_plot, double x,
-                                                 double y) const {
+std::string ColorMapInfoFormatter::status_string(QCustomPlot* custom_plot, double x, double y) const
+{
     // shall we provide caching here?
     auto color_map = find_colormap(custom_plot);
     Context context{x, y};

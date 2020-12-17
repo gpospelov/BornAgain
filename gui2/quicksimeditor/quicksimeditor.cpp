@@ -36,7 +36,8 @@ QuickSimEditor::QuickSimEditor(QWidget* parent)
     , m_simController(new QuickSimController(this))
     , m_plotController(new SimPlotController(this))
     , m_plotWidget(new SimPlotWidget)
-    , m_toolBar(new QuickSimEditorToolBar) {
+    , m_toolBar(new QuickSimEditorToolBar)
+{
     setWindowTitle(QString("Reflectivity plot"));
     auto layout = new QVBoxLayout(this);
     layout->addWidget(m_toolBar);
@@ -51,24 +52,28 @@ QuickSimEditor::QuickSimEditor(QWidget* parent)
 QuickSimEditor::~QuickSimEditor() = default;
 
 //! Set the mododel for the different items
-void QuickSimEditor::setModels(ApplicationModels* models) {
+void QuickSimEditor::setModels(ApplicationModels* models)
+{
     m_appModels = models;
     m_simController->setModels(models);
     m_plotController->setModels(models);
     m_plotWidget->setModels(models);
 }
 
-QSize QuickSimEditor::sizeHint() const {
+QSize QuickSimEditor::sizeHint() const
+{
     return StyleUtils::DockSizeHint();
 }
 
-QSize QuickSimEditor::minimumSizeHint() const {
+QSize QuickSimEditor::minimumSizeHint() const
+{
     return StyleUtils::DockMinimumSizeHint();
 }
 
 //! Connects signals from toolbar.
 
-void QuickSimEditor::setup_toolbar_connections() {
+void QuickSimEditor::setup_toolbar_connections()
+{
     // Request to reset plot is propagated from toolbar to viewports.
     auto on_reset_view = [this]() { m_plotWidget->updateViewport(); };
     connect(dynamic_cast<QuickSimEditorToolBar*>(m_toolBar),
@@ -91,7 +96,8 @@ void QuickSimEditor::setup_toolbar_connections() {
 
 //! Connects signals from controller.
 
-void QuickSimEditor::setup_controller_connections() {
+void QuickSimEditor::setup_controller_connections()
+{
     // Progress values propagated from controller to toolbar.
     connect(m_simController, &QuickSimController::progressChanged,
             dynamic_cast<QuickSimEditorToolBar*>(m_toolBar),

@@ -28,7 +28,8 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
                                          const SimulationOptions& options,
                                          ProgressHandler& progress, SpecularElementIter begin_it,
                                          SpecularElementIter end_it)
-    : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it) {
+    : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it)
+{
     if (m_processed_sample->containsMagneticMaterial()
         || m_processed_sample->externalField() != kvector_t{})
         m_computation_term.reset(
@@ -40,7 +41,8 @@ SpecularComputation::SpecularComputation(const MultiLayer& multilayer,
 
 SpecularComputation::~SpecularComputation() = default;
 
-void SpecularComputation::runProtected() {
+void SpecularComputation::runProtected()
+{
     if (!m_progress->alive())
         return;
 

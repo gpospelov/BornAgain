@@ -23,7 +23,8 @@ namespace {
 //! Forked from unoptimized code at http://www.crbond.com/math.htm,
 //! who refers to "Computation of Special Functions", Zhang and Jin, John Wiley and Sons, 1996.
 
-complex_t J0_PowSer(const complex_t z) {
+complex_t J0_PowSer(const complex_t z)
+{
     complex_t cj0;
     static const double eps = 1e-15;
     static double a[] = {-7.03125e-2,           0.112152099609375,     -0.5725014209747314,
@@ -82,7 +83,8 @@ complex_t J0_PowSer(const complex_t z) {
 //!
 //! Forked from same source as for J0_PowSer
 
-complex_t J1_PowSer(const complex_t z) {
+complex_t J1_PowSer(const complex_t z)
+{
     complex_t cj1;
     static const double eps = 1e-15;
 
@@ -157,35 +159,42 @@ complex_t J1_PowSer(const complex_t z) {
 //  Bessel functions
 //  ************************************************************************************************
 
-double Math::Bessel::J0(double x) {
+double Math::Bessel::J0(double x)
+{
     return gsl_sf_bessel_J0(x);
 }
 
-double Math::Bessel::J1(double x) {
+double Math::Bessel::J1(double x)
+{
     return gsl_sf_bessel_J1(x);
 }
 
-double Math::Bessel::J1c(double x) {
+double Math::Bessel::J1c(double x)
+{
     return x == 0 ? 0.5 : gsl_sf_bessel_J1(x) / x;
 }
 
-double Math::Bessel::I0(double x) {
+double Math::Bessel::I0(double x)
+{
     return gsl_sf_bessel_I0(x);
 }
 
-complex_t Math::Bessel::J0(const complex_t z) {
+complex_t Math::Bessel::J0(const complex_t z)
+{
     if (std::imag(z) == 0)
         return gsl_sf_bessel_J0(std::real(z));
     return J0_PowSer(z);
 }
 
-complex_t Math::Bessel::J1(const complex_t z) {
+complex_t Math::Bessel::J1(const complex_t z)
+{
     if (std::imag(z) == 0)
         return gsl_sf_bessel_J1(std::real(z));
     return J1_PowSer(z);
 }
 
-complex_t Math::Bessel::J1c(const complex_t z) {
+complex_t Math::Bessel::J1c(const complex_t z)
+{
     if (std::imag(z) == 0) {
         double xv = std::real(z);
         return xv == 0 ? 0.5 : gsl_sf_bessel_J1(xv) / xv;

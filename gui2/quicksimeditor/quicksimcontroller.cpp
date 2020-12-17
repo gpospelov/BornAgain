@@ -38,11 +38,14 @@ namespace gui2 {
 QuickSimController::QuickSimController(QObject* parent)
     : QObject(parent)
     , m_jobManager(new JobManager(this))
-    , m_isRealTimeMode(Constants::live_simulation_default_on) {}
+    , m_isRealTimeMode(Constants::live_simulation_default_on)
+{
+}
 
 QuickSimController::~QuickSimController() = default;
 
-void QuickSimController::setModels(ApplicationModels* models) {
+void QuickSimController::setModels(ApplicationModels* models)
+{
     m_models = models;
 
     auto on_model_change = [this]() { onMultiLayerChange(); };
@@ -61,35 +64,41 @@ void QuickSimController::setModels(ApplicationModels* models) {
 
 //! Requests interruption of running simulaitons.
 
-void QuickSimController::onInterruptRequest() {
+void QuickSimController::onInterruptRequest()
+{
     m_jobManager->onInterruptRequest();
 }
 
-void QuickSimController::onRealTimeRequest(bool status) {
+void QuickSimController::onRealTimeRequest(bool status)
+{
     m_isRealTimeMode = status;
 }
 
 //! Processes multilayer on request. Doesn't work in real time mode.
 
-void QuickSimController::onRunSimulationRequest() {
+void QuickSimController::onRunSimulationRequest()
+{
     process_multilayer(/*submit_simulation*/ true);
 }
 
 //! Processes multilayer on any model change. Works only in realtime mode.
 
-void QuickSimController::onMultiLayerChange() {
+void QuickSimController::onMultiLayerChange()
+{
     process_multilayer(/*submit_simulation*/ m_isRealTimeMode);
 }
 
 //! Takes simulation results from JobManager and write into the model.
 
-void QuickSimController::onSimulationCompleted() {
+void QuickSimController::onSimulationCompleted()
+{
     jobModel()->updateSpecularData(m_jobManager->simulationResult());
 }
 
 //! Constructs multislice, calculates profile and submits specular simulation.
 
-void QuickSimController::process_multilayer(bool submit_simulation) {
+void QuickSimController::process_multilayer(bool submit_simulation)
+{
     auto multilayer = m_models->sampleModel()->topItem<MultiLayerItem>();
     auto slices = Utils::CreateMultiSlice(*multilayer);
     update_sld_profile(slices);
@@ -99,14 +108,16 @@ void QuickSimController::process_multilayer(bool submit_simulation) {
 
 //! Calculates sld profile from slice and immediately update data items.
 
-void QuickSimController::update_sld_profile(const multislice_t& multislice) {
+void QuickSimController::update_sld_profile(const multislice_t& multislice)
+{
     auto data = SpecularToySimulation::sld_profile(multislice, profile_points_count);
     jobModel()->updateSLDProfile(data);
 }
 
 //! Submit data to JobManager for consequent specular simulation in a separate thread.
 
-void QuickSimController::submit_specular_simulation(const multislice_t& multislice) {
+void QuickSimController::submit_specular_simulation(const multislice_t& multislice)
+{
     auto instrument = instrumentModel()->topItem<SpecularInstrumentItem>();
     auto beam = instrument->beamItem();
     m_jobManager->requestSimulation(multislice, beam->qScanValues(), beam->intensity());
@@ -115,7 +126,8 @@ void QuickSimController::submit_specular_simulation(const multislice_t& multisli
 //! Connect signals going from JobManager. Connections are made queued since signals are emitted
 //! from non-GUI thread and we want to deal with widgets.
 
-void QuickSimController::setup_jobmanager_connections() {
+void QuickSimController::setup_jobmanager_connections()
+{
 
     // Simulation progress is propagated from JobManager to this controller for further forwarding.
     connect(m_jobManager, &JobManager::progressChanged, this, &QuickSimController::progressChanged,
@@ -126,11 +138,13 @@ void QuickSimController::setup_jobmanager_connections() {
             &QuickSimController::onSimulationCompleted, Qt::QueuedConnection);
 }
 
-JobModel* QuickSimController::jobModel() const {
+JobModel* QuickSimController::jobModel() const
+{
     return m_models->jobModel();
 }
 
-InstrumentModel* QuickSimController::instrumentModel() const {
+InstrumentModel* QuickSimController::instrumentModel() const
+{
     return m_models->instrumentModel();
 }
 

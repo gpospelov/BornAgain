@@ -33,7 +33,8 @@ Data1DItemTest::~Data1DItemTest() = default;
 
 //! Initial state.
 
-TEST_F(Data1DItemTest, initialState) {
+TEST_F(Data1DItemTest, initialState)
+{
     Data1DItem item;
 
     EXPECT_EQ(item.getItem(Data1DItem::T_AXIS), nullptr);
@@ -45,7 +46,8 @@ TEST_F(Data1DItemTest, initialState) {
 
 //! Checking the method ::setFixedBinAxis.
 
-TEST_F(Data1DItemTest, setFixedBinAxis) {
+TEST_F(Data1DItemTest, setFixedBinAxis)
+{
     Data1DItem item;
 
     item.setAxis<FixedBinAxisItem>(5, 0.0, 5.0);
@@ -70,7 +72,8 @@ TEST_F(Data1DItemTest, setFixedBinAxis) {
 
 //! Sets fixed bin axis via templated method.
 
-TEST_F(Data1DItemTest, setTemplatedFixedBinAxis) {
+TEST_F(Data1DItemTest, setTemplatedFixedBinAxis)
+{
     Data1DItem item;
 
     auto axis = item.setAxis<FixedBinAxisItem>(5, 0.0, 5.0);
@@ -87,7 +90,8 @@ TEST_F(Data1DItemTest, setTemplatedFixedBinAxis) {
 
 //! Sets fixed bin axis via templated method.
 
-TEST_F(Data1DItemTest, setTemplatedFixedBinAxisInModelContext) {
+TEST_F(Data1DItemTest, setTemplatedFixedBinAxisInModelContext)
+{
     SessionModel model;
     auto dataItem = model.insertItem<Data1DItem>();
 
@@ -106,7 +110,8 @@ TEST_F(Data1DItemTest, setTemplatedFixedBinAxisInModelContext) {
 //! Sets fixed bin axis via model context.
 // FIXME Not clear if this method should be used
 
-TEST_F(Data1DItemTest, setFixedBinAxisInModel) {
+TEST_F(Data1DItemTest, setFixedBinAxisInModel)
+{
     SessionModel model;
 
     auto dataItem = model.insertItem<Data1DItem>();
@@ -124,7 +129,8 @@ TEST_F(Data1DItemTest, setFixedBinAxisInModel) {
 
 //! Checking the method ::setValues.
 
-TEST_F(Data1DItemTest, setValues) {
+TEST_F(Data1DItemTest, setValues)
+{
     Data1DItem item;
 
     // check that it is not possible to set content to uninitialized axis
@@ -138,7 +144,8 @@ TEST_F(Data1DItemTest, setValues) {
 
 //! Checking the method ::setErrors.
 
-TEST_F(Data1DItemTest, setErrors) {
+TEST_F(Data1DItemTest, setErrors)
+{
     Data1DItem item;
 
     // check that it is not possible to errors to uninitialized axis
@@ -154,7 +161,8 @@ TEST_F(Data1DItemTest, setErrors) {
 
 //! Checking the signals when axes changed.
 
-TEST_F(Data1DItemTest, checkSignalsOnAxisChange) {
+TEST_F(Data1DItemTest, checkSignalsOnAxisChange)
+{
     SessionModel model;
     auto item = model.insertItem<Data1DItem>();
 
@@ -175,7 +183,8 @@ TEST_F(Data1DItemTest, checkSignalsOnAxisChange) {
 
 //! Checking the signals when bin values changed.
 
-TEST_F(Data1DItemTest, checkSignalsOnBinValuesChange) {
+TEST_F(Data1DItemTest, checkSignalsOnBinValuesChange)
+{
     SessionModel model;
     auto item = model.insertItem<Data1DItem>();
     item->setAxis<FixedBinAxisItem>(3, 0.0, 3.0);

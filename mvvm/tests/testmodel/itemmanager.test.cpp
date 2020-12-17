@@ -30,7 +30,8 @@ public:
 
 ItemManagerTest::~ItemManagerTest() = default;
 
-TEST_F(ItemManagerTest, initialState) {
+TEST_F(ItemManagerTest, initialState)
+{
     ItemManager manager;
     EXPECT_EQ(manager.itemPool(), nullptr);
 

@@ -100,7 +100,8 @@ DetailsWidgetPrivate::DetailsWidgetPrivate(QWidget* parent)
     , m_widget(nullptr)
     , m_state(DetailsWidget::Collapsed)
     , m_hovered(false)
-    , m_useCheckBox(false) {
+    , m_useCheckBox(false)
+{
     QHBoxLayout* summaryLayout = new QHBoxLayout;
     summaryLayout->setContentsMargins(MARGIN, MARGIN, MARGIN, MARGIN);
     summaryLayout->setSpacing(0);
@@ -135,7 +136,8 @@ DetailsWidgetPrivate::DetailsWidgetPrivate(QWidget* parent)
     m_grid->addWidget(m_additionalSummaryLabel, 1, 0, 1, 3);
 }
 
-QPixmap DetailsWidget::createBackground(const QSize& size, int topHeight, QWidget* widget) {
+QPixmap DetailsWidget::createBackground(const QSize& size, int topHeight, QWidget* widget)
+{
     QPixmap pixmap(size);
     pixmap.fill(Qt::transparent);
     QPainter p(&pixmap);
@@ -176,7 +178,8 @@ QPixmap DetailsWidget::createBackground(const QSize& size, int topHeight, QWidge
     return pixmap;
 }
 
-void DetailsWidgetPrivate::updateControls() {
+void DetailsWidgetPrivate::updateControls()
+{
     if (m_widget)
         m_widget->setVisible(m_state == DetailsWidget::Expanded
                              || m_state == DetailsWidget::NoSummary);
@@ -197,7 +200,8 @@ void DetailsWidgetPrivate::updateControls() {
     }
 }
 
-void DetailsWidgetPrivate::changeHoverState(bool hovered) {
+void DetailsWidgetPrivate::changeHoverState(bool hovered)
+{
     if (!m_toolWidget)
         return;
     if (GUI_OS_Utils::HostOsInfo::isMacHost())
@@ -207,7 +211,8 @@ void DetailsWidgetPrivate::changeHoverState(bool hovered) {
     m_hovered = hovered;
 }
 
-DetailsWidget::DetailsWidget(QWidget* parent) : QWidget(parent), d(new DetailsWidgetPrivate(this)) {
+DetailsWidget::DetailsWidget(QWidget* parent) : QWidget(parent), d(new DetailsWidgetPrivate(this))
+{
     setLayout(d->m_grid);
 
     setUseCheckBox(false);
@@ -218,42 +223,50 @@ DetailsWidget::DetailsWidget(QWidget* parent) : QWidget(parent), d(new DetailsWi
     d->updateControls();
 }
 
-DetailsWidget::~DetailsWidget() {
+DetailsWidget::~DetailsWidget()
+{
     delete d;
 }
 
-bool DetailsWidget::useCheckBox() {
+bool DetailsWidget::useCheckBox()
+{
     return d->m_useCheckBox;
 }
 
-void DetailsWidget::setUseCheckBox(bool b) {
+void DetailsWidget::setUseCheckBox(bool b)
+{
     d->m_useCheckBox = b;
     d->updateControls();
 }
 
-void DetailsWidget::setChecked(bool b) {
+void DetailsWidget::setChecked(bool b)
+{
     d->m_summaryCheckBox->setChecked(b);
 }
 
-bool DetailsWidget::isChecked() const {
+bool DetailsWidget::isChecked() const
+{
     return d->m_useCheckBox && d->m_summaryCheckBox->isChecked();
 }
 
-void DetailsWidget::setSummaryFontBold(bool b) {
+void DetailsWidget::setSummaryFontBold(bool b)
+{
     QFont f;
     f.setBold(b);
     d->m_summaryCheckBox->setFont(f);
     d->m_summaryLabel->setFont(f);
 }
 
-void DetailsWidget::setIcon(const QIcon& icon) {
+void DetailsWidget::setIcon(const QIcon& icon)
+{
     int iconSize = style()->pixelMetric(QStyle::PM_ButtonIconSize, 0, this);
     d->m_summaryLabelIcon->setFixedWidth(icon.isNull() ? 0 : iconSize);
     d->m_summaryLabelIcon->setPixmap(icon.pixmap(iconSize, iconSize));
     d->m_summaryCheckBox->setIcon(icon);
 }
 
-void DetailsWidget::paintEvent(QPaintEvent* paintEvent) {
+void DetailsWidget::paintEvent(QPaintEvent* paintEvent)
+{
     QWidget::paintEvent(paintEvent);
 
     QPainter p(this);
@@ -279,43 +292,51 @@ void DetailsWidget::paintEvent(QPaintEvent* paintEvent) {
     }
 }
 
-void DetailsWidget::enterEvent(QEvent* event) {
+void DetailsWidget::enterEvent(QEvent* event)
+{
     QWidget::enterEvent(event);
     d->changeHoverState(true);
 }
 
-void DetailsWidget::leaveEvent(QEvent* event) {
+void DetailsWidget::leaveEvent(QEvent* event)
+{
     QWidget::leaveEvent(event);
     d->changeHoverState(false);
 }
 
-void DetailsWidget::setSummaryText(const QString& text) {
+void DetailsWidget::setSummaryText(const QString& text)
+{
     if (d->m_useCheckBox)
         d->m_summaryCheckBox->setText(text);
     else
         d->m_summaryLabel->setText(text);
 }
 
-QString DetailsWidget::summaryText() const {
+QString DetailsWidget::summaryText() const
+{
     if (d->m_useCheckBox)
         return d->m_summaryCheckBox->text();
     return d->m_summaryLabel->text();
 }
 
-QString DetailsWidget::additionalSummaryText() const {
+QString DetailsWidget::additionalSummaryText() const
+{
     return d->m_additionalSummaryLabel->text();
 }
 
-void DetailsWidget::setAdditionalSummaryText(const QString& text) {
+void DetailsWidget::setAdditionalSummaryText(const QString& text)
+{
     d->m_additionalSummaryLabel->setText(text);
     d->m_additionalSummaryLabel->setVisible(!text.isEmpty());
 }
 
-DetailsWidget::State DetailsWidget::state() const {
+DetailsWidget::State DetailsWidget::state() const
+{
     return d->m_state;
 }
 
-void DetailsWidget::setState(State state) {
+void DetailsWidget::setState(State state)
+{
     if (state == d->m_state)
         return;
     d->m_state = state;
@@ -323,15 +344,18 @@ void DetailsWidget::setState(State state) {
     emit expanded(d->m_state == Expanded);
 }
 
-void DetailsWidget::setExpanded(bool expanded) {
+void DetailsWidget::setExpanded(bool expanded)
+{
     setState(expanded ? Expanded : Collapsed);
 }
 
-QWidget* DetailsWidget::widget() const {
+QWidget* DetailsWidget::widget() const
+{
     return d->m_widget;
 }
 
-QWidget* DetailsWidget::takeWidget() {
+QWidget* DetailsWidget::takeWidget()
+{
     QWidget* widget = d->m_widget;
     d->m_widget = 0;
     d->m_grid->removeWidget(widget);
@@ -340,7 +364,8 @@ QWidget* DetailsWidget::takeWidget() {
     return widget;
 }
 
-void DetailsWidget::setWidget(QWidget* widget) {
+void DetailsWidget::setWidget(QWidget* widget)
+{
     if (d->m_widget == widget)
         return;
 
@@ -358,7 +383,8 @@ void DetailsWidget::setWidget(QWidget* widget) {
     d->updateControls();
 }
 
-void DetailsWidget::setToolWidget(FadingPanel* widget) {
+void DetailsWidget::setToolWidget(FadingPanel* widget)
+{
     if (d->m_toolWidget == widget)
         return;
 
@@ -375,7 +401,8 @@ void DetailsWidget::setToolWidget(FadingPanel* widget) {
     d->changeHoverState(d->m_hovered);
 }
 
-QWidget* DetailsWidget::toolWidget() const {
+QWidget* DetailsWidget::toolWidget() const
+{
     return d->m_toolWidget;
 }
 

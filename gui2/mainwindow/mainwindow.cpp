@@ -36,7 +36,8 @@ const QString pos_key = "pos";
 namespace gui2 {
 
 MainWindow::MainWindow()
-    : m_models(std::make_unique<ApplicationModels>()), m_actionManager(new ActionManager(this)) {
+    : m_models(std::make_unique<ApplicationModels>()), m_actionManager(new ActionManager(this))
+{
     init_application();
     init_components();
     init_connections();
@@ -45,7 +46,8 @@ MainWindow::MainWindow()
 
 MainWindow::~MainWindow() = default;
 
-void MainWindow::closeEvent(QCloseEvent* event) {
+void MainWindow::closeEvent(QCloseEvent* event)
+{
     if (m_welcomeView->canCloseProject()) {
         write_settings();
         event->accept();
@@ -54,7 +56,8 @@ void MainWindow::closeEvent(QCloseEvent* event) {
     }
 }
 
-void MainWindow::init_application() {
+void MainWindow::init_application()
+{
     QCoreApplication::setApplicationName("BornAgain gui2 preview");
     QCoreApplication::setApplicationVersion(QString::fromStdString(BornAgain::GetVersionNumber()));
     QCoreApplication::setOrganizationName("BornAgain");
@@ -68,7 +71,8 @@ void MainWindow::init_application() {
     }
 }
 
-void MainWindow::init_components() {
+void MainWindow::init_components()
+{
     m_welcomeView = new WelcomeView(m_models.get());
     m_importDataView = new ImportDataView(m_models.get());
     m_simView = new SimulationView(m_models.get());
@@ -86,7 +90,8 @@ void MainWindow::init_components() {
 
 //! Setup main connections.
 
-void MainWindow::init_connections() {
+void MainWindow::init_connections()
+{
     // connect ActionManager signals with WelcomeView slots
     connect(m_actionManager, &ActionManager::createNewProjectRequest, m_welcomeView,
             &WelcomeView::onCreateNewProject);
@@ -105,7 +110,8 @@ void MainWindow::init_connections() {
     m_welcomeView->updateNames();
 }
 
-void MainWindow::write_settings() {
+void MainWindow::write_settings()
+{
     QSettings settings;
     settings.beginGroup(main_window_group);
     settings.setValue(size_key, size());

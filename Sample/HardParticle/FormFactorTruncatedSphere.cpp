@@ -28,15 +28,19 @@ FormFactorTruncatedSphere::FormFactorTruncatedSphere(const std::vector<double> P
               P)
     , m_radius(m_P[0])
     , m_height(m_P[1])
-    , m_dh(m_P[2]) {
+    , m_dh(m_P[2])
+{
     check_initialization();
     onChange();
 }
 
 FormFactorTruncatedSphere::FormFactorTruncatedSphere(double radius, double height, double dh)
-    : FormFactorTruncatedSphere(std::vector<double>{radius, height, dh}) {}
+    : FormFactorTruncatedSphere(std::vector<double>{radius, height, dh})
+{
+}
 
-bool FormFactorTruncatedSphere::check_initialization() const {
+bool FormFactorTruncatedSphere::check_initialization() const
+{
     bool result(true);
     if (m_height > 2. * m_radius || m_dh > m_height) {
         std::ostringstream ostr;
@@ -50,7 +54,8 @@ bool FormFactorTruncatedSphere::check_initialization() const {
 }
 
 //! Integrand for complex form factor.
-complex_t FormFactorTruncatedSphere::Integrand(double Z) const {
+complex_t FormFactorTruncatedSphere::Integrand(double Z) const
+{
     double Rz = std::sqrt(m_radius * m_radius - Z * Z);
     complex_t qx = m_q.x();
     complex_t qy = m_q.y();
@@ -59,7 +64,8 @@ complex_t FormFactorTruncatedSphere::Integrand(double Z) const {
 }
 
 //! Complex form factor.
-complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const {
+complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const
+{
     m_q = q;
     if (std::abs(q.mag()) < std::numeric_limits<double>::epsilon()) {
         return M_PI / 3.
@@ -73,7 +79,8 @@ complex_t FormFactorTruncatedSphere::evaluate_for_q(cvector_t q) const {
 }
 
 IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IRotation& rot,
-                                                        kvector_t translation) const {
+                                                        kvector_t translation) const
+{
     double height = m_height - m_dh;
     auto effects = computeSlicingEffects(limits, translation, height);
     FormFactorTruncatedSphere slicedff(m_radius, m_height - effects.dz_bottom,
@@ -81,6 +88,7 @@ IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IR
     return createTransformedFormFactor(slicedff, rot, effects.position);
 }
 
-void FormFactorTruncatedSphere::onChange() {
+void FormFactorTruncatedSphere::onChange()
+{
     m_shape = std::make_unique<TruncatedEllipsoid>(m_radius, m_radius, m_radius, m_height, m_dh);
 }

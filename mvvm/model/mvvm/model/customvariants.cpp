@@ -23,18 +23,21 @@ const QString qstring_name = "QString";
 
 using namespace ModelView;
 
-std::string Utils::VariantName(const Variant& variant) {
+std::string Utils::VariantName(const Variant& variant)
+{
     return variant.isValid() ? variant.typeName() : Constants::invalid_type_name;
 }
 
-int Utils::VariantType(const Variant& variant) {
+int Utils::VariantType(const Variant& variant)
+{
     auto result = static_cast<int>(variant.type());
     if (result == Variant::UserType)
         result = variant.userType();
     return result;
 }
 
-bool Utils::CompatibleVariantTypes(const Variant& oldValue, const Variant& newValue) {
+bool Utils::CompatibleVariantTypes(const Variant& oldValue, const Variant& newValue)
+{
     // Invalid variant can be rewritten by any variant.
     // Valid Variant can be replaced by invalid variant.
     // In other cases types of variants should coincide to be compatible.
@@ -45,7 +48,8 @@ bool Utils::CompatibleVariantTypes(const Variant& oldValue, const Variant& newVa
     return Utils::VariantType(oldValue) == Utils::VariantType(newValue);
 }
 
-bool Utils::IsTheSame(const Variant& var1, const Variant& var2) {
+bool Utils::IsTheSame(const Variant& var1, const Variant& var2)
+{
     // variants of different type are always reported as not the same
     if (VariantType(var1) != VariantType(var2))
         return false;
@@ -54,7 +58,8 @@ bool Utils::IsTheSame(const Variant& var1, const Variant& var2) {
     return var1 == var2;
 }
 
-Variant Utils::toQtVariant(const Variant& custom) {
+Variant Utils::toQtVariant(const Variant& custom)
+{
     if (!custom.isValid())
         return custom;
 
@@ -71,7 +76,8 @@ Variant Utils::toQtVariant(const Variant& custom) {
     return custom;
 }
 
-Variant Utils::toCustomVariant(const Variant& standard) {
+Variant Utils::toCustomVariant(const Variant& standard)
+{
     if (!standard.isValid())
         return standard;
 
@@ -83,38 +89,47 @@ Variant Utils::toCustomVariant(const Variant& standard) {
     return standard;
 }
 
-bool Utils::IsBoolVariant(const Variant& variant) {
+bool Utils::IsBoolVariant(const Variant& variant)
+{
     return variant.type() == Variant::Bool;
 }
 
-bool Utils::IsIntVariant(const Variant& variant) {
+bool Utils::IsIntVariant(const Variant& variant)
+{
     return variant.type() == Variant::Int;
 }
 
-bool Utils::IsDoubleVariant(const Variant& variant) {
+bool Utils::IsDoubleVariant(const Variant& variant)
+{
     return variant.type() == Variant::Double;
 }
 
-bool Utils::IsComboVariant(const Variant& variant) {
+bool Utils::IsComboVariant(const Variant& variant)
+{
     return variant.canConvert<ComboProperty>();
 }
 
-bool Utils::IsStdStringVariant(const Variant& variant) {
+bool Utils::IsStdStringVariant(const Variant& variant)
+{
     return variant.canConvert<std::string>();
 }
 
-bool Utils::IsDoubleVectorVariant(const Variant& variant) {
+bool Utils::IsDoubleVectorVariant(const Variant& variant)
+{
     return variant.typeName() == Constants::vector_double_type_name;
 }
 
-bool Utils::IsColorVariant(const Variant& variant) {
+bool Utils::IsColorVariant(const Variant& variant)
+{
     return variant.type() == Variant::Color;
 }
 
-bool Utils::IsExtPropertyVariant(const Variant& variant) {
+bool Utils::IsExtPropertyVariant(const Variant& variant)
+{
     return variant.canConvert<ExternalProperty>();
 }
 
-bool Utils::IsRealLimitsVariant(const Variant& variant) {
+bool Utils::IsRealLimitsVariant(const Variant& variant)
+{
     return variant.canConvert<RealLimits>();
 }

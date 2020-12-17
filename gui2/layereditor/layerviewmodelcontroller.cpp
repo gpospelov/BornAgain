@@ -27,7 +27,8 @@ namespace gui2 {
 
 class CustomLayerRowStrategy : public RowStrategyInterface {
 public:
-    QStringList horizontalHeaderLabels() const {
+    QStringList horizontalHeaderLabels() const
+    {
         return QStringList() << "Name"
                              << "Nr."
                              << "Material"
@@ -35,7 +36,8 @@ public:
                              << "Sigma [nm]";
     }
 
-    std::vector<std::unique_ptr<ViewItem>> constructRow(SessionItem* item) {
+    std::vector<std::unique_ptr<ViewItem>> constructRow(SessionItem* item)
+    {
         std::vector<std::unique_ptr<ViewItem>> result;
 
         // multilayer row contains its name, repetion and placeholders (instead of material and
@@ -69,7 +71,8 @@ public:
 };
 
 LayerViewModelController::LayerViewModelController(SessionModel* model, ViewModel* view_model)
-    : ViewModelController(model, view_model) {
+    : ViewModelController(model, view_model)
+{
     setRowStrategy(std::make_unique<CustomLayerRowStrategy>());
     setChildrenStrategy(std::make_unique<TopItemsStrategy>());
 }

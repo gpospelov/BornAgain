@@ -28,7 +28,8 @@ const QSize default_dialog_size(512, 300);
 
 DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title, const QString& text,
                                        const QString& details)
-    : QDialog(parent), m_topLabel(new QLabel), m_textEdit(new QTextEdit) {
+    : QDialog(parent), m_topLabel(new QLabel), m_textEdit(new QTextEdit)
+{
     setWindowTitle(title);
     m_topLabel->setText(text);
     m_textEdit->setText(details);
@@ -60,17 +61,20 @@ DetailedMessageBox::DetailedMessageBox(QWidget* parent, const QString& title, co
     setSizeGripEnabled(true);
 }
 
-void DetailedMessageBox::setText(const QString& text) {
+void DetailedMessageBox::setText(const QString& text)
+{
     m_topLabel->setText(text);
 }
 
-void DetailedMessageBox::setDetailedText(const QString& text) {
+void DetailedMessageBox::setDetailedText(const QString& text)
+{
     m_textEdit->setText(text);
 }
 
 //! Returns layout with icon for left part of the widget.
 
-QBoxLayout* DetailedMessageBox::createLogoLayout() {
+QBoxLayout* DetailedMessageBox::createLogoLayout()
+{
     auto result = new QVBoxLayout;
 
     QIcon icon = QApplication::style()->standardIcon(QStyle::SP_MessageBoxWarning);
@@ -86,7 +90,8 @@ QBoxLayout* DetailedMessageBox::createLogoLayout() {
 
 //! Creates right layout with text and QComboBox selection.
 
-QBoxLayout* DetailedMessageBox::createInfoLayout() {
+QBoxLayout* DetailedMessageBox::createInfoLayout()
+{
     m_topLabel->setWordWrap(true);
 
     auto result = new QVBoxLayout;
@@ -97,7 +102,8 @@ QBoxLayout* DetailedMessageBox::createInfoLayout() {
 
 //! Creates button layout with buttons.
 
-QBoxLayout* DetailedMessageBox::createButtonLayout() {
+QBoxLayout* DetailedMessageBox::createButtonLayout()
+{
     auto result = new QHBoxLayout;
 
     auto okButton = new QPushButton("Ok");

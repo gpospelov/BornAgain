@@ -17,7 +17,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshBox() {
+Geometry::Mesh Geometry::meshBox()
+{
     float const D = .5f;
 
     Vertices vs_;

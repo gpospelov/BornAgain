@@ -27,7 +27,8 @@ namespace gui2 {
 SimPlotWidget::SimPlotWidget(QWidget* parent)
     : QWidget(parent)
     , m_specularCanvas(new ModelView::GraphCanvas)
-    , m_diffCanvas(new ModelView::GraphCanvas) {
+    , m_diffCanvas(new ModelView::GraphCanvas)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 5, 5, 5);
 
@@ -51,13 +52,15 @@ SimPlotWidget::SimPlotWidget(QWidget* parent)
 
 SimPlotWidget::~SimPlotWidget() = default;
 
-void SimPlotWidget::setModels(ApplicationModels* models) {
+void SimPlotWidget::setModels(ApplicationModels* models)
+{
     m_models = models;
     m_specularCanvas->setItem(m_models->jobModel()->specularViewport());
     m_diffCanvas->setItem(m_models->jobModel()->diffViewport());
 }
 
-void SimPlotWidget::updateViewport() {
+void SimPlotWidget::updateViewport()
+{
     m_specularCanvas->setViewportToContent();
     m_diffCanvas->setViewportToContent();
 }

@@ -34,7 +34,8 @@ public:
 
 TopItemsViewModelTest::~TopItemsViewModelTest() = default;
 
-TEST_F(TopItemsViewModelTest, initialState) {
+TEST_F(TopItemsViewModelTest, initialState)
+{
     SessionModel model;
     TopItemsViewModel viewModel(&model);
     EXPECT_EQ(viewModel.rowCount(), 0);
@@ -44,7 +45,8 @@ TEST_F(TopItemsViewModelTest, initialState) {
 
 //! Insert LayerItem in empty model.
 
-TEST_F(TopItemsViewModelTest, insertLayerThenRemove) {
+TEST_F(TopItemsViewModelTest, insertLayerThenRemove)
+{
     ToyItems::SampleModel model;
     TopItemsViewModel viewmodel(&model);
 
@@ -69,7 +71,8 @@ TEST_F(TopItemsViewModelTest, insertLayerThenRemove) {
 
 //! Insert LayerItem in MultiLayer.
 
-TEST_F(TopItemsViewModelTest, insertLayerInMultiLayerThenRemove) {
+TEST_F(TopItemsViewModelTest, insertLayerInMultiLayerThenRemove)
+{
     ToyItems::SampleModel model;
     TopItemsViewModel viewmodel(&model);
 
@@ -113,7 +116,8 @@ TEST_F(TopItemsViewModelTest, insertLayerInMultiLayerThenRemove) {
 
 //! Insert LayerItem in MultiLayer while multilayer is root item. Then deleting multilayer.
 
-TEST_F(TopItemsViewModelTest, multuLayerAsRooItem) {
+TEST_F(TopItemsViewModelTest, multuLayerAsRooItem)
+{
     ToyItems::SampleModel model;
     TopItemsViewModel viewmodel(&model);
 

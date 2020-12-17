@@ -35,12 +35,14 @@ public:
 
 CompoundItemTest::~CompoundItemTest() = default;
 
-TEST_F(CompoundItemTest, initialState) {
+TEST_F(CompoundItemTest, initialState)
+{
     CompoundItem item;
     EXPECT_EQ(item.childrenCount(), 0);
 }
 
-TEST_F(CompoundItemTest, addIntProperty) {
+TEST_F(CompoundItemTest, addIntProperty)
+{
     CompoundItem item;
 
     const int expected = 42;
@@ -55,7 +57,8 @@ TEST_F(CompoundItemTest, addIntProperty) {
     EXPECT_FALSE(propertyItem->data<QVariant>(ItemDataRole::LIMITS).isValid());
 }
 
-TEST_F(CompoundItemTest, setIntProperty) {
+TEST_F(CompoundItemTest, setIntProperty)
+{
     CompoundItem item;
     auto propertyItem = item.addProperty(property_name, 41);
 
@@ -66,7 +69,8 @@ TEST_F(CompoundItemTest, setIntProperty) {
     EXPECT_EQ(propertyItem->data<int>(), expected);
 }
 
-TEST_F(CompoundItemTest, addDoubleProperty) {
+TEST_F(CompoundItemTest, addDoubleProperty)
+{
     CompoundItem item;
 
     const double expected = 42.1;
@@ -86,7 +90,8 @@ TEST_F(CompoundItemTest, addDoubleProperty) {
     EXPECT_FALSE(limits.hasUpperLimit());
 }
 
-TEST_F(CompoundItemTest, setDoubleProperty) {
+TEST_F(CompoundItemTest, setDoubleProperty)
+{
     CompoundItem item;
     auto propertyItem = item.addProperty(property_name, 41.11);
 
@@ -97,7 +102,8 @@ TEST_F(CompoundItemTest, setDoubleProperty) {
     EXPECT_EQ(propertyItem->data<double>(), expected);
 }
 
-TEST_F(CompoundItemTest, addCharProperty) {
+TEST_F(CompoundItemTest, addCharProperty)
+{
     CompoundItem item;
 
     auto propertyItem = item.addProperty(property_name, "abc");
@@ -110,7 +116,8 @@ TEST_F(CompoundItemTest, addCharProperty) {
     EXPECT_FALSE(propertyItem->data<QVariant>(ItemDataRole::LIMITS).isValid());
 }
 
-TEST_F(CompoundItemTest, setCharProperty) {
+TEST_F(CompoundItemTest, setCharProperty)
+{
     CompoundItem item;
     auto propertyItem = item.addProperty(property_name, "aaa");
 
@@ -121,7 +128,8 @@ TEST_F(CompoundItemTest, setCharProperty) {
     EXPECT_EQ(propertyItem->data<std::string>(), std::string(expected));
 }
 
-TEST_F(CompoundItemTest, addStringProperty) {
+TEST_F(CompoundItemTest, addStringProperty)
+{
     CompoundItem item;
 
     auto propertyItem = item.addProperty(property_name, std::string("abc"));
@@ -134,7 +142,8 @@ TEST_F(CompoundItemTest, addStringProperty) {
     EXPECT_FALSE(propertyItem->data<QVariant>(ItemDataRole::LIMITS).isValid());
 }
 
-TEST_F(CompoundItemTest, setStringProperty) {
+TEST_F(CompoundItemTest, setStringProperty)
+{
     CompoundItem item;
     auto propertyItem = item.addProperty(property_name, std::string("aaa"));
 
@@ -145,7 +154,8 @@ TEST_F(CompoundItemTest, setStringProperty) {
     EXPECT_EQ(propertyItem->data<std::string>(), expected);
 }
 
-TEST_F(CompoundItemTest, addBoolProperty) {
+TEST_F(CompoundItemTest, addBoolProperty)
+{
     CompoundItem item;
 
     const bool expected = true;
@@ -159,7 +169,8 @@ TEST_F(CompoundItemTest, addBoolProperty) {
     EXPECT_FALSE(propertyItem->data<QVariant>(ItemDataRole::LIMITS).isValid());
 }
 
-TEST_F(CompoundItemTest, setBoolProperty) {
+TEST_F(CompoundItemTest, setBoolProperty)
+{
     CompoundItem item;
     auto propertyItem = item.addProperty(property_name, false);
 
@@ -170,7 +181,8 @@ TEST_F(CompoundItemTest, setBoolProperty) {
     EXPECT_EQ(propertyItem->data<bool>(), expected);
 }
 
-TEST_F(CompoundItemTest, itemAccess) {
+TEST_F(CompoundItemTest, itemAccess)
+{
     const std::string tag = "tag";
 
     // creating parent with one tag
@@ -185,7 +197,8 @@ TEST_F(CompoundItemTest, itemAccess) {
     EXPECT_THROW(parent.item<CompoundItem>(tag), std::runtime_error);
 }
 
-TEST_F(CompoundItemTest, itemVectorAccess) {
+TEST_F(CompoundItemTest, itemVectorAccess)
+{
     const std::string tag = "tag";
 
     // creating parent with one tag
@@ -206,7 +219,8 @@ TEST_F(CompoundItemTest, itemVectorAccess) {
 
 //! Tests automatic index addition to default display name.
 
-TEST_F(CompoundItemTest, displayNameIndexAddition) {
+TEST_F(CompoundItemTest, displayNameIndexAddition)
+{
     const std::string tag = "tag";
 
     // creating parent with one tag

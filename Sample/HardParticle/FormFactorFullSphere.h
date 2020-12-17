@@ -25,7 +25,8 @@ public:
     FormFactorFullSphere(const std::vector<double> P, bool position_at_center = false);
     FormFactorFullSphere(double radius, bool position_at_center = false);
 
-    FormFactorFullSphere* clone() const final {
+    FormFactorFullSphere* clone() const final
+    {
         return new FormFactorFullSphere(m_radius, m_position_at_center);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

@@ -33,7 +33,8 @@ public:
 
 LabelDataRowStrategyTest::~LabelDataRowStrategyTest() = default;
 
-TEST_F(LabelDataRowStrategyTest, initialState) {
+TEST_F(LabelDataRowStrategyTest, initialState)
+{
     LabelDataRowStrategy constructor;
     EXPECT_EQ(constructor.constructRow(nullptr).size(), 0);
     EXPECT_EQ(constructor.horizontalHeaderLabels(), expected_labels);
@@ -41,7 +42,8 @@ TEST_F(LabelDataRowStrategyTest, initialState) {
 
 //! Checks row construction for standard top level item, like Level, MultiLayer etc.
 
-TEST_F(LabelDataRowStrategyTest, topLevelItem) {
+TEST_F(LabelDataRowStrategyTest, topLevelItem)
+{
     SessionItem item("model_type");
 
     LabelDataRowStrategy constructor;
@@ -60,7 +62,8 @@ TEST_F(LabelDataRowStrategyTest, topLevelItem) {
 
 //! Checks row construction for property item.
 
-TEST_F(LabelDataRowStrategyTest, propertyItem) {
+TEST_F(LabelDataRowStrategyTest, propertyItem)
+{
     SessionItem item("model_type");
     item.setData(42.0);
 

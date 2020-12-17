@@ -19,15 +19,21 @@ ConstantBackground::ConstantBackground(const std::vector<double> P)
                    "class_tooltip",
                    {{"BackgroundValue", "", "para_tooltip", 0, +INF, 0}}},
                   P)
-    , m_background_value(m_P[0]) {}
+    , m_background_value(m_P[0])
+{
+}
 
 ConstantBackground::ConstantBackground(double background_value)
-    : ConstantBackground(std::vector<double>{background_value}) {}
+    : ConstantBackground(std::vector<double>{background_value})
+{
+}
 
-ConstantBackground* ConstantBackground::clone() const {
+ConstantBackground* ConstantBackground::clone() const
+{
     return new ConstantBackground(m_background_value);
 }
 
-double ConstantBackground::addBackground(double intensity) const {
+double ConstantBackground::addBackground(double intensity) const
+{
     return intensity + m_background_value;
 }

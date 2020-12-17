@@ -49,7 +49,8 @@ protected:
     int m_default_selected_index;
 };
 
-template <typename T> void GroupItem::registerItem(const std::string& text, bool make_selected) {
+template <typename T> void GroupItem::registerItem(const std::string& text, bool make_selected)
+{
     m_catalogue->registerItem<T>(text);
     if (make_selected)
         m_default_selected_index = m_catalogue->itemCount() - 1;

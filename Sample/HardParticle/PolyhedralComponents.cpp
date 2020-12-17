@@ -28,14 +28,16 @@ constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray
 //  ************************************************************************************************
 
 PolyhedralEdge::PolyhedralEdge(kvector_t _Vlow, kvector_t _Vhig)
-    : m_E((_Vhig - _Vlow) / 2), m_R((_Vhig + _Vlow) / 2) {
+    : m_E((_Vhig - _Vlow) / 2), m_R((_Vhig + _Vlow) / 2)
+{
     if (m_E.mag2() == 0)
         throw std::invalid_argument("At least one edge has zero length");
 };
 
 //! Returns sum_l=0^M/2 u^2l v^(M-2l) / (2l+1)!(M-2l)! - vperp^M/M!
 
-complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const {
+complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
+{
     complex_t u = qE(qpa);
     complex_t v2 = m_R.dot(qpa);
     complex_t v1 = qrperp;
@@ -92,7 +94,8 @@ int PolyhedralFace::n_limit_series = 20;
 
 //! Static method, returns diameter of circle that contains all vertices.
 
-double PolyhedralFace::diameter(const std::vector<kvector_t>& V) {
+double PolyhedralFace::diameter(const std::vector<kvector_t>& V)
+{
     double diameterFace = 0;
     for (size_t j = 0; j < V.size(); ++j)
         for (size_t jj = j + 1; jj < V.size(); ++jj)
@@ -101,7 +104,8 @@ double PolyhedralFace::diameter(const std::vector<kvector_t>& V) {
 }
 
 #ifdef POLYHEDRAL_DIAGNOSTIC
-void PolyhedralFace::setLimits(double _qpa, int _n) {
+void PolyhedralFace::setLimits(double _qpa, int _n)
+{
     qpa_limit_series = _qpa;
     n_limit_series = _n;
 }
@@ -112,7 +116,8 @@ void PolyhedralFace::setLimits(double _qpa, int _n) {
 //! @param V oriented vertex list
 //! @param _sym_S2 true if face has a perpedicular two-fold symmetry axis
 
-PolyhedralFace::PolyhedralFace(const std::vector<kvector_t>& V, bool _sym_S2) : sym_S2(_sym_S2) {
+PolyhedralFace::PolyhedralFace(const std::vector<kvector_t>& V, bool _sym_S2) : sym_S2(_sym_S2)
+{
     size_t NV = V.size();
     if (!NV)
         throw std::logic_error("Face with no edges");
@@ -185,7 +190,8 @@ PolyhedralFace::PolyhedralFace(const std::vector<kvector_t>& V, bool _sym_S2) : 
 
 //! Sets qperp and qpa according to argument q and to this polygon's normal.
 
-void PolyhedralFace::decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) const {
+void PolyhedralFace::decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) const
+{
     qperp = m_normal.dot(q);
     qpa = q - qperp * m_normal;
     // improve numeric accuracy:
@@ -196,7 +202,8 @@ void PolyhedralFace::decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) 
 
 //! Returns core contribution to f_n
 
-complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const {
+complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const
+{
     cvector_t prevec = 2. * m_normal.cross(qpa); // complex conjugation will take place in .dot
     complex_t ret = 0;
     complex_t vfacsum = 0;
@@ -224,7 +231,8 @@ complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const
 
 //! Returns contribution qn*f_n [of order q^(n+1)] from this face to the polyhedral form factor.
 
-complex_t PolyhedralFace::ff_n(int n, cvector_t q) const {
+complex_t PolyhedralFace::ff_n(int n, cvector_t q) const
+{
     complex_t qn = q.dot(m_normal); // conj(q)*normal (dot is antilinear in 'this' argument)
     if (std::abs(qn) < eps * q.mag())
         return 0.;
@@ -249,7 +257,8 @@ complex_t PolyhedralFace::ff_n(int n, cvector_t q) const {
 //! Returns sum of n>=1 terms of qpa expansion of 2d form factor
 
 complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvector_t qpa,
-                                    double abslevel) const {
+                                    double abslevel) const
+{
 #ifdef POLYHEDRAL_DIAGNOSTIC
     diagnosis.nExpandedFaces += 1;
 #endif
@@ -283,7 +292,8 @@ complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvect
 
 //! Returns core contribution to analytic 2d form factor.
 
-complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const {
+complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) const
+{
     cvector_t prevec = m_normal.cross(qpa); // complex conjugation will take place in .dot
     complex_t sum = 0;
     complex_t vfacsum = 0;
@@ -313,7 +323,8 @@ complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) c
 
 //! Returns the contribution ff(q) of this face to the polyhedral form factor.
 
-complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const {
+complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
+{
     complex_t qperp;
     cvector_t qpa;
     decompose_q(q, qperp, qpa);
@@ -351,7 +362,8 @@ complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const {
 
 //! Returns the two-dimensional form factor of this face, for use in a prism.
 
-complex_t PolyhedralFace::ff_2D(cvector_t qpa) const {
+complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
+{
     if (std::abs(qpa.dot(m_normal)) > eps * qpa.mag())
         throw std::logic_error("ff_2D called with perpendicular q component");
     double qpa_red = m_radius_2d * qpa.mag();
@@ -374,7 +386,8 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const {
 
 //! Throws if deviation from inversion symmetry is detected. Does not check vertices.
 
-void PolyhedralFace::assert_Ci(const PolyhedralFace& other) const {
+void PolyhedralFace::assert_Ci(const PolyhedralFace& other) const
+{
     if (std::abs(m_rperp - other.m_rperp) > 1e-15 * (m_rperp + other.m_rperp))
         throw std::logic_error("Faces with different distance from origin violate symmetry Ci");
     if (std::abs(m_area - other.m_area) > 1e-15 * (m_area + other.m_area))

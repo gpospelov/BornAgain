@@ -32,7 +32,8 @@ public:
 
     bool contains(const Key& item_key) const { return m_data.find(item_key) != m_data.end(); }
 
-    std::unique_ptr<Value> create(const Key& item_key) const {
+    std::unique_ptr<Value> create(const Key& item_key) const
+    {
         auto it = m_data.find(item_key);
         if (it == m_data.end()) {
             std::ostringstream message;
@@ -42,7 +43,8 @@ public:
         return it->second();
     }
 
-    bool add(const Key& key, function_t func) {
+    bool add(const Key& key, function_t func)
+    {
         if (m_data.find(key) != m_data.end()) {
             std::ostringstream message;
             message << "IFactory::createItem() -> Already registered item key '" << key << "'";

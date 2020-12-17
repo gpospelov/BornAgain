@@ -37,7 +37,8 @@ GraphPlotControllerTest::~GraphPlotControllerTest() = default;
 
 //! Initial state.
 
-TEST_F(GraphPlotControllerTest, initialState) {
+TEST_F(GraphPlotControllerTest, initialState)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
     EXPECT_EQ(controller.currentItem(), nullptr);
@@ -46,7 +47,8 @@ TEST_F(GraphPlotControllerTest, initialState) {
 
 //! Setting GraphItem with data and checking that plottable contains correct data.
 
-TEST_F(GraphPlotControllerTest, setItem) {
+TEST_F(GraphPlotControllerTest, setItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
 
@@ -75,7 +77,8 @@ TEST_F(GraphPlotControllerTest, setItem) {
     EXPECT_EQ(graph->pen().width(), 1);
 }
 
-TEST_F(GraphPlotControllerTest, changeGraphAppearance) {
+TEST_F(GraphPlotControllerTest, changeGraphAppearance)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
 
@@ -112,7 +115,8 @@ TEST_F(GraphPlotControllerTest, changeGraphAppearance) {
 //! Setting GraphItem with data and checking that plottable contains correct data.
 //! Same as aboe, except that the data is based on PointWiseAxis.
 
-TEST_F(GraphPlotControllerTest, setPointwiseItem) {
+TEST_F(GraphPlotControllerTest, setPointwiseItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
 
@@ -144,7 +148,8 @@ TEST_F(GraphPlotControllerTest, setPointwiseItem) {
 
 //! Setting data to graph after.
 
-TEST_F(GraphPlotControllerTest, setDataAfter) {
+TEST_F(GraphPlotControllerTest, setDataAfter)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
 
@@ -176,7 +181,8 @@ TEST_F(GraphPlotControllerTest, setDataAfter) {
 
 //! Unlinking from Data1DItem or GraphItem.
 
-TEST_F(GraphPlotControllerTest, unlinkFromItem) {
+TEST_F(GraphPlotControllerTest, unlinkFromItem)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     GraphPlotController controller(custom_plot.get());
 
@@ -215,7 +221,8 @@ TEST_F(GraphPlotControllerTest, unlinkFromItem) {
 
 //! Deletion of controller should lead to graph removal.
 
-TEST_F(GraphPlotControllerTest, controllerDelete) {
+TEST_F(GraphPlotControllerTest, controllerDelete)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto controller = std::make_unique<GraphPlotController>(custom_plot.get());
 
@@ -238,7 +245,8 @@ TEST_F(GraphPlotControllerTest, controllerDelete) {
 
 //! Deletion of graphItem should lead to the dissapearance of graph.
 
-TEST_F(GraphPlotControllerTest, graphDelete) {
+TEST_F(GraphPlotControllerTest, graphDelete)
+{
     auto custom_plot = std::make_unique<QCustomPlot>();
     auto controller = std::make_unique<GraphPlotController>(custom_plot.get());
 

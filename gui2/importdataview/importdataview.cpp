@@ -20,7 +20,8 @@
 namespace gui2 {
 
 ImportDataView::ImportDataView(ApplicationModels* models, QWidget* parent)
-    : QWidget(parent), m_models(models) {
+    : QWidget(parent), m_models(models)
+{
     auto layout = new QVBoxLayout(this);
     layout->addWidget(new ImportDataEditor(models->experimentalDataModel()));
     layout->setContentsMargins(0, 0, 0, 0);

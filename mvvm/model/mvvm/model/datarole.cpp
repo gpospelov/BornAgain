@@ -19,6 +19,7 @@ using namespace ModelView;
 
 DataRole::DataRole(Variant data, int role) : m_data(std::move(data)), m_role(role) {}
 
-bool DataRole::operator==(const DataRole& other) const {
+bool DataRole::operator==(const DataRole& other) const
+{
     return m_role == other.m_role && Utils::IsTheSame(m_data, other.m_data);
 }

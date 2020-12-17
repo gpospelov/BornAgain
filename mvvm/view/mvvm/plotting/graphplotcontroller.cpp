@@ -31,11 +31,14 @@ struct GraphPlotController::GraphItemControllerImpl {
     std::unique_ptr<PenController> m_penController;
 
     GraphItemControllerImpl(GraphPlotController* master, QCustomPlot* plot)
-        : m_self(master), m_customPlot(plot) {}
+        : m_self(master), m_customPlot(plot)
+    {
+    }
 
     //! Setups controllers and updates graph properties.
 
-    void init_graph() {
+    void init_graph()
+    {
         m_graph = m_customPlot->addGraph();
         m_dataController = std::make_unique<Data1DPlotController>(m_graph);
         m_penController = std::make_unique<PenController>(m_graph);
@@ -45,7 +48,8 @@ struct GraphPlotController::GraphItemControllerImpl {
         update_visible();
     }
 
-    ~GraphItemControllerImpl() {
+    ~GraphItemControllerImpl()
+    {
         if (m_graph)
             m_customPlot->removePlottable(m_graph);
     }
@@ -59,12 +63,14 @@ struct GraphPlotController::GraphItemControllerImpl {
     void update_graph_pen() { m_penController->setItem(graph_item()->penItem()); }
 
     //! Update visible
-    void update_visible() {
+    void update_visible()
+    {
         m_graph->setVisible(graph_item()->property<bool>(GraphItem::P_DISPLAYED));
         m_customPlot->replot();
     }
 
-    void reset_graph() {
+    void reset_graph()
+    {
         m_dataController->setItem(nullptr);
         m_penController->setItem(nullptr);
         m_customPlot->removePlottable(m_graph);
@@ -74,9 +80,12 @@ struct GraphPlotController::GraphItemControllerImpl {
 };
 
 GraphPlotController::GraphPlotController(QCustomPlot* custom_plot)
-    : p_impl(std::make_unique<GraphItemControllerImpl>(this, custom_plot)) {}
+    : p_impl(std::make_unique<GraphItemControllerImpl>(this, custom_plot))
+{
+}
 
-void GraphPlotController::subscribe() {
+void GraphPlotController::subscribe()
+{
     auto on_property_change = [this](SessionItem*, const std::string& property_name) {
         if (property_name == GraphItem::P_LINK)
             p_impl->update_data_controller();
@@ -89,7 +98,8 @@ void GraphPlotController::subscribe() {
     p_impl->init_graph();
 }
 
-void GraphPlotController::unsubscribe() {
+void GraphPlotController::unsubscribe()
+{
     p_impl->reset_graph();
 }
 

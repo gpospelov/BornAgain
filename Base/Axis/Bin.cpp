@@ -15,7 +15,8 @@
 #include "Base/Axis/Bin.h"
 #include "Base/Vector/Direction.h"
 
-bool BinContains(const Bin1D& bin, double value) {
+bool BinContains(const Bin1D& bin, double value)
+{
     if (bin.binSize() == 0.0)
         return false;
     double coordinate = (value - bin.m_lower) / bin.binSize();
@@ -28,14 +29,16 @@ bool BinContains(const Bin1D& bin, double value) {
 
 //! creation on Bin1DKVector from alpha and phi bins
 Bin1DKVector::Bin1DKVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
-    : m_q_lower(), m_q_upper() {
+    : m_q_lower(), m_q_upper()
+{
     m_q_lower = vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower);
     m_q_upper = vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper);
 }
 
 //! creation on Bin1DCVector from alpha and phi bins
 Bin1DCVector::Bin1DCVector(double wavelength, const Bin1D& alpha_bin, const Bin1D& phi_bin)
-    : m_q_lower(), m_q_upper() {
+    : m_q_lower(), m_q_upper()
+{
     m_q_lower = vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_lower, phi_bin.m_lower).complex();
     m_q_upper = vecOfLambdaAlphaPhi(wavelength, alpha_bin.m_upper, phi_bin.m_upper).complex();
 }

@@ -23,7 +23,8 @@ namespace {
 
 //! Returns true if interference function is able to calculate particle density automatically,
 //! which is the case for 2D functions.
-bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff) {
+bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff)
+{
     return iff.getName() == "Interference2DLattice" || iff.getName() == "Interference2DParaCrystal"
            || iff.getName() == "Interference2DSuperLattice"
            || iff.getName() == "InterferenceFinite2DLattice"
@@ -32,14 +33,16 @@ bool particleDensityIsProvidedByInterference(const IInterferenceFunction& iff) {
 } // namespace
 
 ParticleLayout::ParticleLayout()
-    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr) {
+    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr)
+{
     setName("ParticleLayout");
     registerParticleDensity();
     registerWeight();
 }
 
 ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundance)
-    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr) {
+    : m_weight(1.0), m_total_particle_density(0.01), m_interference_function(nullptr)
+{
     setName("ParticleLayout");
     addParticle(particle, abundance);
     registerParticleDensity();
@@ -48,7 +51,8 @@ ParticleLayout::ParticleLayout(const IAbstractParticle& particle, double abundan
 
 ParticleLayout::~ParticleLayout() = default; // needs member class definitions => don't move to .h
 
-ParticleLayout* ParticleLayout::clone() const {
+ParticleLayout* ParticleLayout::clone() const
+{
     ParticleLayout* result = new ParticleLayout();
 
     for (const auto* particle : m_particles)
@@ -69,7 +73,8 @@ ParticleLayout* ParticleLayout::clone() const {
 //! @param position Particle position
 //! @param rotation Particle rotation
 void ParticleLayout::addParticle(const IAbstractParticle& particle, double abundance,
-                                 const kvector_t position, const IRotation& rotation) {
+                                 const kvector_t position, const IRotation& rotation)
+{
     IAbstractParticle* particle_clone = particle.clone();
     if (abundance >= 0.0)
         particle_clone->setAbundance(abundance);
@@ -82,7 +87,8 @@ void ParticleLayout::addParticle(const IAbstractParticle& particle, double abund
 
 //! Returns information on all particles (type and abundance)
 //! and generates new particles if an IAbstractParticle denotes a collection
-SafePointerVector<IParticle> ParticleLayout::particles() const {
+SafePointerVector<IParticle> ParticleLayout::particles() const
+{
     SafePointerVector<IParticle> particle_vector;
     for (const auto* particle : m_particles) {
         if (const auto* p_part_distr = dynamic_cast<const ParticleDistribution*>(particle)) {
@@ -96,11 +102,13 @@ SafePointerVector<IParticle> ParticleLayout::particles() const {
     return particle_vector;
 }
 
-const IInterferenceFunction* ParticleLayout::interferenceFunction() const {
+const IInterferenceFunction* ParticleLayout::interferenceFunction() const
+{
     return m_interference_function.get();
 }
 
-double ParticleLayout::getTotalAbundance() const {
+double ParticleLayout::getTotalAbundance() const
+{
     double result = 0.0;
     for (const auto* particle : m_particles)
         result += particle->abundance();
@@ -108,11 +116,13 @@ double ParticleLayout::getTotalAbundance() const {
 }
 
 //! Adds interference functions
-void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interference_function) {
+void ParticleLayout::setInterferenceFunction(const IInterferenceFunction& interference_function)
+{
     setAndRegisterInterferenceFunction(interference_function.clone());
 }
 
-double ParticleLayout::totalParticleSurfaceDensity() const {
+double ParticleLayout::totalParticleSurfaceDensity() const
+{
     double iff_density =
         m_interference_function ? m_interference_function->getParticleDensity() : 0.0;
     return iff_density > 0.0 ? iff_density : m_total_particle_density;
@@ -120,11 +130,13 @@ double ParticleLayout::totalParticleSurfaceDensity() const {
 
 //! Sets total particle surface density.
 //! @param particle_density: number of particles per square nanometer
-void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density) {
+void ParticleLayout::setTotalParticleSurfaceDensity(double particle_density)
+{
     m_total_particle_density = particle_density;
 }
 
-std::vector<const INode*> ParticleLayout::getChildren() const {
+std::vector<const INode*> ParticleLayout::getChildren() const
+{
     std::vector<const INode*> result;
     for (const auto* particle : m_particles)
         result.push_back(particle);
@@ -133,13 +145,15 @@ std::vector<const INode*> ParticleLayout::getChildren() const {
 }
 
 //! Adds particle information with simultaneous registration in parent class.
-void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child) {
+void ParticleLayout::addAndRegisterAbstractParticle(IAbstractParticle* child)
+{
     m_particles.push_back(child);
     registerChild(child);
 }
 
 //! Sets interference function with simultaneous registration in parent class
-void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child) {
+void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* child)
+{
     m_interference_function.reset(child);
     registerChild(child);
 
@@ -149,7 +163,8 @@ void ParticleLayout::setAndRegisterInterferenceFunction(IInterferenceFunction* c
         registerParticleDensity(true);
 }
 
-void ParticleLayout::registerParticleDensity(bool make_registered) {
+void ParticleLayout::registerParticleDensity(bool make_registered)
+{
     if (make_registered) {
         if (!parameter("TotalParticleDensity"))
             registerParameter("TotalParticleDensity", &m_total_particle_density);
@@ -158,6 +173,7 @@ void ParticleLayout::registerParticleDensity(bool make_registered) {
     }
 }
 
-void ParticleLayout::registerWeight() {
+void ParticleLayout::registerWeight()
+{
     registerParameter("Weight", &m_weight);
 }

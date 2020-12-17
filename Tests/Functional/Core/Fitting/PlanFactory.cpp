@@ -16,7 +16,8 @@
 #include "Tests/Functional/Core/Fitting/AdjustMinimizerPlan.h"
 #include "Tests/Functional/Core/Fitting/PlanCases.h"
 
-PlanFactory::PlanFactory() {
+PlanFactory::PlanFactory()
+{
     registerItem("CylindersInBAPlan", create_new<CylindersInBAPlan>);
     registerItem("CylindersInBAEasyPlan", create_new<CylindersInBAEasyPlan>);
     registerItem("CylindersInBAResidualPlan", create_new<CylindersInBAResidualPlan>);

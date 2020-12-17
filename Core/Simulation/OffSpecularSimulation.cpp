@@ -24,30 +24,37 @@
 
 OffSpecularSimulation::OffSpecularSimulation(const Beam& beam, const MultiLayer& sample,
                                              const IDetector& detector)
-    : ISimulation2D(beam, sample, detector) {}
+    : ISimulation2D(beam, sample, detector)
+{
+}
 
-OffSpecularSimulation::OffSpecularSimulation() {
+OffSpecularSimulation::OffSpecularSimulation()
+{
     initialize();
 }
 
-void OffSpecularSimulation::prepareSimulation() {
+void OffSpecularSimulation::prepareSimulation()
+{
     checkInitialization();
     ISimulation2D::prepareSimulation();
 }
 
-size_t OffSpecularSimulation::numberOfSimulationElements() const {
+size_t OffSpecularSimulation::numberOfSimulationElements() const
+{
     checkInitialization();
     return ISimulation2D::numberOfSimulationElements() * m_alpha_i_axis->size();
 }
 
-SimulationResult OffSpecularSimulation::result() const {
+SimulationResult OffSpecularSimulation::result() const
+{
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
     OffSpecularConverter converter(instrument().detector2D(), instrument().beam(), *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
 
 void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis& alpha_axis,
-                                              double phi_i) {
+                                              double phi_i)
+{
     m_alpha_i_axis.reset(alpha_axis.clone());
     if (alpha_axis.size() < 1)
         throw std::runtime_error("OffSpecularSimulation::prepareSimulation() "
@@ -57,11 +64,13 @@ void OffSpecularSimulation::setBeamParameters(double wavelength, const IAxis& al
     updateIntensityMap();
 }
 
-const IAxis* OffSpecularSimulation::beamAxis() const {
+const IAxis* OffSpecularSimulation::beamAxis() const
+{
     return m_alpha_i_axis.get();
 }
 
-std::unique_ptr<IUnitConverter> OffSpecularSimulation::createUnitConverter() const {
+std::unique_ptr<IUnitConverter> OffSpecularSimulation::createUnitConverter() const
+{
     const IAxis* axis = beamAxis();
     if (!axis)
         throw std::runtime_error("Error in OffSpecularSimulation::createUnitConverter:"
@@ -70,20 +79,23 @@ std::unique_ptr<IUnitConverter> OffSpecularSimulation::createUnitConverter() con
                                                   *axis);
 }
 
-size_t OffSpecularSimulation::intensityMapSize() const {
+size_t OffSpecularSimulation::intensityMapSize() const
+{
     checkInitialization();
     return m_alpha_i_axis->size() * detector().axis(1).size();
 }
 
 OffSpecularSimulation::OffSpecularSimulation(const OffSpecularSimulation& other)
-    : ISimulation2D(other) {
+    : ISimulation2D(other)
+{
     if (other.m_alpha_i_axis)
         m_alpha_i_axis.reset(other.m_alpha_i_axis->clone());
     m_intensity_map.copyFrom(other.m_intensity_map);
     initialize();
 }
 
-void OffSpecularSimulation::initSimulationElementVector() {
+void OffSpecularSimulation::initSimulationElementVector()
+{
     m_sim_elements.clear();
     Beam beam = instrument().beam();
     for (size_t i = 0; i < m_alpha_i_axis->size(); ++i) {
@@ -96,7 +108,8 @@ void OffSpecularSimulation::initSimulationElementVector() {
         m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
-void OffSpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const {
+void OffSpecularSimulation::validateParametrization(const ParameterDistribution& par_distr) const
+{
     const bool zero_mean = par_distr.getDistribution()->getMean() == 0.0;
     if (zero_mean)
         return;
@@ -110,7 +123,8 @@ void OffSpecularSimulation::validateParametrization(const ParameterDistribution&
                                      "beam inclination angle should have zero mean.");
 }
 
-void OffSpecularSimulation::transferResultsToIntensityMap() {
+void OffSpecularSimulation::transferResultsToIntensityMap()
+{
     checkInitialization();
     const IAxis& phi_axis = detector().axis(0);
     size_t phi_f_size = phi_axis.size();
@@ -122,7 +136,8 @@ void OffSpecularSimulation::transferResultsToIntensityMap() {
         transferDetectorImage(i);
 }
 
-void OffSpecularSimulation::updateIntensityMap() {
+void OffSpecularSimulation::updateIntensityMap()
+{
     m_intensity_map.clear();
     if (m_alpha_i_axis)
         m_intensity_map.addAxis(*m_alpha_i_axis);
@@ -132,7 +147,8 @@ void OffSpecularSimulation::updateIntensityMap() {
     m_intensity_map.setAllTo(0.);
 }
 
-void OffSpecularSimulation::transferDetectorImage(size_t index) {
+void OffSpecularSimulation::transferDetectorImage(size_t index)
+{
     OutputData<double> detector_image;
     size_t detector_dimension = detector().dimension();
     for (size_t dim = 0; dim < detector_dimension; ++dim)
@@ -146,7 +162,8 @@ void OffSpecularSimulation::transferDetectorImage(size_t index) {
         m_intensity_map[index * y_axis_size + i % y_axis_size] += detector_image[i];
 }
 
-void OffSpecularSimulation::checkInitialization() const {
+void OffSpecularSimulation::checkInitialization() const
+{
     if (!m_alpha_i_axis || m_alpha_i_axis->size() < 1)
         throw std::runtime_error("OffSpecularSimulation::checkInitialization() "
                                  "Incoming alpha range not configured.");
@@ -155,6 +172,7 @@ void OffSpecularSimulation::checkInitialization() const {
             "OffSpecularSimulation::checkInitialization: detector is not two-dimensional");
 }
 
-void OffSpecularSimulation::initialize() {
+void OffSpecularSimulation::initialize()
+{
     setName("OffSpecularSimulation");
 }

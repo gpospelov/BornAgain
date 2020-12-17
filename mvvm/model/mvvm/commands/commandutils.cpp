@@ -18,13 +18,15 @@
 #include "mvvm/serialization/jsonitemcopystrategy.h"
 
 std::unique_ptr<ModelView::ItemBackupStrategy>
-ModelView::CreateItemBackupStrategy(const ModelView::SessionModel* model) {
+ModelView::CreateItemBackupStrategy(const ModelView::SessionModel* model)
+{
     assert(model);
     return std::make_unique<JsonItemBackupStrategy>(model->factory());
 }
 
 std::unique_ptr<ModelView::ItemCopyStrategy>
-ModelView::CreateItemCopyStrategy(const ModelView::SessionModel* model) {
+ModelView::CreateItemCopyStrategy(const ModelView::SessionModel* model)
+{
     assert(model);
     return std::make_unique<JsonItemCopyStrategy>(model->factory());
 }

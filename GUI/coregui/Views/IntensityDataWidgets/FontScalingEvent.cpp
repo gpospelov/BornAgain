@@ -24,9 +24,12 @@ const int widget_size_to_switch_font = 500;
 } // namespace
 
 FontScalingEvent::FontScalingEvent(ScientificPlot* plot, QWidget* parent)
-    : QObject(parent), m_plot(plot) {}
+    : QObject(parent), m_plot(plot)
+{
+}
 
-bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event) {
+bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event)
+{
     if (event->type() == QEvent::Resize) {
         QResizeEvent* resizeEvent = static_cast<QResizeEvent*>(event);
         ASSERT(resizeEvent);
@@ -48,22 +51,26 @@ bool FontScalingEvent::eventFilter(QObject* obj, QEvent* event) {
 
 //! Backup all fonts.
 
-void FontScalingEvent::backupFonts() {
+void FontScalingEvent::backupFonts()
+{
     m_fonts[tick_font] = m_plot->customPlot()->xAxis->tickLabelFont();
 }
 
-void FontScalingEvent::restoreFonts() {
+void FontScalingEvent::restoreFonts()
+{
     QFont ff = m_fonts[tick_font];
     setTickLabelFont(ff);
 }
 
-void FontScalingEvent::scaleFonts(double factor) {
+void FontScalingEvent::scaleFonts(double factor)
+{
     QFont ff = m_fonts[tick_font];
     ff.setPointSizeF(ff.pointSizeF() * factor);
     setTickLabelFont(ff);
 }
 
-void FontScalingEvent::setTickLabelFont(const QFont& font) {
+void FontScalingEvent::setTickLabelFont(const QFont& font)
+{
     m_plot->customPlot()->xAxis->setTickLabelFont(font);
     m_plot->customPlot()->yAxis->setTickLabelFont(font);
     if (m_plot->plotType() != ScientificPlot::PLOT_TYPE::Plot2D)

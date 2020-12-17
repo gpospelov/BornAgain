@@ -29,7 +29,8 @@ VectorItemTest::~VectorItemTest() = default;
 
 //! Initial state of item when it is created outside of model context.
 
-TEST_F(VectorItemTest, initialState) {
+TEST_F(VectorItemTest, initialState)
+{
     VectorItem item;
 
     EXPECT_TRUE(item.isSinglePropertyTag(VectorItem::P_X));
@@ -48,7 +49,8 @@ TEST_F(VectorItemTest, initialState) {
 
 //! Initial state of item in model context
 
-TEST_F(VectorItemTest, initialStateFromModel) {
+TEST_F(VectorItemTest, initialStateFromModel)
+{
     SessionModel model;
     auto item = model.insertItem<VectorItem>();
 

@@ -17,7 +17,8 @@
 #include <QToolButton>
 
 JobSelectorToolBar::JobSelectorToolBar(JobSelectorActions* actions, QWidget* parent)
-    : StyledToolBar(parent), m_runJobButton(new QToolButton), m_removeJobButton(new QToolButton) {
+    : StyledToolBar(parent), m_runJobButton(new QToolButton), m_removeJobButton(new QToolButton)
+{
     setMinimumSize(minimumHeight(), minimumHeight());
 
     m_runJobButton->setText("Run");

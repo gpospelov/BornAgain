@@ -18,4 +18,6 @@
 using namespace ModelView;
 
 TopItemsViewModel::TopItemsViewModel(SessionModel* model, QObject* parent)
-    : ViewModel(std::make_unique<TopItemsViewModelController>(model, this), parent) {}
+    : ViewModel(std::make_unique<TopItemsViewModelController>(model, this), parent)
+{
+}

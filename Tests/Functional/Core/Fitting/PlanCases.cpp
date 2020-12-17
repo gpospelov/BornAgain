@@ -32,14 +32,16 @@ namespace {
 const double nm = Units::nm;
 }
 
-CylindersInBAPlan::CylindersInBAPlan() : Plan("CylindersInBAPlan") {
+CylindersInBAPlan::CylindersInBAPlan() : Plan("CylindersInBAPlan")
+{
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
     addParameter(Parameter("height", 4.5 * nm, AttLimits::lowerLimited(0.01), 0.01), 5.0 * nm);
     addParameter(Parameter("radius", 5.5 * nm, AttLimits::lowerLimited(0.01), 0.01), 5.0 * nm);
 }
 
-CylindersInBAEasyPlan::CylindersInBAEasyPlan() : Plan("CylindersInBAEasyPlan") {
+CylindersInBAEasyPlan::CylindersInBAEasyPlan() : Plan("CylindersInBAEasyPlan")
+{
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISASFit");
     const double tolerance = 0.1;
@@ -50,7 +52,8 @@ CylindersInBAEasyPlan::CylindersInBAEasyPlan() : Plan("CylindersInBAEasyPlan") {
 }
 
 CylindersInBAResidualPlan::CylindersInBAResidualPlan()
-    : Plan("CylindersInBAResidualPlan", /*residual_based*/ true) {
+    : Plan("CylindersInBAResidualPlan", /*residual_based*/ true)
+{
     setBuilderName("CylindersInBABuilder");
     setSimulationName("MiniGISAS");
     addParameter(Parameter("height", 4.5 * nm, AttLimits::limitless(), 0.01), 5.0 * nm);
@@ -59,7 +62,8 @@ CylindersInBAResidualPlan::CylindersInBAResidualPlan()
 
 // ----------------------------------------------------------------------------
 
-RectDetPlan::RectDetPlan() : Plan("RectDetPlan") {
+RectDetPlan::RectDetPlan() : Plan("RectDetPlan")
+{
     setBuilderName("CylindersInBABuilder");
     addParameter(Parameter("height", 4.5 * nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0 * nm);
     addParameter(Parameter("radius", 5.5 * nm, AttLimits::limited(4.0, 6.0), 0.01), 5.0 * nm);
@@ -67,7 +71,8 @@ RectDetPlan::RectDetPlan() : Plan("RectDetPlan") {
 
 RectDetPlan::~RectDetPlan() = default;
 
-std::unique_ptr<ISimulation> RectDetPlan::createSimulation(const Parameters&) const {
+std::unique_ptr<ISimulation> RectDetPlan::createSimulation(const Parameters&) const
+{
     std::unique_ptr<GISASSimulation> result(new GISASSimulation());
 
     double detector_distance(500.0);
@@ -84,7 +89,8 @@ std::unique_ptr<ISimulation> RectDetPlan::createSimulation(const Parameters&) co
 
 // ----------------------------------------------------------------------------
 
-SpecularPlan::SpecularPlan() : Plan("SpecularPlan") {
+SpecularPlan::SpecularPlan() : Plan("SpecularPlan")
+{
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
     addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
@@ -93,7 +99,8 @@ SpecularPlan::SpecularPlan() : Plan("SpecularPlan") {
 
 // ----------------------------------------------------------------------------
 
-SpecularPlanQ::SpecularPlanQ() : Plan("SpecularPlanQ") {
+SpecularPlanQ::SpecularPlanQ() : Plan("SpecularPlanQ")
+{
     setSimulationName("BasicSpecularQ");
     setBuilderName("PlainMultiLayerBySLDBuilder");
     addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
@@ -102,7 +109,8 @@ SpecularPlanQ::SpecularPlanQ() : Plan("SpecularPlanQ") {
 
 // ----------------------------------------------------------------------------
 
-MultipleSpecPlan::MultipleSpecPlan() : Plan("MultipleSpecPlan") {
+MultipleSpecPlan::MultipleSpecPlan() : Plan("MultipleSpecPlan")
+{
     setSimulationName("BasicSpecular");
     setBuilderName("PlainMultiLayerBySLDBuilder");
     addParameter(Parameter("ti_thickness", 5.0 * nm, AttLimits::limited(1.0 * nm, 7.0 * nm), 0.1),
@@ -111,7 +119,8 @@ MultipleSpecPlan::MultipleSpecPlan() : Plan("MultipleSpecPlan") {
 
 MultipleSpecPlan::~MultipleSpecPlan() = default;
 
-std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const {
+std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const
+{
     std::unique_ptr<FitObjective> result(new FitObjective);
 
     simulation_builder_t builder = [&](const mumufit::Parameters& params) {
@@ -127,7 +136,8 @@ std::unique_ptr<FitObjective> MultipleSpecPlan::createFitObjective() const {
 
 // ----------------------------------------------------------------------------
 
-OffSpecularPlan::OffSpecularPlan() : Plan("OffSpecularPlan") {
+OffSpecularPlan::OffSpecularPlan() : Plan("OffSpecularPlan")
+{
     setBuilderName("ResonatorBuilder");
     setSimulationName("OffSpecularMini");
     addParameter(

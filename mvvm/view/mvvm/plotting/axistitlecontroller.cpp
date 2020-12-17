@@ -22,12 +22,14 @@ using namespace ModelView;
 struct AxisTitleController::AxisTitleControllerImpl {
     QCPAxis* m_axis{nullptr};
 
-    AxisTitleControllerImpl(QCPAxis* axis) : m_axis(axis) {
+    AxisTitleControllerImpl(QCPAxis* axis) : m_axis(axis)
+    {
         if (!axis)
             throw std::runtime_error("AxisTitleController: axis is not initialized.");
     }
 
-    void updateAxisFromItem(TextItem* item) {
+    void updateAxisFromItem(TextItem* item)
+    {
         auto font = m_axis->labelFont();
         font.setPointSize(item->property<int>(TextItem::P_SIZE));
         font.setFamily(QString::fromStdString(item->property<std::string>(TextItem::P_FONT)));
@@ -41,11 +43,13 @@ struct AxisTitleController::AxisTitleControllerImpl {
 AxisTitleController::AxisTitleController(QCPAxis* axis)
     : p_impl(std::make_unique<AxisTitleControllerImpl>(axis))
 
-{}
+{
+}
 
 AxisTitleController::~AxisTitleController() = default;
 
-void AxisTitleController::subscribe() {
+void AxisTitleController::subscribe()
+{
     auto on_property_change = [this](auto, auto) { p_impl->updateAxisFromItem(currentItem()); };
     setOnPropertyChange(on_property_change);
 

@@ -22,7 +22,8 @@
 namespace gui2 {
 
 //! The constructor
-SLDViewWidget::SLDViewWidget(QWidget* parent) : QGraphicsView(parent) {
+SLDViewWidget::SLDViewWidget(QWidget* parent) : QGraphicsView(parent)
+{
     GraphicsScene* scene_item = new GraphicsScene(parent = this);
     setScene(scene_item);
     setRenderHints(QPainter::Antialiasing);
@@ -35,7 +36,8 @@ SLDViewWidget::SLDViewWidget(QWidget* parent) : QGraphicsView(parent) {
 //! The destructor
 SLDViewWidget::~SLDViewWidget() = default;
 
-void SLDViewWidget::setModels(ApplicationModels* models) {
+void SLDViewWidget::setModels(ApplicationModels* models)
+{
     m_sld_controller = std::make_unique<SLDElementController>(
         models->materialModel(), models->sampleModel(), models->sldViewModel(), nullptr);
     m_sld_controller->setScene(dynamic_cast<GraphicsScene*>(scene()));
@@ -43,7 +45,8 @@ void SLDViewWidget::setModels(ApplicationModels* models) {
 }
 
 //! Resize event management
-void SLDViewWidget::resizeEvent(QResizeEvent* event) {
+void SLDViewWidget::resizeEvent(QResizeEvent* event)
+{
     QWidget::resizeEvent(event);
     GraphicsScene* scene_item = static_cast<GraphicsScene*>(scene());
     scene_item->update_size(event->size());

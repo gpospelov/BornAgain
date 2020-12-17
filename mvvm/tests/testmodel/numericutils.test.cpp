@@ -25,7 +25,8 @@ public:
 
 NumericUtilsTest::~NumericUtilsTest() = default;
 
-TEST_F(NumericUtilsTest, areAlmostEqual) {
+TEST_F(NumericUtilsTest, areAlmostEqual)
+{
     EXPECT_TRUE(Utils::AreAlmostEqual(0.0, 0.0));
     EXPECT_TRUE(Utils::AreAlmostEqual(1.0, 1.0));
     EXPECT_TRUE(Utils::AreAlmostEqual(10.0 / 100.0, 100.0 / 1000.0));

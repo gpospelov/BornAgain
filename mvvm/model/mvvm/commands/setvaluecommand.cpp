@@ -36,7 +36,8 @@ struct SetValueCommand::SetValueCommandImpl {
 
 SetValueCommand::SetValueCommand(SessionItem* item, Variant value, int role)
     : AbstractItemCommand(item)
-    , p_impl(std::make_unique<SetValueCommandImpl>(std::move(value), role)) {
+    , p_impl(std::make_unique<SetValueCommandImpl>(std::move(value), role))
+{
     setResult(false);
 
     setDescription(generate_description(p_impl->m_value.toString().toStdString(), role));
@@ -45,15 +46,18 @@ SetValueCommand::SetValueCommand(SessionItem* item, Variant value, int role)
 
 SetValueCommand::~SetValueCommand() = default;
 
-void SetValueCommand::undo_command() {
+void SetValueCommand::undo_command()
+{
     swap_values();
 }
 
-void SetValueCommand::execute_command() {
+void SetValueCommand::execute_command()
+{
     swap_values();
 }
 
-void SetValueCommand::swap_values() {
+void SetValueCommand::swap_values()
+{
     auto item = itemFromPath(p_impl->m_item_path);
     auto old = item->data<Variant>(p_impl->m_role);
     auto result = item->setDataIntern(p_impl->m_value, p_impl->m_role);
@@ -63,7 +67,8 @@ void SetValueCommand::swap_values() {
 }
 
 namespace {
-std::string generate_description(const std::string& str, int role) {
+std::string generate_description(const std::string& str, int role)
+{
     std::ostringstream ostr;
     ostr << "Set value: " << str << ", role:" << role;
     return ostr.str();

@@ -17,20 +17,24 @@
 #include "Base/Math/Functions.h"
 #include "Base/Math/IntegratorGK.h"
 
-complex_t ripples::factor_x_box(complex_t q, double r) {
+complex_t ripples::factor_x_box(complex_t q, double r)
+{
     return r * Math::sinc(q * r / 2.0);
 }
 
-complex_t ripples::factor_x_Gauss(complex_t q, double r) {
+complex_t ripples::factor_x_Gauss(complex_t q, double r)
+{
     return r * exp(-q * r / 8.0);
 }
 
-complex_t ripples::factor_x_Lorentz(complex_t q, double r) {
+complex_t ripples::factor_x_Lorentz(complex_t q, double r)
+{
     return r / (1.0 + (q * r) * (q * r));
 }
 
 //! Complex form factor of rectangular ripple (bar).
-complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, double height) {
+complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, double height)
+{
     const complex_t qyWdiv2 = width * qy / 2.0;
     const complex_t qzHdiv2 = height * qz / 2.0;
 
@@ -38,7 +42,8 @@ complex_t ripples::profile_yz_bar(complex_t qy, complex_t qz, double width, doub
 }
 
 //! Complex form factor of triangular ripple.
-complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, double height) {
+complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, double height)
+{
     complex_t factor = width / M_PI;
 
     // analytical expressions for some particular cases
@@ -65,7 +70,8 @@ complex_t ripples::profile_yz_cosine(complex_t qy, complex_t qz, double width, d
 
 //! Complex form factor of triangular ripple.
 complex_t ripples::profile_yz_triangular(complex_t qy, complex_t qz, double width, double height,
-                                         double asymmetry) {
+                                         double asymmetry)
+{
     complex_t result;
     const complex_t factor = height * width;
     const complex_t qyW2 = qy * width * 0.5;

@@ -25,7 +25,8 @@ public:
 
 ExternalPropertyTest::~ExternalPropertyTest() = default;
 
-TEST_F(ExternalPropertyTest, initialState) {
+TEST_F(ExternalPropertyTest, initialState)
+{
     ExternalProperty property;
     EXPECT_FALSE(property.isValid());
     EXPECT_EQ(property.text(), "");
@@ -33,7 +34,8 @@ TEST_F(ExternalPropertyTest, initialState) {
     EXPECT_FALSE(property.color().isValid());
 }
 
-TEST_F(ExternalPropertyTest, constructor) {
+TEST_F(ExternalPropertyTest, constructor)
+{
     ExternalProperty property("text", QColor(Qt::red), "123");
     EXPECT_TRUE(property.isValid());
     EXPECT_EQ(property.text(), "text");
@@ -41,7 +43,8 @@ TEST_F(ExternalPropertyTest, constructor) {
     EXPECT_EQ(property.identifier(), "123");
 }
 
-TEST_F(ExternalPropertyTest, equalityOperators) {
+TEST_F(ExternalPropertyTest, equalityOperators)
+{
     ExternalProperty prop1a;
     ExternalProperty prop1b;
 
@@ -56,7 +59,8 @@ TEST_F(ExternalPropertyTest, equalityOperators) {
     EXPECT_FALSE(prop1a == prop2a);
 }
 
-TEST_F(ExternalPropertyTest, variantEquality) {
+TEST_F(ExternalPropertyTest, variantEquality)
+{
     if (Comparators::registered()) {
         ExternalProperty prop1a;
         ExternalProperty prop1b;

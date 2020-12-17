@@ -51,11 +51,13 @@ private:
     size_t m_element_index; //!< sequential number for SimulationElementVector
 };
 
-inline bool SimulationAreaIterator::operator==(const SimulationAreaIterator& other) const {
+inline bool SimulationAreaIterator::operator==(const SimulationAreaIterator& other) const
+{
     return m_area == other.m_area && m_index == other.m_index;
 }
 
-inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator& right) const {
+inline bool SimulationAreaIterator::operator!=(const SimulationAreaIterator& right) const
+{
     return !(*this == right);
 }
 

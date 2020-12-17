@@ -16,11 +16,13 @@
 #include "Base/Math/Constants.h"
 #include <cmath>
 
-kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi) {
+kvector_t vecOfLambdaAlphaPhi(double _lambda, double _alpha, double _phi)
+{
     return M_TWOPI / _lambda * Direction(_alpha, _phi).vector();
 }
 
-kvector_t Direction::vector() const {
+kvector_t Direction::vector() const
+{
     return {std::cos(m_alpha) * std::cos(m_phi), -std::cos(m_alpha) * std::sin(m_phi),
             std::sin(m_alpha)};
 }

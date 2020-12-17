@@ -60,7 +60,8 @@ public:
 
     std::vector<std::string> parameterNames() const;
 
-    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj) {
+    friend std::ostream& operator<<(std::ostream& ostr, const ParameterPool& obj)
+    {
         obj.print(ostr);
         return ostr;
     }

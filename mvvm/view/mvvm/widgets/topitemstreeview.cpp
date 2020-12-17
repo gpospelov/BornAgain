@@ -17,7 +17,8 @@
 #include "mvvm/viewmodel/viewmodel.h"
 
 namespace ModelView {
-TopItemsTreeView::TopItemsTreeView(SessionModel* model, QWidget* parent) : ItemsTreeView(parent) {
+TopItemsTreeView::TopItemsTreeView(SessionModel* model, QWidget* parent) : ItemsTreeView(parent)
+{
     setViewModel(Factory::CreateTopItemsViewModel(model));
 }
 

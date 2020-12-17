@@ -31,7 +31,8 @@ namespace Factory {
 
 template <typename ChildrenStrategy, typename RowStrategy>
 std::unique_ptr<ViewModelController> CreateController(SessionModel* session_model,
-                                                      ViewModelBase* view_model) {
+                                                      ViewModelBase* view_model)
+{
     return ViewModelControllerBuilder()
         .model(session_model)
         .viewModel(view_model)

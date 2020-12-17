@@ -104,7 +104,8 @@ private:
     QModelIndex m_aboutToDelete;
 };
 
-template <class U> inline void ModelMapper::clean_container(U& v, const void* caller) {
+template <class U> inline void ModelMapper::clean_container(U& v, const void* caller)
+{
     v.erase(std::remove_if(
                 v.begin(), v.end(),
                 [caller](typename U::value_type const& x) -> bool { return (x.second == caller); }),

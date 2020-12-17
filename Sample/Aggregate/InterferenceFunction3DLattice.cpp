@@ -18,14 +18,16 @@
 #include <algorithm>
 
 InterferenceFunction3DLattice::InterferenceFunction3DLattice(const Lattice3D& lattice)
-    : IInterferenceFunction(0), m_lattice(lattice), m_peak_shape(nullptr), m_rec_radius(0.0) {
+    : IInterferenceFunction(0), m_lattice(lattice), m_peak_shape(nullptr), m_rec_radius(0.0)
+{
     setName("Interference3DLattice");
     initRecRadius();
 }
 
 InterferenceFunction3DLattice::~InterferenceFunction3DLattice() = default;
 
-InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const {
+InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const
+{
     auto* ret = new InterferenceFunction3DLattice(m_lattice);
     ret->setPositionVariance(m_position_var);
     if (m_peak_shape)
@@ -33,23 +35,28 @@ InterferenceFunction3DLattice* InterferenceFunction3DLattice::clone() const {
     return ret;
 }
 
-void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape) {
+void InterferenceFunction3DLattice::setPeakShape(const IPeakShape& peak_shape)
+{
     m_peak_shape.reset(peak_shape.clone());
 }
 
-const Lattice3D& InterferenceFunction3DLattice::lattice() const {
+const Lattice3D& InterferenceFunction3DLattice::lattice() const
+{
     return m_lattice;
 }
 
-std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const {
+std::vector<const INode*> InterferenceFunction3DLattice::getChildren() const
+{
     return {};
 }
 
-void InterferenceFunction3DLattice::onChange() {
+void InterferenceFunction3DLattice::onChange()
+{
     initRecRadius();
 }
 
-double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const {
+double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
+{
     ASSERT(m_peak_shape);
     kvector_t center = q;
     double radius = 2.1 * m_rec_radius;
@@ -68,7 +75,8 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const {
     return result;
 }
 
-void InterferenceFunction3DLattice::initRecRadius() {
+void InterferenceFunction3DLattice::initRecRadius()
+{
     kvector_t a1 = m_lattice.getBasisVectorA();
     kvector_t a2 = m_lattice.getBasisVectorB();
     kvector_t a3 = m_lattice.getBasisVectorC();

@@ -17,27 +17,33 @@
 using namespace ModelView;
 
 ProgressHandler::ProgressHandler(ProgressHandler::callback_t callback, size_t max_ticks_count)
-    : runner_callback(std::move(callback)), max_ticks_count(max_ticks_count) {}
+    : runner_callback(std::move(callback)), max_ticks_count(max_ticks_count)
+{
+}
 
-void ProgressHandler::subscribe(ProgressHandler::callback_t callback) {
+void ProgressHandler::subscribe(ProgressHandler::callback_t callback)
+{
     runner_callback = std::move(callback);
 }
 
 //! Sets expected ticks count, representing progress of a computation.
 
-void ProgressHandler::setMaxTicksCount(size_t value) {
+void ProgressHandler::setMaxTicksCount(size_t value)
+{
     reset();
     max_ticks_count = value;
 }
 
-bool ProgressHandler::has_interrupt_request() const {
+bool ProgressHandler::has_interrupt_request() const
+{
     return interrupt_request;
 }
 
 //! Increment number of completed computation steps. Performs callback to inform
 //! subscriber about current progress (in percents) and retrieves interrupt request flag.
 
-void ProgressHandler::setCompletedTicks(size_t value) {
+void ProgressHandler::setCompletedTicks(size_t value)
+{
     std::unique_lock<std::mutex> lock(mutex);
     completed_ticks += value;
     if (completed_ticks > max_ticks_count)
@@ -48,7 +54,8 @@ void ProgressHandler::setCompletedTicks(size_t value) {
 
 //! Resets progress.
 
-void ProgressHandler::reset() {
+void ProgressHandler::reset()
+{
     interrupt_request = false;
     completed_ticks = 0;
 }

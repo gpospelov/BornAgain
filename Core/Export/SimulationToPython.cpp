@@ -43,7 +43,8 @@ using pyfmt::indent;
 
 namespace {
 //! Returns a function that converts a coordinate to a Python code snippet with appropiate unit
-std::function<std::string(double)> printFunc(const IDetector* detector) {
+std::function<std::string(double)> printFunc(const IDetector* detector)
+{
     if (detector->defaultAxesUnits() == Axes::Units::MM)
         return pyfmt::printDouble;
     if (detector->defaultAxesUnits() == Axes::Units::RADIANS)
@@ -52,19 +53,22 @@ std::function<std::string(double)> printFunc(const IDetector* detector) {
 }
 
 //! returns true if it is (0, -1, 0) vector
-bool isDefaultDirection(const kvector_t direction) {
+bool isDefaultDirection(const kvector_t direction)
+{
     return algo::almostEqual(direction.x(), 0.0) && algo::almostEqual(direction.y(), -1.0)
            && algo::almostEqual(direction.z(), 0.0);
 }
 
-std::string defineFootprintFactor(const IFootprintFactor& foot) {
+std::string defineFootprintFactor(const IFootprintFactor& foot)
+{
     std::ostringstream result;
     result << indent() << "footprint = ba." << foot.name();
     result << "(" << pyfmt::printDouble(foot.widthRatio()) << ")\n";
     return result.str();
 }
 
-std::string defineScanResolution(const ScanResolution& scan) {
+std::string defineScanResolution(const ScanResolution& scan)
+{
     std::ostringstream result;
     result << pyfmt2::printRangedDistribution(*scan.distribution()) << "\n"
            << indent() << "resolution = "
@@ -73,7 +77,8 @@ std::string defineScanResolution(const ScanResolution& scan) {
     return result.str();
 }
 
-std::string defineAngularSpecScan(const AngularSpecScan& scan) {
+std::string defineAngularSpecScan(const AngularSpecScan& scan)
+{
     std::ostringstream result;
     result << "\n"
            << indent() << "# Define specular scan:\n"
@@ -96,7 +101,8 @@ std::string defineAngularSpecScan(const AngularSpecScan& scan) {
     return result.str();
 }
 
-std::string defineQSpecScan(const QSpecScan& scan) {
+std::string defineQSpecScan(const QSpecScan& scan)
+{
     std::ostringstream result;
     const std::string axis_def = indent() + "axis = ";
     result << axis_def << pyfmt2::printAxis(scan.coordinateAxis(), "") << "\n";
@@ -111,7 +117,8 @@ std::string defineQSpecScan(const QSpecScan& scan) {
     return result.str();
 }
 
-std::string defineScan(const ISpecularScan* scan) {
+std::string defineScan(const ISpecularScan* scan)
+{
     if (const auto* s = dynamic_cast<const AngularSpecScan*>(scan); s)
         return defineAngularSpecScan(*s);
     if (const auto* s = dynamic_cast<const QSpecScan*>(scan); s)
@@ -119,7 +126,8 @@ std::string defineScan(const ISpecularScan* scan) {
     ASSERT(0);
 }
 
-std::string defineDetector(const ISimulation* simulation) {
+std::string defineDetector(const ISimulation* simulation)
+{
     const IDetector* const detector = simulation->instrument().getDetector();
     if (detector->dimension() != 2)
         throw std::runtime_error("defineDetector: "
@@ -191,7 +199,8 @@ std::string defineDetector(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineDetectorResolutionFunction(const ISimulation* simulation) {
+std::string defineDetectorResolutionFunction(const ISimulation* simulation)
+{
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();
 
@@ -213,7 +222,8 @@ std::string defineDetectorResolutionFunction(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation) {
+std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation)
+{
     std::ostringstream result;
     const IDetector* detector = simulation->instrument().getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
@@ -234,7 +244,8 @@ std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineBeamPolarization(const Beam& beam) {
+std::string defineBeamPolarization(const Beam& beam)
+{
     std::ostringstream result;
     auto bloch_vector = beam.getBlochVector();
     if (bloch_vector.mag() > 0.0) {
@@ -248,7 +259,8 @@ std::string defineBeamPolarization(const Beam& beam) {
     return result.str();
 }
 
-std::string defineBeamIntensity(const Beam& beam) {
+std::string defineBeamIntensity(const Beam& beam)
+{
     std::ostringstream result;
     double beam_intensity = beam.intensity();
     if (beam_intensity > 0.0)
@@ -257,7 +269,8 @@ std::string defineBeamIntensity(const Beam& beam) {
     return result.str();
 }
 
-std::string defineGISASBeam(const GISASSimulation& simulation) {
+std::string defineGISASBeam(const GISASSimulation& simulation)
+{
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
@@ -271,7 +284,8 @@ std::string defineGISASBeam(const GISASSimulation& simulation) {
     return result.str();
 }
 
-std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation) {
+std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation)
+{
     std::ostringstream result;
     const Beam& beam = simulation.instrument().beam();
 
@@ -287,7 +301,8 @@ std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation) {
     return result.str();
 }
 
-std::string defineSpecularScan(const SpecularSimulation& simulation) {
+std::string defineSpecularScan(const SpecularSimulation& simulation)
+{
     std::ostringstream result;
     const ISpecularScan* scan = simulation.dataHandler();
     if (!scan)
@@ -299,7 +314,8 @@ std::string defineSpecularScan(const SpecularSimulation& simulation) {
     return result.str();
 }
 
-std::string defineParameterDistributions(const ISimulation* simulation) {
+std::string defineParameterDistributions(const ISimulation* simulation)
+{
     std::ostringstream result;
     const std::vector<ParameterDistribution>& distributions =
         simulation->getDistributionHandler().getDistributions();
@@ -325,7 +341,8 @@ std::string defineParameterDistributions(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineMasks(const ISimulation* simulation) {
+std::string defineMasks(const ISimulation* simulation)
+{
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -343,7 +360,8 @@ std::string defineMasks(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineSimulationOptions(const ISimulation* simulation) {
+std::string defineSimulationOptions(const ISimulation* simulation)
+{
     std::ostringstream result;
     result << std::setprecision(12);
 
@@ -361,7 +379,8 @@ std::string defineSimulationOptions(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineBackground(const ISimulation* simulation) {
+std::string defineBackground(const ISimulation* simulation)
+{
     std::ostringstream result;
 
     auto bg = simulation->background();
@@ -378,7 +397,8 @@ std::string defineBackground(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string defineGISASSimulation(const GISASSimulation* simulation) {
+std::string defineGISASSimulation(const GISASSimulation* simulation)
+{
     std::ostringstream result;
     result << defineGISASBeam(*simulation);
     result << defineDetector(simulation);
@@ -392,7 +412,8 @@ std::string defineGISASSimulation(const GISASSimulation* simulation) {
     return result.str();
 }
 
-std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation) {
+std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation)
+{
     std::ostringstream result;
     result << indent() << "simulation = ba.OffSpecularSimulation()\n";
     result << defineDetector(simulation);
@@ -407,7 +428,8 @@ std::string defineOffSpecularSimulation(const OffSpecularSimulation* simulation)
     return result.str();
 }
 
-std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
+std::string defineSpecularSimulation(const SpecularSimulation* simulation)
+{
     std::ostringstream result;
     result << indent() << "simulation = ba.SpecularSimulation()\n";
     result << defineDetectorPolarizationAnalysis(simulation);
@@ -419,7 +441,8 @@ std::string defineSpecularSimulation(const SpecularSimulation* simulation) {
     return result.str();
 }
 
-std::string defineSimulate(const ISimulation* simulation) {
+std::string defineSimulate(const ISimulation* simulation)
+{
     std::ostringstream result;
     result << "def get_simulation(sample):\n";
     if (auto gisas = dynamic_cast<const GISASSimulation*>(simulation))
@@ -435,7 +458,8 @@ std::string defineSimulate(const ISimulation* simulation) {
     return result.str();
 }
 
-std::string simulationCode(const ISimulation& simulation) {
+std::string simulationCode(const ISimulation& simulation)
+{
     if (simulation.sample() == nullptr)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     std::string code =
@@ -449,14 +473,16 @@ std::string simulationCode(const ISimulation& simulation) {
 //  class SimulationToPython
 //  ************************************************************************************************
 
-std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation) {
+std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation)
+{
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
              "    ba.run_and_plot(get_simulation(get_sample()))\n";
 }
 
 std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation,
-                                                   const std::string& fname) {
+                                                   const std::string& fname)
+{
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
              "    ba.run_and_save(get_simulation(get_sample()), \""

@@ -38,7 +38,8 @@ public:
 
 //! Returns item linked to given item. Works only in model context.
 
-template <typename T> T* LinkedItem::get() const {
+template <typename T> T* LinkedItem::get() const
+{
     return model() ? dynamic_cast<T*>(model()->findItem(data<std::string>())) : nullptr;
 }
 

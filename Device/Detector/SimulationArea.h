@@ -53,7 +53,8 @@ protected:
     size_t m_max_index;
 };
 
-inline size_t SimulationArea::totalSize() const {
+inline size_t SimulationArea::totalSize() const
+{
     return m_max_index;
 }
 

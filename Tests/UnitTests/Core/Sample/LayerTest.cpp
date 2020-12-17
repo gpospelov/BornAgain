@@ -4,9 +4,11 @@
 #include "Sample/Material/MaterialFactoryFuncs.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class LayerTest : public ::testing::Test {};
+class LayerTest : public ::testing::Test {
+};
 
-TEST_F(LayerTest, LayerGetAndSet) {
+TEST_F(LayerTest, LayerGetAndSet)
+{
     Material vacuum = HomogeneousMaterial("Vacuum", 0, 0);
     Layer layer(vacuum, 10 * Units::nm);
     EXPECT_EQ(vacuum, *layer.material());
@@ -25,7 +27,8 @@ TEST_F(LayerTest, LayerGetAndSet) {
     EXPECT_EQ(clone->numberOfLayouts(), 0u);
 }
 
-TEST_F(LayerTest, LayerAndDecoration) {
+TEST_F(LayerTest, LayerAndDecoration)
+{
     Material vacuum = HomogeneousMaterial("Vacuum", 0, 0);
     std::unique_ptr<ParticleLayout> layout1(new ParticleLayout());
 
@@ -38,7 +41,8 @@ TEST_F(LayerTest, LayerAndDecoration) {
     EXPECT_EQ(layer.numberOfLayouts(), 2u);
 }
 
-TEST_F(LayerTest, getChildren) {
+TEST_F(LayerTest, getChildren)
+{
     Layer layer(HomogeneousMaterial("Vacuum", 0.0, 0.0));
 
     std::vector<const INode*> children = layer.getChildren();

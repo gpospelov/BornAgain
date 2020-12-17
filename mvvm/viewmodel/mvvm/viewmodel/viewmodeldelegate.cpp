@@ -28,20 +28,25 @@ using namespace ModelView;
 ViewModelDelegate::ViewModelDelegate(QObject* parent)
     : QStyledItemDelegate(parent)
     , m_editor_factory(std::make_unique<DefaultEditorFactory>())
-    , m_cell_decoration(std::make_unique<DefaultCellDecorator>()) {}
+    , m_cell_decoration(std::make_unique<DefaultCellDecorator>())
+{
+}
 
 ViewModelDelegate::~ViewModelDelegate() = default;
 
-void ViewModelDelegate::setEditorFactory(std::unique_ptr<EditorFactoryInterface> editor_factory) {
+void ViewModelDelegate::setEditorFactory(std::unique_ptr<EditorFactoryInterface> editor_factory)
+{
     m_editor_factory = std::move(editor_factory);
 }
 
-void ViewModelDelegate::setCellDecoration(std::unique_ptr<CellDecoratorInterface> cell_decoration) {
+void ViewModelDelegate::setCellDecoration(std::unique_ptr<CellDecoratorInterface> cell_decoration)
+{
     m_cell_decoration = std::move(cell_decoration);
 }
 
 QWidget* ViewModelDelegate::createEditor(QWidget* parent, const QStyleOptionViewItem& option,
-                                         const QModelIndex& index) const {
+                                         const QModelIndex& index) const
+{
     if (auto editor = m_editor_factory->createEditor(index)) {
         editor->setParent(parent);
         connect(editor.get(), &CustomEditor::dataChanged, this,
@@ -51,7 +56,8 @@ QWidget* ViewModelDelegate::createEditor(QWidget* parent, const QStyleOptionView
     return QStyledItemDelegate::createEditor(parent, option, index);
 }
 
-void ViewModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const {
+void ViewModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index) const
+{
     if (!index.isValid())
         return;
 
@@ -62,7 +68,8 @@ void ViewModelDelegate::setEditorData(QWidget* editor, const QModelIndex& index)
 }
 
 void ViewModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
-                                     const QModelIndex& index) const {
+                                     const QModelIndex& index) const
+{
     if (!index.isValid())
         return;
 
@@ -76,7 +83,8 @@ void ViewModelDelegate::setModelData(QWidget* editor, QAbstractItemModel* model,
 //! Increases height of the row by 20% wrt the default.
 
 QSize ViewModelDelegate::sizeHint(const QStyleOptionViewItem& option,
-                                  const QModelIndex& index) const {
+                                  const QModelIndex& index) const
+{
     QSize result = QStyledItemDelegate::sizeHint(option, index);
     result.setHeight(static_cast<int>(result.height() * scale_default_height_factor));
     return result;
@@ -87,12 +95,14 @@ QSize ViewModelDelegate::sizeHint(const QStyleOptionViewItem& option,
 //! up and running.
 
 void ViewModelDelegate::updateEditorGeometry(QWidget* editor, const QStyleOptionViewItem& option,
-                                             const QModelIndex& index) const {
+                                             const QModelIndex& index) const
+{
     QStyledItemDelegate::updateEditorGeometry(editor, option, index);
     editor->setGeometry(option.rect);
 }
 
-void ViewModelDelegate::onCustomEditorDataChanged() {
+void ViewModelDelegate::onCustomEditorDataChanged()
+{
     auto editor = qobject_cast<CustomEditor*>(sender());
     emit commitData(editor);
     if (!editor->is_persistent())
@@ -100,7 +110,8 @@ void ViewModelDelegate::onCustomEditorDataChanged() {
 }
 
 void ViewModelDelegate::initStyleOption(QStyleOptionViewItem* option,
-                                        const QModelIndex& index) const {
+                                        const QModelIndex& index) const
+{
     QStyledItemDelegate::initStyleOption(option, index);
 
     if (m_cell_decoration && m_cell_decoration->hasCustomDecoration(index))

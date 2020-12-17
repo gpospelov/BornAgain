@@ -17,7 +17,8 @@
 class TestSaveService : public ::testing::Test {
 protected:
     // helper method to modify something in a model
-    void modify_models(ApplicationModels* models) {
+    void modify_models(ApplicationModels* models)
+    {
         auto instrument = models->instrumentModel()->instrumentItem();
         instrument->setItemValue(InstrumentItem::P_IDENTIFIER, GUIHelpers::createUuid());
     }
@@ -27,7 +28,8 @@ protected:
 //! Testing AutosaveController. It watches ProjectDocument and sends autosaveRequest() when
 //! number of document changes has been accumulated.
 
-TEST_F(TestSaveService, test_autoSaveController) {
+TEST_F(TestSaveService, test_autoSaveController)
+{
     const QString projectDir("test_autoSaveController");
     GuiUnittestUtils::create_dir(projectDir);
 
@@ -77,7 +79,8 @@ TEST_F(TestSaveService, test_autoSaveController) {
 
 //! AutosaveController shouldn't trigger autosaveRequest() if document has no name.
 
-TEST_F(TestSaveService, test_autoSaveControllerNewDocument) {
+TEST_F(TestSaveService, test_autoSaveControllerNewDocument)
+{
     ApplicationModels models;
     std::unique_ptr<ProjectDocument> document(new ProjectDocument);
     document->setApplicationModels(&models);
@@ -98,7 +101,8 @@ TEST_F(TestSaveService, test_autoSaveControllerNewDocument) {
 //! Testing SaveService on simple documents (no heavy data).
 //! SaveService should be able to save project file and send documentSaved() signal.
 
-TEST_F(TestSaveService, test_saveService) {
+TEST_F(TestSaveService, test_saveService)
+{
     const QString projectDir("test_saveService");
     GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
@@ -130,7 +134,8 @@ TEST_F(TestSaveService, test_saveService) {
 //! Regression test for issue #1136 ("After a failed project saving, no saving takes place any more;
 //! crash when changing projects")
 
-TEST_F(TestSaveService, test_failingSaveService) {
+TEST_F(TestSaveService, test_failingSaveService)
+{
     const QString projectDir("test_failingSaveService");
     // do NOT create dir in order to force saving to fail
     const QString projectFileName(projectDir + "/document.pro");
@@ -160,7 +165,8 @@ TEST_F(TestSaveService, test_failingSaveService) {
 //! SaveService should be able to save project file (in main thread) and project nonXML
 //! in second thread.
 
-TEST_F(TestSaveService, test_saveServiceWithData) {
+TEST_F(TestSaveService, test_saveServiceWithData)
+{
     const QString projectDir("test_saveServiceWithData");
     GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");
@@ -194,7 +200,8 @@ TEST_F(TestSaveService, test_saveServiceWithData) {
 
 //! Testing SaveService when autosave is enabled.
 
-TEST_F(TestSaveService, test_autosaveEnabled) {
+TEST_F(TestSaveService, test_autosaveEnabled)
+{
     const QString projectDir("test_autosaveEnabled");
     GuiUnittestUtils::create_dir(projectDir);
     const QString projectFileName(projectDir + "/document.pro");

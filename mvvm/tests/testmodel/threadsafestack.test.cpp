@@ -29,7 +29,8 @@ ThreadSafeStackTest::~ThreadSafeStackTest() = default;
 
 //! Checking stack initial state (single thread mode).
 
-TEST_F(ThreadSafeStackTest, initialState) {
+TEST_F(ThreadSafeStackTest, initialState)
+{
     threadsafe_stack<int> stack;
     EXPECT_TRUE(stack.empty());
     int value;
@@ -41,7 +42,8 @@ TEST_F(ThreadSafeStackTest, initialState) {
 
 //! Push and then pop (single thread mode).
 
-TEST_F(ThreadSafeStackTest, pushAndPop) {
+TEST_F(ThreadSafeStackTest, pushAndPop)
+{
     threadsafe_stack<int> stack;
 
     stack.push(42);
@@ -57,7 +59,8 @@ TEST_F(ThreadSafeStackTest, pushAndPop) {
 
 //! Update top value (single thread mode).
 
-TEST_F(ThreadSafeStackTest, updateTop) {
+TEST_F(ThreadSafeStackTest, updateTop)
+{
     threadsafe_stack<int> stack;
 
     // update of empty stack means simple appearance of value
@@ -81,7 +84,8 @@ TEST_F(ThreadSafeStackTest, updateTop) {
 //! Push and pop in concurrent mode.
 //! Test is borrowed from Anthony Williams, C++ Concurrency in Action, Second edition.
 
-TEST_F(ThreadSafeStackTest, concurentPushAndPop) {
+TEST_F(ThreadSafeStackTest, concurentPushAndPop)
+{
     threadsafe_stack<int> stack;
     std::promise<void> go, push_ready_for_test, pop_ready_for_test;
     std::shared_future<void> ready(go.get_future());
@@ -124,7 +128,8 @@ TEST_F(ThreadSafeStackTest, concurentPushAndPop) {
 
 //! Explicitely terminate waiting (concurrent mode).
 
-TEST_F(ThreadSafeStackTest, concurentStopWaiting) {
+TEST_F(ThreadSafeStackTest, concurentStopWaiting)
+{
     threadsafe_stack<int> stack;
     std::promise<void> go, pop_ready_for_test;
     std::shared_future<void> ready(go.get_future());

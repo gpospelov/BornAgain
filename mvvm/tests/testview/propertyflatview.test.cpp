@@ -30,7 +30,8 @@ public:
 
     //! Returns vector representing enable status of widgets in layout.
 
-    std::vector<int> enable_status(PropertyFlatView& flat_view) {
+    std::vector<int> enable_status(PropertyFlatView& flat_view)
+    {
         std::vector<int> result;
         auto layout = flat_view.findChild<QGridLayout*>();
         for (int row = 0; row < layout->rowCount(); ++row)
@@ -43,7 +44,8 @@ public:
 
 PropertyFlatViewTest::~PropertyFlatViewTest() = default;
 
-TEST_F(PropertyFlatViewTest, layoutForVector) {
+TEST_F(PropertyFlatViewTest, layoutForVector)
+{
     SessionModel model;
     auto vector_item = model.insertItem<VectorItem>();
 
@@ -58,7 +60,8 @@ TEST_F(PropertyFlatViewTest, layoutForVector) {
     std::vector<int> expected_enabled = {1, 1, 1, 1, 1, 1};
 }
 
-TEST_F(PropertyFlatViewTest, appearanceForItem) {
+TEST_F(PropertyFlatViewTest, appearanceForItem)
+{
     SessionModel model;
     auto vector_item = model.insertItem<VectorItem>();
     auto x_item = vector_item->getItem(VectorItem::P_X);

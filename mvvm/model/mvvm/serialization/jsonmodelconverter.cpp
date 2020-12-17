@@ -27,7 +27,8 @@ using namespace ModelView;
 
 namespace {
 std::unique_ptr<JsonItemConverterInterface> CreateConverter(const ItemFactoryInterface* factory,
-                                                            ConverterMode mode) {
+                                                            ConverterMode mode)
+{
     if (mode == ConverterMode::clone)
         return CreateItemCloneConverter(factory);
     else if (mode == ConverterMode::copy)
@@ -44,7 +45,8 @@ JsonModelConverter::JsonModelConverter(ConverterMode mode) : m_mode(mode) {}
 
 JsonModelConverter::~JsonModelConverter() = default;
 
-QJsonObject JsonModelConverter::to_json(const SessionModel& model) const {
+QJsonObject JsonModelConverter::to_json(const SessionModel& model) const
+{
     QJsonObject result;
 
     if (!model.rootItem())
@@ -64,7 +66,8 @@ QJsonObject JsonModelConverter::to_json(const SessionModel& model) const {
     return result;
 }
 
-void JsonModelConverter::from_json(const QJsonObject& json, SessionModel& model) const {
+void JsonModelConverter::from_json(const QJsonObject& json, SessionModel& model) const
+{
     if (!model.rootItem())
         throw std::runtime_error("JsonModel::json_to_model() -> Error. Model is not initialized.");
 

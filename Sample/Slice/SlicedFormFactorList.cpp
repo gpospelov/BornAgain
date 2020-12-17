@@ -31,7 +31,8 @@ void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor);
 
 SlicedFormFactorList SlicedFormFactorList::createSlicedFormFactors(const IParticle& particle,
                                                                    const std::vector<Slice>& slices,
-                                                                   double z_ref) {
+                                                                   double z_ref)
+{
     SlicedFormFactorList result;
     auto particles = particle.decompose();
     for (auto* particle : particles) {
@@ -41,7 +42,8 @@ SlicedFormFactorList SlicedFormFactorList::createSlicedFormFactors(const IPartic
 }
 
 void SlicedFormFactorList::addParticle(IParticle& particle, const std::vector<Slice>& slices,
-                                       double z_ref) {
+                                       double z_ref)
+{
     auto slice_indices = SliceIndexSpan(particle, slices, z_ref);
     bool single_layer = (slice_indices.first == slice_indices.second);
     for (size_t i = slice_indices.first; i < slice_indices.second + 1; ++i) {
@@ -61,24 +63,28 @@ void SlicedFormFactorList::addParticle(IParticle& particle, const std::vector<Sl
     }
 }
 
-size_t SlicedFormFactorList::size() const {
+size_t SlicedFormFactorList::size() const
+{
     return m_ff_list.size();
 }
 
-std::pair<const IFormFactor*, size_t> SlicedFormFactorList::operator[](size_t index) const {
+std::pair<const IFormFactor*, size_t> SlicedFormFactorList::operator[](size_t index) const
+{
     if (index >= size())
         throw std::out_of_range("SlicedFormFactorList::operator[] error: "
                                 "index out of range");
     return {m_ff_list[index].first.get(), m_ff_list[index].second};
 }
 
-std::map<size_t, std::vector<HomogeneousRegion>> SlicedFormFactorList::regionMap() const {
+std::map<size_t, std::vector<HomogeneousRegion>> SlicedFormFactorList::regionMap() const
+{
     return m_region_map;
 }
 
 namespace {
 std::pair<size_t, size_t> SliceIndexSpan(const IParticle& particle,
-                                         const std::vector<Slice>& slices, double z_ref) {
+                                         const std::vector<Slice>& slices, double z_ref)
+{
     auto bottomTopZ = particle.bottomTopZ();
     double zbottom = bottomTopZ.m_bottom;
     double ztop = bottomTopZ.m_top;
@@ -93,7 +99,8 @@ std::pair<size_t, size_t> SliceIndexSpan(const IParticle& particle,
     return {top_index, bottom_index};
 }
 
-size_t TopZToSliceIndex(double z, const std::vector<Slice>& slices) {
+size_t TopZToSliceIndex(double z, const std::vector<Slice>& slices)
+{
     auto n_layers = slices.size();
     if (n_layers < 2 || z > 0.0)
         return 0;
@@ -108,7 +115,8 @@ size_t TopZToSliceIndex(double z, const std::vector<Slice>& slices) {
     return i_slice;
 }
 
-size_t BottomZToSliceIndex(double z, const std::vector<Slice>& slices) {
+size_t BottomZToSliceIndex(double z, const std::vector<Slice>& slices)
+{
     auto n_layers = slices.size();
     if (n_layers < 2 || z >= 0.0)
         return 0;
@@ -123,7 +131,8 @@ size_t BottomZToSliceIndex(double z, const std::vector<Slice>& slices) {
     return i_slice;
 }
 
-double SliceTopZ(size_t i, const std::vector<Slice>& slices) {
+double SliceTopZ(size_t i, const std::vector<Slice>& slices)
+{
     if (i == 0)
         return 0.0;
     double top_z = 0.0;
@@ -132,7 +141,8 @@ double SliceTopZ(size_t i, const std::vector<Slice>& slices) {
     return top_z;
 }
 
-ZLimits SlicesZLimits(const std::vector<Slice>& slices, size_t slice_index) {
+ZLimits SlicesZLimits(const std::vector<Slice>& slices, size_t slice_index)
+{
     size_t N = slices.size();
     if (N < 2)
         return ZLimits{};
@@ -144,7 +154,8 @@ ZLimits SlicesZLimits(const std::vector<Slice>& slices, size_t slice_index) {
     return ZLimits(-thickness, 0.0);
 }
 
-void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor) {
+void ScaleRegions(std::vector<HomogeneousRegion>& regions, double factor)
+{
     for (auto& region : regions)
         region.m_volume *= factor;
 }

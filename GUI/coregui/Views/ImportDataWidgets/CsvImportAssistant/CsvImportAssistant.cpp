@@ -39,7 +39,8 @@ CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, Q
     , m_firstRow(-1)
     , m_lastRow(-1)
     , m_units(Axes::Units::NBINS)
-    , m_dataAvailable(false) {
+    , m_dataAvailable(false)
+{
     if (!loadCsvFile()) {
         return;
     }
@@ -56,7 +57,8 @@ CsvImportAssistant::CsvImportAssistant(const QString& file, const bool useGUI, Q
     }
 }
 
-void CsvImportAssistant::runDataSelector(QWidget* parent) {
+void CsvImportAssistant::runDataSelector(QWidget* parent)
+{
     DataSelector selector(m_csvArray, parent);
     m_separator = guessSeparator();
     selector.setSeparator(guessSeparator());
@@ -87,23 +89,28 @@ void CsvImportAssistant::runDataSelector(QWidget* parent) {
     }
 }
 
-void CsvImportAssistant::setIntensityColumn(int iCol, double multiplier) {
+void CsvImportAssistant::setIntensityColumn(int iCol, double multiplier)
+{
     m_intensityColNum = iCol - 1;
     m_intensityMultiplier = multiplier;
 }
-void CsvImportAssistant::setCoordinateColumn(int iCol, Axes::Units units, double multiplier) {
+void CsvImportAssistant::setCoordinateColumn(int iCol, Axes::Units units, double multiplier)
+{
     m_coordinateColNum = iCol - 1;
     m_units = units;
     m_coordinateMultiplier = multiplier;
 }
-void CsvImportAssistant::setFirstRow(int iRow) {
+void CsvImportAssistant::setFirstRow(int iRow)
+{
     m_firstRow = iRow - 1;
 }
-void CsvImportAssistant::setLastRow(int iRow) {
+void CsvImportAssistant::setLastRow(int iRow)
+{
     m_lastRow = iRow - 1;
 }
 
-bool CsvImportAssistant::loadCsvFile() {
+bool CsvImportAssistant::loadCsvFile()
+{
 
     try {
         if (m_separator == '\0')
@@ -149,12 +156,14 @@ bool CsvImportAssistant::loadCsvFile() {
     return true;
 }
 
-void CsvImportAssistant::resetAssistant() {
+void CsvImportAssistant::resetAssistant()
+{
     resetSelection();
     loadCsvFile();
 }
 
-ImportDataInfo CsvImportAssistant::fillData() {
+ImportDataInfo CsvImportAssistant::fillData()
+{
     // In case a 2d import is needed in the future
     // Use ArrayUtils::Create2dData(vector<vector<double>>)
     // ArrayUtils::Create2d
@@ -175,7 +184,8 @@ ImportDataInfo CsvImportAssistant::fillData() {
 }
 
 void CsvImportAssistant::getValuesFromColumns(std::vector<double>& intensityValues,
-                                              std::vector<double>& coordinateValues) {
+                                              std::vector<double>& coordinateValues)
+{
     bool intensityOk = true;
     bool coordinateOk = true;
     auto firstRow = size_t(m_firstRow);
@@ -210,7 +220,8 @@ void CsvImportAssistant::getValuesFromColumns(std::vector<double>& intensityValu
     }
 }
 
-void CsvImportAssistant::removeMultipleWhiteSpaces() {
+void CsvImportAssistant::removeMultipleWhiteSpaces()
+{
     if (m_csvArray.empty())
         return;
 
@@ -247,7 +258,8 @@ void CsvImportAssistant::removeMultipleWhiteSpaces() {
     m_csvArray.swap(buffer2d);
 }
 
-void CsvImportAssistant::removeBlankColumns() {
+void CsvImportAssistant::removeBlankColumns()
+{
 
     if (m_csvArray.empty())
         return;
@@ -297,7 +309,8 @@ void CsvImportAssistant::removeBlankColumns() {
     }
 }
 
-char CsvImportAssistant::guessSeparator() const {
+char CsvImportAssistant::guessSeparator() const
+{
     int frequencies[127] = {0};
 
     // The actual characters that may be realistically
@@ -347,21 +360,24 @@ char CsvImportAssistant::guessSeparator() const {
     return guessedSep;
 }
 
-bool CsvImportAssistant::hasEqualLengthLines(csv::DataArray& dataArray) {
+bool CsvImportAssistant::hasEqualLengthLines(csv::DataArray& dataArray)
+{
     auto tf = all_of(begin(dataArray), end(dataArray), [dataArray](const csv::DataRow& x) {
         return x.size() == dataArray.front().size();
     });
     return tf;
 }
 
-void CsvImportAssistant::showErrorMessage(std::string message) {
+void CsvImportAssistant::showErrorMessage(std::string message)
+{
     QMessageBox msgBox;
     msgBox.setText(QString::fromStdString(message));
     msgBox.setIcon(msgBox.Critical);
     msgBox.exec();
 }
 
-void CsvImportAssistant::resetSelection() {
+void CsvImportAssistant::resetSelection()
+{
     m_csvArray.clear();
     m_intensityColNum = -1;
     m_coordinateColNum = -1;

@@ -2,9 +2,11 @@
 #include "Device/Data/DataUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
 
-class DataUtilsTest : public ::testing::Test {};
+class DataUtilsTest : public ::testing::Test {
+};
 
-TEST_F(DataUtilsTest, ClipDataSetFixed) {
+TEST_F(DataUtilsTest, ClipDataSetFixed)
+{
     OutputData<double> data;
     FixedBinAxis axis0("axis0", 10, -5.0, 5.0);
     data.addAxis(axis0);
@@ -22,7 +24,8 @@ TEST_F(DataUtilsTest, ClipDataSetFixed) {
         EXPECT_EQ(vref[index++], (*clip)[i]);
 }
 
-TEST_F(DataUtilsTest, ClipDataSetVariable) {
+TEST_F(DataUtilsTest, ClipDataSetVariable)
+{
     static const double arr[] = {-1.0, -0.5, 0.5, 1.0, 2.0};
     std::vector<double> values(arr, arr + sizeof(arr) / sizeof(arr[0]));
 
@@ -43,7 +46,8 @@ TEST_F(DataUtilsTest, ClipDataSetVariable) {
         EXPECT_EQ(vref[index++], (*clip)[i]);
 }
 
-TEST_F(DataUtilsTest, createRearrangedDataSet) {
+TEST_F(DataUtilsTest, createRearrangedDataSet)
+{
     OutputData<double> input_data;
     input_data.addAxis("axis0", 2, 1.0, 2.0);
     input_data.addAxis("axis1", 3, 3.0, 4.0);
@@ -99,7 +103,8 @@ TEST_F(DataUtilsTest, createRearrangedDataSet) {
     EXPECT_EQ(input_data[2], (*output_data)[5]);
 }
 
-TEST_F(DataUtilsTest, coordinateToFromBinf) {
+TEST_F(DataUtilsTest, coordinateToFromBinf)
+{
     FixedBinAxis axis("axis", 8, -5.0, 3.0);
     EXPECT_EQ(0.5, DataUtils::coordinateToBinf(-4.5, axis));
     EXPECT_EQ(-4.5, DataUtils::coordinateFromBinf(0.5, axis));
@@ -120,7 +125,8 @@ TEST_F(DataUtilsTest, coordinateToFromBinf) {
 //! Transformation of coordinates from one OutputData to another using conversion from axes
 //! coordinates to bin-fraction-coordinates and then to another axes coordinates.
 
-TEST_F(DataUtilsTest, outputDataCoordinatesToFromBinf) {
+TEST_F(DataUtilsTest, outputDataCoordinatesToFromBinf)
+{
     OutputData<double> data1;
     data1.addAxis("axis0", 8, -5.0, 3.0);
     data1.addAxis("axis1", 3, 2.0, 5.0);
@@ -143,7 +149,8 @@ TEST_F(DataUtilsTest, outputDataCoordinatesToFromBinf) {
     EXPECT_DOUBLE_EQ(y, 21.0);
 }
 
-TEST_F(DataUtilsTest, create2DArrayfromOutputDataTest) {
+TEST_F(DataUtilsTest, create2DArrayfromOutputDataTest)
+{
     OutputData<double> out_data;
     out_data.addAxis("axis0", 2, 1.0, 2.0);
     out_data.addAxis("axis1", 3, 3.0, 4.0);
@@ -172,7 +179,8 @@ TEST_F(DataUtilsTest, create2DArrayfromOutputDataTest) {
     EXPECT_EQ(array_expected_2d, array_2d);
 }
 
-TEST_F(DataUtilsTest, createOutputDatafrom2DArrayTest) {
+TEST_F(DataUtilsTest, createOutputDatafrom2DArrayTest)
+{
     std::vector<double> arr_in{1, 2, 3, 4, 5, 6};
     std::vector<std::vector<double>> array_2d{{arr_in[0], arr_in[1], arr_in[2]},
                                               {arr_in[3], arr_in[4], arr_in[5]}};

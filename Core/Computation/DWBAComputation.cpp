@@ -32,7 +32,8 @@ DWBAComputation::DWBAComputation(const MultiLayer& multilayer, const SimulationO
                                  ProgressHandler& progress,
                                  std::vector<SimulationElement>::iterator begin_it,
                                  std::vector<SimulationElement>::iterator end_it)
-    : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it) {
+    : IComputation(multilayer, options, progress), m_begin_it(begin_it), m_end_it(end_it)
+{
     const IFresnelMap* p_fresnel_map = m_processed_sample->fresnelMap();
     bool polarized = m_processed_sample->containsMagneticMaterial();
     for (const ProcessedLayout& layout : m_processed_sample->layouts()) {
@@ -54,7 +55,8 @@ DWBAComputation::~DWBAComputation() = default;
 // For roughness: (scattering cross-section of area S)/S
 // For specular peak: |R|^2 * sin(alpha_i) / solid_angle
 // This allows them to be added and normalized together to the beam afterwards
-void DWBAComputation::runProtected() {
+void DWBAComputation::runProtected()
+{
     if (!m_progress->alive())
         return;
     m_single_computation.setProgressHandler(m_progress);

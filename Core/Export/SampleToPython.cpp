@@ -41,8 +41,8 @@ using pyfmt::indent;
 
 namespace {
 
-void setRotationInformation(const IParticle* particle, std::string name,
-                            std::ostringstream& result) {
+void setRotationInformation(const IParticle* particle, std::string name, std::ostringstream& result)
+{
     if (particle->rotation()) {
         switch (particle->rotation()->getTransform3D().getRotationType()) {
         case Transform3D::EULER: {
@@ -76,8 +76,8 @@ void setRotationInformation(const IParticle* particle, std::string name,
     }
 }
 
-void setPositionInformation(const IParticle* particle, std::string name,
-                            std::ostringstream& result) {
+void setPositionInformation(const IParticle* particle, std::string name, std::ostringstream& result)
+{
     kvector_t pos = particle->position();
     if (pos == kvector_t())
         return;
@@ -93,12 +93,14 @@ void setPositionInformation(const IParticle* particle, std::string name,
 //  class SampleToPython
 //  ************************************************************************************************
 
-std::string SampleToPython::sampleCode(const MultiLayer& multilayer) {
+std::string SampleToPython::sampleCode(const MultiLayer& multilayer)
+{
     initLabels(multilayer);
     return defineGetSample();
 }
 
-void SampleToPython::initLabels(const MultiLayer& multilayer) {
+void SampleToPython::initLabels(const MultiLayer& multilayer)
+{
     m_objs.reset(new ComponentKeyHandler());
     m_materials.reset(new MaterialKeyHandler());
 
@@ -138,7 +140,8 @@ SampleToPython::SampleToPython() = default;
 
 SampleToPython::~SampleToPython() = default;
 
-std::string SampleToPython::defineGetSample() const {
+std::string SampleToPython::defineGetSample() const
+{
     return "def get_sample():\n" + defineMaterials() + defineFormFactors() + defineParticles()
            + defineCoreShellParticles() + defineParticleCompositions() + defineLattices2D()
            + defineLattices3D() + defineCrystals() + defineMesoCrystals()
@@ -150,7 +153,8 @@ const std::map<MATERIAL_TYPES, std::string> factory_names{
     {MATERIAL_TYPES::RefractiveMaterial, "HomogeneousMaterial"},
     {MATERIAL_TYPES::MaterialBySLD, "MaterialBySLD"}};
 
-std::string SampleToPython::defineMaterials() const {
+std::string SampleToPython::defineMaterials() const
+{
     const auto themap = m_materials->materialMap();
     if (themap.empty())
         return "";
@@ -188,7 +192,8 @@ std::string SampleToPython::defineMaterials() const {
     return result.str();
 }
 
-std::string SampleToPython::defineLayers() const {
+std::string SampleToPython::defineLayers() const
+{
     std::vector<const Layer*> v = m_objs->objectsOfType<Layer>();
     if (v.empty())
         return "";
@@ -209,7 +214,8 @@ std::string SampleToPython::defineLayers() const {
     return result.str();
 }
 
-std::string SampleToPython::defineRoughnesses() const {
+std::string SampleToPython::defineRoughnesses() const
+{
     std::vector<const LayerRoughness*> v = m_objs->objectsOfType<LayerRoughness>();
     if (v.empty())
         return "";
@@ -223,7 +229,8 @@ std::string SampleToPython::defineRoughnesses() const {
     return result.str();
 }
 
-std::string SampleToPython::defineFormFactors() const {
+std::string SampleToPython::defineFormFactors() const
+{
     std::vector<const IFormFactor*> v = m_objs->objectsOfType<IFormFactor>();
     if (v.empty())
         return "";
@@ -238,7 +245,8 @@ std::string SampleToPython::defineFormFactors() const {
     return result.str();
 }
 
-std::string SampleToPython::defineInterferenceFunctions() const {
+std::string SampleToPython::defineInterferenceFunctions() const
+{
     std::vector<const IInterferenceFunction*> v = m_objs->objectsOfType<IInterferenceFunction>();
     if (v.empty())
         return "";
@@ -355,7 +363,8 @@ std::string SampleToPython::defineInterferenceFunctions() const {
     return result.str();
 }
 
-std::string SampleToPython::defineParticleLayouts() const {
+std::string SampleToPython::defineParticleLayouts() const
+{
     std::vector<const ParticleLayout*> v = m_objs->objectsOfType<ParticleLayout>();
     if (v.empty())
         return "";
@@ -381,7 +390,8 @@ std::string SampleToPython::defineParticleLayouts() const {
     return result.str();
 }
 
-std::string SampleToPython::defineParticles() const {
+std::string SampleToPython::defineParticles() const
+{
     std::vector<const Particle*> v = m_objs->objectsOfType<Particle>();
     if (v.empty())
         return "";
@@ -400,7 +410,8 @@ std::string SampleToPython::defineParticles() const {
     return result.str();
 }
 
-std::string SampleToPython::defineCoreShellParticles() const {
+std::string SampleToPython::defineCoreShellParticles() const
+{
     std::vector<const ParticleCoreShell*> v = m_objs->objectsOfType<ParticleCoreShell>();
     if (v.empty())
         return "";
@@ -418,7 +429,8 @@ std::string SampleToPython::defineCoreShellParticles() const {
     return result.str();
 }
 
-std::string SampleToPython::defineParticleDistributions() const {
+std::string SampleToPython::defineParticleDistributions() const
+{
     std::vector<const ParticleDistribution*> v = m_objs->objectsOfType<ParticleDistribution>();
     if (v.empty())
         return "";
@@ -460,7 +472,8 @@ std::string SampleToPython::defineParticleDistributions() const {
     return result.str();
 }
 
-std::string SampleToPython::defineParticleCompositions() const {
+std::string SampleToPython::defineParticleCompositions() const
+{
     std::vector<const ParticleComposition*> v = m_objs->objectsOfType<ParticleComposition>();
     if (v.empty())
         return "";
@@ -480,7 +493,8 @@ std::string SampleToPython::defineParticleCompositions() const {
     return result.str();
 }
 
-std::string SampleToPython::defineMesoCrystals() const {
+std::string SampleToPython::defineMesoCrystals() const
+{
     std::vector<const MesoCrystal*> v = m_objs->objectsOfType<MesoCrystal>();
     if (v.empty())
         return "";
@@ -502,7 +516,8 @@ std::string SampleToPython::defineMesoCrystals() const {
     return result.str();
 }
 
-std::string SampleToPython::defineLattices2D() const {
+std::string SampleToPython::defineLattices2D() const
+{
     std::vector<const Lattice2D*> v = m_objs->objectsOfType<Lattice2D>();
     if (v.empty())
         return "";
@@ -519,7 +534,8 @@ std::string SampleToPython::defineLattices2D() const {
     return result.str();
 }
 
-std::string SampleToPython::defineLattices3D() const {
+std::string SampleToPython::defineLattices3D() const
+{
     std::vector<const Lattice3D*> v = m_objs->objectsOfType<Lattice3D>();
     if (v.empty())
         return "";
@@ -542,7 +558,8 @@ std::string SampleToPython::defineLattices3D() const {
     return result.str();
 }
 
-std::string SampleToPython::defineCrystals() const {
+std::string SampleToPython::defineCrystals() const
+{
     std::vector<const Crystal*> v = m_objs->objectsOfType<Crystal>();
     if (v.empty())
         return "";
@@ -562,7 +579,8 @@ std::string SampleToPython::defineCrystals() const {
     return result.str();
 }
 
-std::string SampleToPython::defineMultiLayers() const {
+std::string SampleToPython::defineMultiLayers() const
+{
     std::vector<const MultiLayer*> v = m_objs->objectsOfType<MultiLayer>();
     if (v.empty())
         return "";

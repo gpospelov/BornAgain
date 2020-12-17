@@ -25,7 +25,9 @@ SpecularSimulationElement::SpecularSimulationElement(double kz, const Instrument
     , m_computable(computable)
     , m_kz_computation([kz](const std::vector<Slice>& slices) {
         return KzComputation::computeKzFromSLDs(slices, kz);
-    }) {}
+    })
+{
+}
 
 SpecularSimulationElement::SpecularSimulationElement(double wavelength, double alpha,
                                                      const Instrument& instrument, bool computable)
@@ -36,22 +38,29 @@ SpecularSimulationElement::SpecularSimulationElement(double wavelength, double a
     , m_kz_computation(
           [k = vecOfLambdaAlphaPhi(wavelength, alpha, 0.0)](const std::vector<Slice>& slices) {
               return KzComputation::computeKzFromRefIndices(slices, k);
-          }) {}
+          })
+{
+}
 
 SpecularSimulationElement::SpecularSimulationElement(const SpecularSimulationElement& other)
     : m_polarization(other.m_polarization)
     , m_intensity(other.m_intensity)
     , m_computable(other.m_computable)
-    , m_kz_computation(other.m_kz_computation) {}
+    , m_kz_computation(other.m_kz_computation)
+{
+}
 
 SpecularSimulationElement::SpecularSimulationElement(SpecularSimulationElement&& other) noexcept
     : m_polarization(std::move(other.m_polarization))
     , m_intensity(other.m_intensity)
     , m_computable(other.m_computable)
-    , m_kz_computation(std::move(other.m_kz_computation)) {}
+    , m_kz_computation(std::move(other.m_kz_computation))
+{
+}
 
 SpecularSimulationElement::~SpecularSimulationElement() = default;
 
-std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices) {
+std::vector<complex_t> SpecularSimulationElement::produceKz(const std::vector<Slice>& slices)
+{
     return m_kz_computation(slices);
 }

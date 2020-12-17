@@ -33,16 +33,19 @@ const QString filter_string_ba = "Intensity File (*.int *.gz *.tif *.tiff *.txt 
 const QString filter_string_ascii = "Intensity File (*.int *.int.gz *.txt *.csv *.dat *.ascii);;"
                                     "Ascii column-wise data (*.*)";
 
-int rank(const RealDataItem& item) {
+int rank(const RealDataItem& item)
+{
     return static_cast<int>(item.shape().size());
 }
 
-int rank(const InstrumentItem& item) {
+int rank(const InstrumentItem& item)
+{
     return static_cast<int>(item.shape().size());
 }
 } // namespace
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fileName) {
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fileName)
+{
     // Try to use the canonical tools for importing data
     std::unique_ptr<OutputData<double>> result;
     try {
@@ -58,7 +61,8 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportKnownData(QString& fi
     return result;
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QString& fileName) {
+std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QString& fileName)
+{
     std::unique_ptr<OutputData<double>> result;
     try {
         std::unique_ptr<OutputData<double>> data(
@@ -73,11 +77,13 @@ std::unique_ptr<OutputData<double>> ImportDataUtils::ImportReflectometryData(QSt
     return result;
 }
 
-std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& fileName) {
+std::unique_ptr<OutputData<double>> ImportDataUtils::Import2dData(QString& fileName)
+{
     return ImportKnownData(fileName);
 }
 
-ImportDataInfo ImportDataUtils::Import1dData(QString& fileName) {
+ImportDataInfo ImportDataUtils::Import1dData(QString& fileName)
+{
     if (DataFormatUtils::isCompressed(fileName.toStdString())
         || DataFormatUtils::isIntFile(fileName.toStdString())
         || DataFormatUtils::isTiffFile(fileName.toStdString())) {
@@ -103,7 +109,8 @@ ImportDataInfo ImportDataUtils::Import1dData(QString& fileName) {
     }
 }
 
-ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName) {
+ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName)
+{
     if (!csv::isAscii(fileName)) {
         QString message =
             QString(
@@ -128,12 +135,14 @@ ImportDataInfo ImportDataUtils::getFromImportAssistant(QString& fileName) {
 }
 
 bool ImportDataUtils::Compatible(const InstrumentItem& instrumentItem,
-                                 const RealDataItem& realDataItem) {
+                                 const RealDataItem& realDataItem)
+{
     return rank(instrumentItem) == rank(realDataItem);
 }
 
 std::unique_ptr<OutputData<double>>
-ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data) {
+ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data)
+{
     const size_t data_rank = data.rank();
     if (data_rank > 2 || data_rank < 1)
         throw std::runtime_error("Error in ImportDataUtils::CreateSimplifiedOutputData: passed "
@@ -153,7 +162,8 @@ ImportDataUtils::CreateSimplifiedOutputData(const OutputData<double>& data) {
 }
 
 QString ImportDataUtils::printShapeMessage(const std::vector<int>& instrument_shape,
-                                           const std::vector<int>& data_shape) {
+                                           const std::vector<int>& data_shape)
+{
     auto to_str = [](const std::vector<int>& shape) {
         std::string result;
         for (size_t i = 0, size = shape.size(); i < size; ++i) {

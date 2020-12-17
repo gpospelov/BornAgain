@@ -27,7 +27,8 @@ public:
 
 GroupItemTest::~GroupItemTest() = default;
 
-TEST_F(GroupItemTest, initialState) {
+TEST_F(GroupItemTest, initialState)
+{
     GroupItem item;
     EXPECT_EQ(item.currentIndex(), -1);
     EXPECT_EQ(item.currentItem(), nullptr);

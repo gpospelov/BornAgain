@@ -43,7 +43,8 @@ double getTestValue(size_t bin, double factor);
 SpecularDataItem* fillTestItem(SessionItem* item, double factor);
 } // namespace
 
-TestView::TestView(MainWindow* mainWindow) : QWidget(mainWindow), m_mainWindow(mainWindow) {
+TestView::TestView(MainWindow* mainWindow) : QWidget(mainWindow), m_mainWindow(mainWindow)
+{
     //    test_ComponentProxyModel();
     //    test_MaterialEditor();
     //    test_MinimizerSettings();
@@ -53,7 +54,8 @@ TestView::TestView(MainWindow* mainWindow) : QWidget(mainWindow), m_mainWindow(m
     //    test_specular_data_widget();
 }
 
-void TestView::test_ComponentProxyModel() {
+void TestView::test_ComponentProxyModel()
+{
     auto layout = new QHBoxLayout();
     layout->setMargin(0);
     layout->setSpacing(0);
@@ -63,7 +65,8 @@ void TestView::test_ComponentProxyModel() {
     setLayout(layout);
 }
 
-void TestView::test_MaterialEditor() {
+void TestView::test_MaterialEditor()
+{
     MaterialEditor* materialEditor = new MaterialEditor(m_mainWindow->materialModel());
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -72,7 +75,8 @@ void TestView::test_MaterialEditor() {
     setLayout(layout);
 }
 
-void TestView::test_MinimizerSettings() {
+void TestView::test_MinimizerSettings()
+{
     MinimizerSettingsWidget* widget = new MinimizerSettingsWidget;
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);
@@ -86,7 +90,8 @@ void TestView::test_MinimizerSettings() {
     widget->setItem(minimizerItem);
 }
 
-void TestView::test_AccordionWidget() {
+void TestView::test_AccordionWidget()
+{
     AccordionWidget* myAccordion = new AccordionWidget();
     myAccordion->setMultiActive(true);
     // add the Accordion to your layout
@@ -158,7 +163,8 @@ void TestView::test_AccordionWidget() {
     }
 }
 
-void TestView::test_ba3d() {
+void TestView::test_ba3d()
+{
     // After putting this 3D view in Sample Viewer with the necessary changes, it does not work
     // in test view and needs to be refactored in order to be used.
 
@@ -170,7 +176,8 @@ void TestView::test_ba3d() {
     setLayout(layout);
 }
 
-void TestView::test_specular_data_widget() {
+void TestView::test_specular_data_widget()
+{
     SessionModel* tempModel = new SessionModel("Test", this);
 
     // creating job item
@@ -206,13 +213,15 @@ void TestView::test_specular_data_widget() {
 }
 
 namespace {
-double getTestValue(size_t bin, double factor) {
+double getTestValue(size_t bin, double factor)
+{
     const double angle_factor = M_PI / (180.0 * 100.0);
     const double angle = bin * angle_factor;
     return (std::cos(angle * 1000.0) + 1.5) * std::exp(-(bin * factor / 100.0));
 }
 
-SpecularDataItem* fillTestItem(SessionItem* item, double factor) {
+SpecularDataItem* fillTestItem(SessionItem* item, double factor)
+{
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(item);
     ASSERT(result);
     auto outputData = std::make_unique<OutputData<double>>();

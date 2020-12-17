@@ -30,14 +30,16 @@ struct MoveItemCommand::MoveItemCommandImpl {
     Path target_parent_path;
     Path original_parent_path;
     TagRow original_tagrow;
-    MoveItemCommandImpl(TagRow tagrow) : target_tagrow(std::move(tagrow)) {
+    MoveItemCommandImpl(TagRow tagrow) : target_tagrow(std::move(tagrow))
+    {
         if (target_tagrow.row < 0)
             throw std::runtime_error("MoveItemCommand() -> Error. Uninitialized target row");
     }
 };
 
 MoveItemCommand::MoveItemCommand(SessionItem* item, SessionItem* new_parent, TagRow tagrow)
-    : AbstractItemCommand(new_parent), p_impl(std::make_unique<MoveItemCommandImpl>(tagrow)) {
+    : AbstractItemCommand(new_parent), p_impl(std::make_unique<MoveItemCommandImpl>(tagrow))
+{
     setResult(true);
 
     check_input_data(item, new_parent);
@@ -62,7 +64,8 @@ MoveItemCommand::MoveItemCommand(SessionItem* item, SessionItem* new_parent, Tag
 
 MoveItemCommand::~MoveItemCommand() = default;
 
-void MoveItemCommand::undo_command() {
+void MoveItemCommand::undo_command()
+{
     // first find items
     auto current_parent = itemFromPath(p_impl->target_parent_path);
     auto target_parent = itemFromPath(p_impl->original_parent_path);
@@ -76,7 +79,8 @@ void MoveItemCommand::undo_command() {
     p_impl->original_parent_path = pathFromItem(target_parent);
 }
 
-void MoveItemCommand::execute_command() {
+void MoveItemCommand::execute_command()
+{
     // first find items
     auto original_parent = itemFromPath(p_impl->original_parent_path);
     auto target_parent = itemFromPath(p_impl->target_parent_path);
@@ -97,7 +101,8 @@ void MoveItemCommand::execute_command() {
 }
 
 namespace {
-void check_input_data(const SessionItem* item, const SessionItem* parent) {
+void check_input_data(const SessionItem* item, const SessionItem* parent)
+{
     if (!item || !item->model())
         throw std::runtime_error("MoveItemCommand::MoveItemCommand() -> Invalid input item");
 
@@ -113,7 +118,8 @@ void check_input_data(const SessionItem* item, const SessionItem* parent) {
             "MoveItemCommand::MoveItemCommand() -> Item doesn't have a parent");
 }
 
-std::string generate_description(const TagRow& tagrow) {
+std::string generate_description(const TagRow& tagrow)
+{
     std::ostringstream ostr;
     ostr << "Move item to tag '" << tagrow.tag << "', row:" << tagrow.row;
     return ostr.str();

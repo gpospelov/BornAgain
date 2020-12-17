@@ -23,13 +23,17 @@
 //  ************************************************************************************************
 
 Lattice2D::Lattice2D(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}
 
-Lattice2D::Lattice2D(double xi) : m_xi(xi) {
+Lattice2D::Lattice2D(double xi) : m_xi(xi)
+{
     registerParameter("Xi", &m_xi).setUnit("rad");
 }
 
-Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const {
+Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const
+{
     const double sinalpha = std::sin(latticeAngle());
     const double ainv = M_TWOPI / length1() / sinalpha;
     const double binv = M_TWOPI / length2() / sinalpha;
@@ -40,7 +44,8 @@ Lattice2D::ReciprocalBases Lattice2D::reciprocalBases() const {
             +binv * std::cos(xi)};
 }
 
-void Lattice2D::onChange() {
+void Lattice2D::onChange()
+{
     if (parent())
         parent()->onChange();
 }
@@ -61,7 +66,8 @@ void Lattice2D::setRotationEnabled(bool enabled) // TODO ASAP replace by generic
 //  ************************************************************************************************
 
 BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, double xi)
-    : Lattice2D(xi), m_length1(length1), m_length2(length2), m_angle(angle) {
+    : Lattice2D(xi), m_length1(length1), m_length2(length2), m_angle(angle)
+{
     if (m_length1 <= 0.0 || m_length2 <= 0.0)
         throw std::runtime_error(
             "BasicLattice2D::BasicLattice2D() -> Error. Lattice length can't be "
@@ -73,11 +79,13 @@ BasicLattice2D::BasicLattice2D(double length1, double length2, double angle, dou
     registerParameter("Alpha", &m_angle).setUnit("rad");
 }
 
-BasicLattice2D* BasicLattice2D::clone() const {
+BasicLattice2D* BasicLattice2D::clone() const
+{
     return new BasicLattice2D(m_length1, m_length2, m_angle, m_xi);
 }
 
-double BasicLattice2D::unitCellArea() const {
+double BasicLattice2D::unitCellArea() const
+{
     return std::abs(m_length1 * m_length2 * std::sin(m_angle));
 }
 
@@ -85,7 +93,8 @@ double BasicLattice2D::unitCellArea() const {
 //  class SquareLattice2D
 //  ************************************************************************************************
 
-SquareLattice2D::SquareLattice2D(double length, double xi) : Lattice2D(xi), m_length(length) {
+SquareLattice2D::SquareLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)
+{
     if (m_length <= 0.0)
         throw std::runtime_error(
             "SquareLattice2D::SquareLattice2D() -> Error. Lattice length can't be "
@@ -95,15 +104,18 @@ SquareLattice2D::SquareLattice2D(double length, double xi) : Lattice2D(xi), m_le
     registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
 }
 
-SquareLattice2D* SquareLattice2D::clone() const {
+SquareLattice2D* SquareLattice2D::clone() const
+{
     return new SquareLattice2D(m_length, m_xi);
 }
 
-double SquareLattice2D::latticeAngle() const {
+double SquareLattice2D::latticeAngle() const
+{
     return M_PI / 2.0;
 }
 
-double SquareLattice2D::unitCellArea() const {
+double SquareLattice2D::unitCellArea() const
+{
     return std::abs(m_length * m_length);
 }
 
@@ -111,7 +123,8 @@ double SquareLattice2D::unitCellArea() const {
 //  class HexagonalLattice2D
 //  ************************************************************************************************
 
-HexagonalLattice2D::HexagonalLattice2D(double length, double xi) : Lattice2D(xi), m_length(length) {
+HexagonalLattice2D::HexagonalLattice2D(double length, double xi) : Lattice2D(xi), m_length(length)
+{
     if (m_length <= 0.0)
         throw std::runtime_error("HexagonalLattice2D::HexagonalLattice2D() -> Error. "
                                  "Lattice length can't be negative or zero.");
@@ -120,15 +133,18 @@ HexagonalLattice2D::HexagonalLattice2D(double length, double xi) : Lattice2D(xi)
     registerParameter("LatticeLength", &m_length).setUnit("nm").setPositive();
 }
 
-HexagonalLattice2D* HexagonalLattice2D::clone() const {
+HexagonalLattice2D* HexagonalLattice2D::clone() const
+{
     return new HexagonalLattice2D(m_length, m_xi);
 }
 
-double HexagonalLattice2D::latticeAngle() const {
+double HexagonalLattice2D::latticeAngle() const
+{
     return M_TWOPI / 3.0;
 }
 
-double HexagonalLattice2D::unitCellArea() const {
+double HexagonalLattice2D::unitCellArea() const
+{
     static const double sinval = std::sin(latticeAngle());
     return std::abs(m_length * m_length * sinval);
 }

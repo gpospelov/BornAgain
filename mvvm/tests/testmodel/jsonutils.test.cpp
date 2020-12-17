@@ -26,7 +26,8 @@ protected:
 
 JsonUtilsTest::~JsonUtilsTest() = default;
 
-TEST_F(JsonUtilsTest, toString) {
+TEST_F(JsonUtilsTest, toString)
+{
     EXPECT_EQ(JsonUtils::ToString(RealLimits::limitless()), "limitless");
     EXPECT_EQ(JsonUtils::ToString(RealLimits::positive()), "positive");
     EXPECT_EQ(JsonUtils::ToString(RealLimits::nonnegative()), "nonnegative");
@@ -37,7 +38,8 @@ TEST_F(JsonUtilsTest, toString) {
     EXPECT_EQ(JsonUtils::ToString(RealLimits::limited(-1.0, 2.0)), "limited");
 }
 
-TEST_F(JsonUtilsTest, CreateLimits) {
+TEST_F(JsonUtilsTest, CreateLimits)
+{
     EXPECT_EQ(JsonUtils::CreateLimits("limitless"), RealLimits::limitless());
     EXPECT_EQ(JsonUtils::CreateLimits("positive"), RealLimits::positive());
     EXPECT_EQ(JsonUtils::CreateLimits("nonnegative"), RealLimits::nonnegative());

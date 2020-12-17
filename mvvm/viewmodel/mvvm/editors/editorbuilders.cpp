@@ -29,12 +29,14 @@
 #include <cmath>
 
 namespace {
-double singleStep(int decimals) {
+double singleStep(int decimals)
+{
     // For item with decimals=3 (i.e. 0.001) single step will be 0.1
     return 1. / std::pow(10., decimals - 1);
 }
 
-double getStep(double val) {
+double getStep(double val)
+{
     return val == 0.0 ? 1.0 : val / 100.;
 }
 
@@ -42,12 +44,14 @@ double getStep(double val) {
 
 namespace ModelView ::EditorBuilders {
 
-builder_t BoolEditorBuilder() {
+builder_t BoolEditorBuilder()
+{
     auto builder = [](const SessionItem*) -> editor_t { return std::make_unique<BoolEditor>(); };
     return builder;
 }
 
-builder_t IntegerEditorBuilder() {
+builder_t IntegerEditorBuilder()
+{
     auto builder = [](const SessionItem* item) -> editor_t {
         auto editor = std::make_unique<IntegerEditor>();
         if (item && item->hasData(ItemDataRole::LIMITS)) {
@@ -59,7 +63,8 @@ builder_t IntegerEditorBuilder() {
     return builder;
 }
 
-builder_t DoubleEditorBuilder() {
+builder_t DoubleEditorBuilder()
+{
     auto builder = [](const SessionItem* item) -> editor_t {
         auto editor = std::make_unique<DoubleEditor>();
         if (item && item->hasData(ItemDataRole::LIMITS)) {
@@ -73,7 +78,8 @@ builder_t DoubleEditorBuilder() {
     return builder;
 }
 
-builder_t ScientificDoubleEditorBuilder() {
+builder_t ScientificDoubleEditorBuilder()
+{
     auto builder = [](const SessionItem* item) -> editor_t {
         auto editor = std::make_unique<ScientificDoubleEditor>();
         if (item && item->hasData(ItemDataRole::LIMITS)) {
@@ -85,7 +91,8 @@ builder_t ScientificDoubleEditorBuilder() {
     return builder;
 }
 
-builder_t ScientificSpinBoxEditorBuilder() {
+builder_t ScientificSpinBoxEditorBuilder()
+{
     auto builder = [](const SessionItem* item) -> editor_t {
         auto editor = std::make_unique<ScientificSpinBoxEditor>();
         if (item) {
@@ -101,26 +108,30 @@ builder_t ScientificSpinBoxEditorBuilder() {
     return builder;
 }
 
-builder_t ColorEditorBuilder() {
+builder_t ColorEditorBuilder()
+{
     auto builder = [](const SessionItem*) -> editor_t { return std::make_unique<ColorEditor>(); };
     return builder;
 }
 
-builder_t ComboPropertyEditorBuilder() {
+builder_t ComboPropertyEditorBuilder()
+{
     auto builder = [](const SessionItem*) -> editor_t {
         return std::make_unique<ComboPropertyEditor>();
     };
     return builder;
 }
 
-builder_t ExternalPropertyEditorBuilder() {
+builder_t ExternalPropertyEditorBuilder()
+{
     auto builder = [](const SessionItem*) -> editor_t {
         return std::make_unique<ExternalPropertyEditor>();
     };
     return builder;
 }
 
-builder_t SelectableComboPropertyEditorBuilder() {
+builder_t SelectableComboPropertyEditorBuilder()
+{
     auto builder = [](const SessionItem*) -> editor_t {
         return std::make_unique<SelectableComboBoxEditor>();
     };

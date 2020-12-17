@@ -21,7 +21,8 @@
 #endif
 
 SampleWidgetBox::SampleWidgetBox(SampleDesignerInterface* core, QWidget* parent)
-    : QWidget(parent), m_core(core), m_widgetBox(0) {
+    : QWidget(parent), m_core(core), m_widgetBox(0)
+{
     setWindowTitle(QLatin1String("Widget Box"));
     setObjectName(QLatin1String("WidgetBox"));
 

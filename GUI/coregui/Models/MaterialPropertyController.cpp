@@ -21,9 +21,12 @@
 #include <QVector>
 
 MaterialPropertyController::MaterialPropertyController(QObject* parent)
-    : QObject(parent), m_materialModel(nullptr), m_sampleModel(nullptr) {}
+    : QObject(parent), m_materialModel(nullptr), m_sampleModel(nullptr)
+{
+}
 
-void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleModel* sampleModel) {
+void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleModel* sampleModel)
+{
     m_materialModel = materialModel;
     m_sampleModel = sampleModel;
 
@@ -40,7 +43,8 @@ void MaterialPropertyController::setModels(MaterialModel* materialModel, SampleM
 //! Special case when original MaterialModel was fully rebuild from MaterialEditor.
 //! Full update of MaterialProperties.
 
-void MaterialPropertyController::onMaterialModelLoad() {
+void MaterialPropertyController::onMaterialModelLoad()
+{
     for (auto sampleItem : relatedSampleItems()) {
         QString tag = MaterialItemUtils::materialTag(*sampleItem);
         ASSERT(!tag.isEmpty());
@@ -60,7 +64,8 @@ void MaterialPropertyController::onMaterialModelLoad() {
 //! On MaterialItem change: updates corresponding MaterialProperty in sample items.
 
 void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLeft,
-                                                       const QModelIndex&, const QVector<int>&) {
+                                                       const QModelIndex&, const QVector<int>&)
+{
     auto changedItem = m_materialModel->itemForIndex(topLeft);
     if (auto materialItem =
             dynamic_cast<const MaterialItem*>(ModelPath::ancestor(changedItem, "Material"))) {
@@ -81,7 +86,8 @@ void MaterialPropertyController::onMaterialDataChanged(const QModelIndex& topLef
 //! On MaterialItem removal: updates corresponding MaterialProperty in sample items.
 
 void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelIndex& parent,
-                                                                int first, int last) {
+                                                                int first, int last)
+{
     // looking for top level items (MaterialItems)
     if (parent.isValid())
         return;
@@ -109,7 +115,8 @@ void MaterialPropertyController::onMaterialRowsAboutToBeRemoved(const QModelInde
 
 //! Returns vector of SessionItems having MaterialProperty on board.
 
-QVector<SessionItem*> MaterialPropertyController::relatedSampleItems() {
+QVector<SessionItem*> MaterialPropertyController::relatedSampleItems()
+{
     static QStringList materialRelated = MaterialItemUtils::materialRelatedModelTypes();
 
     QVector<SessionItem*> result;

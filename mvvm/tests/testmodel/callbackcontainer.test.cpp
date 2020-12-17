@@ -33,7 +33,8 @@ CallbackContainerTest::~CallbackContainerTest() = default;
 
 //! Callback container notifies single widget. Check if removal of widget disables notifications.
 
-TEST_F(CallbackContainerTest, singleWidget) {
+TEST_F(CallbackContainerTest, singleWidget)
+{
     CallbackMockWidget widget;
     Signal<Callbacks::item_t> signal;
 
@@ -57,7 +58,8 @@ TEST_F(CallbackContainerTest, singleWidget) {
 //! Callback container notifies two widgets. Check if one widget is removed,
 //! the second is still notified.
 
-TEST_F(CallbackContainerTest, twoWidgets) {
+TEST_F(CallbackContainerTest, twoWidgets)
+{
     CallbackMockWidget widget1, widget2;
     Signal<Callbacks::item_t> signal;
 
@@ -83,7 +85,8 @@ TEST_F(CallbackContainerTest, twoWidgets) {
 
 //! Callback function with two parameters.
 
-TEST_F(CallbackContainerTest, twoParameters) {
+TEST_F(CallbackContainerTest, twoParameters)
+{
     CallbackMockWidget widget1, widget2;
     Signal<Callbacks::item_int_t> signal;
 

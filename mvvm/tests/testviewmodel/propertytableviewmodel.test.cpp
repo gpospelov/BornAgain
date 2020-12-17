@@ -30,7 +30,8 @@ public:
 
 PropertyTableViewModelTest::~PropertyTableViewModelTest() = default;
 
-TEST_F(PropertyTableViewModelTest, initialState) {
+TEST_F(PropertyTableViewModelTest, initialState)
+{
     SessionModel model;
     PropertyTableViewModel viewModel(&model);
     EXPECT_EQ(viewModel.rowCount(), 0);
@@ -38,7 +39,8 @@ TEST_F(PropertyTableViewModelTest, initialState) {
     EXPECT_EQ(viewModel.sessionItemFromIndex(QModelIndex()), model.rootItem());
 }
 
-TEST_F(PropertyTableViewModelTest, baseItem) {
+TEST_F(PropertyTableViewModelTest, baseItem)
+{
     SessionModel model;
     model.insertItem<SessionItem>();
 
@@ -48,7 +50,8 @@ TEST_F(PropertyTableViewModelTest, baseItem) {
     EXPECT_EQ(viewModel.columnCount(), 0);
 }
 
-TEST_F(PropertyTableViewModelTest, propertyItem) {
+TEST_F(PropertyTableViewModelTest, propertyItem)
+{
     SessionModel model;
     auto parent = model.insertItem<SessionItem>();
 
@@ -72,7 +75,8 @@ TEST_F(PropertyTableViewModelTest, propertyItem) {
 
 //! VectorItem in a model.
 
-TEST_F(PropertyTableViewModelTest, vectorItem) {
+TEST_F(PropertyTableViewModelTest, vectorItem)
+{
     SessionModel model;
     auto parent = model.insertItem<VectorItem>();
 
@@ -90,7 +94,8 @@ TEST_F(PropertyTableViewModelTest, vectorItem) {
 //! MultiLayer with layers, view model still looks to the RootItem.
 //! No MultiLayer should be visible in table.
 
-TEST_F(PropertyTableViewModelTest, multiLayerAndRootItem) {
+TEST_F(PropertyTableViewModelTest, multiLayerAndRootItem)
+{
     SessionModel model;
     auto multilayer = model.insertItem<ToyItems::MultiLayerItem>();
     model.insertItem<ToyItems::LayerItem>(multilayer);
@@ -105,7 +110,8 @@ TEST_F(PropertyTableViewModelTest, multiLayerAndRootItem) {
 
 //! MultiLayer with layers, multilayer is given as root index.
 
-TEST_F(PropertyTableViewModelTest, multiLayer) {
+TEST_F(PropertyTableViewModelTest, multiLayer)
+{
     SessionModel model;
     auto multilayer = model.insertItem<ToyItems::MultiLayerItem>();
     model.insertItem<ToyItems::LayerItem>(multilayer);

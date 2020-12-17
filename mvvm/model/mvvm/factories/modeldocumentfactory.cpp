@@ -17,8 +17,8 @@
 
 namespace ModelView {
 
-std::unique_ptr<ModelDocumentInterface>
-CreateJsonDocument(const std::vector<SessionModel*>& models) {
+std::unique_ptr<ModelDocumentInterface> CreateJsonDocument(const std::vector<SessionModel*>& models)
+{
     return std::make_unique<JsonDocument>(models);
 }
 

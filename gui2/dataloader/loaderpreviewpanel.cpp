@@ -33,7 +33,8 @@ LoaderPreviewPanel::LoaderPreviewPanel(QWidget* parent)
     : QWidget(parent)
     , m_textView(new ImportTextView)
     , m_tableWidget(new ImportTableWidget)
-    , m_tabWidget(new QTabWidget) {
+    , m_tabWidget(new QTabWidget)
+{
     auto layout = new QVBoxLayout(this);
     layout->setContentsMargins(0, 0, 0, 0);
 
@@ -45,7 +46,8 @@ LoaderPreviewPanel::LoaderPreviewPanel(QWidget* parent)
 
 //! Sets raw text to the TextView.
 
-void LoaderPreviewPanel::showData(const ParserInterface* parser) {
+void LoaderPreviewPanel::showData(const ParserInterface* parser)
+{
     m_textView->clear();
     for (size_t index = 0; index < parser->totalLineCount(); ++index) {
         auto line_data = parser->getLine(index);
@@ -58,11 +60,13 @@ void LoaderPreviewPanel::showData(const ParserInterface* parser) {
     m_tableWidget->setRawData(parser->parsedData());
 }
 
-std::vector<ColumnInfo> LoaderPreviewPanel::columnInfo() const {
+std::vector<ColumnInfo> LoaderPreviewPanel::columnInfo() const
+{
     return m_tableWidget->columnInfo();
 }
 
-void LoaderPreviewPanel::clearPanel() {
+void LoaderPreviewPanel::clearPanel()
+{
     m_textView->clear();
     m_tableWidget->setRawData({});
 }

@@ -24,11 +24,13 @@ PlainMultiLayerBySLDBuilder::PlainMultiLayerBySLDBuilder(int n_layers)
     , m_ti{-1.9493e-06, 9.6013e-10}
     , m_ni{9.4245e-06, 1.1423e-09}
     , m_thick_ti(3.0)
-    , m_thick_ni(7.0) {
+    , m_thick_ni(7.0)
+{
     registerParameter("ti_thickness", &m_thick_ti);
 }
 
-MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const {
+MultiLayer* PlainMultiLayerBySLDBuilder::buildSample() const
+{
     Material vacuum_material = MaterialBySLD();
     Material substrate_material = MaterialBySLD("Si_substrate", m_si.sld_real, m_si.sld_imag);
     Material ni_material = MaterialBySLD("Ni", m_ni.sld_real, m_ni.sld_imag);

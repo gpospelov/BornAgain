@@ -17,13 +17,16 @@
 #include <qcustomplot.h>
 
 ScientificPlotEvent::ScientificPlotEvent(ScientificPlot* scientific_plot)
-    : QObject(scientific_plot), m_plot(scientific_plot), m_prevPos(scientific_plot->plotType()) {}
+    : QObject(scientific_plot), m_plot(scientific_plot), m_prevPos(scientific_plot->plotType())
+{
+}
 
 ScientificPlotEvent::~ScientificPlotEvent() = default;
 
 //! Sets tracking of the mouse for parent DescriptedPlot
 
-void ScientificPlotEvent::setMouseTrackingEnabled(bool enable) {
+void ScientificPlotEvent::setMouseTrackingEnabled(bool enable)
+{
     m_plot->setMouseTracking(enable);
     customPlot()->setMouseTracking(enable);
 
@@ -39,7 +42,8 @@ void ScientificPlotEvent::setMouseTrackingEnabled(bool enable) {
 //! if mouse is in axes's viewport rectangle. Once mouse goes out of it, an
 //! empty string is emitted once again.
 
-void ScientificPlotEvent::onCustomMouseMove(QMouseEvent* event) {
+void ScientificPlotEvent::onCustomMouseMove(QMouseEvent* event)
+{
     auto currentPos = currentPlotDescriptor(event);
 
     if (currentPos.inAxesRange()) {
@@ -57,21 +61,25 @@ void ScientificPlotEvent::onCustomMouseMove(QMouseEvent* event) {
     m_prevPos = std::move(currentPos);
 }
 
-ScientificPlot* ScientificPlotEvent::scientificPlot() {
+ScientificPlot* ScientificPlotEvent::scientificPlot()
+{
     return m_plot;
 }
 
-const ScientificPlot* ScientificPlotEvent::scientificPlot() const {
+const ScientificPlot* ScientificPlotEvent::scientificPlot() const
+{
     return m_plot;
 }
 
-QCustomPlot* ScientificPlotEvent::customPlot() {
+QCustomPlot* ScientificPlotEvent::customPlot()
+{
     return m_plot->customPlot();
 }
 
 //! Constructs current position of the data.
 
-PlotEventInfo ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) const {
+PlotEventInfo ScientificPlotEvent::currentPlotDescriptor(QMouseEvent* event) const
+{
     double x = scientificPlot()->pixelToXaxisCoord(event->pos().x());
     double y = scientificPlot()->pixelToYaxisCoord(event->pos().y());
     return scientificPlot()->eventInfo(x, y);

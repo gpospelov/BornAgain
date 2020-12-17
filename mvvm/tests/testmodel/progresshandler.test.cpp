@@ -24,12 +24,14 @@ public:
 
 ProgressHandlerTest::~ProgressHandlerTest() = default;
 
-TEST_F(ProgressHandlerTest, initialState) {
+TEST_F(ProgressHandlerTest, initialState)
+{
     ProgressHandler handler;
     EXPECT_FALSE(handler.has_interrupt_request());
 }
 
-TEST_F(ProgressHandlerTest, fullConstructor) {
+TEST_F(ProgressHandlerTest, fullConstructor)
+{
     size_t max_ticks = 1000;
     int progress{0};
     auto on_progress_change = [&progress](int value) {
@@ -48,7 +50,8 @@ TEST_F(ProgressHandlerTest, fullConstructor) {
     EXPECT_EQ(progress, 100); // reports value in percents
 }
 
-TEST_F(ProgressHandlerTest, interruptRequest) {
+TEST_F(ProgressHandlerTest, interruptRequest)
+{
     size_t max_ticks = 1000;
     int progress{0};
     auto on_progress_change = [&progress](int value) {

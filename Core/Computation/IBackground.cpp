@@ -15,6 +15,8 @@
 #include "Core/Computation/IBackground.h"
 
 IBackground::IBackground(const NodeMeta& meta, const std::vector<double>& PValues)
-    : INode(meta, PValues) {}
+    : INode(meta, PValues)
+{
+}
 
 IBackground::~IBackground() = default;

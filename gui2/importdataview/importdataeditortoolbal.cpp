@@ -21,7 +21,8 @@ namespace gui2 {
 
 ImportDataEditorToolBar::ImportDataEditorToolBar(ImportDataEditorActions* editorActions,
                                                  QWidget* parent)
-    : QToolBar(parent), m_editorActions(editorActions) {
+    : QToolBar(parent), m_editorActions(editorActions)
+{
     StyleUtils::SetToolBarStyleTextBesides(this);
 
     auto action = new QAction("Import", this);

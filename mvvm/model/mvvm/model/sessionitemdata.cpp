@@ -20,14 +20,16 @@
 
 using namespace ModelView;
 
-std::vector<int> SessionItemData::roles() const {
+std::vector<int> SessionItemData::roles() const
+{
     std::vector<int> result;
     for (const auto& value : m_values)
         result.push_back(value.m_role);
     return result;
 }
 
-Variant SessionItemData::data(int role) const {
+Variant SessionItemData::data(int role) const
+{
     for (const auto& value : m_values) {
         if (value.m_role == role)
             return value.m_data;
@@ -38,7 +40,8 @@ Variant SessionItemData::data(int role) const {
 //! Sets the data for given role. Returns true if data was changed.
 //! If variant is invalid, corresponding role will be removed.
 
-bool SessionItemData::setData(const Variant& value, int role) {
+bool SessionItemData::setData(const Variant& value, int role)
+{
     assure_validity(value, role);
 
     for (auto it = m_values.begin(); it != m_values.end(); ++it) {
@@ -57,24 +60,28 @@ bool SessionItemData::setData(const Variant& value, int role) {
     return true;
 }
 
-SessionItemData::const_iterator SessionItemData::begin() const {
+SessionItemData::const_iterator SessionItemData::begin() const
+{
     return m_values.begin();
 }
 
-SessionItemData::const_iterator SessionItemData::end() const {
+SessionItemData::const_iterator SessionItemData::end() const
+{
     return m_values.end();
 }
 
 //! Returns true if item has data with given role.
 
-bool SessionItemData::hasData(int role) const {
+bool SessionItemData::hasData(int role) const
+{
     auto has_role = [role](const auto& x) { return x.m_role == role; };
     return std::find_if(m_values.begin(), m_values.end(), has_role) != m_values.end();
 }
 
 //! Check if variant is compatible
 
-void SessionItemData::assure_validity(const Variant& variant, int role) {
+void SessionItemData::assure_validity(const Variant& variant, int role)
+{
     if (variant.typeName() == QStringLiteral("QString"))
         throw std::runtime_error("Attempt to set QString based variant");
 

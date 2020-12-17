@@ -27,7 +27,8 @@ const ComboProperty gradientCombo =
                               "Polar");
 }
 
-ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType) {
+ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType)
+{
     addProperty<LinkedItem>(P_LINK)->setDisplayName("Link");
     addProperty<TextItem>(P_TITLE)->setDisplayName("Title");
     addProperty(P_GRADIENT, gradientCombo)->setDisplayName("Gradient");
@@ -36,12 +37,14 @@ ColorMapItem::ColorMapItem() : CompoundItem(Constants::ColorMapItemType) {
 
 //! Sets link to the data item.
 
-void ColorMapItem::setDataItem(const Data2DItem* data_item) {
+void ColorMapItem::setDataItem(const Data2DItem* data_item)
+{
     item<LinkedItem>(P_LINK)->setLink(data_item);
 }
 
 //! Returns data item linked to the given ColorMapItem.
 
-Data2DItem* ColorMapItem::dataItem() const {
+Data2DItem* ColorMapItem::dataItem() const
+{
     return item<LinkedItem>(P_LINK)->get<Data2DItem>();
 }

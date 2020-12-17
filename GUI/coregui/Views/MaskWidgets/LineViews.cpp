@@ -24,25 +24,29 @@ const double mask_width = 8.0;
 const double mask_visible_width = 3.0;
 } // namespace
 
-VerticalLineView::VerticalLineView() {
+VerticalLineView::VerticalLineView()
+{
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setCursor(Qt::SizeHorCursor);
 }
 
-void VerticalLineView::onChangedX() {
+void VerticalLineView::onChangedX()
+{
     setBlockOnProperty(true);
     m_item->setItemValue(VerticalLineItem::P_POSX, fromSceneX(this->x()));
     setBlockOnProperty(false);
 }
 
-void VerticalLineView::onPropertyChange(const QString& propertyName) {
+void VerticalLineView::onPropertyChange(const QString& propertyName)
+{
     if (propertyName == VerticalLineItem::P_POSX)
         setX(toSceneX(VerticalLineItem::P_POSX));
 }
 
-void VerticalLineView::update_view() {
+void VerticalLineView::update_view()
+{
     QRectF plot_scene_rectangle = m_adaptor->viewportRectangle();
 
     setX(toSceneX(VerticalLineItem::P_POSX));
@@ -52,7 +56,8 @@ void VerticalLineView::update_view() {
     update();
 }
 
-void VerticalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void VerticalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
@@ -71,7 +76,8 @@ void VerticalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*,
 
 //! Allows item movement along x, prevent movement along y
 QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change,
-                                      const QVariant& value) {
+                                      const QVariant& value)
+{
     if (isSelected() && change == ItemPositionChange && scene()) {
         QPointF newPos = value.toPointF();
         newPos.setY(y());
@@ -82,25 +88,29 @@ QVariant VerticalLineView::itemChange(QGraphicsItem::GraphicsItemChange change,
 
 // --------------------------------------------------------------------------------------------- //
 
-HorizontalLineView::HorizontalLineView() {
+HorizontalLineView::HorizontalLineView()
+{
     setFlag(QGraphicsItem::ItemIsSelectable);
     setFlag(QGraphicsItem::ItemIsMovable);
     setFlag(QGraphicsItem::ItemSendsGeometryChanges);
     setCursor(Qt::SizeVerCursor);
 }
 
-void HorizontalLineView::onChangedY() {
+void HorizontalLineView::onChangedY()
+{
     setBlockOnProperty(true);
     m_item->setItemValue(HorizontalLineItem::P_POSY, fromSceneY(this->y()));
     setBlockOnProperty(false);
 }
 
-void HorizontalLineView::onPropertyChange(const QString& propertyName) {
+void HorizontalLineView::onPropertyChange(const QString& propertyName)
+{
     if (propertyName == HorizontalLineItem::P_POSY)
         setY(toSceneY(HorizontalLineItem::P_POSY));
 }
 
-void HorizontalLineView::update_view() {
+void HorizontalLineView::update_view()
+{
     QRectF plot_scene_rectangle = m_adaptor->viewportRectangle();
 
     setX(plot_scene_rectangle.left());
@@ -110,7 +120,8 @@ void HorizontalLineView::update_view() {
     update();
 }
 
-void HorizontalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*) {
+void HorizontalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem*, QWidget*)
+{
     bool mask_value = m_item->getItemValue(MaskItem::P_MASK_VALUE).toBool();
     painter->setBrush(MaskEditorHelper::getMaskBrush(mask_value));
     painter->setPen(MaskEditorHelper::getMaskPen(mask_value));
@@ -129,7 +140,8 @@ void HorizontalLineView::paint(QPainter* painter, const QStyleOptionGraphicsItem
 
 //! Allows item movement along y, prevent movement along x
 QVariant HorizontalLineView::itemChange(QGraphicsItem::GraphicsItemChange change,
-                                        const QVariant& value) {
+                                        const QVariant& value)
+{
     if (isSelected() && change == ItemPositionChange && scene()) {
         QPointF newPos = value.toPointF();
         newPos.setX(x());

@@ -20,12 +20,14 @@
 #include <vector>
 
 namespace {
-inline bool isDoubleStartChar(char c) {
+inline bool isDoubleStartChar(char c)
+{
     return isdigit(c) || c == '-' || c == '+';
 }
 } // namespace
 
-OutputData<double>* OutputDataReadWriteNumpyTXT::readOutputData(std::istream& input_stream) {
+OutputData<double>* OutputDataReadWriteNumpyTXT::readOutputData(std::istream& input_stream)
+{
     std::string line;
     std::vector<std::vector<double>> data;
 
@@ -74,7 +76,8 @@ OutputData<double>* OutputDataReadWriteNumpyTXT::readOutputData(std::istream& in
 }
 
 void OutputDataReadWriteNumpyTXT::writeOutputData(const OutputData<double>& data,
-                                                  std::ostream& output_stream) {
+                                                  std::ostream& output_stream)
+{
     output_stream << "# BornAgain Intensity Data" << std::endl;
     output_stream << "# Simple array suitable for numpy, matlab etc." << std::endl;
 
@@ -93,7 +96,8 @@ void OutputDataReadWriteNumpyTXT::writeOutputData(const OutputData<double>& data
 }
 
 void OutputDataReadWriteNumpyTXT::write1DRepresentation(const OutputData<double>& data,
-                                                        std::ostream& output_stream) {
+                                                        std::ostream& output_stream)
+{
     output_stream << "# coordinates         intensities" << std::endl;
     output_stream.imbue(std::locale::classic());
     output_stream << std::scientific << std::setprecision(12);
@@ -106,7 +110,8 @@ void OutputDataReadWriteNumpyTXT::write1DRepresentation(const OutputData<double>
 }
 
 void OutputDataReadWriteNumpyTXT::write2DRepresentation(const OutputData<double>& data,
-                                                        std::ostream& output_stream) {
+                                                        std::ostream& output_stream)
+{
     const size_t nrows = data.axis(1).size();
     const size_t ncols = data.axis(0).size();
 
@@ -125,6 +130,7 @@ void OutputDataReadWriteNumpyTXT::write2DRepresentation(const OutputData<double>
     }
 }
 
-double OutputDataReadWriteNumpyTXT::ignoreDenormalized(double value) {
+double OutputDataReadWriteNumpyTXT::ignoreDenormalized(double value)
+{
     return (std::fpclassify(value) == FP_SUBNORMAL) ? 0.0 : value;
 }

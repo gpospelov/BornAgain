@@ -21,7 +21,8 @@
 
 using namespace ModelView;
 
-CustomPlotProxyWidget::CustomPlotProxyWidget(QWidget* colormap) {
+CustomPlotProxyWidget::CustomPlotProxyWidget(QWidget* colormap)
+{
     setWidget(colormap);
     colormap->installEventFilter(this);
 }
@@ -30,7 +31,8 @@ CustomPlotProxyWidget::CustomPlotProxyWidget(QWidget* colormap) {
 //! Used in RegionOfInterestView to recalculate bounding box and scene positions depending on
 //! current state of CustomPlotSceneAdapter.
 
-bool CustomPlotProxyWidget::eventFilter(QObject* /*object*/, QEvent* event) {
+bool CustomPlotProxyWidget::eventFilter(QObject* /*object*/, QEvent* event)
+{
     // catching zoom/resize events in QCustomPlot
     if (event->type() == QEvent::Resize || event->type() == QEvent::UpdateRequest) {
         scene()->advance(); // notifying all graphics items
@@ -39,29 +41,34 @@ bool CustomPlotProxyWidget::eventFilter(QObject* /*object*/, QEvent* event) {
     return true;
 }
 
-void CustomPlotProxyWidget::setBlockSignalsToProxy(bool value) {
+void CustomPlotProxyWidget::setBlockSignalsToProxy(bool value)
+{
     block_signals_to_proxy = value;
 }
 
-void CustomPlotProxyWidget::mousePressEvent(QGraphicsSceneMouseEvent* event) {
+void CustomPlotProxyWidget::mousePressEvent(QGraphicsSceneMouseEvent* event)
+{
     if (block_signals_to_proxy)
         return;
     QGraphicsProxyWidget::mousePressEvent(event);
 }
 
-void CustomPlotProxyWidget::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
+void CustomPlotProxyWidget::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
     if (block_signals_to_proxy)
         return;
     QGraphicsProxyWidget::mouseMoveEvent(event);
 }
 
-void CustomPlotProxyWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent* event) {
+void CustomPlotProxyWidget::mouseReleaseEvent(QGraphicsSceneMouseEvent* event)
+{
     if (block_signals_to_proxy)
         return;
     QGraphicsProxyWidget::mouseReleaseEvent(event);
 }
 
-void CustomPlotProxyWidget::wheelEvent(QGraphicsSceneWheelEvent* event) {
+void CustomPlotProxyWidget::wheelEvent(QGraphicsSceneWheelEvent* event)
+{
     if (block_signals_to_proxy)
         return;
     QGraphicsProxyWidget::wheelEvent(event);

@@ -21,14 +21,16 @@
 namespace gui2 {
 
 LayerSelectionModel::LayerSelectionModel(ModelView::ViewModel* view_model, QObject* parent)
-    : QItemSelectionModel(view_model, parent) {
+    : QItemSelectionModel(view_model, parent)
+{
     // FIXME cover with unit tests after implementing ViewItemSelectionModel
     connect(view_model, &ModelView::ViewModel::modelAboutToBeReset, [this]() { clearSelection(); });
 }
 
 //! Selects all rows corresponding to given items.
 
-void LayerSelectionModel::selectItems(std::vector<ModelView::SessionItem*> items) {
+void LayerSelectionModel::selectItems(std::vector<ModelView::SessionItem*> items)
+{
     QModelIndexList indexes;
     for (auto item : items)
         indexes << viewModel()->indexOfSessionItem(item->getItem(LayerItem::P_NAME));
@@ -46,7 +48,8 @@ void LayerSelectionModel::selectItems(std::vector<ModelView::SessionItem*> items
 
 //! Selects whole row corresponding to given item.
 
-void LayerSelectionModel::selectItem(ModelView::SessionItem* item) {
+void LayerSelectionModel::selectItem(ModelView::SessionItem* item)
+{
     selectItems({item});
 }
 
@@ -54,7 +57,8 @@ void LayerSelectionModel::selectItem(ModelView::SessionItem* item) {
 //! We assume, that there is a single line selection mode switched on, and that
 //! the columns contains property items related to either LayerItem or MultiLayerItem.
 
-std::vector<ModelView::SessionItem*> LayerSelectionModel::selectedItems() const {
+std::vector<ModelView::SessionItem*> LayerSelectionModel::selectedItems() const
+{
     const QModelIndexList& selection = selectedRows();
     if (selection.empty())
         return {};
@@ -68,12 +72,14 @@ std::vector<ModelView::SessionItem*> LayerSelectionModel::selectedItems() const 
 }
 
 //! Return the casted view model
-const ModelView::ViewModel* LayerSelectionModel::viewModel() const {
+const ModelView::ViewModel* LayerSelectionModel::viewModel() const
+{
     return static_cast<const ModelView::ViewModel*>(model());
 }
 
 //! Checks if the first row is presen in the selection
-bool LayerSelectionModel::firstSelected() const {
+bool LayerSelectionModel::firstSelected() const
+{
     const QModelIndexList& selection = selectedRows();
     for (const auto& index : selection) {
         if (index.row() == 0)
@@ -83,7 +89,8 @@ bool LayerSelectionModel::firstSelected() const {
 }
 
 //! checks if the last row is present in the selection
-bool LayerSelectionModel::lastSelected() const {
+bool LayerSelectionModel::lastSelected() const
+{
     const QModelIndexList& selection = selectedRows();
     for (const auto& index : selection) {
         if (index.row() == viewModel()->rowCount() - 1)

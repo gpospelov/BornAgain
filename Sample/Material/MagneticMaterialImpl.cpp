@@ -26,7 +26,8 @@ using PhysConsts::r_e;
 constexpr double magnetization_prefactor = (gamma_n * r_e / 2.0 / mu_B) * 1e-18;
 
 namespace {
-cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector) {
+cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector)
+{
     if (base.mag2() == 0.0)
         return cvector_t{};
     cvector_t projection = (base.dot(vector) / base.mag2()) * base;
@@ -35,34 +36,42 @@ cvector_t OrthogonalToBaseVector(cvector_t base, const kvector_t vector) {
 } // namespace
 
 MagneticMaterialImpl::MagneticMaterialImpl(const std::string& name, kvector_t magnetization)
-    : BaseMaterialImpl(name), m_magnetization(magnetization) {}
+    : BaseMaterialImpl(name), m_magnetization(magnetization)
+{
+}
 
-MagneticMaterialImpl* MagneticMaterialImpl::inverted() const {
+MagneticMaterialImpl* MagneticMaterialImpl::inverted() const
+{
     std::string name = isScalarMaterial() ? getName() : getName() + "_inv";
     MagneticMaterialImpl* result = this->clone();
     result->setMagnetization(-magnetization());
     return result;
 }
 
-bool MagneticMaterialImpl::isScalarMaterial() const {
+bool MagneticMaterialImpl::isScalarMaterial() const
+{
     return m_magnetization == kvector_t{};
 }
 
-bool MagneticMaterialImpl::isMagneticMaterial() const {
+bool MagneticMaterialImpl::isMagneticMaterial() const
+{
     return !isScalarMaterial();
 }
 
-kvector_t MagneticMaterialImpl::magnetization() const {
+kvector_t MagneticMaterialImpl::magnetization() const
+{
     return m_magnetization;
 }
 
-Eigen::Matrix2cd MagneticMaterialImpl::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const {
+Eigen::Matrix2cd MagneticMaterialImpl::polarizedSubtrSLD(const WavevectorInfo& wavevectors) const
+{
     cvector_t mag_ortho = OrthogonalToBaseVector(wavevectors.getQ(), m_magnetization);
     complex_t unit_factor = scalarSubtrSLD(wavevectors);
     return MaterialUtils::MagnetizationCorrection(unit_factor, magnetization_prefactor, mag_ortho);
 }
 
-MagneticMaterialImpl* MagneticMaterialImpl::rotatedMaterial(const Transform3D& transform) const {
+MagneticMaterialImpl* MagneticMaterialImpl::rotatedMaterial(const Transform3D& transform) const
+{
     kvector_t transformed_field = transform.transformed(m_magnetization);
     MagneticMaterialImpl* result = this->clone();
     result->setMagnetization(transformed_field);

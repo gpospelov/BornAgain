@@ -31,7 +31,8 @@ namespace {
 
 //! Creates converter for SessionItemData/JSON.
 
-std::unique_ptr<JsonItemDataConverterInterface> createDataConverter(const ConverterMode& mode) {
+std::unique_ptr<JsonItemDataConverterInterface> createDataConverter(const ConverterMode& mode)
+{
     return mode == ConverterMode::project ? JsonItemDataConverter::createProjectConverter()
                                           : JsonItemDataConverter::createCopyConverter();
 }
@@ -45,7 +46,8 @@ struct JsonItemConverter::JsonItemConverterImpl {
     ConverterContext m_context;
 
     JsonItemConverterImpl(JsonItemConverter* parent, const ConverterContext& context)
-        : m_self(parent), m_context(context) {
+        : m_self(parent), m_context(context)
+    {
         //! Callback to convert SessionItem to JSON object.
         auto create_json = [this](const SessionItem& item) { return m_self->to_json(&item); };
 
@@ -65,15 +67,18 @@ struct JsonItemConverter::JsonItemConverterImpl {
 
     const ItemFactoryInterface* factory() { return m_context.m_factory; }
 
-    void populate_item_data(const QJsonArray& json, SessionItemData& item_data) {
+    void populate_item_data(const QJsonArray& json, SessionItemData& item_data)
+    {
         m_itemdata_converter->from_json(json, item_data);
     }
 
-    void populate_item_tags(const QJsonObject& json, SessionItemTags& item_tags) {
+    void populate_item_tags(const QJsonObject& json, SessionItemTags& item_tags)
+    {
         m_itemtags_converter->from_json(json, item_tags);
     }
 
-    void populate_item(const QJsonObject& json, SessionItem& item) {
+    void populate_item(const QJsonObject& json, SessionItem& item)
+    {
         auto modelType = json[JsonItemFormatAssistant::modelKey].toString().toStdString();
 
         if (modelType != item.modelType())
@@ -94,7 +99,8 @@ struct JsonItemConverter::JsonItemConverterImpl {
             item.setData(UniqueIdGenerator::generate(), ItemDataRole::IDENTIFIER);
     }
 
-    QJsonObject item_to_json(const SessionItem& item) const {
+    QJsonObject item_to_json(const SessionItem& item) const
+    {
         QJsonObject result;
         result[JsonItemFormatAssistant::modelKey] = QString::fromStdString(item.modelType());
         result[JsonItemFormatAssistant::itemDataKey] =
@@ -107,15 +113,19 @@ struct JsonItemConverter::JsonItemConverterImpl {
 };
 
 JsonItemConverter::JsonItemConverter(const ConverterContext& context)
-    : p_impl(std::make_unique<JsonItemConverterImpl>(this, context)) {}
+    : p_impl(std::make_unique<JsonItemConverterImpl>(this, context))
+{
+}
 
 JsonItemConverter::~JsonItemConverter() = default;
 
-QJsonObject JsonItemConverter::to_json(const SessionItem* item) const {
+QJsonObject JsonItemConverter::to_json(const SessionItem* item) const
+{
     return item ? p_impl->item_to_json(*item) : QJsonObject();
 }
 
-std::unique_ptr<SessionItem> JsonItemConverter::from_json(const QJsonObject& json) const {
+std::unique_ptr<SessionItem> JsonItemConverter::from_json(const QJsonObject& json) const
+{
     static JsonItemFormatAssistant assistant;
 
     if (!assistant.isSessionItem(json))

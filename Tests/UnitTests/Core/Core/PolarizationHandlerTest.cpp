@@ -13,21 +13,26 @@ private:
 };
 
 PolarizationHandlerTest::PolarizationHandlerTest()
-    : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix()) {}
+    : identity(Eigen::Matrix2cd::Identity()), test_matrix(testMatrix())
+{
+}
 
-Eigen::Matrix2cd PolarizationHandlerTest::testMatrix() {
+Eigen::Matrix2cd PolarizationHandlerTest::testMatrix()
+{
     Eigen::Matrix2cd result;
     result << 0, 1, 1, 0;
     return result;
 }
 
-TEST_F(PolarizationHandlerTest, InitialState) {
+TEST_F(PolarizationHandlerTest, InitialState)
+{
     PolarizationHandler handler;
     EXPECT_EQ(identity / 2.0, handler.getPolarization());
     EXPECT_EQ(identity, handler.getAnalyzerOperator());
 }
 
-TEST_F(PolarizationHandlerTest, SettersGetters) {
+TEST_F(PolarizationHandlerTest, SettersGetters)
+{
     PolarizationHandler handler;
     handler.setAnalyzerOperator(test_matrix);
     EXPECT_EQ(test_matrix, handler.getAnalyzerOperator());
@@ -35,7 +40,8 @@ TEST_F(PolarizationHandlerTest, SettersGetters) {
     EXPECT_EQ(test_matrix, handler.getPolarization());
 }
 
-TEST_F(PolarizationHandlerTest, Swap) {
+TEST_F(PolarizationHandlerTest, Swap)
+{
     PolarizationHandler handler;
     PolarizationHandler handler2;
 
@@ -57,7 +63,8 @@ TEST_F(PolarizationHandlerTest, Swap) {
     EXPECT_EQ(test_matrix, handler.getPolarization());
 }
 
-TEST_F(PolarizationHandlerTest, CopyMoveAssign) {
+TEST_F(PolarizationHandlerTest, CopyMoveAssign)
+{
     PolarizationHandler handler;
 
     handler.setPolarization(test_matrix);

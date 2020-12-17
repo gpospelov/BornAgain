@@ -10,7 +10,8 @@
 class TestProjectUtils : public ::testing::Test {
 protected:
     //! Helper function to create test file in a given directory (directory should exist).
-    void createTestFile(const QString& dirname, const QString& fileName) {
+    void createTestFile(const QString& dirname, const QString& fileName)
+    {
         QString filename = dirname.isEmpty() ? fileName : dirname + "/" + fileName;
 
         QFile file(filename);
@@ -24,7 +25,8 @@ protected:
     }
 };
 
-TEST_F(TestProjectUtils, test_nonXMLDataInDir) {
+TEST_F(TestProjectUtils, test_nonXMLDataInDir)
+{
     const QString projectDir = "test_ProjectUtils";
 
     QDir dir(projectDir);
@@ -68,7 +70,8 @@ TEST_F(TestProjectUtils, test_nonXMLDataInDir) {
 
 //! Test substraction of two lists (scenario: old files on disk vs new files).
 
-TEST_F(TestProjectUtils, test_stringListSubstraction) {
+TEST_F(TestProjectUtils, test_stringListSubstraction)
+{
     QStringList oldFiles = QStringList() << "a.int.gz"
                                          << "b.int.gz"
                                          << "c.int.gz";

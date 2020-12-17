@@ -40,7 +40,8 @@ private:
     std::map<std::string, std::vector<const IComponent*>> m_objects;
 };
 
-template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() const {
+template <class T> std::vector<const T*> ComponentKeyHandler::objectsOfType() const
+{
     std::vector<const T*> ret;
     for (auto it : m_objects)
         for (const IComponent* s : it.second)

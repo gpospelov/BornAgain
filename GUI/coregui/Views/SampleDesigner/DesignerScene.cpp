@@ -42,7 +42,8 @@ DesignerScene::DesignerScene(QObject* parent)
     , m_selectionModel(0)
     , m_proxy(0)
     , m_block_selection(false)
-    , m_aligner(new SampleViewAligner(this)) {
+    , m_aligner(new SampleViewAligner(this))
+{
     setSceneRect(QRectF(-1600, 0, 3200, 3200));
     setBackgroundBrush(DesignerHelper::getSceneBackground());
 
@@ -55,11 +56,13 @@ DesignerScene::DesignerScene(QObject* parent)
     connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
 }
 
-DesignerScene::~DesignerScene() {
+DesignerScene::~DesignerScene()
+{
     delete m_aligner;
 }
 
-void DesignerScene::setSampleModel(SampleModel* sampleModel) {
+void DesignerScene::setSampleModel(SampleModel* sampleModel)
+{
     ASSERT(sampleModel);
 
     if (sampleModel != m_sampleModel) {
@@ -91,15 +94,18 @@ void DesignerScene::setSampleModel(SampleModel* sampleModel) {
     }
 }
 
-void DesignerScene::setInstrumentModel(InstrumentModel* instrumentModel) {
+void DesignerScene::setInstrumentModel(InstrumentModel* instrumentModel)
+{
     m_instrumentModel = instrumentModel;
 }
 
-void DesignerScene::setMaterialModel(MaterialModel* materialModel) {
+void DesignerScene::setMaterialModel(MaterialModel* materialModel)
+{
     m_materialModel = materialModel;
 }
 
-void DesignerScene::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy) {
+void DesignerScene::setSelectionModel(QItemSelectionModel* model, FilterPropertyProxy* proxy)
+{
     ASSERT(model);
 
     if (model != m_selectionModel) {
@@ -117,7 +123,8 @@ void DesignerScene::setSelectionModel(QItemSelectionModel* model, FilterProperty
     }
 }
 
-IView* DesignerScene::getViewForItem(SessionItem* item) {
+IView* DesignerScene::getViewForItem(SessionItem* item)
+{
     auto it = m_ItemToView.find(item);
     if (it != m_ItemToView.end()) {
         return it.value();
@@ -125,28 +132,31 @@ IView* DesignerScene::getViewForItem(SessionItem* item) {
     return nullptr;
 }
 
-void DesignerScene::resetScene() {
+void DesignerScene::resetScene()
+{
     clear();
     m_ItemToView.clear();
     m_layer_interface_line = {};
 }
 
-void DesignerScene::updateScene() {
+void DesignerScene::updateScene()
+{
     updateViews();
     alignViews();
 }
 
-void DesignerScene::onRowsInserted(const QModelIndex& /* parent */, int /* first */,
-                                   int /* last */) {
+void DesignerScene::onRowsInserted(const QModelIndex& /* parent */, int /* first */, int /* last */)
+{
     updateScene();
 }
 
-void DesignerScene::onRowsRemoved(const QModelIndex& /* parent */, int /* first */,
-                                  int /* last */) {
+void DesignerScene::onRowsRemoved(const QModelIndex& /* parent */, int /* first */, int /* last */)
+{
     updateScene();
 }
 
-void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last) {
+void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex& parent, int first, int last)
+{
     m_block_selection = true;
     for (int irow = first; irow <= last; ++irow) {
         QModelIndex itemIndex = m_sampleModel->index(irow, 0, parent);
@@ -157,7 +167,8 @@ void DesignerScene::onRowsAboutToBeRemoved(const QModelIndex& parent, int first,
 
 //! propagate selection from model to scene
 void DesignerScene::onSessionSelectionChanged(const QItemSelection& /* selected */,
-                                              const QItemSelection& /* deselected */) {
+                                              const QItemSelection& /* deselected */)
+{
     if (m_block_selection)
         return;
 
@@ -179,7 +190,8 @@ void DesignerScene::onSessionSelectionChanged(const QItemSelection& /* selected 
 }
 
 //! propagate selection from scene to model
-void DesignerScene::onSceneSelectionChanged() {
+void DesignerScene::onSceneSelectionChanged()
+{
     if (m_block_selection)
         return;
 
@@ -203,7 +215,8 @@ void DesignerScene::onSceneSelectionChanged() {
 }
 
 //! runs through all items recursively and updates corresponding views
-void DesignerScene::updateViews(const QModelIndex& parentIndex, IView* parentView) {
+void DesignerScene::updateViews(const QModelIndex& parentIndex, IView* parentView)
+{
     ASSERT(m_sampleModel);
 
     IView* childView(0);
@@ -228,7 +241,8 @@ void DesignerScene::updateViews(const QModelIndex& parentIndex, IView* parentVie
 }
 
 //! adds view for item, if it doesn't exists
-IView* DesignerScene::addViewForItem(SessionItem* item) {
+IView* DesignerScene::addViewForItem(SessionItem* item)
+{
     ASSERT(item);
 
     IView* view = getViewForItem(item);
@@ -248,12 +262,14 @@ IView* DesignerScene::addViewForItem(SessionItem* item) {
 }
 
 //! aligns SampleView's on graphical canvas
-void DesignerScene::alignViews() {
+void DesignerScene::alignViews()
+{
     m_aligner->alignSample(QModelIndex(), QPointF(200, 800));
 }
 
 //! runs recursively through model's item and schedules view removal
-void DesignerScene::deleteViews(const QModelIndex& viewIndex) {
+void DesignerScene::deleteViews(const QModelIndex& viewIndex)
+{
     for (int i_row = 0; i_row < m_sampleModel->rowCount(viewIndex); ++i_row) {
         QModelIndex itemIndex = m_sampleModel->index(i_row, 0, viewIndex);
 
@@ -269,7 +285,8 @@ void DesignerScene::deleteViews(const QModelIndex& viewIndex) {
 }
 
 //! removes view from scene corresponding to given item
-void DesignerScene::removeItemViewFromScene(SessionItem* item) {
+void DesignerScene::removeItemViewFromScene(SessionItem* item)
+{
     ASSERT(item);
 
     for (QMap<SessionItem*, IView*>::iterator it = m_ItemToView.begin(); it != m_ItemToView.end();
@@ -288,7 +305,8 @@ void DesignerScene::removeItemViewFromScene(SessionItem* item) {
 }
 
 //! propagates deletion of views on the scene to the model
-void DesignerScene::deleteSelectedItems() {
+void DesignerScene::deleteSelectedItems()
+{
     QModelIndexList indexes = m_selectionModel->selectedIndexes();
 
     QList<IView*> views_which_will_be_deleted;
@@ -317,7 +335,8 @@ void DesignerScene::deleteSelectedItems() {
 }
 
 //! shows appropriate layer interface to drop while moving ILayerView
-void DesignerScene::drawForeground(QPainter* painter, const QRectF& /* rect */) {
+void DesignerScene::drawForeground(QPainter* painter, const QRectF& /* rect */)
+{
     if (isLayerDragged()) {
         painter->setPen(QPen(Qt::darkBlue, 2, Qt::DashLine));
         painter->drawLine(m_layer_interface_line);
@@ -325,7 +344,8 @@ void DesignerScene::drawForeground(QPainter* painter, const QRectF& /* rect */) 
 }
 
 //! propagates connection established by NodeEditor to the model
-void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection) {
+void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection)
+{
     ConnectableView* parentView = connection->getParentView();
     ConnectableView* childView = connection->getChildView();
 
@@ -354,7 +374,8 @@ void DesignerScene::onEstablishedConnection(NodeEditorConnection* connection) {
 }
 
 //! propagates break of connection between views on scene to the model
-void DesignerScene::removeConnection(NodeEditorConnection* connection) {
+void DesignerScene::removeConnection(NodeEditorConnection* connection)
+{
     IView* childView = dynamic_cast<IView*>(connection->outputPort()->parentItem());
     m_sampleModel->moveItem(childView->getItem(), 0);
 }
@@ -362,7 +383,8 @@ void DesignerScene::removeConnection(NodeEditorConnection* connection) {
 //! handles drag event
 //! LayerView can be dragged only over MultiLayerView
 //! MultiLayerView can be dragged both, over the scene and over another MultiLayerView
-void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event) {
+void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event)
+{
     const DesignerMimeData* mimeData = checkDragEvent(event);
     if (isAcceptedByMultiLayer(mimeData, event)) {
         QGraphicsScene::dragMoveEvent(event);
@@ -372,7 +394,8 @@ void DesignerScene::dragMoveEvent(QGraphicsSceneDragDropEvent* event) {
 //! Hadles drop event
 //! LayerView can be dropped on MultiLayerView only
 //! MultiLayerView can be droped on the scene or another MultiLayerView
-void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent* event) {
+void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent* event)
+{
     const DesignerMimeData* mimeData = checkDragEvent(event);
     if (mimeData) {
 
@@ -421,7 +444,8 @@ void DesignerScene::dropEvent(QGraphicsSceneDragDropEvent* event) {
 }
 
 //! returns proper MimeData if the object can be hadled by graphics scene
-const DesignerMimeData* DesignerScene::checkDragEvent(QGraphicsSceneDragDropEvent* event) {
+const DesignerMimeData* DesignerScene::checkDragEvent(QGraphicsSceneDragDropEvent* event)
+{
     const DesignerMimeData* mimeData = qobject_cast<const DesignerMimeData*>(event->mimeData());
     if (!mimeData) {
         event->ignore();
@@ -431,7 +455,8 @@ const DesignerMimeData* DesignerScene::checkDragEvent(QGraphicsSceneDragDropEven
     return mimeData;
 }
 
-void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
+void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
+{
     if (isLayerDragged()) {
         invalidate(); // to redraw vertical dashed line which denotes where to drag the layer
     }
@@ -439,7 +464,8 @@ void DesignerScene::mouseMoveEvent(QGraphicsSceneMouseEvent* event) {
 }
 
 //! Returns true if there is MultiLayerView nearby during drag event.
-bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent* event) {
+bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent* event)
+{
     QRectF rect = DesignerHelper::getDefaultMultiLayerRect();
     rect.moveCenter(event->scenePos());
     for (QGraphicsItem* item : items(rect)) {
@@ -449,7 +475,8 @@ bool DesignerScene::isMultiLayerNearby(QGraphicsSceneDragDropEvent* event) {
     return false;
 }
 
-void DesignerScene::adjustSceneRect() {
+void DesignerScene::adjustSceneRect()
+{
     QRectF boundingRect = itemsBoundingRect();
     if (sceneRect().contains(boundingRect))
         return;
@@ -459,7 +486,8 @@ void DesignerScene::adjustSceneRect() {
 }
 
 bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData* mimeData,
-                                           QGraphicsSceneDragDropEvent* event) {
+                                           QGraphicsSceneDragDropEvent* event)
+{
     if (!mimeData)
         return false;
 
@@ -475,7 +503,8 @@ bool DesignerScene::isAcceptedByMultiLayer(const DesignerMimeData* mimeData,
     return false;
 }
 
-bool DesignerScene::isLayerDragged() const {
+bool DesignerScene::isLayerDragged() const
+{
     ILayerView* layer = dynamic_cast<ILayerView*>(mouseGrabberItem());
     if (layer && !m_layer_interface_line.isNull()) {
         return true;
@@ -483,6 +512,7 @@ bool DesignerScene::isLayerDragged() const {
     return false;
 }
 
-void DesignerScene::onSmartAlign() {
+void DesignerScene::onSmartAlign()
+{
     m_aligner->smartAlign();
 }

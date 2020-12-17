@@ -21,10 +21,12 @@ protected:
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-Histogram2DTest::Histogram2DTest()
-    : hist{4, {-1.0, -0.5, 0.5, 1.0, 2.0}, 3, {0.0, 1.0, 2.0, 4.0}} {}
+Histogram2DTest::Histogram2DTest() : hist{4, {-1.0, -0.5, 0.5, 1.0, 2.0}, 3, {0.0, 1.0, 2.0, 4.0}}
+{
+}
 
-TEST_F(Histogram2DTest, VariableHist) {
+TEST_F(Histogram2DTest, VariableHist)
+{
     hist.reset();
 
     // basic axes check
@@ -94,7 +96,8 @@ TEST_F(Histogram2DTest, VariableHist) {
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-TEST_F(Histogram2DTest, VariableHistFill) {
+TEST_F(Histogram2DTest, VariableHistFill)
+{
     hist.reset();
 
     // values to fill all histogram
@@ -134,7 +137,8 @@ TEST_F(Histogram2DTest, VariableHistFill) {
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-TEST_F(Histogram2DTest, projectionX) {
+TEST_F(Histogram2DTest, projectionX)
+{
     hist.reset();
 
     // values to fill all histogram
@@ -211,7 +215,8 @@ TEST_F(Histogram2DTest, projectionX) {
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-TEST_F(Histogram2DTest, projectionY) {
+TEST_F(Histogram2DTest, projectionY)
+{
     hist.reset();
 
     // values to fill all histogram
@@ -297,7 +302,8 @@ TEST_F(Histogram2DTest, projectionY) {
 // 0.0   -----------------------------------
 //     -1.0  -0.5        0.5   1.0        2.0  X
 
-TEST_F(Histogram2DTest, crop) {
+TEST_F(Histogram2DTest, crop)
+{
     hist.reset();
 
     // values to fill all histogram
@@ -327,7 +333,8 @@ TEST_F(Histogram2DTest, crop) {
     EXPECT_EQ(2.0, crop->binContent(2, 1));
 }
 
-TEST_F(Histogram2DTest, CreateHistogram) {
+TEST_F(Histogram2DTest, CreateHistogram)
+{
     OutputData<double> data;
     data.addAxis("x-axis", 10, 0.0, 10.0);
     data.addAxis("y-axis", 5, -5.0, 0.0);
@@ -350,7 +357,8 @@ TEST_F(Histogram2DTest, CreateHistogram) {
     }
 }
 
-TEST_F(Histogram2DTest, CreateOutputData) {
+TEST_F(Histogram2DTest, CreateOutputData)
+{
     Histogram2D h2(10, -5.0, 5.0, 5, -5.0, 0.0);
 
     for (size_t nx = 0; nx < h2.getNbinsX(); ++nx) {
@@ -388,7 +396,8 @@ TEST_F(Histogram2DTest, CreateOutputData) {
     }
 }
 
-TEST_F(Histogram2DTest, GetMaximumGetMinimum) {
+TEST_F(Histogram2DTest, GetMaximumGetMinimum)
+{
     Histogram2D h2(10, -5.0, 5.0, 5, -5.0, 0.0);
 
     for (size_t ix = 0; ix < h2.getNbinsX(); ++ix) {

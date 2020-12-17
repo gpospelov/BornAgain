@@ -52,7 +52,8 @@ MVVM_VIEWMODEL_EXPORT std::unique_ptr<ViewModel> CreatePropertyFlatViewModel(Ses
 //! Creates view model to represent SessionModel for Qt views.
 //! Use user provided types for ChildrenStrategy and RowStrategy.
 template <typename ChildrenStrategy, typename RowStrategy>
-std::unique_ptr<ViewModel> CreateViewModel(SessionModel* session_model) {
+std::unique_ptr<ViewModel> CreateViewModel(SessionModel* session_model)
+{
     auto controller = CreateController<ChildrenStrategy, RowStrategy>(session_model, nullptr);
     return std::make_unique<ViewModel>(std::move(controller));
 }
@@ -60,7 +61,8 @@ std::unique_ptr<ViewModel> CreateViewModel(SessionModel* session_model) {
 //! Creates view model to represent SessionModel for Qt views.
 //! Use user provided controller type.
 template <typename ViewModelController>
-std::unique_ptr<ViewModel> CreateViewModel(SessionModel* session_model) {
+std::unique_ptr<ViewModel> CreateViewModel(SessionModel* session_model)
+{
     auto controller = std::make_unique<ViewModelController>(session_model);
     return std::make_unique<ViewModel>(std::move(controller));
 }

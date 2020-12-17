@@ -47,7 +47,8 @@ public:
     //! @param data: experimental data array
     //! @param weight: weight of dataset in metric calculations
     template <class T>
-    void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0) {
+    void addSimulationAndData(PyBuilderCallback& callback, const T& data, double weight = 1.0)
+    {
         addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data), nullptr,
                              weight);
     }
@@ -59,7 +60,8 @@ public:
     //! @param weight: weight of dataset in metric calculations
     template <class T>
     void addSimulationAndData(PyBuilderCallback& callback, const T& data, const T& uncertainties,
-                              double weight = 1.0) {
+                              double weight = 1.0)
+    {
         addSimulationAndData(simulationBuilder(callback), *ArrayUtils::createData(data),
                              ArrayUtils::createData(uncertainties), weight);
     }

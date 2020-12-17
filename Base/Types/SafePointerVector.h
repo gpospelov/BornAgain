@@ -57,17 +57,20 @@ private:
     std::vector<T*> m_pointers;
 };
 
-template <class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T>& other) {
+template <class T> SafePointerVector<T>::SafePointerVector(const SafePointerVector<T>& other)
+{
     for (const_iterator it = other.begin(); it != other.end(); ++it)
         m_pointers.push_back((*it)->clone());
 }
 
 template <class T>
-SafePointerVector<T>::SafePointerVector(SafePointerVector<T>&& other)
-    : m_pointers{other.m_pointers} {}
+SafePointerVector<T>::SafePointerVector(SafePointerVector<T>&& other) : m_pointers{other.m_pointers}
+{
+}
 
 template <class T>
-SafePointerVector<T>& SafePointerVector<T>::operator=(const SafePointerVector<T>& right) {
+SafePointerVector<T>& SafePointerVector<T>::operator=(const SafePointerVector<T>& right)
+{
     if (this == &right)
         return *this;
     clear();
@@ -77,14 +80,16 @@ SafePointerVector<T>& SafePointerVector<T>::operator=(const SafePointerVector<T>
 }
 
 template <class T>
-SafePointerVector<T>& SafePointerVector<T>::operator=(SafePointerVector<T>&& right) {
+SafePointerVector<T>& SafePointerVector<T>::operator=(SafePointerVector<T>&& right)
+{
     clear();
     m_pointers = std::move(right.m_pointers);
     right.m_pointers.clear();
     return *this;
 }
 
-template <class T> void SafePointerVector<T>::clear() {
+template <class T> void SafePointerVector<T>::clear()
+{
     for (iterator it = begin(); it != end(); ++it)
         delete (*it);
     m_pointers.clear();

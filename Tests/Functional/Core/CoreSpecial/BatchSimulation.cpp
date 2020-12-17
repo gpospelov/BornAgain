@@ -18,9 +18,11 @@
 #include <iostream>
 #include <memory>
 
-class BatchSimulation : public ::testing::Test {};
+class BatchSimulation : public ::testing::Test {
+};
 
-TEST_F(BatchSimulation, BatchSimulation) {
+TEST_F(BatchSimulation, BatchSimulation)
+{
     SimulationFactory sim_registry;
     const std::unique_ptr<ISimulation> simulation = sim_registry.createItemPtr("MiniGISAS");
 

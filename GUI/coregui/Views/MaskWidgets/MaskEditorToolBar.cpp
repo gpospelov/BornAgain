@@ -27,7 +27,8 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions* editorActions, QWidget* 
     : QToolBar(parent)
     , m_editorActions(editorActions)
     , m_activityButtonGroup(new QButtonGroup(this))
-    , m_maskValueGroup(new QButtonGroup(this)) {
+    , m_maskValueGroup(new QButtonGroup(this))
+{
     setIconSize(QSize(Constants::toolbar_icon_size, Constants::toolbar_icon_size));
     setProperty("_q_custom_style_disabled", QVariant(true));
 
@@ -46,7 +47,8 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions* editorActions, QWidget* 
 
 //! Handles ZOOM requests from MaskGraphicsView while user press and holds
 //! space bar. As soon as space bar is released, activity is returned to previous state.
-void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value) {
+void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
+{
     if (value == MaskEditorFlags::PREVIOUS_MODE) {
         setCurrentActivity(m_previousActivity);
     } else {
@@ -56,25 +58,30 @@ void MaskEditorToolBar::onChangeActivityRequest(MaskEditorFlags::Activity value)
     emit activityModeChanged(currentActivity());
 }
 
-void MaskEditorToolBar::onActivityGroupChange(int value) {
+void MaskEditorToolBar::onActivityGroupChange(int value)
+{
     Q_UNUSED(value);
     emit activityModeChanged(currentActivity());
 }
 
-void MaskEditorToolBar::onMaskValueGroupChange(int value) {
+void MaskEditorToolBar::onMaskValueGroupChange(int value)
+{
     Q_UNUSED(value);
     emit maskValueChanged(MaskEditorFlags::MaskValue(value));
 }
 
-void MaskEditorToolBar::onPresentationTypePressed() {
+void MaskEditorToolBar::onPresentationTypePressed()
+{
     emit presentationTypeRequest(MaskEditorFlags::MASK_PRESENTER);
 }
 
-void MaskEditorToolBar::onPresentationTypeReleased() {
+void MaskEditorToolBar::onPresentationTypeReleased()
+{
     emit presentationTypeRequest(MaskEditorFlags::MASK_EDITOR);
 }
 
-void MaskEditorToolBar::setup_selection_group() {
+void MaskEditorToolBar::setup_selection_group()
+{
     QToolButton* panButton = new QToolButton(this);
     panButton->setIcon(QIcon(":/images/hand-right.svg"));
     panButton->setToolTip("Pan/zoom mode (space)");
@@ -100,7 +107,8 @@ void MaskEditorToolBar::setup_selection_group() {
     m_activityButtonGroup->addButton(selectionButton, MaskEditorFlags::SELECTION_MODE);
 }
 
-void MaskEditorToolBar::setup_maskvalue_group() {
+void MaskEditorToolBar::setup_maskvalue_group()
+{
     addWidget(new QLabel(" "));
 
     QRadioButton* maskTrueButton = new QRadioButton(this);
@@ -122,7 +130,8 @@ void MaskEditorToolBar::setup_maskvalue_group() {
     m_maskValueGroup->addButton(maskFalseButton, MaskEditorFlags::MASK_OFF);
 }
 
-void MaskEditorToolBar::setup_shapes_group() {
+void MaskEditorToolBar::setup_shapes_group()
+{
     QToolButton* roiButton = new QToolButton(this);
     roiButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_roi.svg"));
     roiButton->setToolTip("Create region of interest");
@@ -177,14 +186,16 @@ void MaskEditorToolBar::setup_shapes_group() {
     add_separator();
 }
 
-void MaskEditorToolBar::setup_maskmodify_group() {
+void MaskEditorToolBar::setup_maskmodify_group()
+{
     ASSERT(m_editorActions);
     addAction(m_editorActions->bringToFrontAction());
     addAction(m_editorActions->sendToBackAction());
     add_separator();
 }
 
-void MaskEditorToolBar::setup_extratools_group() {
+void MaskEditorToolBar::setup_extratools_group()
+{
     QToolButton* presentationButton = new QToolButton(this);
     presentationButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_lightbulb.svg"));
     presentationButton->setToolTip("Press and hold to see mask results.");
@@ -203,16 +214,19 @@ void MaskEditorToolBar::setup_extratools_group() {
     add_separator();
 }
 
-void MaskEditorToolBar::add_separator() {
+void MaskEditorToolBar::add_separator()
+{
     addWidget(new QLabel(" "));
     addSeparator();
     addWidget(new QLabel(" "));
 }
 
-MaskEditorFlags::Activity MaskEditorToolBar::currentActivity() const {
+MaskEditorFlags::Activity MaskEditorToolBar::currentActivity() const
+{
     return MaskEditorFlags::EActivityType(m_activityButtonGroup->checkedId());
 }
 
-void MaskEditorToolBar::setCurrentActivity(MaskEditorFlags::Activity value) {
+void MaskEditorToolBar::setCurrentActivity(MaskEditorFlags::Activity value)
+{
     m_activityButtonGroup->button(value)->setChecked(true);
 }

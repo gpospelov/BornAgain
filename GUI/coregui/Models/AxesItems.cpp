@@ -24,11 +24,13 @@ const QString BasicAxisItem::P_TITLE_IS_VISIBLE = "Title Visibility";
 
 const int max_detector_pixels = 65536;
 
-BasicAxisItem::BasicAxisItem(const QString& type) : SessionItem(type) {
+BasicAxisItem::BasicAxisItem(const QString& type) : SessionItem(type)
+{
     register_basic_properties();
 }
 
-std::unique_ptr<IAxis> BasicAxisItem::createAxis(double scale) const {
+std::unique_ptr<IAxis> BasicAxisItem::createAxis(double scale) const
+{
     return std::make_unique<FixedBinAxis>(
         getItemValue(P_TITLE).toString().toStdString(), getItemValue(P_NBINS).toInt(),
         getItemValue(P_MIN_DEG).toDouble() * scale, getItemValue(P_MAX_DEG).toDouble() * scale);
@@ -36,7 +38,8 @@ std::unique_ptr<IAxis> BasicAxisItem::createAxis(double scale) const {
 
 BasicAxisItem::~BasicAxisItem() = default;
 
-void BasicAxisItem::register_basic_properties() {
+void BasicAxisItem::register_basic_properties()
+{
     addProperty(P_IS_VISIBLE, true)->setVisible(false);
     addProperty(P_NBINS, 100)->setLimits(RealLimits::limited(1, max_detector_pixels));
     addProperty(P_MIN_DEG, 0.0)->setDecimals(3);
@@ -52,7 +55,8 @@ void BasicAxisItem::register_basic_properties() {
 const QString AmplitudeAxisItem::P_IS_LOGSCALE = "log10";
 const QString AmplitudeAxisItem::P_LOCK_MIN_MAX = "Lock (min, max)";
 
-AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem("AmplitudeAxis") {
+AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem("AmplitudeAxis")
+{
     addProperty(P_LOCK_MIN_MAX, false)->setVisible(false);
     addProperty(P_IS_LOGSCALE, true);
     getItem(BasicAxisItem::P_TITLE)->setVisible(false);
@@ -71,7 +75,8 @@ AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem("AmplitudeAxis") {
 
 //! Sets editor for min, max values of axes
 
-void AmplitudeAxisItem::setMinMaxEditor(const QString& editorType) {
+void AmplitudeAxisItem::setMinMaxEditor(const QString& editorType)
+{
     getItem(BasicAxisItem::P_MIN_DEG)->setEditorType(editorType);
     getItem(BasicAxisItem::P_MAX_DEG)->setEditorType(editorType);
 }

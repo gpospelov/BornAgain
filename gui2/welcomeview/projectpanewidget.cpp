@@ -20,7 +20,8 @@
 #include <QVBoxLayout>
 
 namespace {
-int widget_height() {
+int widget_height()
+{
     return ModelView::Utils::SizeOfLetterM().height() * 3;
 }
 } // namespace
@@ -31,7 +32,8 @@ ProjectPaneWidget::ProjectPaneWidget(QWidget* parent)
     : QWidget(parent)
     , m_currentProjectTitle(new QLabel(" "))
     , m_currentProjectDir(new QLabel(" "))
-    , m_widgetColor(QColor(Qt::white)) {
+    , m_widgetColor(QColor(Qt::white))
+{
     setSizePolicy(QSizePolicy::Preferred, QSizePolicy::Fixed);
     setFixedHeight(widget_height());
     auto layout = new QVBoxLayout(this);
@@ -41,7 +43,8 @@ ProjectPaneWidget::ProjectPaneWidget(QWidget* parent)
 
 //! Sets current project dir to 'project_dir', adjust title according to 'is_modified'.
 
-void ProjectPaneWidget::setCurrentProject(const QString& project_dir, bool is_modified) {
+void ProjectPaneWidget::setCurrentProject(const QString& project_dir, bool is_modified)
+{
     m_active = true;
     m_projectDir = project_dir;
 
@@ -56,7 +59,8 @@ void ProjectPaneWidget::setCurrentProject(const QString& project_dir, bool is_mo
 //! Clear content of widget and make it inactive. Inactive widget doesnt' send signals when
 //! user click on it.
 
-void ProjectPaneWidget::clear() {
+void ProjectPaneWidget::clear()
+{
     setActive(false);
     m_projectDir.clear();
     m_currentProjectDir->setText({});
@@ -67,28 +71,33 @@ void ProjectPaneWidget::clear() {
 //! Set 'active' flag to the given value. 'False' means that the widget only shows the project
 //! title, but doesn't react on mouse clicks and doesn't change the background on mouse
 //! hover events.
-void ProjectPaneWidget::setActive(bool value) {
+void ProjectPaneWidget::setActive(bool value)
+{
     m_active = value;
     update();
 }
 
-void ProjectPaneWidget::paintEvent(QPaintEvent*) {
+void ProjectPaneWidget::paintEvent(QPaintEvent*)
+{
     QPainter painter(this);
     painter.fillRect(0, 0, size().width(), size().height(), m_widgetColor);
 }
 
-void ProjectPaneWidget::enterEvent(QEvent*) {
+void ProjectPaneWidget::enterEvent(QEvent*)
+{
     if (m_active)
         m_widgetColor = QColor(Qt::lightGray);
     update();
 }
 
-void ProjectPaneWidget::leaveEvent(QEvent*) {
+void ProjectPaneWidget::leaveEvent(QEvent*)
+{
     m_widgetColor = QColor(Qt::white);
     update();
 }
 
-void ProjectPaneWidget::mousePressEvent(QMouseEvent* event) {
+void ProjectPaneWidget::mousePressEvent(QMouseEvent* event)
+{
     if (m_active && event->button() == Qt::LeftButton)
         projectSelected(m_projectDir);
 }

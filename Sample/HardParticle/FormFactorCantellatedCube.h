@@ -25,7 +25,8 @@ public:
     FormFactorCantellatedCube(const std::vector<double> P);
     FormFactorCantellatedCube(double length, double removed_length);
 
-    FormFactorCantellatedCube* clone() const final {
+    FormFactorCantellatedCube* clone() const final
+    {
         return new FormFactorCantellatedCube(m_length, m_removed_length);
     }
     void accept(INodeVisitor* visitor) const final { visitor->visit(this); }

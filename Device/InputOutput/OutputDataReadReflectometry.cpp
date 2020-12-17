@@ -19,7 +19,8 @@
 #include "Device/InputOutput/DataFormatUtils.h"
 #include <map>
 
-OutputData<double>* OutputDataReadReflectometry::readOutputData(std::istream& fin) {
+OutputData<double>* OutputDataReadReflectometry::readOutputData(std::istream& fin)
+{
     OutputData<double>* oData = new OutputData<double>();
     std::string line;
     std::vector<std::vector<double>> vecVec;

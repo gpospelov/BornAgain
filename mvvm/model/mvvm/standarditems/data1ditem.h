@@ -53,7 +53,8 @@ public:
 // or added later? It is not clear how to create axis a) via Data1DItem::setAxis
 // b) via model directly c) in constructor?
 
-template <typename T, typename... Args> T* Data1DItem::setAxis(Args&&... args) {
+template <typename T, typename... Args> T* Data1DItem::setAxis(Args&&... args)
+{
     // we disable possibility to re-create axis to facilitate undo/redo
     if (getItem(T_AXIS, 0))
         throw std::runtime_error("Axis was already set. Currently we do not support axis change");

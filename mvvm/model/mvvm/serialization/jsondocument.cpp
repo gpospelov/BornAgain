@@ -30,10 +30,13 @@ struct JsonDocument::JsonDocumentImpl {
 };
 
 JsonDocument::JsonDocument(const std::vector<SessionModel*>& models)
-    : p_impl(std::make_unique<JsonDocumentImpl>(models)) {}
+    : p_impl(std::make_unique<JsonDocumentImpl>(models))
+{
+}
 
 //! Saves models on disk.
-void JsonDocument::save(const std::string& file_name) const {
+void JsonDocument::save(const std::string& file_name) const
+{
     auto converter = ModelView::CreateModelProjectConverter();
     QJsonArray array;
 
@@ -53,7 +56,8 @@ void JsonDocument::save(const std::string& file_name) const {
 
 //! Loads models from disk. If models have some data already, it will be rewritten.
 
-void JsonDocument::load(const std::string& file_name) {
+void JsonDocument::load(const std::string& file_name)
+{
     QFile file(QString::fromStdString(file_name));
     if (!file.open(QIODevice::ReadOnly))
         throw std::runtime_error("Error in JsonDocument: can't read the file '" + file_name + "'");

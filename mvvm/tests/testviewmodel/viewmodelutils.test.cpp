@@ -25,7 +25,8 @@
 #include <QStandardItemModel>
 
 namespace {
-QList<QStandardItem*> get_items(std::vector<int> data) {
+QList<QStandardItem*> get_items(std::vector<int> data)
+{
     QList<QStandardItem*> result;
 
     for (auto x : data)
@@ -44,7 +45,8 @@ public:
 
 ViewModelUtilsTest::~ViewModelUtilsTest() = default;
 
-TEST_F(ViewModelUtilsTest, iterate) {
+TEST_F(ViewModelUtilsTest, iterate)
+{
     QStandardItemModel model;
 
     model.setColumnCount(2);
@@ -70,7 +72,8 @@ TEST_F(ViewModelUtilsTest, iterate) {
 
 //! Translation of item role to Qt roles.
 
-TEST_F(ViewModelUtilsTest, ItemRoleToQtRole) {
+TEST_F(ViewModelUtilsTest, ItemRoleToQtRole)
+{
     // DATA role of SessionItem should be translated to two Qt roles (edit and display)
     auto roles = Utils::ItemRoleToQtRole(ItemDataRole::DATA);
     QVector<int> expected = {Qt::DisplayRole, Qt::EditRole};
@@ -93,7 +96,8 @@ TEST_F(ViewModelUtilsTest, ItemRoleToQtRole) {
 
 //! Testing color role of item.
 
-TEST_F(ViewModelUtilsTest, itemTextColorRole) {
+TEST_F(ViewModelUtilsTest, itemTextColorRole)
+{
     SessionItem item("Something");
 
     // no color defined for item by default
@@ -107,7 +111,8 @@ TEST_F(ViewModelUtilsTest, itemTextColorRole) {
 
 //! Testing check state role of item.
 
-TEST_F(ViewModelUtilsTest, itemCheckStateRole) {
+TEST_F(ViewModelUtilsTest, itemCheckStateRole)
+{
     SessionItem item("Something");
 
     // no color defined for item by default
@@ -123,7 +128,8 @@ TEST_F(ViewModelUtilsTest, itemCheckStateRole) {
 
 //! Testing decoration role of the item.
 
-TEST_F(ViewModelUtilsTest, itemDecorationRole) {
+TEST_F(ViewModelUtilsTest, itemDecorationRole)
+{
     SessionItem item("Something");
 
     // no color defined for item by default
@@ -137,7 +143,8 @@ TEST_F(ViewModelUtilsTest, itemDecorationRole) {
 
 //! Testing tooltip role of the item.
 
-TEST_F(ViewModelUtilsTest, itemToolTipRole) {
+TEST_F(ViewModelUtilsTest, itemToolTipRole)
+{
     SessionItem item("Something");
 
     auto variant = Utils::ToolTipRole(item);
@@ -151,7 +158,8 @@ TEST_F(ViewModelUtilsTest, itemToolTipRole) {
 //! ViewItem with its three property x, y, z forms one row. All corresponding
 //! indices of (x,y,z) should give us pointers to VectorItem's properties.
 
-TEST_F(ViewModelUtilsTest, itemsFromIndex) {
+TEST_F(ViewModelUtilsTest, itemsFromIndex)
+{
     // creating VectorItem and viewModel to see it as a table
     SessionModel model;
     auto parent = model.insertItem<VectorItem>();
@@ -179,7 +187,8 @@ TEST_F(ViewModelUtilsTest, itemsFromIndex) {
 
 //! Check UniqueItemsFromIndex for artificially constructed viewmodel.
 
-TEST_F(ViewModelUtilsTest, UniqueItemsFromIndex) {
+TEST_F(ViewModelUtilsTest, UniqueItemsFromIndex)
+{
     SessionItem item1;
     item1.setData(42, ItemDataRole::DATA);
     SessionItem item2;
@@ -205,7 +214,8 @@ TEST_F(ViewModelUtilsTest, UniqueItemsFromIndex) {
 //! ViewItem with its three property x, y, z forms one row. All corresponding
 //! indices of (x,y,z) should give us pointer to VectorItem.
 
-TEST_F(ViewModelUtilsTest, parentItemsFromIndex) {
+TEST_F(ViewModelUtilsTest, parentItemsFromIndex)
+{
     // creating VectorItem and viewModel to see it as a table
     SessionModel model;
     auto parent = model.insertItem<VectorItem>();

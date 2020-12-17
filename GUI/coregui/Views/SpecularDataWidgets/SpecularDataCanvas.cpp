@@ -43,47 +43,56 @@ SpecularDataCanvas::SpecularDataCanvas(QWidget* parent)
             &SpecularDataCanvas::onMousePress, Qt::UniqueConnection);
 }
 
-void SpecularDataCanvas::setItem(SessionItem* intensityItem) {
+void SpecularDataCanvas::setItem(SessionItem* intensityItem)
+{
     SessionItemWidget::setItem(intensityItem);
     m_plot_canvas->setItem(intensityItem);
 }
 
-QSize SpecularDataCanvas::sizeHint() const {
+QSize SpecularDataCanvas::sizeHint() const
+{
     return QSize(500, 400);
 }
 
-QSize SpecularDataCanvas::minimumSizeHint() const {
+QSize SpecularDataCanvas::minimumSizeHint() const
+{
     return QSize(128, 128);
 }
 
-QList<QAction*> SpecularDataCanvas::actionList() {
+QList<QAction*> SpecularDataCanvas::actionList()
+{
     return QList<QAction*>() << m_reset_view_action << m_save_plot_action;
 }
 
-void SpecularDataCanvas::onResetViewAction() {
+void SpecularDataCanvas::onResetViewAction()
+{
     specularDataItem()->resetView();
 }
 
-void SpecularDataCanvas::onSavePlotAction() {
+void SpecularDataCanvas::onSavePlotAction()
+{
     QString dirname = AppSvc::projectManager()->userExportDir();
     SavePlotAssistant saveAssistant;
     saveAssistant.savePlot(dirname, m_plot_canvas->customPlot(),
                            specularDataItem()->getOutputData());
 }
 
-void SpecularDataCanvas::onMousePress(QMouseEvent* event) {
+void SpecularDataCanvas::onMousePress(QMouseEvent* event)
+{
     if (event->button() == Qt::RightButton)
         emit customContextMenuRequested(event->globalPos());
 }
 
-SpecularDataItem* SpecularDataCanvas::specularDataItem() {
+SpecularDataItem* SpecularDataCanvas::specularDataItem()
+{
     SpecularDataItem* result = dynamic_cast<SpecularDataItem*>(currentItem());
     ASSERT(result);
     return result;
 }
 
 // TODO: try to reuse IntensityDataCanvas::initActions somehow
-void SpecularDataCanvas::initActions() {
+void SpecularDataCanvas::initActions()
+{
     m_reset_view_action = new QAction(this);
     m_reset_view_action->setText("Center view");
     m_reset_view_action->setIcon(QIcon(":/images/camera-metering-center.svg"));

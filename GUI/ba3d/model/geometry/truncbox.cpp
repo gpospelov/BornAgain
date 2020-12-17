@@ -17,7 +17,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshTruncBox(float tD) { // t/D
+Geometry::Mesh Geometry::meshTruncBox(float tD)
+{ // t/D
     if (tD <= 0)
         return meshBox();
 

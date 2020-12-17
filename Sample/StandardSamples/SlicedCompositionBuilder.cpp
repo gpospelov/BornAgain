@@ -22,7 +22,8 @@
 #include "Sample/Particle/ParticleComposition.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* SlicedCompositionBuilder::buildSample() const {
+MultiLayer* SlicedCompositionBuilder::buildSample() const
+{
     const double sphere_radius = 10.0;
     const double bottom_cup_height = 4.0;
     const double composition_shift = bottom_cup_height;

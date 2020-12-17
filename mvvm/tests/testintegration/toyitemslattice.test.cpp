@@ -30,7 +30,8 @@ ToyItemsLatticeTest::~ToyItemsLatticeTest() = default;
 
 //! Business logice (enabled/disabled).
 
-TEST_F(ToyItemsLatticeTest, ToyItemsLatticeTest) {
+TEST_F(ToyItemsLatticeTest, ToyItemsLatticeTest)
+{
     ToyItems::SampleModel model;
     auto lattice = model.insertItem<LatticeItem>();
 

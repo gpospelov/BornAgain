@@ -26,7 +26,8 @@ RealSpaceWidget::RealSpaceWidget(SampleModel* sampleModel, QItemSelectionModel* 
     , m_toolBar(new RealSpaceToolBar)
     , m_canvas(new RealSpaceCanvas)
     , m_sampleModel(sampleModel)
-    , m_selectionModel(selectionModel) {
+    , m_selectionModel(selectionModel)
+{
     auto hlayout = new QHBoxLayout;
     hlayout->setMargin(0);
     hlayout->setSpacing(0);
@@ -61,10 +62,12 @@ RealSpaceWidget::RealSpaceWidget(SampleModel* sampleModel, QItemSelectionModel* 
             &RealSpaceCanvas::onSavePictureAction);
 }
 
-void RealSpaceWidget::showEvent(QShowEvent*) {
+void RealSpaceWidget::showEvent(QShowEvent*)
+{
     m_canvas->setModel(m_sampleModel, m_selectionModel);
 }
 
-void RealSpaceWidget::hideEvent(QHideEvent*) {
+void RealSpaceWidget::hideEvent(QHideEvent*)
+{
     m_canvas->setModel(nullptr, nullptr);
 }

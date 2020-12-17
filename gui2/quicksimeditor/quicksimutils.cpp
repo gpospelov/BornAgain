@@ -28,7 +28,8 @@ namespace gui2 {
 namespace {
 
 //! Creates slice from layer content.
-SliceData create_slice(const ModelView::SessionItem& layer) {
+SliceData create_slice(const ModelView::SessionItem& layer)
+{
     if (layer.modelType() != Constants::LayerItemType)
         throw std::runtime_error("Error in create_slice(): not a layer.");
 
@@ -46,7 +47,8 @@ SliceData create_slice(const ModelView::SessionItem& layer) {
 
 //! Adds slices to existing vector of slices using content of a multilayer.
 //! Will be called recursively for multilayers inside multilayers.
-void AddToMultiSlice(multislice_t& result, const ModelView::SessionItem& multilayer) {
+void AddToMultiSlice(multislice_t& result, const ModelView::SessionItem& multilayer)
+{
     for (const auto item : multilayer.getItems(MultiLayerItem::T_LAYERS)) {
         if (item->modelType() == Constants::LayerItemType) {
             result.push_back(create_slice(*item));
@@ -62,13 +64,15 @@ void AddToMultiSlice(multislice_t& result, const ModelView::SessionItem& multila
 
 } // namespace
 
-multislice_t Utils::CreateMultiSlice(const MultiLayerItem& multilayer) {
+multislice_t Utils::CreateMultiSlice(const MultiLayerItem& multilayer)
+{
     multislice_t result;
     AddToMultiSlice(result, multilayer);
     return result;
 }
 
-std::vector<Slice> Utils::createBornAgainSlices(const multislice_t& multislice) {
+std::vector<Slice> Utils::createBornAgainSlices(const multislice_t& multislice)
+{
     std::vector<Slice> result;
     result.reserve(multislice.size());
 

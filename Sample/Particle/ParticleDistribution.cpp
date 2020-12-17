@@ -23,7 +23,8 @@
 
 ParticleDistribution::ParticleDistribution(const IParticle& prototype,
                                            const ParameterDistribution& par_distr)
-    : m_par_distribution(par_distr) {
+    : m_par_distribution(par_distr)
+{
     setName("ParticleDistribution");
     m_particle.reset(prototype.clone());
     registerChild(m_particle.get());
@@ -33,23 +34,27 @@ ParticleDistribution::ParticleDistribution(const IParticle& prototype,
     registerParameter("Abundance", &m_abundance);
 }
 
-ParticleDistribution* ParticleDistribution::clone() const {
+ParticleDistribution* ParticleDistribution::clone() const
+{
     ParticleDistribution* result = new ParticleDistribution(*m_particle, m_par_distribution);
     result->setAbundance(m_abundance);
     return result;
 }
 
-void ParticleDistribution::translate(kvector_t translation) {
+void ParticleDistribution::translate(kvector_t translation)
+{
     m_particle->translate(translation);
 }
 
-void ParticleDistribution::rotate(const IRotation& rotation) {
+void ParticleDistribution::rotate(const IRotation& rotation)
+{
     m_particle->rotate(rotation);
 }
 
 //! Returns particle clones with parameter values drawn from distribution.
 
-SafePointerVector<IParticle> ParticleDistribution::generateParticles() const {
+SafePointerVector<IParticle> ParticleDistribution::generateParticles() const
+{
     // createParameterTree
     ParameterPool pool;
     for (const INode* child : m_particle->progeny()) {
@@ -84,14 +89,16 @@ SafePointerVector<IParticle> ParticleDistribution::generateParticles() const {
     return result;
 }
 
-std::vector<const INode*> ParticleDistribution::getChildren() const {
+std::vector<const INode*> ParticleDistribution::getChildren() const
+{
     std::vector<const INode*> result = std::vector<const INode*>() << m_particle;
     if (const auto* dist = m_par_distribution.getDistribution())
         result.emplace_back(dist);
     return result;
 }
 
-std::string ParticleDistribution::mainUnits() const {
+std::string ParticleDistribution::mainUnits() const
+{
     return ParameterUtils::poolParameterUnits(prototype(),
                                               parameterDistribution().getMainParameterName());
 }

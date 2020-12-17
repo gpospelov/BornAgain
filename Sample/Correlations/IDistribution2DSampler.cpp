@@ -21,7 +21,9 @@ size_t n_boxes = 256; // number of boxes for Ziggurat sampling
 
 struct ZigguratBox {
     ZigguratBox(double x_min, double x_max, double y_max, double y_lower)
-        : m_x_min(x_min), m_x_max(x_max), m_y_max(y_max), m_y_lower(y_lower) {}
+        : m_x_min(x_min), m_x_max(x_max), m_y_max(y_max), m_y_lower(y_lower)
+    {
+    }
 
     double m_x_min; // left edge of the box
     double m_x_max; // right edge of the box
@@ -31,8 +33,8 @@ struct ZigguratBox {
                       // are located below the density function curve in the box
 };
 
-std::pair<double, double> samplingZiggurat(double r, double x_func_max,
-                                           double (*func_phi)(double)) {
+std::pair<double, double> samplingZiggurat(double r, double x_func_max, double (*func_phi)(double))
+{
     // This sampling is based on vertical boxes instead of the conventional
     // Ziggurat sampling that is done with horizontal boxes
 
@@ -108,12 +110,14 @@ std::pair<double, double> samplingZiggurat(double r, double x_func_max,
     return std::make_pair(phi, alpha);
 }
 
-double func_phi_Cauchy(double phi) {
+double func_phi_Cauchy(double phi)
+{
     // The independent "phi" density function of the 2D Cauchy distribution
     return phi * std::exp(-phi);
 }
 
-double func_phi_Cone(double phi) {
+double func_phi_Cone(double phi)
+{
     // The independent "phi" density function of the 2D Cone distribution
     return 6 * (1 - phi) * phi;
 }
@@ -121,7 +125,8 @@ double func_phi_Cone(double phi) {
 
 IDistribution2DSampler::~IDistribution2DSampler() = default;
 
-std::pair<double, double> Distribution2DCauchySampler::randomSample() const {
+std::pair<double, double> Distribution2DCauchySampler::randomSample() const
+{
     // Use Ziggurat sampling instead of Inverse Transform Sampling (ITS requires numerical solver)
 
     double phi_max_Cauchy = 1.0;
@@ -132,7 +137,8 @@ std::pair<double, double> Distribution2DCauchySampler::randomSample() const {
                           m_omega_y * samples.first * std::sin(samples.second));
 }
 
-std::pair<double, double> Distribution2DGaussSampler::randomSample() const {
+std::pair<double, double> Distribution2DGaussSampler::randomSample() const
+{
     std::random_device rd;  // random device class instance
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
@@ -145,7 +151,8 @@ std::pair<double, double> Distribution2DGaussSampler::randomSample() const {
     return std::make_pair(m_omega_x * phi * std::cos(alpha), m_omega_y * phi * std::sin(alpha));
 }
 
-std::pair<double, double> Distribution2DGateSampler::randomSample() const {
+std::pair<double, double> Distribution2DGateSampler::randomSample() const
+{
     std::random_device rd;  // random device class instance
     std::mt19937 gen(rd()); // Standard mersenne_twister_engine seeded with rd()
     std::uniform_real_distribution<double> uniformDist(0.0, 1.0);
@@ -158,7 +165,8 @@ std::pair<double, double> Distribution2DGateSampler::randomSample() const {
     return std::make_pair(m_omega_x * phi * std::cos(alpha), m_omega_y * phi * std::sin(alpha));
 }
 
-std::pair<double, double> Distribution2DConeSampler::randomSample() const {
+std::pair<double, double> Distribution2DConeSampler::randomSample() const
+{
     // Use Ziggurat sampling instead of Inverse Transform Sampling (ITS requires numerical solver)
 
     double phi_max_Cone = 0.5;

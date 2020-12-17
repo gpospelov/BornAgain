@@ -41,7 +41,8 @@ UndoStackTest::~UndoStackTest() = default;
 //! This is connected with the fact, that Qt takes ownership of the command and we have to use
 //! our own wrapper.
 
-TEST_F(UndoStackTest, commandTimeOfLife) {
+TEST_F(UndoStackTest, commandTimeOfLife)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
     item->setData(42);
@@ -111,7 +112,8 @@ TEST_F(UndoStackTest, commandTimeOfLife) {
 //! Same as above, but command is trying to set same value. It makes it "expired" and it should
 //! be removed from the stack.
 
-TEST_F(UndoStackTest, expiredCommandTimeOfLife) {
+TEST_F(UndoStackTest, expiredCommandTimeOfLife)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
     item->setData(42);
@@ -154,7 +156,8 @@ TEST_F(UndoStackTest, expiredCommandTimeOfLife) {
     EXPECT_EQ(pw_command.lock(), nullptr);
 }
 
-TEST_F(UndoStackTest, initialState) {
+TEST_F(UndoStackTest, initialState)
+{
     SessionModel model;
 
     // no undo/redo stack by default
@@ -172,7 +175,8 @@ TEST_F(UndoStackTest, initialState) {
     EXPECT_EQ(stack->index(), 0);
 }
 
-TEST_F(UndoStackTest, insertNewItem) {
+TEST_F(UndoStackTest, insertNewItem)
+{
     const model_type modelType(Constants::BaseType);
     SessionModel model;
     model.setUndoRedoEnabled(true);
@@ -215,7 +219,8 @@ TEST_F(UndoStackTest, insertNewItem) {
 
 //! Insert property item, unto, redo, and checking that identifier is preserved.
 
-TEST_F(UndoStackTest, insertPropertyItemID) {
+TEST_F(UndoStackTest, insertPropertyItemID)
+{
     SessionModel model;
     model.setUndoRedoEnabled(true);
     auto stack = model.undoStack();
@@ -239,7 +244,8 @@ TEST_F(UndoStackTest, insertPropertyItemID) {
 
 //! Undo/redo scenario when few items inserted.
 
-TEST_F(UndoStackTest, insertParentAndChild) {
+TEST_F(UndoStackTest, insertParentAndChild)
+{
     SessionModel model;
     model.setUndoRedoEnabled(true);
     auto stack = model.undoStack();
@@ -275,7 +281,8 @@ TEST_F(UndoStackTest, insertParentAndChild) {
 
 //! Undo/redo scenario when item inserted and data set few times.
 
-TEST_F(UndoStackTest, setData) {
+TEST_F(UndoStackTest, setData)
+{
     const int role = ItemDataRole::DATA;
     SessionModel model;
     model.setUndoRedoEnabled(true);
@@ -315,7 +322,8 @@ TEST_F(UndoStackTest, setData) {
 
 //! Undo/redo scenario when item data changed through item and not the model.
 
-TEST_F(UndoStackTest, setDataThroughItem) {
+TEST_F(UndoStackTest, setDataThroughItem)
+{
     const int role = ItemDataRole::DATA;
     const QVariant value(42.0);
 
@@ -343,7 +351,8 @@ TEST_F(UndoStackTest, setDataThroughItem) {
 
 //! Undo/redo scenario when we set same data. Undo stack should be empty.
 
-TEST_F(UndoStackTest, setSameData) {
+TEST_F(UndoStackTest, setSameData)
+{
     SessionModel model;
     auto item = model.insertItem<PropertyItem>();
     item->setData(42.0);
@@ -363,7 +372,8 @@ TEST_F(UndoStackTest, setSameData) {
 
 //! Checks if we insert item, set data and undo everything we can get back to the data.
 
-TEST_F(UndoStackTest, insertAndSetData) {
+TEST_F(UndoStackTest, insertAndSetData)
+{
     const int role = ItemDataRole::DATA;
     SessionModel model;
     model.setUndoRedoEnabled(true);
@@ -399,7 +409,8 @@ TEST_F(UndoStackTest, insertAndSetData) {
 
 //! Inserting item, setting the data, removing row, undoing, checking item and data.
 
-TEST_F(UndoStackTest, removeRow) {
+TEST_F(UndoStackTest, removeRow)
+{
     const int role = ItemDataRole::DATA;
     const QVariant data(42);
 
@@ -436,7 +447,8 @@ TEST_F(UndoStackTest, removeRow) {
 
 //! Inserting parent and child, setting data to them, removing parent, undoing and checking.
 
-TEST_F(UndoStackTest, removeParentAndChild) {
+TEST_F(UndoStackTest, removeParentAndChild)
+{
     const int role1(ItemDataRole::DATA), role2(ItemDataRole::DISPLAY);
     const QVariant data1(42);
     const QVariant data2 = QVariant::fromValue(std::string("abc"));
@@ -478,7 +490,8 @@ TEST_F(UndoStackTest, removeParentAndChild) {
 
 //! Insert item, remove row, undo and check item id.
 
-TEST_F(UndoStackTest, itemIdentifierOnRemove) {
+TEST_F(UndoStackTest, itemIdentifierOnRemove)
+{
     SessionModel model;
     model.setUndoRedoEnabled(true);
     auto stack = model.undoStack();
@@ -509,7 +522,8 @@ TEST_F(UndoStackTest, itemIdentifierOnRemove) {
 //! Create multilayer, add two layers, remove everything and undo.
 //! Toy models are used here.
 
-TEST_F(UndoStackTest, multiLayer) {
+TEST_F(UndoStackTest, multiLayer)
+{
     auto pool = std::make_shared<ItemPool>();
 
     ToyItems::SampleModel model(pool);
@@ -569,7 +583,8 @@ TEST_F(UndoStackTest, multiLayer) {
 
 //! Move single layer from multilayer to another empty multilayer.
 
-TEST_F(UndoStackTest, moveLayerFromMultiLayer) {
+TEST_F(UndoStackTest, moveLayerFromMultiLayer)
+{
     auto pool = std::make_shared<ItemPool>();
 
     ToyItems::SampleModel model(pool);
@@ -605,7 +620,8 @@ TEST_F(UndoStackTest, moveLayerFromMultiLayer) {
 //! Move single layer from multilayer to another empty multilayer.
 //! Delete second multilayer and undo.
 
-TEST_F(UndoStackTest, moveLayerFromMLDeleteSecond) {
+TEST_F(UndoStackTest, moveLayerFromMLDeleteSecond)
+{
     auto pool = std::make_shared<ItemPool>();
 
     ToyItems::SampleModel model(pool);
@@ -655,7 +671,8 @@ TEST_F(UndoStackTest, moveLayerFromMLDeleteSecond) {
 //! Create 2 multilayers, 3 layers each. Move layer from one multilayer to another.
 //! Deleting everything and undoing.
 
-TEST_F(UndoStackTest, moveLayerFromMLDeleteAll) {
+TEST_F(UndoStackTest, moveLayerFromMLDeleteAll)
+{
     auto pool = std::make_shared<ItemPool>();
 
     ToyItems::SampleModel model(pool);
@@ -726,7 +743,8 @@ TEST_F(UndoStackTest, moveLayerFromMLDeleteAll) {
 
 //! Creating two multilayers. Copying layer from one multilayer to another.
 
-TEST_F(UndoStackTest, copyLayerFromMultilayer) {
+TEST_F(UndoStackTest, copyLayerFromMultilayer)
+{
     auto pool = std::make_shared<ItemPool>();
     ToyItems::SampleModel model(pool);
     model.setUndoRedoEnabled(true);
@@ -761,7 +779,8 @@ TEST_F(UndoStackTest, copyLayerFromMultilayer) {
 
 //! Add item and changing its data from macros.
 
-TEST_F(UndoStackTest, beginMacrosEndMacros) {
+TEST_F(UndoStackTest, beginMacrosEndMacros)
+{
     const int role = ItemDataRole::DATA;
     const QVariant data(42);
 
@@ -801,7 +820,8 @@ TEST_F(UndoStackTest, beginMacrosEndMacros) {
 //! GraphItem should be pointing again to Data1DItem.
 //! This is real bug case.
 
-TEST_F(UndoStackTest, insertDataAndGraph) {
+TEST_F(UndoStackTest, insertDataAndGraph)
+{
     // constructing model with pool, enabling undo/redo
     auto pool = std::make_shared<ItemPool>();
     SessionModel model("Model", pool);
@@ -868,7 +888,8 @@ TEST_F(UndoStackTest, insertDataAndGraph) {
 //! GraphItem should be pointing again to Data1DItem.
 //! This is real bug case.
 
-TEST_F(UndoStackTest, insertDataItemViaMacro) {
+TEST_F(UndoStackTest, insertDataItemViaMacro)
+{
     SessionModel model;
     model.setUndoRedoEnabled(true);
     EXPECT_EQ(model.undoStack()->index(), 0);

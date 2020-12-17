@@ -22,13 +22,17 @@
 
 GISASSimulation::GISASSimulation(const Beam& beam, const MultiLayer& sample,
                                  const IDetector& detector)
-    : ISimulation2D(beam, sample, detector) {}
+    : ISimulation2D(beam, sample, detector)
+{
+}
 
-GISASSimulation::GISASSimulation() {
+GISASSimulation::GISASSimulation()
+{
     initialize();
 }
 
-void GISASSimulation::prepareSimulation() {
+void GISASSimulation::prepareSimulation()
+{
     if (detector().dimension() != 2)
         throw std::runtime_error("GISASSimulation::prepareSimulation() "
                                  "-> Error. The detector was not properly configured.");
@@ -36,36 +40,42 @@ void GISASSimulation::prepareSimulation() {
     ISimulation2D::prepareSimulation();
 }
 
-SimulationResult GISASSimulation::result() const {
+SimulationResult GISASSimulation::result() const
+{
     const auto converter = UnitConverterUtils::createConverterForGISAS(instrument());
     const std::unique_ptr<OutputData<double>> data(
         instrument().detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 
-void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i) {
+void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, double phi_i)
+{
     if (wavelength <= 0.0)
         throw std::runtime_error(
             "ISimulation::setBeamParameters() -> Error. Incoming wavelength <= 0.");
     instrument().setBeamParameters(wavelength, alpha_i, phi_i);
 }
 
-size_t GISASSimulation::intensityMapSize() const {
+size_t GISASSimulation::intensityMapSize() const
+{
     size_t result = 0;
     instrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(other) {
+GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(other)
+{
     initialize();
 }
 
-void GISASSimulation::initSimulationElementVector() {
+void GISASSimulation::initSimulationElementVector()
+{
     m_sim_elements = generateSimulationElements(instrument().beam());
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }
 
-void GISASSimulation::initialize() {
+void GISASSimulation::initialize()
+{
     setName("GISASSimulation");
 }

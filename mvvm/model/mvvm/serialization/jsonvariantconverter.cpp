@@ -72,7 +72,8 @@ Variant to_reallimits(const QJsonObject& object);
 
 } // namespace
 
-JsonVariantConverter::JsonVariantConverter() {
+JsonVariantConverter::JsonVariantConverter()
+{
     m_converters[Constants::invalid_type_name] = {from_invalid, to_invalid};
     m_converters[Constants::bool_type_name] = {from_bool, to_bool};
     m_converters[Constants::int_type_name] = {from_int, to_int};
@@ -85,7 +86,8 @@ JsonVariantConverter::JsonVariantConverter() {
     m_converters[Constants::reallimits_type_name] = {from_reallimits, to_reallimits};
 }
 
-QJsonObject JsonVariantConverter::get_json(const Variant& variant) {
+QJsonObject JsonVariantConverter::get_json(const Variant& variant)
+{
     const std::string type_name = Utils::VariantName(variant);
 
     if (m_converters.find(type_name) == m_converters.end())
@@ -95,7 +97,8 @@ QJsonObject JsonVariantConverter::get_json(const Variant& variant) {
     return m_converters[type_name].variant_to_json(variant);
 }
 
-Variant JsonVariantConverter::get_variant(const QJsonObject& object) {
+Variant JsonVariantConverter::get_variant(const QJsonObject& object)
+{
     if (!isVariant(object))
         throw std::runtime_error("json::get_variant() -> Error. Invalid json object");
 
@@ -109,20 +112,23 @@ Variant JsonVariantConverter::get_variant(const QJsonObject& object) {
 
 //! Returns true if given json object represents variant.
 
-bool JsonVariantConverter::isVariant(const QJsonObject& object) const {
+bool JsonVariantConverter::isVariant(const QJsonObject& object) const
+{
     static const QStringList expected = expected_variant_keys();
     return object.keys() == expected;
 }
 
 namespace {
 
-QStringList expected_variant_keys() {
+QStringList expected_variant_keys()
+{
     QStringList result = QStringList() << variantTypeKey << variantValueKey;
     std::sort(result.begin(), result.end());
     return result;
 }
 
-QJsonObject from_invalid(const Variant& variant) {
+QJsonObject from_invalid(const Variant& variant)
+{
     (void)variant;
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::invalid_type_name);
@@ -130,54 +136,63 @@ QJsonObject from_invalid(const Variant& variant) {
     return result;
 }
 
-Variant to_invalid(const QJsonObject& object) {
+Variant to_invalid(const QJsonObject& object)
+{
     (void)object;
     return Variant();
 }
 
-QJsonObject from_bool(const Variant& variant) {
+QJsonObject from_bool(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::bool_type_name);
     result[variantValueKey] = variant.value<bool>();
     return result;
 }
 
-Variant to_bool(const QJsonObject& object) {
+Variant to_bool(const QJsonObject& object)
+{
     return object[variantValueKey].toVariant();
 }
 
-QJsonObject from_int(const Variant& variant) {
+QJsonObject from_int(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::int_type_name);
     result[variantValueKey] = variant.value<int>();
     return result;
 }
 
-Variant to_int(const QJsonObject& object) {
+Variant to_int(const QJsonObject& object)
+{
     // deliberately recreating variant, otherwise it is changing type to Qariant::Double
     return Variant::fromValue(object[variantValueKey].toVariant().value<int>());
 }
 
-QJsonObject from_string(const Variant& variant) {
+QJsonObject from_string(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::string_type_name);
     result[variantValueKey] = QString::fromStdString(variant.value<std::string>());
     return result;
 }
 
-Variant to_string(const QJsonObject& object) {
+Variant to_string(const QJsonObject& object)
+{
     std::string value = object[variantValueKey].toString().toStdString();
     return Variant::fromValue(value);
 }
 
-QJsonObject from_double(const Variant& variant) {
+QJsonObject from_double(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::double_type_name);
     result[variantValueKey] = variant.value<double>();
     return result;
 }
 
-Variant to_double(const QJsonObject& object) {
+Variant to_double(const QJsonObject& object)
+{
     // deliberately recreating variant, otherwise it is changing type to qlonglong for
     // numbers like 43.0
     return object[variantValueKey].toVariant().value<double>();
@@ -185,7 +200,8 @@ Variant to_double(const QJsonObject& object) {
 
 // --- std::vector<double> ------
 
-QJsonObject from_vector_double(const Variant& variant) {
+QJsonObject from_vector_double(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::vector_double_type_name);
     QJsonArray array;
@@ -195,7 +211,8 @@ QJsonObject from_vector_double(const Variant& variant) {
     return result;
 }
 
-Variant to_vector_double(const QJsonObject& object) {
+Variant to_vector_double(const QJsonObject& object)
+{
     std::vector<double> vec;
     for (auto x : object[variantValueKey].toArray())
         vec.push_back(x.toDouble());
@@ -204,7 +221,8 @@ Variant to_vector_double(const QJsonObject& object) {
 
 // --- ComboProperty ------
 
-QJsonObject from_comboproperty(const Variant& variant) {
+QJsonObject from_comboproperty(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::comboproperty_type_name);
     auto combo = variant.value<ComboProperty>();
@@ -215,7 +233,8 @@ QJsonObject from_comboproperty(const Variant& variant) {
     return result;
 }
 
-Variant to_comboproperty(const QJsonObject& object) {
+Variant to_comboproperty(const QJsonObject& object)
+{
     ComboProperty combo;
     QJsonObject json_data = object[variantValueKey].toObject();
     combo.setStringOfValues(json_data[comboValuesKey].toString().toStdString());
@@ -225,7 +244,8 @@ Variant to_comboproperty(const QJsonObject& object) {
 
 // --- QColor ------
 
-QJsonObject from_qcolor(const Variant& variant) {
+QJsonObject from_qcolor(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::qcolor_type_name);
     auto color = variant.value<QColor>();
@@ -233,13 +253,15 @@ QJsonObject from_qcolor(const Variant& variant) {
     return result;
 }
 
-Variant to_qcolor(const QJsonObject& object) {
+Variant to_qcolor(const QJsonObject& object)
+{
     return Variant::fromValue(QColor(object[variantValueKey].toString()));
 }
 
 // --- ExternalProperty ------
 
-QJsonObject from_extproperty(const Variant& variant) {
+QJsonObject from_extproperty(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::extproperty_type_name);
     auto extprop = variant.value<ExternalProperty>();
@@ -251,7 +273,8 @@ QJsonObject from_extproperty(const Variant& variant) {
     return result;
 }
 
-Variant to_extproperty(const QJsonObject& object) {
+Variant to_extproperty(const QJsonObject& object)
+{
     QJsonObject json_data = object[variantValueKey].toObject();
     const std::string text = json_data[extPropertyTextKey].toString().toStdString();
     const std::string color = json_data[extPropertyColorKey].toString().toStdString();
@@ -262,7 +285,8 @@ Variant to_extproperty(const QJsonObject& object) {
 
 // --- RealLimits ------
 
-QJsonObject from_reallimits(const Variant& variant) {
+QJsonObject from_reallimits(const Variant& variant)
+{
     QJsonObject result;
     result[variantTypeKey] = QString::fromStdString(Constants::reallimits_type_name);
     auto limits = variant.value<RealLimits>();
@@ -276,7 +300,8 @@ QJsonObject from_reallimits(const Variant& variant) {
     return result;
 }
 
-Variant to_reallimits(const QJsonObject& object) {
+Variant to_reallimits(const QJsonObject& object)
+{
     QJsonObject json_data = object[variantValueKey].toObject();
     const std::string text = json_data[realLimitsTextKey].toString().toStdString();
     const double min = json_data[realLimitsMinKey].toDouble();

@@ -22,7 +22,8 @@
 //! dimensionless [0.0, 1.0], where 0.0 gives more spikes, 1.0 more smoothness
 //! @param lateralCorrLength: lateral correlation length of the roughness in nanometers
 LayerRoughness::LayerRoughness(double sigma, double hurstParameter, double lateralCorrLength)
-    : m_sigma(sigma), m_hurstParameter(hurstParameter), m_lateralCorrLength(lateralCorrLength) {
+    : m_sigma(sigma), m_hurstParameter(hurstParameter), m_lateralCorrLength(lateralCorrLength)
+{
     setName("LayerBasicRoughness");
     registerParameter("Sigma", &m_sigma);
     registerParameter("Hurst", &m_hurstParameter);
@@ -39,7 +40,8 @@ LayerRoughness::LayerRoughness() : LayerRoughness(0, 0, 0) {}
 //! D.K.G. de Boer, Physical review B, Volume 51, Number 8, 15 February 1995
 //! "X-ray reflection and transmission by rough surfaces"
 /* ************************************************************************* */
-double LayerRoughness::getSpectralFun(const kvector_t kvec) const {
+double LayerRoughness::getSpectralFun(const kvector_t kvec) const
+{
     double H = m_hurstParameter;
     double clength2 = m_lateralCorrLength * m_lateralCorrLength;
     double Qpar2 = kvec.x() * kvec.x() + kvec.y() * kvec.y();
@@ -49,7 +51,8 @@ double LayerRoughness::getSpectralFun(const kvector_t kvec) const {
 
 //! Correlation function of the roughness profile
 
-double LayerRoughness::getCorrFun(const kvector_t k) const {
+double LayerRoughness::getCorrFun(const kvector_t k) const
+{
     double H = m_hurstParameter;
     double clength = m_lateralCorrLength;
     double R = sqrt(k.x() * k.x() + k.y() * k.y());

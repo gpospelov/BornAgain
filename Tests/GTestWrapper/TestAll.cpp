@@ -25,7 +25,8 @@
 //! [1] https://github.com/google/googletest/blob/master/googletest/docs/primer.md
 //!     #writing-the-main-function
 
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     ::testing::InitGoogleTest(&argc, argv);
 
     // run all google tests

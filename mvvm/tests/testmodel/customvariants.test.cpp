@@ -31,7 +31,8 @@ class CustomVariantsTest : public ::testing::Test {
 public:
     ~CustomVariantsTest();
 
-    template <typename T> QVariant variantFromArgument(const T& value) {
+    template <typename T> QVariant variantFromArgument(const T& value)
+    {
         return QVariant::fromValue(value);
     }
 };
@@ -40,7 +41,8 @@ CustomVariantsTest::~CustomVariantsTest() = default;
 
 //! To keep under control implicit type conversion.
 
-TEST_F(CustomVariantsTest, VariantFromTemplateArgument) {
+TEST_F(CustomVariantsTest, VariantFromTemplateArgument)
+{
     EXPECT_EQ(variantFromArgument(true).typeName(), Constants::bool_type_name);
     EXPECT_EQ(variantFromArgument(1).typeName(), Constants::int_type_name);
     EXPECT_EQ(variantFromArgument(42.0).typeName(), Constants::double_type_name);
@@ -49,7 +51,8 @@ TEST_F(CustomVariantsTest, VariantFromTemplateArgument) {
 
 //! Variant compatibility.
 
-TEST_F(CustomVariantsTest, VariantName) {
+TEST_F(CustomVariantsTest, VariantName)
+{
     const std::vector<double> vec{1, 2};
     const ComboProperty combo = ComboProperty::createFrom({"a1", "a2", "s3"});
     EXPECT_EQ(Utils::VariantName(QVariant()), Constants::invalid_type_name);
@@ -70,7 +73,8 @@ TEST_F(CustomVariantsTest, VariantName) {
 
 //! Variant compatibility.
 
-TEST_F(CustomVariantsTest, CompatibleVariantTypes) {
+TEST_F(CustomVariantsTest, CompatibleVariantTypes)
+{
     QVariant undefined;
     QVariant bool_variant = QVariant::fromValue(true);
     QVariant int_variant = QVariant::fromValue(1);
@@ -104,7 +108,8 @@ TEST_F(CustomVariantsTest, CompatibleVariantTypes) {
 
 //! Test variant equality reported by SessionItemUtils::isTheSame
 
-TEST_F(CustomVariantsTest, IsTheSameVariant) {
+TEST_F(CustomVariantsTest, IsTheSameVariant)
+{
     const std::vector<double> vec1{1, 2};
     const std::vector<double> vec2{1, 2, 3};
     const ComboProperty combo1 = ComboProperty::createFrom({"a1", "a2"});
@@ -153,7 +158,8 @@ TEST_F(CustomVariantsTest, IsTheSameVariant) {
 
 //! Checks if ComboProperty based variant is the same.
 
-TEST_F(CustomVariantsTest, IsTheSameComboProperty) {
+TEST_F(CustomVariantsTest, IsTheSameComboProperty)
+{
     ComboProperty combo1 = ComboProperty::createFrom({"a1", "a2"});
     ComboProperty combo2 = ComboProperty::createFrom({"a1", "a2"});
 
@@ -170,7 +176,8 @@ TEST_F(CustomVariantsTest, IsTheSameComboProperty) {
 
 //! Test toQtVAriant function.
 
-TEST_F(CustomVariantsTest, toQtVariant) {
+TEST_F(CustomVariantsTest, toQtVariant)
+{
     // from Variant based on std::string to variant based on QString
     QVariant stdstring_variant = QVariant::fromValue(std::string("abc"));
     QVariant qstring_variant = QVariant::fromValue(QString("abc"));
@@ -189,7 +196,8 @@ TEST_F(CustomVariantsTest, toQtVariant) {
 
 //! Test translation of variants
 
-TEST_F(CustomVariantsTest, toCustomVariant) {
+TEST_F(CustomVariantsTest, toCustomVariant)
+{
     // from Variant based on QString to variant based on std::string
     QVariant stdstring_variant = QVariant::fromValue(std::string("abc"));
     QVariant qstring_variant = QVariant::fromValue(QString("abc"));
@@ -210,7 +218,8 @@ TEST_F(CustomVariantsTest, toCustomVariant) {
 
 // FIXME replace tests in loop with parameterized tests
 
-TEST_F(CustomVariantsTest, isVariantType) {
+TEST_F(CustomVariantsTest, isVariantType)
+{
     using is_variant_t = std::function<bool(const QVariant&)>;
 
     std::vector<std::pair<QVariant, is_variant_t>> data = {

@@ -26,14 +26,15 @@ const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
 } // namespace
 
 ISpecularStrategy::coeffs_t SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
-                                                            const kvector_t& k) const {
+                                                            const kvector_t& k) const
+{
     std::vector<complex_t> kz = KzComputation::computeReducedKz(slices, k);
     return Execute(slices, kz);
 }
 
-ISpecularStrategy::coeffs_t
-SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
-                                const std::vector<complex_t>& kz) const {
+ISpecularStrategy::coeffs_t SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
+                                                            const std::vector<complex_t>& kz) const
+{
     if (slices.size() != kz.size())
         throw std::runtime_error("Number of slices does not match the size of the kz-vector");
 
@@ -46,7 +47,8 @@ SpecularScalarStrategy::Execute(const std::vector<Slice>& slices,
 
 std::vector<ScalarRTCoefficients>
 SpecularScalarStrategy::computeTR(const std::vector<Slice>& slices,
-                                  const std::vector<complex_t>& kz) const {
+                                  const std::vector<complex_t>& kz) const
+{
     const size_t N = slices.size();
     std::vector<ScalarRTCoefficients> coeff(N);
 
@@ -69,7 +71,8 @@ SpecularScalarStrategy::computeTR(const std::vector<Slice>& slices,
 }
 
 void SpecularScalarStrategy::setZeroBelow(std::vector<ScalarRTCoefficients>& coeff,
-                                          size_t current_layer) {
+                                          size_t current_layer)
+{
     size_t N = coeff.size();
     for (size_t i = current_layer + 1; i < N; ++i) {
         coeff[i].t_r.setZero();
@@ -78,7 +81,8 @@ void SpecularScalarStrategy::setZeroBelow(std::vector<ScalarRTCoefficients>& coe
 
 void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficients>& coeff,
                                                   const std::vector<Slice>& slices,
-                                                  const std::vector<complex_t>& kz) const {
+                                                  const std::vector<complex_t>& kz) const
+{
     auto N = slices.size();
 
     coeff.back().t_r(0) = 1.0;
@@ -115,8 +119,8 @@ void SpecularScalarStrategy::calculateUpFromLayer(std::vector<ScalarRTCoefficien
 }
 
 namespace {
-const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices,
-                                         const size_t slice_index) {
+const LayerRoughness* GetBottomRoughness(const std::vector<Slice>& slices, const size_t slice_index)
+{
     if (slice_index + 1 < slices.size())
         return slices[slice_index + 1].topRoughness();
     return nullptr;

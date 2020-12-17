@@ -19,7 +19,8 @@
 
 using namespace ModelView;
 
-Path Utils::PathFromItem(const SessionItem* item) {
+Path Utils::PathFromItem(const SessionItem* item)
+{
     if (!item || !item->model())
         return {};
 
@@ -32,7 +33,8 @@ Path Utils::PathFromItem(const SessionItem* item) {
     return result;
 }
 
-SessionItem* Utils::ItemFromPath(const SessionModel& model, const Path& path) {
+SessionItem* Utils::ItemFromPath(const SessionModel& model, const Path& path)
+{
     SessionItem* result(model.rootItem());
     for (const auto& x : path) {
         result = Utils::ChildAt(result, x);
@@ -43,12 +45,14 @@ SessionItem* Utils::ItemFromPath(const SessionModel& model, const Path& path) {
 }
 
 void Utils::PopulateEmptyModel(const JsonModelConverterInterface* converter,
-                               const SessionModel& source, SessionModel& target) {
+                               const SessionModel& source, SessionModel& target)
+{
     QJsonObject object = converter->to_json(source);
     converter->from_json(object, target);
 }
 
-void Utils::DeleteItemFromModel(SessionItem* item) {
+void Utils::DeleteItemFromModel(SessionItem* item)
+{
     auto model = item->model();
     if (!model)
         return;
@@ -56,31 +60,36 @@ void Utils::DeleteItemFromModel(SessionItem* item) {
     model->removeItem(item->parent(), item->tagRow());
 }
 
-void Utils::MoveUp(SessionItem* item) {
+void Utils::MoveUp(SessionItem* item)
+{
     auto tagrow = item->tagRow();
     if (tagrow.row == 0)
         return; // item already at the top
     item->model()->moveItem(item, item->parent(), tagrow.prev());
 }
 
-void Utils::MoveDown(SessionItem* item) {
+void Utils::MoveDown(SessionItem* item)
+{
     auto tagrow = item->tagRow();
     if (tagrow.row == item->parent()->itemCount(tagrow.tag) - 1)
         return; // item already at the buttom
     item->model()->moveItem(item, item->parent(), tagrow.next());
 }
 
-void Utils::Undo(SessionModel& model) {
+void Utils::Undo(SessionModel& model)
+{
     if (auto stack = model.undoStack(); stack)
         stack->undo();
 }
 
-void Utils::Redo(SessionModel& model) {
+void Utils::Redo(SessionModel& model)
+{
     if (auto stack = model.undoStack(); stack)
         stack->redo();
 }
 
-void Utils::BeginMacros(const SessionItem* item, const std::string& macro_name) {
+void Utils::BeginMacros(const SessionItem* item, const std::string& macro_name)
+{
     if (!item->model())
         return;
 
@@ -88,7 +97,8 @@ void Utils::BeginMacros(const SessionItem* item, const std::string& macro_name) 
         stack->beginMacro(macro_name);
 }
 
-void Utils::EndMacros(const SessionItem* item) {
+void Utils::EndMacros(const SessionItem* item)
+{
     if (!item->model())
         return;
 

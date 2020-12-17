@@ -20,11 +20,13 @@ using namespace ModelView;
 
 // ----------------------------------------------------------------------------
 
-std::vector<SessionItem*> AllChildrenStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> AllChildrenStrategy::children(const SessionItem* item) const
+{
     return item ? item->children() : std::vector<SessionItem*>();
 }
 
-std::vector<SessionItem*> TopItemsStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> TopItemsStrategy::children(const SessionItem* item) const
+{
     return item ? Utils::TopLevelItems(*item) : std::vector<SessionItem*>();
 }
 
@@ -48,7 +50,8 @@ Particle
         Radius
 */
 
-std::vector<SessionItem*> PropertyItemsStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> PropertyItemsStrategy::children(const SessionItem* item) const
+{
     if (!item)
         return std::vector<SessionItem*>();
 
@@ -77,7 +80,8 @@ Particle
     Radius
 */
 
-std::vector<SessionItem*> PropertyItemsFlatStrategy::children(const SessionItem* item) const {
+std::vector<SessionItem*> PropertyItemsFlatStrategy::children(const SessionItem* item) const
+{
     if (!item)
         return std::vector<SessionItem*>();
 

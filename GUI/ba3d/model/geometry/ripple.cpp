@@ -18,7 +18,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W) {
+Geometry::Mesh Geometry::meshRipple(float numSides, float ratio_asymmetry_W)
+{
     int const sides = qRound(numSides);
     bool const smooth = (0 == sides); // sides = 0 implies smooth -> e.g. cosine ripple
     int const slices = smooth ? 4 * SLICES : sides;

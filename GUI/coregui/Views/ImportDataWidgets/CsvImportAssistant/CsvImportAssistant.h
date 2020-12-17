@@ -33,7 +33,9 @@ public:
         , m_coordinateMultiplier(1.)
         , m_firstRow(-1)
         , m_lastRow(-1)
-        , m_units(Axes::Units::NBINS) {}
+        , m_units(Axes::Units::NBINS)
+    {
+    }
 
     int m_intensityColNum;
     double m_intensityMultiplier;

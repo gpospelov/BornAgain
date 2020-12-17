@@ -2,9 +2,11 @@
 #include "Tests/GTestWrapper/google_test.h"
 #include <exception>
 
-class OptionContainerTest : public ::testing::Test {};
+class OptionContainerTest : public ::testing::Test {
+};
 
-TEST_F(OptionContainerTest, addOption) {
+TEST_F(OptionContainerTest, addOption)
+{
     OptionContainer test;
 
     const double option_value(1.0);
@@ -29,7 +31,8 @@ TEST_F(OptionContainerTest, addOption) {
     EXPECT_THROW(test.addOption(option_name, 1.0), std::runtime_error);
 }
 
-TEST_F(OptionContainerTest, getOptionValue) {
+TEST_F(OptionContainerTest, getOptionValue)
+{
     OptionContainer test;
 
     test.addOption("option #1", 99, "description #1");
@@ -41,7 +44,8 @@ TEST_F(OptionContainerTest, getOptionValue) {
     EXPECT_EQ("xxx", test.optionValue<std::string>("option #3"));
 }
 
-TEST_F(OptionContainerTest, setOptionValue) {
+TEST_F(OptionContainerTest, setOptionValue)
+{
     OptionContainer test;
 
     test.addOption("option #1", 99, "description #1");
@@ -61,7 +65,8 @@ TEST_F(OptionContainerTest, setOptionValue) {
     EXPECT_THROW(test.setOptionValue("option #1", 99.0), std::runtime_error);
 }
 
-TEST_F(OptionContainerTest, Copying) {
+TEST_F(OptionContainerTest, Copying)
+{
     OptionContainer test;
 
     test.addOption("option #1", 99, "description #1");
@@ -89,7 +94,8 @@ TEST_F(OptionContainerTest, Copying) {
     EXPECT_EQ("xxx", test.optionValue<std::string>("option #3"));
 }
 
-TEST_F(OptionContainerTest, Assignment) {
+TEST_F(OptionContainerTest, Assignment)
+{
     OptionContainer test;
 
     test.addOption("option #1", 99, "description #1");

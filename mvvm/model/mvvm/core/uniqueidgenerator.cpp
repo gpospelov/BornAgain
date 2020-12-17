@@ -17,6 +17,7 @@
 
 using namespace ModelView;
 
-identifier_type UniqueIdGenerator::generate() {
+identifier_type UniqueIdGenerator::generate()
+{
     return QUuid::createUuid().toString().toStdString();
 }

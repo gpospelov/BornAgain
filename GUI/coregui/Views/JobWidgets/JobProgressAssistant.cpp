@@ -19,7 +19,8 @@
 #include <QProgressBar>
 
 JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)
-    : QObject(mainWindow), m_mainWindow(mainWindow) {
+    : QObject(mainWindow), m_mainWindow(mainWindow)
+{
     connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)), this,
             SLOT(onGlobalProgress(int)));
 
@@ -27,7 +28,8 @@ JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)
             SLOT(onCancelAllJobs()));
 }
 
-void JobProgressAssistant::onGlobalProgress(int progress) {
+void JobProgressAssistant::onGlobalProgress(int progress)
+{
     ASSERT(m_mainWindow->progressBar());
     if (progress < 0 || progress >= 100)
         m_mainWindow->progressBar()->hide();

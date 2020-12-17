@@ -37,35 +37,43 @@ public:
     RoughnessModel _roughnessModel = RoughnessModel::TANH;
 
     Options() {}
-    Options NBilayers(int n) {
+    Options NBilayers(int n)
+    {
         _NBilayers = n;
         return *this;
     }
-    Options angle(double angle) {
+    Options angle(double angle)
+    {
         _angle = angle;
         return *this;
     }
-    Options magnetizationMagnitude(double M) {
+    Options magnetizationMagnitude(double M)
+    {
         _magnetizationMagnitude = M;
         return *this;
     }
-    Options thicknessFe(double t) {
+    Options thicknessFe(double t)
+    {
         _thicknessFe = t;
         return *this;
     }
-    Options thicknessNi(double t) {
+    Options thicknessNi(double t)
+    {
         _thicknessNi = t;
         return *this;
     }
-    Options sigmaRoughness(double r) {
+    Options sigmaRoughness(double r)
+    {
         _sigmaRoughness = r;
         return *this;
     }
-    Options effectiveSLD(int i) {
+    Options effectiveSLD(int i)
+    {
         _effectiveSLD = i;
         return *this;
     }
-    Options roughnessModel(RoughnessModel rm) {
+    Options roughnessModel(RoughnessModel rm)
+    {
         _roughnessModel = rm;
         return *this;
     }
@@ -82,7 +90,8 @@ public:
         , thicknessNi(opt._thicknessNi)
         , sigmaRoughness(opt._sigmaRoughness)
         , effectiveSLD(opt._effectiveSLD)
-        , roughnessModel(opt._roughnessModel) {
+        , roughnessModel(opt._roughnessModel)
+    {
         if (angle != 0. && effectiveSLD != 0.)
             throw std::runtime_error("Cannot perform scalar computation "
                                      "for non-colinear magnetization");
@@ -121,7 +130,8 @@ const complex_t FeNiBilayer::sldFe;
 const complex_t FeNiBilayer::sldAu;
 const complex_t FeNiBilayer::sldNi;
 
-std::unique_ptr<MultiLayer> FeNiBilayer::constructSample() {
+std::unique_ptr<MultiLayer> FeNiBilayer::constructSample()
+{
     auto sample = std::make_unique<MultiLayer>();
 
     auto m_ambient = MaterialBySLD("Ambient", 0.0, 0.0);
@@ -150,29 +160,34 @@ std::unique_ptr<MultiLayer> FeNiBilayer::constructSample() {
     return sample;
 }
 
-MultiLayer* FeNiBilayerBuilder::buildSample() const {
+MultiLayer* FeNiBilayerBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{Options()};
     return sample.release();
 }
 
-MultiLayer* FeNiBilayerTanhBuilder::buildSample() const {
+MultiLayer* FeNiBilayerTanhBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{
         Options().sigmaRoughness(2. * Units::angstrom).roughnessModel(RoughnessModel::TANH)};
     return sample.release();
 }
 
-MultiLayer* FeNiBilayerNCBuilder::buildSample() const {
+MultiLayer* FeNiBilayerNCBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{
         Options().sigmaRoughness(2. * Units::angstrom).roughnessModel(RoughnessModel::NEVOT_CROCE)};
     return sample.release();
 }
 
-MultiLayer* FeNiBilayerSpinFlipBuilder::buildSample() const {
+MultiLayer* FeNiBilayerSpinFlipBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{Options().angle(38. * Units::deg)};
     return sample.release();
 }
 
-MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const {
+MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{Options()
                                   .angle(38 * Units::deg)
                                   .sigmaRoughness(2. * Units::angstrom)
@@ -180,7 +195,8 @@ MultiLayer* FeNiBilayerSpinFlipTanhBuilder::buildSample() const {
     return sample.release();
 }
 
-MultiLayer* FeNiBilayerSpinFlipNCBuilder::buildSample() const {
+MultiLayer* FeNiBilayerSpinFlipNCBuilder::buildSample() const
+{
     auto sample = FeNiBilayer{Options()
                                   .angle(38 * Units::deg)
                                   .sigmaRoughness(2. * Units::angstrom)

@@ -29,7 +29,8 @@ BinUtilsTest::~BinUtilsTest() = default;
 
 //! Testing Binary Files
 
-TEST_F(BinUtilsTest, testBinaryFiles) {
+TEST_F(BinUtilsTest, testBinaryFiles)
+{
     std::string root_path = TestConfig::TestData();
 
     std::string binary_file1 = root_path + std::string("/") + "pdf_file";
@@ -53,7 +54,8 @@ TEST_F(BinUtilsTest, testBinaryFiles) {
 
 //! Testing text files
 
-TEST_F(BinUtilsTest, testTextFiles) {
+TEST_F(BinUtilsTest, testTextFiles)
+{
     std::string root_path = TestConfig::TestData();
 
     std::string text_file1 = root_path + std::string("/") + "text_UTF-8.txt";

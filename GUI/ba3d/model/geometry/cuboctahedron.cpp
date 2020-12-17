@@ -18,7 +18,8 @@
 
 namespace RealSpace {
 
-Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H) { // t/D
+Geometry::Mesh Geometry::meshCuboctahedron(float rH, float alpha, float H)
+{ // t/D
 
     // alpha is the angle between the common square interface and one of the side faces (alpha for
     // both the two truncated pyramids is the same)

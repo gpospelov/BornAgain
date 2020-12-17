@@ -27,9 +27,12 @@ typedef model::box<point_t> box_t;
 typedef model::linestring<point_t> line_t;
 
 Line::Line(double x1, double y1, double x2, double y2)
-    : IShape2D("Line"), m_x1(x1), m_y1(y1), m_x2(x2), m_y2(y2) {}
+    : IShape2D("Line"), m_x1(x1), m_y1(y1), m_x2(x2), m_y2(y2)
+{
+}
 
-bool Line::contains(double x, double y) const {
+bool Line::contains(double x, double y) const
+{
     point_t p(x, y);
     line_t line;
     line.push_back(point_t(m_x1, m_y1));
@@ -42,7 +45,8 @@ bool Line::contains(double x, double y) const {
 
 // Calculates if line crosses the box made out of our bins.
 // Ugly implementation, see discussion at http://stackoverflow.com/questions/21408977
-bool Line::contains(const Bin1D& binx, const Bin1D& biny) const {
+bool Line::contains(const Bin1D& binx, const Bin1D& biny) const
+{
     std::vector<point_t> box_points;
     box_points.push_back(point_t(binx.m_lower, biny.m_lower));
     box_points.push_back(point_t(binx.m_lower, biny.m_upper));
@@ -63,11 +67,13 @@ bool Line::contains(const Bin1D& binx, const Bin1D& biny) const {
 //! @param x The value at which it crosses x-axes
 VerticalLine::VerticalLine(double x) : IShape2D("VerticalLine"), m_x(x) {}
 
-bool VerticalLine::contains(double x, double /*y*/) const {
+bool VerticalLine::contains(double x, double /*y*/) const
+{
     return algo::almostEqual(x, m_x);
 }
 
-bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const {
+bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const
+{
     return m_x >= binx.m_lower && m_x <= binx.m_upper;
 }
 
@@ -76,10 +82,12 @@ bool VerticalLine::contains(const Bin1D& binx, const Bin1D& /*biny*/) const {
 //! @param y The value at which it crosses y-axes
 HorizontalLine::HorizontalLine(double y) : IShape2D("HorizontalLine"), m_y(y) {}
 
-bool HorizontalLine::contains(double /*x*/, double y) const {
+bool HorizontalLine::contains(double /*x*/, double y) const
+{
     return algo::almostEqual(y, m_y);
 }
 
-bool HorizontalLine::contains(const Bin1D& /*binx*/, const Bin1D& biny) const {
+bool HorizontalLine::contains(const Bin1D& /*binx*/, const Bin1D& biny) const
+{
     return m_y >= biny.m_lower && m_y <= biny.m_upper;
 }

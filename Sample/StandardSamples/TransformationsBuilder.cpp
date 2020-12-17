@@ -21,7 +21,8 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/StandardSamples/ReferenceMaterials.h"
 
-MultiLayer* TransformBoxBuilder::buildSample() const {
+MultiLayer* TransformBoxBuilder::buildSample() const
+{
     const double layer_thickness(100);
     const double length(50);
     const double width(20);

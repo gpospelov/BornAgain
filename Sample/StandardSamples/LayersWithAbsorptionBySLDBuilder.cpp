@@ -23,7 +23,8 @@
 
 const double middle_layer_thickness(60.0 * Units::nm);
 
-MultiLayer* LayersWithAbsorptionBySLDBuilder::buildSample() const {
+MultiLayer* LayersWithAbsorptionBySLDBuilder::buildSample() const
+{
     Material ambience_mat = MaterialBySLD("Vacuum", 0.0, 0.0);
     Material middle_mat = MaterialBySLD("Teflon", 4.7573e-6, 1.6724e-12);
     Material substrate_mat = MaterialBySLD("Substrate", 2.0728e-06, 2.3747e-11);

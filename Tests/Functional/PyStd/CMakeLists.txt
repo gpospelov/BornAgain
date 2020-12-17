@@ -23,7 +23,7 @@ include(GoogleTest) # provides gtest_discover_tests
 
 set(test TestPyStd)
 
-set(source_files Check.cpp ../../Std/Run.cpp ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
+set(source_files Check.cpp ../Std/Run.cpp ${CMAKE_SOURCE_DIR}/Tests/GTestWrapper/TestAll.cpp)
 
 add_executable(${test} ${source_files})
 target_compile_options(${test} PUBLIC -DPYTHON_STD_TEST)
@@ -33,6 +33,6 @@ target_include_directories(${test} PUBLIC
     ${CMAKE_SOURCE_DIR}/ThirdParty/common/gtest/gtest-1.8.0/include)
 target_link_libraries(${test} BornAgainCore gtest)
 
-gtest_discover_tests(${test} DISCOVERY_TIMEOUT 300 TEST_PREFIX Py.)
+gtest_discover_tests(${test} DISCOVERY_TIMEOUT 300 TEST_PREFIX Py. PROPERTIES LABELS "XL")
 
 file(MAKE_DIRECTORY ${TEST_OUTPUT_DIR_PY_STD})

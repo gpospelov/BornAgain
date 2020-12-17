@@ -2,7 +2,7 @@
 //
 //  BornAgain: simulate and fit scattering at grazing incidence
 //
-//! @file      Sample/SampleBuilderEngine/SampleComponents.cpp
+//! @file      Sample/SampleBuilderEngine/FormFactorComponents.cpp
 //! @brief     Implements sample components for complex sample builders.
 //!
 //! @homepage  http://www.bornagainproject.org
@@ -12,20 +12,8 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/SampleBuilderEngine/SampleComponents.h"
+#include "Sample/SampleBuilderEngine/FormFactorComponents.h"
 #include "Base/Const/Units.h"
-#include "Sample/HardParticle/HardParticles.h"
-
-//  ************************************************************************************************
-FTDistribution2DComponents::FTDistribution2DComponents()
-//  ************************************************************************************************
-{
-    add("FTDistribution2DCauchy", new FTDistribution2DCauchy(0.5, 1.0, 0));
-    add("FTDistribution2DGauss", new FTDistribution2DGauss(0.5, 1.0, 0));
-    add("FTDistribution2DGate", new FTDistribution2DGate(0.5, 1.0, 0));
-    add("FTDistribution2DCone", new FTDistribution2DCone(0.5, 1.0, 0));
-    add("FTDistribution2DVoigt", new FTDistribution2DVoigt(0.5, 1.0, 0, 0.2));
-}
 
 //  ************************************************************************************************
 FormFactorComponents::FormFactorComponents()

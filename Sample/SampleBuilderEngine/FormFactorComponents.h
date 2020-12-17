@@ -20,8 +20,8 @@
 #ifndef BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 #define BORNAGAIN_SAMPLE_SAMPLEBUILDERENGINE_FORMFACTORCOMPONENTS_H
 
-#include "Sample/SampleBuilderEngine/IRegistry.h"
 #include "Sample/HardParticle/HardParticles.h"
+#include "Sample/SampleBuilderEngine/IRegistry.h"
 
 //! @class FormFactorComponents
 //! @brief Predefined form factors for functional tests.

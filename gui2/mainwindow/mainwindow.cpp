@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "gui2/mainwindow/mainwindow.h"
+#include "BAVersion.h"
 #include "gui2/importdataview/importdataview.h"
 #include "gui2/mainwindow/actionmanager.h"
 #include "gui2/mainwindow/mainbarwidget.h"
@@ -20,7 +21,6 @@
 #include "gui2/model/applicationmodels.h"
 #include "gui2/settingsview/settingsview.h"
 #include "gui2/welcomeview/welcomeview.h"
-#include "BAVersion.h"
 #include <QCloseEvent>
 #include <QCoreApplication>
 #include <QFileDialog>

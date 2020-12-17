@@ -29,18 +29,18 @@
 #include "GUI/coregui/mainwindow/tooltipdatabase.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/utils/hostosinfo.h"
-#include <QBoxLayout>
-#include <QButtonGroup>
-#include <QPushButton>
-#include <QStackedLayout>
-#include <QStatusBar>
-#include <QToolButton>
 #include <QAction>
 #include <QApplication>
+#include <QBoxLayout>
+#include <QButtonGroup>
 #include <QCloseEvent>
 #include <QMessageBox>
 #include <QProgressBar>
+#include <QPushButton>
 #include <QSettings>
+#include <QStackedLayout>
+#include <QStatusBar>
+#include <QToolButton>
 
 MainWindow* MainWindow::s_instance = nullptr;
 

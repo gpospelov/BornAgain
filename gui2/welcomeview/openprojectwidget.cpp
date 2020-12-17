@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #include "gui2/welcomeview/openprojectwidget.h"
-#include "gui2/mainwindow/styleutils.h"
 #include "BAVersion.h"
+#include "gui2/mainwindow/styleutils.h"
 #include "mvvm/widgets/widgetutils.h"
 #include <QHBoxLayout>
 #include <QLabel>
@@ -59,7 +59,8 @@ QSize OpenProjectWidget::minimumSizeHint() const {
 
 QBoxLayout* OpenProjectWidget::createProjectTitleLayout() {
     auto result = new QHBoxLayout;
-    QString title = "BornAgain " + QString::fromStdString(BornAgain::GetVersionNumber()) + ", gui2 preview";
+    QString title =
+        "BornAgain " + QString::fromStdString(BornAgain::GetVersionNumber()) + ", gui2 preview";
     auto label = new QLabel(title);
     ModelView::Utils::ScaleLabelFont(label, 1.25);
 

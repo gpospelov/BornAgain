@@ -17,8 +17,8 @@
 #endif
 
 #ifndef USER_API
-#ifndef BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
-#define BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
+#ifndef BORNAGAIN_DEVICE_DATA_ARRAYUTILS_H
+#define BORNAGAIN_DEVICE_DATA_ARRAYUTILS_H
 
 #include "Device/Data/OutputData.h"
 #include <memory>
@@ -161,5 +161,5 @@ template <class T> decltype(auto) ArrayUtils::createVector2D(const T& data) {
     return result;
 }
 
-#endif // BORNAGAIN_DEVICE_INTENSITY_ARRAYUTILS_H
+#endif // BORNAGAIN_DEVICE_DATA_ARRAYUTILS_H
 #endif // USER_API

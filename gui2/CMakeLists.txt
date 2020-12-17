@@ -1,0 +1,40 @@
+cmake_minimum_required(VERSION 3.14)
+project(DaRefl VERSION 0.1.0 LANGUAGES CXX)
+
+set(CMAKE_CXX_STANDARD 17)
+
+option(DAREFL_BUMP_VERSION "Propagate version number" OFF)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR}/cmake/modules)
+include(configuration)
+
+set(library_name dareflcore)
+
+add_library(${library_name} SHARED "")
+
+# -- Generate header for export --
+
+set(export_filename ${DAREFL_AUTOGEN_DIR}/darefl_export.h)
+generate_export_header(${library_name} EXPORT_FILE_NAME ${export_filename})
+
+add_subdirectory(dataloader)
+add_subdirectory(importdataview)
+add_subdirectory(layereditor)
+add_subdirectory(mainwindow)
+add_subdirectory(materialeditor)
+add_subdirectory(model)
+add_subdirectory(quicksimeditor)
+add_subdirectory(resources)
+add_subdirectory(settingsview)
+add_subdirectory(sldeditor)
+add_subdirectory(welcomeview)
+
+target_link_libraries(${library_name} PUBLIC MVVM::View Qt5::Core Qt5::Gui Qt5::Widgets
+    ${BornAgainCore_LIBRARY})
+target_include_directories(${library_name} PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/..>
+    $<BUILD_INTERFACE:${DAREFL_AUTOGEN_DIR}>)
+
+set(executable_name bornagain2)
+add_executable(${executable_name} main.cpp)
+target_link_libraries(${executable_name} PRIVATE dareflcore)

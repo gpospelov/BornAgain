@@ -17,8 +17,8 @@
 #endif
 
 #ifndef USER_API
-#ifndef BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
-#define BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
+#ifndef BORNAGAIN_BASE_PY_PYUTILS_H
+#define BORNAGAIN_BASE_PY_PYUTILS_H
 
 #ifdef BORNAGAIN_PYTHON
 
@@ -56,5 +56,5 @@ PyObject* createNumpyArray(const std::vector<double>& data);
 
 #endif // BORNAGAIN_PYTHON
 
-#endif // BORNAGAIN_BASE_PY_PYEMBEDDEDUTILS_H
+#endif // BORNAGAIN_BASE_PY_PYUTILS_H
 #endif // USER_API

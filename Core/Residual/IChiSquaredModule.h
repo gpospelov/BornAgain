@@ -13,8 +13,8 @@
 //  ************************************************************************************************
 
 #ifndef USER_API
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_ICHISQUAREDMODULE_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_ICHISQUAREDMODULE_H
+#ifndef BORNAGAIN_CORE_RESIDUAL_ICHISQUAREDMODULE_H
+#define BORNAGAIN_CORE_RESIDUAL_ICHISQUAREDMODULE_H
 
 #include "Base/Types/ICloneable.h"
 #include <memory>
@@ -54,5 +54,5 @@ protected:
     std::unique_ptr<IIntensityFunction> m_intensity_function;
 };
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_ICHISQUAREDMODULE_H
+#endif // BORNAGAIN_CORE_RESIDUAL_ICHISQUAREDMODULE_H
 #endif // USER_API

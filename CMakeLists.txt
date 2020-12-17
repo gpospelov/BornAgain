@@ -138,13 +138,14 @@ add_subdirectory(ThirdParty/Core)
 if(BORNAGAIN_GUI)
     add_subdirectory(ThirdParty/GUI/qcustomplot)
 endif()
-if(BORNAGAIN_NEWREFL)
-    add_subdirectory(ThirdParty/GUI/qt-mvvm)
-endif()
 
 # from here on our own code, occasionally scrutinized by clang-tidy
 if(BORNAGAIN_TIDY)
     set(CMAKE_CXX_CLANG_TIDY "clang-tidy") # has effect only if compiler is clang; uses .clang-tidy
+endif()
+
+if(BORNAGAIN_NEWREFL)
+    add_subdirectory(mvvm)
 endif()
 
 # core components
@@ -166,6 +167,10 @@ if(BORNAGAIN_GUI)
     add_subdirectory(GUI)
     add_subdirectory(Tests/UnitTests/GUI)
     add_subdirectory(Tests/Performance/GUI)
+endif()
+if(BORNAGAIN_NEWREFL)
+    add_subdirectory(gui2)
+    add_subdirectory(Tests/UnitTests/gui2)
 endif()
 
 # TODO: split Core / GUI

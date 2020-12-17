@@ -12,8 +12,8 @@
 //
 //  ************************************************************************************************
 
-#ifndef BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
-#define BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#ifndef BORNAGAIN_CORE_RESIDUAL_VARIANCEFUNCTIONS_H
+#define BORNAGAIN_CORE_RESIDUAL_VARIANCEFUNCTIONS_H
 
 #ifndef USER_API
 
@@ -54,4 +54,4 @@ private:
     double m_epsilon;
 };
 
-#endif // BORNAGAIN_DEVICE_INSTRUMENT_VARIANCEFUNCTIONS_H
+#endif // BORNAGAIN_CORE_RESIDUAL_VARIANCEFUNCTIONS_H

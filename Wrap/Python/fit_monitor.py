@@ -13,12 +13,13 @@
 #  **************************************************************************  #
 
 import bornagain as ba
+import plot_utils
 try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
 except Exception as e:
-    print("In plot_utils.py: {:s}".format(str(e)))
+    print("In fit_monitor.py: {:s}".format(str(e)))
 
 label_fontsize = 16
 

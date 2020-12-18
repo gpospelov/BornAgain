@@ -466,8 +466,7 @@ std::string simulationCode(const ISimulation& simulation)
         SampleToPython().sampleCode(*simulation.sample()) + defineSimulate(&simulation);
     return "import bornagain as ba\n"
         + pyfmt::printImportedSymbols(code)
-        + "import ba_plot if  __name__ == '__main__'"
-        "\n\n" + code;
+        + "\n\n" + code;
 }
 
 } // namespace
@@ -490,6 +489,6 @@ std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
              "    import ba_plot\n"
-             "    baplot.run_and_save(get_simulation(get_sample()), \""
+             "    ba_plot.run_and_save(get_simulation(get_sample()), \""
            + fname + "\")\n";
 }

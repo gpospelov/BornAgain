@@ -47,4 +47,5 @@ def get_simulation(sample):
 
 
 if __name__ == '__main__':
-    ba.run_and_plot(get_simulation(get_sample()))
+    import ba_plot
+    ba_plot.run_and_plot(get_simulation(get_sample()))

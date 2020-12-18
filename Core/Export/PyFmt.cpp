@@ -21,7 +21,7 @@
 
 namespace pyfmt {
 
-std::string preambled(const std::string& code)
+std::string printImportedSymbols(const std::string& code)
 {
     std::vector<std::string> to_declare;
     for (const std::string& key : {"angstrom", "deg", "nm", "nm2", "micrometer"})
@@ -30,10 +30,7 @@ std::string preambled(const std::string& code)
     for (const std::string& key : {"kvector_t"})
         if (code.find(key) != std::string::npos)
             to_declare.push_back(key);
-    return "import numpy, sys\n"
-           "import bornagain as ba\n"
-           "from bornagain import "
-           + StringUtils::join(to_declare, ", ") + "\n\n\n" + code;
+    return "from bornagain import " + StringUtils::join(to_declare, ", ") + "\n";
 }
 
 std::string printBool(double value)

@@ -2,7 +2,7 @@
 """
 #   BornAgain: simulate and fit reflection and scattering
 #
-#   @file      Wrap/Python/plot_utils.py
+#   @file      Wrap/Python/ba_plot.py
 #   @brief     Python extensions of the SWIG-generated Python module bornagain.
 #
 #   @homepage  http://apps.jcns.fz-juelich.de/BornAgain
@@ -19,7 +19,7 @@ try:  # workaround for build servers
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
 except Exception as e:
-    print("In plot_utils.py: {:s}".format(str(e)))
+    print("In ba_plot.py: {:s}".format(str(e)))
 
 label_fontsize = 16
 

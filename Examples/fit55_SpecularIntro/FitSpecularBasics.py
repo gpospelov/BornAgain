@@ -110,7 +110,7 @@ def run_fitting():
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, 1.0)
 
-    plot_observer = ba.fit_monitor.PlotterSpecular()
+    plot_observer = ba_fitmonitor.PlotterSpecular()
     fit_objective.initPrint(10)
     fit_objective.initPlot(10, plot_observer)
 

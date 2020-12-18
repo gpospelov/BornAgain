@@ -2,7 +2,7 @@
 """
 #   BornAgain: simulate and fit reflection and scattering
 #
-#   @file      Wrap/Python/fit_monitor.py
+#   @file      Wrap/Python/ba_fitmonitor.py
 #   @brief     Plotter classes for monitoring fit progress.
 #
 #   @homepage  http://apps.jcns.fz-juelich.de/BornAgain
@@ -13,13 +13,13 @@
 #  **************************************************************************  #
 
 import bornagain as ba
-import plot_utils
+import ba_plot
 try:  # workaround for build servers
     import numpy as np
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
 except Exception as e:
-    print("In fit_monitor.py: {:s}".format(str(e)))
+    print("In ba_fitmonitor.py: {:s}".format(str(e)))
 
 label_fontsize = 16
 
@@ -241,7 +241,7 @@ class PlotterSpecular(Plotter):
                          alpha=0.6)
         plt.ylim((0.5*np.min(real_values), 5*np.max(real_values)))
 
-        xlabel = ba.plot_utils.get_axes_labels(real_data, self.units)[0]
+        xlabel = ba_plot.get_axes_labels(real_data, self.units)[0]
         legend = ['BornAgain', 'Data']
         if unc_values is not None:
             legend = ['BornAgain', 'Data', r'Data $\pm \sigma$']

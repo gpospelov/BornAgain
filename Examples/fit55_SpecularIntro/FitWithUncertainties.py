@@ -117,7 +117,7 @@ def run_fitting():
     fit_objective = ba.FitObjective()
     fit_objective.addSimulationAndData(get_simulation, real_data, uncertainties)
 
-    plot_observer = ba.fit_monitor.PlotterSpecular(units=ba.Axes.RQ4)
+    plot_observer = ba_fitmonitor.PlotterSpecular(units=ba.Axes.RQ4)
     fit_objective.initPrint(10)
     fit_objective.initPlot(10, plot_observer)
     fit_objective.setObjectiveMetric("Chi2", "L1")

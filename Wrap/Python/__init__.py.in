@@ -20,6 +20,3 @@ from libBornAgainParam import *
 from libBornAgainSample import *
 from libBornAgainDevice import *
 from libBornAgainCore import *
-
-from .plot_utils import *
-import fit_monitor

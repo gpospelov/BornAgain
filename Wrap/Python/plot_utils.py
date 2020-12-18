@@ -23,7 +23,9 @@ except Exception as e:
 
 label_fontsize = 16
 
+# default values from environment variables
 CMAP = "CMAP" in os.environ and os.environ["CMAP"] or 'inferno'
+NOSHOW = "NOSHOW" in os.environ
 
 
 def get_axes_limits(result, units):
@@ -206,7 +208,7 @@ def plot_simulation_result(result, **kwargs):
     :param units: units for plot axes
     :param noshow: don't plot to interactive device
     """
-    noshow = kwargs.pop('noshow', "NOSHOW" in os.environ)
+    noshow = kwargs.pop('noshow', NOSHOW)
 
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, **kwargs)

@@ -106,8 +106,8 @@ def normalize_file(fname, inplace):
             if verbose:
                 print(f'.. read {len(ti.split())} lines')
 
-        m = re.search(r"""\nif __name__ == '__main__':(\n.+)?
-    ba_plot.run_and_plot\(get_simulation\(get_sample\(\)\)\)""", ti)
+        m = re.search(r"""\nif __name__ == '__main__':(\n\s+.+?){0,7}
+    ba_plot.run_and_plot\(.*?\)""", ti)
         if not m:
             print('=> main is not run_and_plot => SKIPPED')
             return 3

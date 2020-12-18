@@ -480,7 +480,9 @@ std::string SimulationToPython::simulationPlotCode(const ISimulation& simulation
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
              "    import ba_plot\n"
-             "    ba_plot.run_and_plot(get_simulation(get_sample()))\n";
+             "    sample = get_sample()\n"
+             "    simulation = get_simulation(sample)\n"
+             "    ba_plot.run_and_plot(simulation)\n";
 }
 
 std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation,
@@ -489,6 +491,7 @@ std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
              "    import ba_plot\n"
-             "    ba_plot.run_and_save(get_simulation(get_sample()), \""
-           + fname + "\")\n";
+             "    sample = get_sample()\n"
+             "    simulation = get_simulation(sample)\n"
+             "    ba_plot.run_and_save(simulation, \"" + fname + "\")\n";
 }

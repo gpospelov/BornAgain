@@ -25,7 +25,7 @@ def get_sample(lattice_rotation_angle=0.0*deg):
     interference = ba.InterferenceFunction1DLattice(
         lattice_length, 90.0*deg - lattice_rotation_angle)
 
-    pdf = ba.ba.FTDecayFunction1DGauss(450.0)
+    pdf = ba.FTDecayFunction1DGauss(450.0)
     interference.setDecayFunction(pdf)
 
     box_ff = ba.FormFactorLongBoxLorentz(box_length, box_width, box_height)
@@ -61,4 +61,7 @@ def get_simulation(sample):
 
 
 if __name__ == '__main__':
-    ba.run_and_plot(get_simulation(get_sample()))
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

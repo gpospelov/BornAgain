@@ -1,7 +1,6 @@
 """
 Cylinders on a 2D square lattice
 """
-import numpy, sys
 import bornagain as ba
 from bornagain import deg, nm, nm2
 
@@ -58,4 +57,6 @@ def get_simulation(sample):
 
 if __name__ == '__main__':
     import ba_plot
-    ba_plot.run_and_plot(get_simulation(get_sample()))
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

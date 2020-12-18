@@ -46,4 +46,7 @@ def get_simulation(sample, scan_size=500):
 
 
 if __name__ == '__main__':
-    ba.run_and_plot(get_simulation(get_sample()), c='k')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation, c='k')

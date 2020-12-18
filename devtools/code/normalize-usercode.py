@@ -41,13 +41,28 @@ def restitute_sample(ti, tc):
 def retrieve_simulation(ti, fname):
     c = compile(ti, fname, 'exec')
     ns = {}
+    if verbose:
+        print(f'.. retrieve_simulation: compiled')
     exec(c, ns)
+    if verbose:
+        print(f'.. retrieve_simulation: executed')
     globals().update(ns)
+    if verbose:
+        print(f'.. retrieve_simulation: globals updated')
+    sam = get_sample()
+    if verbose:
+        print(f'.. got sample')
     try:
-        s = get_simulation(get_sample())
+        sim = get_simulation(sam)
+        if verbose:
+            print(f'.. got simulation(sam)')
     except:
-        s = get_simulation()
-    return s
+        if verbose:
+            print(f'.. retry get_simulation w/o argument')
+        sim = get_simulation()
+        if verbose:
+            print(f'.. got get_simulation()')
+    return sim
 
 
 def cycle_text(ti, fname):

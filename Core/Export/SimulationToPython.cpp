@@ -490,8 +490,9 @@ std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation
 {
     return simulationCode(simulation)
            + "if __name__ == '__main__':\n"
-             "    import ba_plot\n"
              "    sample = get_sample()\n"
              "    simulation = get_simulation(sample)\n"
-             "    ba_plot.run_and_save(simulation, \"" + fname + "\")\n";
+             "    simulation.runSimulation()\n"
+             "    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), \""
+        + fname + "\")\n";
 }

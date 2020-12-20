@@ -223,7 +223,3 @@ def plot_simulation_result(result, **kwargs):
 def run_and_plot(simulation, **kwargs):
     simulation.runSimulation()
     plot_simulation_result(simulation.result(), **kwargs)
-
-def run_and_save(simulation, fname):
-    simulation.runSimulation()
-    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), fname)

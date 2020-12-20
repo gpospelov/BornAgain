@@ -19,6 +19,7 @@
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
 #include <cmath>
+#include <iostream>
 #include <tspectrum.h> // third-party code, extracted from CERN ROOT (class TSpectrum2)
 
 std::vector<std::pair<double, double>> HistoUtils::FindPeaks(const Histogram2D& hist, double sigma,
@@ -80,8 +81,10 @@ bool HistoUtils::agreesWithReference(
     const SimulationResult& dat, const std::string& refFileName, double tol)
 {
     std::unique_ptr<OutputData<double>> refDat{IntensityDataIOFactory::readOutputData(refFileName)};
-    if (!refDat)
-        throw std::runtime_error("Could not read reference data from file " + refFileName);
-
-    return DataUtils::checkRelativeDifference(*dat.data(), *refDat, tol);
+    if (!refDat) {
+        std::cerr << "Could not read reference data from file " << refFileName << std::endl;
+        return false;
+    }
+    std::unique_ptr<OutputData<double>> datDat(dat.data());
+    return DataUtils::checkRelativeDifference(*datDat, *refDat, tol);
 }

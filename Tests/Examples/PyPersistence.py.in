@@ -140,33 +140,15 @@ def save_result(result, filename):
 
 
 def check_result(result, example_name):
-    print("Checking results for '{}'".format(example_name))
-    reffile = get_reffile_name(example_name)
-
-    if not reffile:
-        save_result(result, example_name+".int.gz")
-        raise Exception("Absent reference file")
-
-    print("Loading reference file '{}'".format(reffile))
-    reference = ba.IntensityDataIOFactory.readOutputData(reffile)
-
-    diff = ba.relativeDataDifference(ba.importArrayToOutputData(result.array()), reference)
-
-    if diff > TOLERANCE:
-        print("Failure - Difference {0} is above tolerance level {1}".format(diff, TOLERANCE))
+    print("Checking results for '{}'".format(example_name), flush=True)
+    reffile = os.path.join(REFERENCE_DIR, example_name+".int.gz")
+    ok = ba.agreesWithReference(result, reffile, TOLERANCE)
+    if not ok:
         reffile_basename = os.path.basename(reffile)
+        print("no agreement; going to save new result in", reffile_basename, flush=True)
         save_result(result, reffile_basename)
-        raise Exception("Tolerance exceeded")
-    else:
-        print("Success - Difference {0} is below tolerance level{1}".format(diff, TOLERANCE))
-
-
-def process_result(result, example_name):
-    try:
-        check_result(result, example_name)
-        return 0
-    except Exception:
         return 1
+    return 0
 
 
 def process_example():
@@ -175,9 +157,9 @@ def process_example():
     nfailures = 0
     if type(result) is dict:
         for dict_key, subresult in result.items():
-            nfailures += process_result(subresult, EXAMPLE_NAME + "." + str(dict_key))
+            nfailures += check_result(subresult, EXAMPLE_NAME + "." + str(dict_key))
     else:
-        nfailures += process_result(result, EXAMPLE_NAME)
+        nfailures += check_result(result, EXAMPLE_NAME)
 
     return nfailures
 

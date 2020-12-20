@@ -3005,6 +3005,11 @@ Returns sum of relative differences between each pair of elements: (a, b) -> 2*a
 %feature("docstring")  HistoUtils::getRelativeDifference "double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)
 ";
 
+%feature("docstring")  HistoUtils::agreesWithReference "bool HistoUtils::agreesWithReference(const SimulationResult &dat, const std::string &refFileName, double tol)
+
+Returns true if SimulatioResult agrees with data from reference file. 
+";
+
 
 // File: Beam_8cpp.xml
 

@@ -5717,7 +5717,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig4.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/local/share/swig/4.0.2/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -38846,6 +38846,54 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_agreesWithReference(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  SimulationResult *arg1 = 0 ;
+  std::string *arg2 = 0 ;
+  double arg3 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  int res2 = SWIG_OLDOBJ ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "agreesWithReference", 3, 3, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1, SWIGTYPE_p_SimulationResult,  0  | 0);
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "agreesWithReference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  if (!argp1) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "agreesWithReference" "', argument " "1"" of type '" "SimulationResult const &""'"); 
+  }
+  arg1 = reinterpret_cast< SimulationResult * >(argp1);
+  {
+    std::string *ptr = (std::string *)0;
+    res2 = SWIG_AsPtr_std_string(swig_obj[1], &ptr);
+    if (!SWIG_IsOK(res2)) {
+      SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "agreesWithReference" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    if (!ptr) {
+      SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "agreesWithReference" "', argument " "2"" of type '" "std::string const &""'"); 
+    }
+    arg2 = ptr;
+  }
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "agreesWithReference" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = (bool)HistoUtils::agreesWithReference((SimulationResult const &)*arg1,(std::string const &)*arg2,arg3);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return resultobj;
+fail:
+  if (SWIG_IsNewObj(res2)) delete arg2;
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_delete_IHistogram(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   IHistogram *arg1 = (IHistogram *) 0 ;
@@ -45797,6 +45845,13 @@ static PyMethodDef SwigMethods[] = {
 	 { "getRelativeDifference", _wrap_getRelativeDifference, METH_VARARGS, "\n"
 		"getRelativeDifference(IHistogram dat, IHistogram ref) -> double\n"
 		"double HistoUtils::getRelativeDifference(const IHistogram &dat, const IHistogram &ref)\n"
+		"\n"
+		""},
+	 { "agreesWithReference", _wrap_agreesWithReference, METH_VARARGS, "\n"
+		"agreesWithReference(SimulationResult dat, std::string const & refFileName, double tol) -> bool\n"
+		"bool HistoUtils::agreesWithReference(const SimulationResult &dat, const std::string &refFileName, double tol)\n"
+		"\n"
+		"Returns true if SimulatioResult agrees with data from reference file. \n"
 		"\n"
 		""},
 	 { "delete_IHistogram", _wrap_delete_IHistogram, METH_O, "\n"

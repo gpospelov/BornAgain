@@ -69,7 +69,7 @@ createOutputDatafrom2DArray(const std::vector<std::vector<double>>& array_2d);
 //! Creates Fourier Transform (OutputData format) of intensity map (OutputData format).
 std::unique_ptr<OutputData<double>> createFFT(const OutputData<double>& data);
 
-#endif // USER_API
+#endif // SWIG
 
 } // namespace DataUtils
 

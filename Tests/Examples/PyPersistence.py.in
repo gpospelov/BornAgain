@@ -115,18 +115,6 @@ def run_simulation():
     return simulation.result()
 
 
-def get_reffile_name(example_name):
-    """
-    Returns full name of reference file for given basename
-    """
-    reffiles = glob.glob(os.path.join(REFERENCE_DIR, example_name+".int.gz"))
-    if len(reffiles) != 1:
-        print("Can't find reference file in '{0}' for name '{1}'".format(REFERENCE_DIR, example_name))
-        print("Possible candidates", reffiles)
-        return None
-    return reffiles[0]
-
-
 def save_result(result, filename):
     """
     Writing result to the file with given name into test output directory.

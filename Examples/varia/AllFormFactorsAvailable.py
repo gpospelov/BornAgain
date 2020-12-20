@@ -3,6 +3,7 @@ All form factors available in BornAgain in the Born Approximation
 """
 import numpy
 import bornagain as ba
+import ba_plot
 from bornagain import deg, angstrom
 from matplotlib import pyplot as plt
 
@@ -56,7 +57,7 @@ def get_sample(formfactor):
     return multi_layer
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns GISAXS simulation with standard beam and detector.
     """
@@ -64,6 +65,7 @@ def get_simulation():
     simulation.setDetectorParameters(100, phi_min*deg, phi_max*deg, 100,
                                      alpha_min*deg, alpha_max*deg)
     simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -72,8 +74,7 @@ def simulate(ff):
     Runs simulation for one form factor, and returns simulated intensity pattern
     """
     sample = get_sample(ff)
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
     simulation.runSimulation()
     return simulation.result()
 
@@ -97,10 +98,7 @@ def simulate_and_plot():
         plt.subplot(5, 5, nplot + 1)
         plt.subplots_adjust(wspace=0.3, hspace=0.3)
 
-        ba.plot_colormap(result,
-                         xlabel="",
-                         ylabel="",
-                         zlabel="")
+        ba_plot.plot_colormap(result, xlabel="", ylabel="", zlabel="")
 
         plt.tick_params(axis='both', which='major', labelsize=8)
         plt.tick_params(axis='both', which='minor', labelsize=6)

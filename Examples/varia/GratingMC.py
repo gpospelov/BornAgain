@@ -5,6 +5,7 @@ large-particle form factor oscillations.
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm, micrometer
+import ba_plot
 from matplotlib import pyplot as plt
 
 
@@ -25,7 +26,7 @@ def get_sample(lattice_rotation_angle=0.0*deg):
     interference = ba.InterferenceFunction1DLattice(
         lattice_length, 90.0*deg - lattice_rotation_angle)
 
-    pdf = ba.ba.FTDecayFunction1DGauss(450.0)
+    pdf = ba.FTDecayFunction1DGauss(450.0)
     interference.setDecayFunction(pdf)
 
     box_ff = ba.FormFactorLongBoxLorentz(box_length, box_width, box_height)
@@ -67,7 +68,8 @@ def run_simulation():
     """
     Runs simulation and returns intensity map.
     """
-    simulation = get_simulation(get_sample())
+    sample = get_sample()
+    simulation = get_simulation(sample)
     if not "__no_terminal__" in globals():
         simulation.setTerminalProgressMonitor()
     simulation.runSimulation()
@@ -77,7 +79,7 @@ def run_simulation():
 def simulate_and_plot():
     interactive = True
     result = run_simulation().histogram2d()
-    ba.plot_histogram(result)
+    ba_plot.plot_histogram(result)
 
     peaks = ba.FindPeaks(result, 2, "nomarkov", 0.001)
     xpeaks = [peak[0] for peak in peaks]

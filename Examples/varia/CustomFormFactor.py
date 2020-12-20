@@ -73,9 +73,13 @@ def get_simulation(sample):
     beam = ba.Beam(1.0, 1.0*angstrom, ba.Direction(0.2*deg, 0.0*deg))
     det = ba.SphericalDetector(100, -1*deg, 1*deg, 100, 0*deg, 2*deg)
     simulation = ba.GISASSimulation(beam, sample, det)
-    simulation.getOptions().setNumberOfThreads(-1) # deactivate multithreading (why?)
+    simulation.getOptions().setNumberOfThreads(
+        -1)  # deactivate multithreading (why?)
     return simulation
 
 
 if __name__ == '__main__':
-    ba.run_and_plot(get_simulation(get_sample()))
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

@@ -51,7 +51,7 @@ def get_sample(*, magnetization=magnetizationVector):
     return multi_layer
 
 
-def get_simulation(scan_size=1500):
+def get_simulation(sample, scan_size=1500):
     """
     Defines and returns a specular simulation.
     """
@@ -66,6 +66,7 @@ def get_simulation(scan_size=1500):
     scan.setAbsoluteQResolution(distr, 0.008)
 
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -78,15 +79,13 @@ def run_simulation(*,
     Runs simulation and returns its result.
     """
     sample = get_sample()
-
-    simulation = get_simulation()
+    simulation = get_simulation(sample)
 
     simulation.beam().setPolarization(polarization*polarizer_efficiency)
     simulation.setAnalyzerProperties(analyzer, analyzer_efficiency, 0.5)
 
     simulation.setBackground(ba.ConstantBackground(1e-7))
 
-    simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 

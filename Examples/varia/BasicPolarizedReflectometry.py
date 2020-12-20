@@ -34,13 +34,14 @@ def get_sample():
     return sample
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
     scan = ba.AngularSpecScan(1.54*angstrom, scan_size, 0.0*deg, 5.0*deg)
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -50,13 +51,12 @@ def run_simulation(polarization=ba.kvector_t(0, 1, 0),
     Runs simulation and returns its result.
     """
     sample = get_sample()
-    simulation = get_simulation()
+    simulation = get_simulation(sample)
 
     # adding polarization and analyzer operator
     simulation.beam().setPolarization(polarization)
     simulation.setAnalyzerProperties(analyzer, 1.0, 0.5)
 
-    simulation.setSample(sample)
     simulation.runSimulation()
     return simulation.result()
 

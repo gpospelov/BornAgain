@@ -58,8 +58,8 @@ def get_sample(params):
 def get_simulation(q_axis, parameters):
 
     scan = ba.QSpecScan(q_axis)
-    scan.setOffset( parameters["q_offset"] )
-    
+    scan.setOffset(parameters["q_offset"])
+
     n_sig = 4.0
     n_samples = 25
 

@@ -6,6 +6,7 @@ import math
 import random
 import bornagain as ba
 from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
@@ -45,15 +46,13 @@ def get_sample():
     return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns a GISAXS simulation with beam and detector defined.
     """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(201, -2.0*deg, 2.0*deg, 201, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
-    simulation.beam().setIntensity(1e+05)
+    beam = ba.Beam(1e5, 1.0*angstrom, ba.Direction(0.2*deg, 0*deg))
+    det = ba.SphericalDetector(201, -2*deg, 2*deg, 201, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     return simulation
 
 
@@ -75,7 +74,8 @@ def plot_histogram(hist, **kwargs):
     ba.plot_histogram(hist,
                       xlabel=r'$\varphi_f ^{\circ}$',
                       ylabel=r'$\alpha_f ^{\circ}$',
-                      zlabel="", **kwargs)
+                      zlabel="",
+                      **kwargs)
 
 
 def get_relative_difference(hist):
@@ -126,17 +126,17 @@ def plot(hist):
     plt.figure(figsize=(12.80, 10.24))
 
     plt.subplot(2, 2, 1)
-    plot_histogram(hist)
+    ba_plot.plot_histogram(hist)
     plt.title("Intensity as colormap")
 
     plt.subplot(2, 2, 2)
     crop = hist.crop(-1.0, 0.5, 1.0, 1.0)
-    plot_histogram(crop)
+    ba_plot.plot_histogram(crop)
     plt.title("Cropping")
 
     plt.subplot(2, 2, 3)
     reldiff = get_relative_difference(hist)
-    plot_histogram(reldiff, intensity_min=1e-03, intensity_max=10)
+    ba_plot.plot_histogram(reldiff, intensity_min=1e-03, intensity_max=10)
     plt.title("Relative difference")
 
     plt.subplot(2, 2, 4)
@@ -158,17 +158,13 @@ def plot(hist):
     plt.show()
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
+def simulate_and_plot():
     sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
     simulation.runSimulation()
-    return simulation.result().histogram2d()
+    hist = simulation.result().histogram2d()
+    plot(hist)
 
 
 if __name__ == '__main__':
-    result = run_simulation()
-    plot(result)
+    simulate_and_plot()

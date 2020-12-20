@@ -5,6 +5,7 @@ Results will be compared against simulation with spherical detector.
 import numpy
 import bornagain as ba
 from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 import matplotlib
 from matplotlib import pyplot as plt
 
@@ -75,12 +76,13 @@ def get_rectangular_detector():
     return detector
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Return a GISAXS simulation with defined beam
     """
     simulation = ba.GISASSimulation()
     simulation.setBeamParameters(10*angstrom, 0.2*deg, 0.0*deg)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -93,7 +95,7 @@ def plot(results):
 
     # showing  result of spherical detector simulation
     plt.subplot(1, 3, 1)
-    ba.plot_colormap(results['spherical'],
+    ba_plot.plot_colormap(results['spherical'],
                      title="Spherical detector",
                      xlabel=r'$\phi_f ^{\circ}$',
                      ylabel=r'$\alpha_f ^{\circ}$',
@@ -101,7 +103,7 @@ def plot(results):
 
     # showing  result of rectangular detector simulation
     plt.subplot(1, 3, 2)
-    ba.plot_colormap(results['rectangular'],
+    ba_plot.plot_colormap(results['rectangular'],
                      title="Rectangular detector",
                      xlabel='X, mm',
                      ylabel='Y, mm',
@@ -134,8 +136,7 @@ def run_simulation():
     results = {}
 
     sample = get_sample()
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
 
     # runs simulation for spherical detector
     simulation.setDetector(get_spherical_detector())

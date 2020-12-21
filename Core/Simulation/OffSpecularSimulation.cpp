@@ -48,7 +48,7 @@ size_t OffSpecularSimulation::numberOfSimulationElements() const
 SimulationResult OffSpecularSimulation::result() const
 {
     auto data = std::unique_ptr<OutputData<double>>(m_intensity_map.clone());
-    OffSpecularConverter converter(instrument().detector2D(), instrument().beam(), *m_alpha_i_axis);
+    OffSpecularConverter converter(instrument().detector2D(), beam(), *m_alpha_i_axis);
     return SimulationResult(*data, converter);
 }
 
@@ -75,8 +75,7 @@ std::unique_ptr<IUnitConverter> OffSpecularSimulation::createUnitConverter() con
     if (!axis)
         throw std::runtime_error("Error in OffSpecularSimulation::createUnitConverter:"
                                  " missing inclination angle axis");
-    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), instrument().beam(),
-                                                  *axis);
+    return std::make_unique<OffSpecularConverter>(instrument().detector2D(), beam(), *axis);
 }
 
 size_t OffSpecularSimulation::intensityMapSize() const
@@ -97,10 +96,10 @@ OffSpecularSimulation::OffSpecularSimulation(const OffSpecularSimulation& other)
 void OffSpecularSimulation::initSimulationElementVector()
 {
     m_sim_elements.clear();
-    Beam beam = instrument().beam();
+    Beam beam2 = beam();
     for (size_t i = 0; i < m_alpha_i_axis->size(); ++i) {
-        beam.setInclination(m_alpha_i_axis->bin(i).center());
-        std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam);
+        beam2.setInclination(m_alpha_i_axis->bin(i).center());
+        std::vector<SimulationElement> sim_elements_i = generateSimulationElements(beam2);
         for (auto ele : sim_elements_i)
             m_sim_elements.emplace_back(ele);
     }

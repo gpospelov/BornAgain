@@ -98,7 +98,7 @@ size_t DepthProbeSimulation::intensityMapSize() const
 
 std::unique_ptr<IUnitConverter> DepthProbeSimulation::createUnitConverter() const
 {
-    return std::make_unique<DepthProbeConverter>(instrument().beam(), *m_alpha_axis, *m_z_axis);
+    return std::make_unique<DepthProbeConverter>(beam(), *m_alpha_axis, *m_z_axis);
 }
 
 DepthProbeSimulation::DepthProbeSimulation(const DepthProbeSimulation& other)
@@ -141,12 +141,12 @@ void DepthProbeSimulation::setBeamParameters(double lambda, const IAxis& alpha_a
     instrument().setBeamParameters(lambda, zero_alpha_i, zero_phi_i);
 
     if (beam_shape)
-        instrument().beam().setFootprintFactor(*beam_shape);
+        beam().setFootprintFactor(*beam_shape);
 }
 
 void DepthProbeSimulation::initSimulationElementVector()
 {
-    m_sim_elements = generateSimulationElements(instrument().beam());
+    m_sim_elements = generateSimulationElements(beam());
 
     if (!m_cache.empty())
         return;
@@ -222,7 +222,7 @@ void DepthProbeSimulation::initialize()
 
     // allow for negative inclinations in the beam of specular simulation
     // it is required for proper averaging in the case of divergent beam
-    auto inclination = instrument().beam().parameter("InclinationAngle");
+    auto inclination = beam().parameter("InclinationAngle");
     inclination->setLimits(RealLimits::limited(-M_PI_2, M_PI_2));
 }
 
@@ -232,7 +232,7 @@ void DepthProbeSimulation::normalize(size_t start_ind, size_t n_elements)
     for (size_t i = start_ind, stop_point = start_ind + n_elements; i < stop_point; ++i) {
         auto& element = m_sim_elements[i];
         const double alpha_i = -element.getAlphaI();
-        const auto footprint = instrument().beam().footprintFactor();
+        const auto footprint = beam().footprintFactor();
         double intensity_factor = beam_intensity;
         if (footprint != nullptr)
             intensity_factor = intensity_factor * footprint->calculate(alpha_i);

@@ -51,7 +51,7 @@ SimulationResult GISASSimulation::result() const
 {
     const auto converter = UnitConverterUtils::createConverterForGISAS(instrument());
     const std::unique_ptr<OutputData<double>> data(
-        instrument().detector().createDetectorIntensity(m_sim_elements));
+        detector().createDetectorIntensity(m_sim_elements));
     return SimulationResult(*data, *converter);
 }
 
@@ -66,7 +66,7 @@ void GISASSimulation::setBeamParameters(double wavelength, double alpha_i, doubl
 size_t GISASSimulation::intensityMapSize() const
 {
     size_t result = 0;
-    instrument().detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
+    detector().iterate([&result](IDetector::const_iterator) { ++result; }, true);
     return result;
 }
 
@@ -77,7 +77,7 @@ GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(o
 
 void GISASSimulation::initSimulationElementVector()
 {
-    m_sim_elements = generateSimulationElements(instrument().beam());
+    m_sim_elements = generateSimulationElements(beam());
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
 }

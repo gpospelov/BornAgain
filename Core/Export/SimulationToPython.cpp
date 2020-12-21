@@ -272,7 +272,7 @@ std::string defineBeamIntensity(const Beam& beam)
 std::string defineGISASBeam(const GISASSimulation& simulation)
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().beam();
+    const Beam& beam = simulation.beam();
 
     result << indent() << "beam = ba.Beam(" << pyfmt::printDouble(beam.intensity()) << ", "
            << pyfmt::printNm(beam.wavelength()) << ", ba.Direction("
@@ -287,7 +287,7 @@ std::string defineGISASBeam(const GISASSimulation& simulation)
 std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation)
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().beam();
+    const Beam& beam = simulation.beam();
 
     const std::string axidef = indent() + "alpha_i_axis = ";
     result << axidef << pyfmt2::printAxis(simulation.beamAxis(), "rad") << "\n";
@@ -310,7 +310,7 @@ std::string defineSpecularScan(const SpecularSimulation& simulation)
                                  "does not contain any scan");
     result << defineScan(scan) << "\n";
     result << indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.instrument().beam()) << "\n";
+    result << defineBeamIntensity(simulation.beam()) << "\n";
     return result.str();
 }
 

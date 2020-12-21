@@ -204,7 +204,7 @@ void SpecularSimulation::normalize(size_t start_ind, size_t n_elements)
     std::vector<double> footprints;
     // TODO: use just m_scan when pointwise resolution is implemented
     if (const auto* aScan = dynamic_cast<const AngularSpecScan*>(m_scan.get()))
-        footprints = mangledScan(*aScan, instrument().beam())->footprint(start_ind, n_elements);
+        footprints = mangledScan(*aScan, beam())->footprint(start_ind, n_elements);
     else
         footprints = m_scan->footprint(start_ind, n_elements);
 

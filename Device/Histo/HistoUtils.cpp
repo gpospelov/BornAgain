@@ -77,8 +77,8 @@ double HistoUtils::getRelativeDifference(const IHistogram& dat, const IHistogram
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
 }
 
-bool HistoUtils::agreesWithReference(
-    const SimulationResult& dat, const std::string& refFileName, double tol)
+bool HistoUtils::agreesWithReference(const SimulationResult& dat, const std::string& refFileName,
+                                     double tol)
 {
     std::unique_ptr<OutputData<double>> refDat{IntensityDataIOFactory::readOutputData(refFileName)};
     if (!refDat) {

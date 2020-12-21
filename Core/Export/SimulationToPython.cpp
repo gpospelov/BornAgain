@@ -464,9 +464,7 @@ std::string simulationCode(const ISimulation& simulation)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     std::string code =
         SampleToPython().sampleCode(*simulation.sample()) + defineSimulate(&simulation);
-    return "import bornagain as ba\n"
-        + pyfmt::printImportedSymbols(code)
-        + "\n\n" + code;
+    return "import bornagain as ba\n" + pyfmt::printImportedSymbols(code) + "\n\n" + code;
 }
 
 } // namespace
@@ -494,5 +492,5 @@ std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation
              "    simulation = get_simulation(sample)\n"
              "    simulation.runSimulation()\n"
              "    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), \""
-        + fname + "\")\n";
+           + fname + "\")\n";
 }

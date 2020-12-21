@@ -19,12 +19,9 @@
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "Device/Detector/SpecularDetector1D.h"
-#include "Device/Histo/Histogram1D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
-#include "Sample/Material/MaterialUtils.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 namespace {

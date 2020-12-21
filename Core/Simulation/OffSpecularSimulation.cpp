@@ -13,13 +13,10 @@
 //  ************************************************************************************************
 
 #include "Core/Simulation/OffSpecularSimulation.h"
-#include "Core/Computation/DWBAComputation.h"
 #include "Device/Detector/SimpleUnitConverters.h"
-#include "Device/Histo/Histogram2D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 
 OffSpecularSimulation::OffSpecularSimulation(const Beam& beam, const MultiLayer& sample,

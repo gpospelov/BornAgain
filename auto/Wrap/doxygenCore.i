@@ -1019,6 +1019,12 @@ Run a simulation in a MPI environment.
 %feature("docstring")  ISimulation::beam "const Beam& ISimulation::beam() const
 ";
 
+%feature("docstring")  ISimulation::getDetector "IDetector* ISimulation::getDetector()
+";
+
+%feature("docstring")  ISimulation::getDetector "const IDetector* ISimulation::getDetector() const
+";
+
 %feature("docstring")  ISimulation::detector "IDetector& ISimulation::detector()
 ";
 
@@ -1122,6 +1128,12 @@ C++ includes: ISimulation2D.h
 ";
 
 %feature("docstring")  ISimulation2D::clone "ISimulation2D* ISimulation2D::clone() const override=0
+";
+
+%feature("docstring")  ISimulation2D::detector2D "IDetector2D & ISimulation2D::detector2D()
+";
+
+%feature("docstring")  ISimulation2D::detector2D "const IDetector2D & ISimulation2D::detector2D() const
 ";
 
 %feature("docstring")  ISimulation2D::prepareSimulation "void ISimulation2D::prepareSimulation() override

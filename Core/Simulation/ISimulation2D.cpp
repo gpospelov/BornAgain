@@ -14,6 +14,7 @@
 
 #include "Core/Simulation/ISimulation2D.h"
 #include "Base/Pixel/SimulationElement.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Detector/DetectorContext.h"
@@ -34,6 +35,22 @@ ISimulation2D::ISimulation2D(const Beam& beam, const IDetector& detector)
 ISimulation2D::ISimulation2D() = default;
 
 ISimulation2D::~ISimulation2D() = default;
+
+IDetector2D& ISimulation2D::detector2D()
+{
+    ASSERT(getDetector());
+    IDetector2D* p = dynamic_cast<IDetector2D*>(getDetector());
+    ASSERT(p);
+    return *p;
+}
+
+const IDetector2D& ISimulation2D::detector2D() const
+{
+    ASSERT(getDetector());
+    const IDetector2D* p = dynamic_cast<const IDetector2D*>(getDetector());
+    ASSERT(p);
+    return *p;
+}
 
 void ISimulation2D::prepareSimulation()
 {

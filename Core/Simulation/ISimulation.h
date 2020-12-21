@@ -58,6 +58,8 @@ public:
     Beam& beam() { return m_instrument.beam(); }
     const Beam& beam() const { return m_instrument.beam(); }
 
+    IDetector* getDetector() { return m_instrument.getDetector(); }
+    const IDetector* getDetector() const { return m_instrument.getDetector(); }
     IDetector& detector() { return m_instrument.detector(); }
     const IDetector& detector() const { return m_instrument.detector(); }
 

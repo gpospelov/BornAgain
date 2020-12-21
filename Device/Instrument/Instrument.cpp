@@ -90,7 +90,11 @@ void Instrument::setBeam(const Beam& beam)
 
 const IDetector* Instrument::getDetector() const
 {
-    ASSERT(m_detector);
+    return m_detector.get();
+}
+
+IDetector* Instrument::getDetector()
+{
     return m_detector.get();
 }
 

@@ -1340,6 +1340,9 @@ C++ includes: Instrument.h
 Sets the beam wavelength and incoming angles. 
 ";
 
+%feature("docstring")  Instrument::getDetector "IDetector * Instrument::getDetector()
+";
+
 %feature("docstring")  Instrument::getDetector "const IDetector * Instrument::getDetector() const
 ";
 

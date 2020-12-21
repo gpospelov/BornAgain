@@ -35,6 +35,9 @@ public:
 
     ISimulation2D* clone() const override = 0;
 
+    IDetector2D& detector2D();
+    const IDetector2D& detector2D() const;
+
     //! Put into a clean state for running a simulation
     void prepareSimulation() override;
 

@@ -47,6 +47,7 @@ public:
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
+    IDetector* getDetector();
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;

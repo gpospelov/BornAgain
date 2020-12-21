@@ -3537,6 +3537,15 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.ISimulation_beam(self, *args)
 
+    def getDetector(self, *args):
+        r"""
+        getDetector(ISimulation self) -> IDetector
+        getDetector(ISimulation self) -> IDetector const *
+        const IDetector* ISimulation::getDetector() const
+
+        """
+        return _libBornAgainCore.ISimulation_getDetector(self, *args)
+
     def detector(self, *args):
         r"""
         detector(ISimulation self) -> IDetector
@@ -3728,6 +3737,15 @@ class ISimulation2D(ISimulation):
 
         """
         return _libBornAgainCore.ISimulation2D_clone(self)
+
+    def detector2D(self, *args):
+        r"""
+        detector2D(ISimulation2D self) -> IDetector2D
+        detector2D(ISimulation2D self) -> IDetector2D const &
+        const IDetector2D & ISimulation2D::detector2D() const
+
+        """
+        return _libBornAgainCore.ISimulation2D_detector2D(self, *args)
 
     def prepareSimulation(self):
         r"""

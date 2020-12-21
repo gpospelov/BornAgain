@@ -28,12 +28,10 @@ public:
 
     static SessionItem* createSampleItems(const QString& name, SampleModel* sampleModel,
                                           MaterialModel* materialModel);
-    //    static SessionItem *createInstrumentItems(const QString &name, InstrumentModel
-    //    *instrumentModel);
 
 private:
     static QMap<QString, QString> m_name_to_registry;
-    //!< correspondance of GUI example name and name from StandardSamples registry
+    //!< correspondence of GUI example name and name from StandardSamples registry
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_MODELS_GUIEXAMPLESFACTORY_H

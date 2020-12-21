@@ -143,7 +143,7 @@ TEST_F(LayerViewModelTest, twoLayerSystem)
     EXPECT_EQ(viewmodel.rowCount(), 2);
     EXPECT_EQ(viewmodel.columnCount(), 5); // name, Nr, material, thickness, sigma
 
-    // check indexes in first row and their correspondance to top-layer related items
+    // check indexes in first row and their correspondence to top-layer related items
     QModelIndexList selection = {viewmodel.index(0, 0), viewmodel.index(0, 1),
                                  viewmodel.index(0, 2), viewmodel.index(0, 3)};
     std::vector<SessionItem*> expected = {top->getItem(LayerItem::P_NAME), nullptr,
@@ -151,7 +151,7 @@ TEST_F(LayerViewModelTest, twoLayerSystem)
                                           top->getItem(LayerItem::P_THICKNESS)};
     EXPECT_EQ(Utils::ItemsFromIndex(selection), expected);
 
-    // check indexes in first row and their correspondance to bottom-layer related items
+    // check indexes in first row and their correspondence to bottom-layer related items
     selection = {viewmodel.index(1, 0), viewmodel.index(1, 1), viewmodel.index(1, 2),
                  viewmodel.index(1, 3)};
     expected = {bottom->getItem(LayerItem::P_NAME), nullptr, bottom->getItem(LayerItem::P_MATERIAL),

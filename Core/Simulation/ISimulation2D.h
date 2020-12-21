@@ -27,6 +27,9 @@ class DetectorContext;
 class ISimulation2D : public ISimulation {
 public:
     ISimulation2D(const Beam& beam, const MultiLayer& sample, const IDetector& detector);
+#ifndef SWIG
+    ISimulation2D(const Beam& beam, const IDetector& detector);
+#endif // SWIG
     ISimulation2D();
     ~ISimulation2D() override;
 

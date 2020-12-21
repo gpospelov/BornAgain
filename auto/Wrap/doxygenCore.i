@@ -771,6 +771,9 @@ C++ includes: GISASSimulation.h
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
 ";
 
+%feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation(const Beam &beam, const IDetector &detector)
+";
+
 %feature("docstring")  GISASSimulation::GISASSimulation "GISASSimulation::GISASSimulation()
 ";
 
@@ -1004,9 +1007,6 @@ Run simulation with possible averaging over parameter distributions.
 Run a simulation in a MPI environment. 
 ";
 
-%feature("docstring")  ISimulation::setInstrument "void ISimulation::setInstrument(const Instrument &instrument_)
-";
-
 %feature("docstring")  ISimulation::instrument "const Instrument& ISimulation::instrument() const
 ";
 
@@ -1094,6 +1094,12 @@ Initializes a progress monitor that prints to stdout.
 Convert user data to SimulationResult object for later drawing in various axes units. User data will be cropped to the ROI defined in the simulation, amplitudes in areas corresponding to the masked areas of the detector will be set to zero. 
 ";
 
+%feature("docstring")  ISimulation::ISimulation "ISimulation::ISimulation(const Beam &beam, const IDetector &detector)
+";
+
+%feature("docstring")  ISimulation::setInstrument "void ISimulation::setInstrument(const Instrument &instrument_)
+";
+
 
 // File: classISimulation2D.xml
 %feature("docstring") ISimulation2D "
@@ -1104,6 +1110,9 @@ C++ includes: ISimulation2D.h
 ";
 
 %feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D(const Beam &beam, const MultiLayer &sample, const IDetector &detector)
+";
+
+%feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D(const Beam &beam, const IDetector &detector)
 ";
 
 %feature("docstring")  ISimulation2D::ISimulation2D "ISimulation2D::ISimulation2D()

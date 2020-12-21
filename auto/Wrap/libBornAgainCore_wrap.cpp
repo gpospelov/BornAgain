@@ -38864,38 +38864,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ISimulation_setInstrument(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = (ISimulation *) 0 ;
-  Instrument *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ISimulation_setInstrument", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_setInstrument" "', argument " "1"" of type '" "ISimulation *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Instrument,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation_setInstrument" "', argument " "2"" of type '" "Instrument const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation_setInstrument" "', argument " "2"" of type '" "Instrument const &""'"); 
-  }
-  arg2 = reinterpret_cast< Instrument * >(argp2);
-  (arg1)->setInstrument((Instrument const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ISimulation_instrument__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = (ISimulation *) 0 ;
@@ -44645,11 +44613,6 @@ static PyMethodDef SwigMethods[] = {
 		"void ISimulation::runMPISimulation()\n"
 		"\n"
 		"Run a simulation in a MPI environment. \n"
-		"\n"
-		""},
-	 { "ISimulation_setInstrument", _wrap_ISimulation_setInstrument, METH_VARARGS, "\n"
-		"ISimulation_setInstrument(ISimulation self, Instrument const & instrument_)\n"
-		"void ISimulation::setInstrument(const Instrument &instrument_)\n"
 		"\n"
 		""},
 	 { "ISimulation_instrument", _wrap_ISimulation_instrument, METH_VARARGS, "\n"

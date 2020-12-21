@@ -123,6 +123,13 @@ ISimulation::ISimulation(const Beam& beam, const MultiLayer& sample, const IDete
     initialize();
 }
 
+#ifndef SWIG
+ISimulation::ISimulation(const Beam& beam, const IDetector& detector) : m_instrument(beam, detector)
+{
+    initialize();
+}
+#endif // SWIG
+
 ISimulation::ISimulation()
 {
     initialize();
@@ -149,6 +156,14 @@ void ISimulation::initialize()
     registerChild(&m_instrument);
     registerChild(&m_sample_provider);
 }
+
+#ifndef SWIG
+void ISimulation::setInstrument(const Instrument& instrument_)
+{
+    m_instrument = instrument_;
+    updateIntensityMap();
+}
+#endif // SWIG
 
 //! Initializes a progress monitor that prints to stdout.
 void ISimulation::setTerminalProgressMonitor()
@@ -218,12 +233,6 @@ void ISimulation::runMPISimulation()
 {
     MPISimulation ompi;
     ompi.runSimulation(this);
-}
-
-void ISimulation::setInstrument(const Instrument& instrument_)
-{
-    m_instrument = instrument_;
-    updateIntensityMap();
 }
 
 //! The MultiLayer object will not be owned by the ISimulation object

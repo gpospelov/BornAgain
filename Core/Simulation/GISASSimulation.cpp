@@ -26,6 +26,13 @@ GISASSimulation::GISASSimulation(const Beam& beam, const MultiLayer& sample,
 {
 }
 
+#ifndef SWIG
+GISASSimulation::GISASSimulation(const Beam& beam, const IDetector& detector)
+    : ISimulation2D(beam, detector)
+{
+}
+#endif // SWIG
+
 GISASSimulation::GISASSimulation()
 {
     initialize();

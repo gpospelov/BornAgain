@@ -3519,14 +3519,6 @@ class ISimulation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
         """
         return _libBornAgainCore.ISimulation_runMPISimulation(self)
 
-    def setInstrument(self, instrument_):
-        r"""
-        setInstrument(ISimulation self, Instrument const & instrument_)
-        void ISimulation::setInstrument(const Instrument &instrument_)
-
-        """
-        return _libBornAgainCore.ISimulation_setInstrument(self, instrument_)
-
     def instrument(self, *args):
         r"""
         instrument(ISimulation self) -> Instrument const

@@ -24,6 +24,13 @@ ISimulation2D::ISimulation2D(const Beam& beam, const MultiLayer& sample, const I
 {
 }
 
+#ifndef SWIG
+ISimulation2D::ISimulation2D(const Beam& beam, const IDetector& detector)
+    : ISimulation(beam, detector)
+{
+}
+#endif // SWIG
+
 ISimulation2D::ISimulation2D() = default;
 
 ISimulation2D::~ISimulation2D() = default;

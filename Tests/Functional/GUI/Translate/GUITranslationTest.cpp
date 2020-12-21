@@ -126,13 +126,13 @@ bool GUITranslationTest::runTest()
     std::cout << translationResultsToString() << std::endl;
 
     if (!checkExistingTranslations()) {
-        std::cout << "GUITranslationTest::checkExistingTranslations failed: "
-                  << m_simulationName << " " << m_sampleName << std::endl;
+        std::cout << "GUITranslationTest::checkExistingTranslations failed: " << m_simulationName
+                  << " " << m_sampleName << std::endl;
         return false;
     }
     if (!checkMissedTranslations()) {
-        std::cout << "GUITranslationTest::checkMissedTranslations failed: "
-                  << m_simulationName << " " << m_sampleName << std::endl;
+        std::cout << "GUITranslationTest::checkMissedTranslations failed: " << m_simulationName
+                  << " " << m_sampleName << std::endl;
         return false;
     }
     return true;

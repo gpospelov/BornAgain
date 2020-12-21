@@ -261,7 +261,6 @@ void ActionManager::onCurrentViewChanged()
 {
     // not every view support view menu entries -> hide it, if empty
     onAboutToShowViewMenu();
-    const bool isEmpty = m_viewMenu->actions().isEmpty();
     m_viewMenu->menuAction()->setVisible(!m_viewMenu->actions().isEmpty());
 }
 

@@ -68,7 +68,7 @@ def run_example(mode_short, filename, output_dir):
 
     # Run modified script.
     exec_full(script, filename)
-    print("Input script completed.", flush=True)
+    print("Input script completed", flush=True)
 
     # Generate output figure.
     plot_file_name = os.path.join(

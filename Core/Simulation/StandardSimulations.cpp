@@ -39,19 +39,22 @@
 #include <memory>
 
 namespace {
+
 const size_t rdet_nbinsx(40), rdet_nbinsy(30);
 const double rdet_width(20.0), rdet_height(18.0), rdet_distance(1000.0);
+
 } // namespace
+
+using Units::angstrom;
+using Units::deg;
 
 //! Basic GISAS simulation with the detector phi[0,2], theta[0,2].
 
 GISASSimulation* StandardSimulations::BasicGISAS()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(100, 0 * deg, 2 * deg, 100, 0 * deg, 2 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! Basic GISAS for polarization studies.
@@ -80,22 +83,18 @@ GISASSimulation* StandardSimulations::BasicPolarizedGISAS()
 
 GISASSimulation* StandardSimulations::MiniGISAS()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(25, -2 * deg, 2 * deg, 25, 0 * deg, 2 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with small detector and phi[-1,1], theta[0,1].
 
 GISASSimulation* StandardSimulations::MiniGISAS_v2()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(25, -1.0 * Units::deg, 1.0 * Units::deg, 25, 0.0 * Units::deg,
-                                  1.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(25, -1 * deg, 1 * deg, 25, 0 * deg, 1 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with beam divergence applied.
@@ -104,9 +103,9 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
 {
     GISASSimulation* result = MiniGISAS();
 
-    DistributionLogNormal wavelength_distr(1.0 * Units::angstrom, 0.1);
-    DistributionGaussian alpha_distr(0.2 * Units::deg, 0.02 * Units::deg);
-    DistributionGate phi_distr(-0.1 * Units::deg, 0.02 * Units::deg);
+    DistributionLogNormal wavelength_distr(1 * angstrom, 0.1);
+    DistributionGaussian alpha_distr(0.2 * deg, 0.02 * deg);
+    DistributionGate phi_distr(-0.1 * deg, 0.02 * deg);
 
     ParameterPattern pattern1;
     pattern1.beginsWith("*").add("Beam").add("Wavelength");
@@ -125,11 +124,9 @@ GISASSimulation* StandardSimulations::MiniGISASBeamDivergence()
 
 GISASSimulation* StandardSimulations::GISASWithMasks()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(50, -1.0 * Units::deg, 1.0 * Units::deg, 50, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    result->beam().setIntensity(1e+7);
+    Beam beam(1e7, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(50, -1 * deg, 1 * deg, 50, 0 * deg, 2 * deg);
+    GISASSimulation* result = new GISASSimulation(beam, det);
 
     result->maskAll();
     // pacman
@@ -217,10 +214,10 @@ GISASSimulation* StandardSimulations::MiniGISASPolarizationMM()
 
 GISASSimulation* StandardSimulations::MiniGISASSpecularPeak()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(25, -2 * deg, 2 * deg, 25, 0 * deg, 2 * deg);
+    GISASSimulation* result = new GISASSimulation(beam, det);
+    result->setBeamParameters(1 * angstrom, 0.2 * deg, 0 * deg);
     result->getOptions().setIncludeSpecular(true);
     return result;
 }
@@ -229,11 +226,9 @@ GISASSimulation* StandardSimulations::MiniGISASSpecularPeak()
 
 GISASSimulation* StandardSimulations::MaxiGISAS()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(256, -2.0 * Units::deg, 2.0 * Units::deg, 256, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(256, -2 * deg, 2 * deg, 256, 0 * deg, 2 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! Basic GISAS for polarization studies.
@@ -251,83 +246,59 @@ GISASSimulation* StandardSimulations::MaxiGISAS00()
 
 GISASSimulation* StandardSimulations::IsGISAXSSimulation1()
 {
-    GISASSimulation* result = new GISASSimulation();
-    IsGISAXSDetector detector;
-    detector.setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0 * Units::deg,
-                                   2.0 * Units::deg);
-    result->setDetector(detector);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    IsGISAXSDetector det(100, -1 * deg, 1 * deg, 100, 0 * deg, 2 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! Typical IsGISAXS simulation with the detector phi[0,2], theta[0,2].
 
 GISASSimulation* StandardSimulations::IsGISAXSSimulation2()
 {
-    GISASSimulation* result = new GISASSimulation();
-    IsGISAXSDetector detector;
-    detector.setDetectorParameters(100, 0.0 * Units::deg, 2.0 * Units::deg, 100, 0.0 * Units::deg,
-                                   2.0 * Units::deg);
-    result->setDetector(detector);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(100, 0 * deg, 2 * deg, 100, 0 * deg, 2 * deg);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with generic rectangular detector.
 
 GISASSimulation* StandardSimulations::RectDetectorGeneric()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-
-    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
-    detector.setPosition(kvector_t(rdet_distance, 10.0, 5.0), rdet_width / 2., 1.0,
-                         kvector_t(0.1, -1.0, 0.2));
-
-    result->setDetector(detector);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    RectangularDetector det(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    det.setPosition(kvector_t(rdet_distance, 10.0, 5.0), rdet_width / 2., 1.0,
+                    kvector_t(0.1, -1.0, 0.2));
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with the rectangular detector perpendicular to the sample.
 
 GISASSimulation* StandardSimulations::RectDetectorPerpToSample()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-
-    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
-    detector.setPerpendicularToSampleX(rdet_distance, rdet_width / 2., 1.0);
-
-    result->setDetector(detector);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    RectangularDetector det(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    det.setPerpendicularToSampleX(rdet_distance, rdet_width / 2., 1.0);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with the rectangular detector perpendicular to the direct beam.
 
 GISASSimulation* StandardSimulations::RectDetectorPerpToDirectBeam()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-
-    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
-    detector.setPerpendicularToDirectBeam(rdet_distance, rdet_width / 2., 1.0);
-
-    result->setDetector(detector);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    RectangularDetector det(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    det.setPerpendicularToDirectBeam(rdet_distance, rdet_width / 2., 1.0);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with the rectangular detector perpendicular to the reflected beam.
 
 GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-
-    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
-    detector.setPerpendicularToReflectedBeam(rdet_distance, rdet_width / 2., 1.0);
-
-    result->setDetector(detector);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    RectangularDetector det(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    det.setPerpendicularToReflectedBeam(rdet_distance, rdet_width / 2., 1.0);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with the rectangular detector perpendicular to the reflected beam when
@@ -335,15 +306,11 @@ GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeam()
 
 GISASSimulation* StandardSimulations::RectDetectorPerpToReflectedBeamDpos()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-
-    RectangularDetector detector(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
-    detector.setPerpendicularToReflectedBeam(rdet_distance);
-    detector.setDirectBeamPosition(rdet_width / 2., 1.0);
-
-    result->setDetector(detector);
-    return result;
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    RectangularDetector det(rdet_nbinsx, rdet_width, rdet_nbinsy, rdet_height);
+    det.setPerpendicularToReflectedBeam(rdet_distance);
+    det.setDirectBeamPosition(rdet_width / 2., 1.0);
+    return new GISASSimulation(beam, det);
 }
 
 //! GISAS simulation with Monte-Carlo integration switched ON.
@@ -359,14 +326,11 @@ GISASSimulation* StandardSimulations::MiniGISASMonteCarlo()
 
 GISASSimulation* StandardSimulations::SphericalDetWithRoi()
 {
-    GISASSimulation* result = new GISASSimulation();
-    result->setDetectorParameters(40, -2.0 * Units::deg, 2.0 * Units::deg, 30, 0.0 * Units::deg,
-                                  3.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
-    result->addMask(
-        Rectangle(-0.5 * Units::deg, 0.3 * Units::deg, -0.2 * Units::deg, 0.6 * Units::deg));
-    result->setRegionOfInterest(-1.5 * Units::deg, 0.25 * Units::deg, 1.5 * Units::deg,
-                                1.75 * Units::deg);
+    Beam beam(1.0, 1 * angstrom, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(40, -2 * deg, 2 * deg, 30, 0 * deg, 3 * deg);
+    GISASSimulation* result = new GISASSimulation(beam, det);
+    result->addMask(Rectangle(-0.5 * deg, 0.3 * deg, -0.2 * deg, 0.6 * deg));
+    result->setRegionOfInterest(-1.5 * deg, 0.25 * deg, 1.5 * deg, 1.75 * deg);
     return result;
 }
 
@@ -392,22 +356,19 @@ GISASSimulation* StandardSimulations::ConstantBackgroundGISAS()
 
 GISASSimulation* StandardSimulations::ExtraLongWavelengthGISAS()
 {
-    auto* simulation = new GISASSimulation;
-    simulation->setDetectorParameters(100, -1.0 * Units::deg, 1.0 * Units::deg, 100, 0.0,
-                                      2.0 * Units::deg);
-
-    simulation->setBeamParameters(13.52 * Units::nm, 0.2 * Units::deg, 0.0 * Units::deg);
-    simulation->beam().setIntensity(1.0e+08);
+    Beam beam(1e8, 13.52 * Units::nm, Direction(0.2 * deg, 0 * deg));
+    SphericalDetector det(100, -1 * deg, 1 * deg, 100, 0.0, 2 * deg);
+    auto* simulation = new GISASSimulation(beam, det);
     simulation->getOptions().setIncludeSpecular(true);
     return simulation;
 }
 
 SpecularSimulation* StandardSimulations::BasicSpecular()
 {
-    const double wavelength = 1.54 * Units::angstrom;
+    const double wavelength = 1.54 * angstrom;
     const int number_of_bins = 2000;
-    const double min_angle = 0 * Units::deg;
-    const double max_angle = 5 * Units::deg;
+    const double min_angle = 0 * deg;
+    const double max_angle = 5 * deg;
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
     auto* result = new SpecularSimulation();
@@ -420,10 +381,10 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
 {
     std::vector<double> qs;
     {
-        const double wavelength_0 = 1.54 * Units::angstrom;
+        const double wavelength_0 = 1.54 * angstrom;
         const int number_of_bins = 2000;
-        const double min_angle = 0 * Units::deg;
-        const double max_angle = 5 * Units::deg;
+        const double min_angle = 0 * deg;
+        const double max_angle = 5 * deg;
         FixedBinAxis angle_axis("axis", number_of_bins, min_angle, max_angle);
         auto angles = angle_axis.binCenters();
 
@@ -441,10 +402,10 @@ SpecularSimulation* StandardSimulations::BasicSpecularQ()
 
 SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
 {
-    const double wavelength = 1.54 * Units::angstrom;
+    const double wavelength = 1.54 * angstrom;
     const int number_of_bins = 2000;
-    const double min_angle = 0 * Units::deg;
-    const double max_angle = 5 * Units::deg;
+    const double min_angle = 0 * deg;
+    const double max_angle = 5 * deg;
     auto gaussian_ff = std::make_unique<FootprintGauss>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(gaussian_ff.get());
@@ -456,10 +417,10 @@ SpecularSimulation* StandardSimulations::SpecularWithGaussianBeam()
 
 SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
 {
-    const double wavelength = 1.54 * Units::angstrom;
+    const double wavelength = 1.54 * angstrom;
     const int number_of_bins = 2000;
-    const double min_angle = 0 * Units::deg;
-    const double max_angle = 5 * Units::deg;
+    const double min_angle = 0 * deg;
+    const double max_angle = 5 * deg;
     auto square_ff = std::make_unique<FootprintSquare>(1.0);
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
     scan.setFootprintFactor(square_ff.get());
@@ -471,13 +432,13 @@ SpecularSimulation* StandardSimulations::SpecularWithSquareBeam()
 
 SpecularSimulation* StandardSimulations::SpecularDivergentBeam()
 {
-    const double wavelength = 1.54 * Units::angstrom;
+    const double wavelength = 1.54 * angstrom;
     const int number_of_bins = 20;
     const size_t n_integration_points = 10;
-    const double min_angle = 0 * Units::deg;
-    const double max_angle = 5 * Units::deg;
-    const double wl_stddev = 0.1 * Units::angstrom;
-    const double ang_stddev = 0.1 * Units::deg;
+    const double min_angle = 0 * deg;
+    const double max_angle = 5 * deg;
+    const double wl_stddev = 0.1 * angstrom;
+    const double ang_stddev = 0.1 * deg;
     AngularSpecScan scan(wavelength, FixedBinAxis("axis", number_of_bins, min_angle, max_angle));
 
     RangedDistributionGaussian wl_distr(n_integration_points, /*sigma_factor = */ 2.0);
@@ -599,11 +560,11 @@ OffSpecularSimulation* StandardSimulations::MiniOffSpecular()
     auto* result = new OffSpecularSimulation;
 
     const int n_alpha(19);
-    const double alpha_min(0.0 * Units::deg);
-    const double alpha_max(4.0 * Units::deg);
+    const double alpha_min(0 * deg);
+    const double alpha_max(4 * deg);
     const int n_phi(9);
-    const double phi_min(-0.1 * Units::deg);
-    const double phi_max(0.1 * Units::deg);
+    const double phi_min(-0.1 * deg);
+    const double phi_max(0.1 * deg);
 
     result->setDetectorParameters(n_phi, phi_min, phi_max, n_alpha, alpha_min, alpha_max);
 
@@ -612,7 +573,7 @@ OffSpecularSimulation* StandardSimulations::MiniOffSpecular()
     const double alpha_i_max(alpha_max);
 
     FixedBinAxis alpha_i_axis("alpha_i", n_scan_points, alpha_i_min, alpha_i_max);
-    result->setBeamParameters(5.0 * Units::angstrom, alpha_i_axis, 0.0);
+    result->setBeamParameters(5 * angstrom, alpha_i_axis, 0.0);
 
     result->beam().setIntensity(1e9);
     result->getOptions().setIncludeSpecular(true);
@@ -624,10 +585,10 @@ DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
 {
     auto* result = new DepthProbeSimulation;
 
-    const double wavelength = 10.0 * Units::angstrom;
+    const double wavelength = 10 * angstrom;
     const size_t n_alpha = 20;
-    const double alpha_min = 0.0 * Units::deg;
-    const double alpha_max = 1.0 * Units::deg;
+    const double alpha_min = 0 * deg;
+    const double alpha_max = 1 * deg;
     const size_t n_z = n_alpha;
     const double z_min = -100.0 * Units::nm;
     const double z_max = 100.0 * Units::nm;
@@ -643,9 +604,8 @@ DepthProbeSimulation* StandardSimulations::BasicDepthProbe()
 GISASSimulation* StandardSimulations::MiniGISASFit()
 {
     auto* result = new GISASSimulation;
-    result->setDetectorParameters(25, -2.0 * Units::deg, 2.0 * Units::deg, 25, 0.0 * Units::deg,
-                                  2.0 * Units::deg);
-    result->setBeamParameters(1.0 * Units::angstrom, 0.2 * Units::deg, 0.0 * Units::deg);
+    result->setDetectorParameters(25, -2 * deg, 2 * deg, 25, 0 * deg, 2 * deg);
+    result->setBeamParameters(1 * angstrom, 0.2 * deg, 0 * deg);
     result->beam().setIntensity(1e6);
     return result;
 }

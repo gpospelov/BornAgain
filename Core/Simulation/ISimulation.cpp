@@ -19,7 +19,6 @@
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Param/Base/ParameterPool.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include <gsl/gsl_errno.h>

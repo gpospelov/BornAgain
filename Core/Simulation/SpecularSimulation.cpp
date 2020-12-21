@@ -21,7 +21,6 @@
 #include "Core/Scan/UnitConverter1D.h"
 #include "Device/Beam/IFootprintFactor.h"
 #include "Device/Detector/SpecularDetector1D.h"
-#include "Device/Histo/Histogram1D.h"
 #include "Param/Base/ParameterPool.h"
 #include "Param/Base/RealParameter.h"
 #include "Param/Distrib/Distributions.h"

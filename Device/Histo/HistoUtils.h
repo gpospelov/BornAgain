@@ -39,6 +39,9 @@ double RelativeDifference(const SimulationResult& dat, const SimulationResult& r
 
 double getRelativeDifference(const IHistogram& dat, const IHistogram& ref);
 
+//! Returns true if SimulatioResult agrees with data from reference file
+bool agreesWithReference(const SimulationResult& dat, const std::string& refFileName, double tol);
+
 } // namespace HistoUtils
 
 #endif // BORNAGAIN_DEVICE_HISTO_HISTOUTILS_H

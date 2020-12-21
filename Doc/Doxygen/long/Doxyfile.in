@@ -842,7 +842,10 @@ INPUT                  = @CMAKE_SOURCE_DIR@/Doc/Doxygen/long \
                          @CMAKE_SOURCE_DIR@/Param \
                          @CMAKE_SOURCE_DIR@/Sample \
                          @CMAKE_SOURCE_DIR@/Device \
-                         @CMAKE_SOURCE_DIR@/Core
+                         @CMAKE_SOURCE_DIR@/Core \
+                         @CMAKE_SOURCE_DIR@/GUI \
+                         @CMAKE_SOURCE_DIR@/gui2 \
+                         @CMAKE_SOURCE_DIR@/mvvm \
 
 # This tag can be used to specify the character encoding of the source files
 # that doxygen parses. Internally doxygen uses the UTF-8 encoding. Doxygen uses

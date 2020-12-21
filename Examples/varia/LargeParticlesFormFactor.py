@@ -8,6 +8,7 @@ In this case Monte-Carlo integration over detector bin should be used.
 """
 import bornagain as ba
 from bornagain import deg, angstrom, nm
+import ba_plot
 from matplotlib import pyplot as plt
 
 default_cylinder_radius = 10*nm
@@ -39,15 +40,14 @@ def get_sample(cylinder_radius, cylinder_height):
     return multi_layer
 
 
-def get_simulation(integration_flag):
+def get_simulation(sample, integration_flag):
     """
     Returns a GISAXS simulation with defined beam and detector.
     If integration_flag=True, the simulation will integrate over detector bins.
     """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(200, -2.0*deg, 2.0*deg, 200, 0.0*deg,
-                                     2.0*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0.2*deg, 0.0*deg)
+    beam = ba.Beam(1, 1.0*angstrom, ba.Direction(0.2*deg, 0*deg))
+    det = ba.SphericalDetector(200, -2*deg, 2*deg, 200, 0*deg, 2*deg)
+    simulation = ba.GISASSimulation(beam, sample, det)
     simulation.getOptions().setMonteCarloIntegration(integration_flag, 50)
     if not "__no_terminal__" in globals():
         simulation.setTerminalProgressMonitor()
@@ -96,8 +96,7 @@ def simulate_and_plot():
 
         sample = get_sample(default_cylinder_radius*scale,
                             default_cylinder_height*scale)
-        simulation = get_simulation(integration_flag)
-        simulation.setSample(sample)
+        simulation = get_simulation(sample, integration_flag)
         simulation.runSimulation()
         result = simulation.result()
 
@@ -107,9 +106,7 @@ def simulate_and_plot():
 
         zmin = condition['zmin']
         zmax = condition['zmax']
-        ba.plot_colormap(result,
-                         intensity_min=zmin,
-                         intensity_max=zmax)
+        ba_plot.plot_colormap(result, intensity_min=zmin, intensity_max=zmax)
 
         plt.text(0.0,
                  2.1,

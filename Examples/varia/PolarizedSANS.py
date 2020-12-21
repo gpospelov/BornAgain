@@ -51,7 +51,7 @@ def get_sample():
     return sample
 
 
-def get_simulation():
+def get_simulation(sample):
     """
     Returns a polarized SANS simulation
     """
@@ -70,23 +70,12 @@ def get_simulation():
     beampol = kvector_t(0.0, 0.0, 1.0)
     simulation.beam().setPolarization(beampol)
     simulation.setAnalyzerProperties(analyzer_dir, 1.0, 0.5)
-
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation():
-    """
-    Runs simulation and returns intensity map.
-    """
-    simulation = get_simulation()
-    simulation.setSample(get_sample())
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result,
-                              cmap='jet',
-                              units=ba.Axes.QSPACE,
-                              aspect='auto')
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation, units=ba.Axes.QSPACE)

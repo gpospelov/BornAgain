@@ -4,6 +4,7 @@ axes in different units (nbins, mm, degs and QyQz).
 """
 import bornagain as ba
 from bornagain import angstrom, deg, nm, nm2, kvector_t
+import ba_plot
 from matplotlib import pyplot as plt
 from matplotlib import rcParams
 
@@ -78,14 +79,14 @@ def plot(result):
     plt.subplot(2, 2, 1)
     # default units for rectangular detector are millimeters
 
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      title="In default units",
                      xlabel=r'$X_{mm}$',
                      ylabel=r'$Y_{mm}$',
                      zlabel=None)
 
     plt.subplot(2, 2, 2)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.NBINS,
                      title="In number of bins",
                      xlabel=r'$X_{nbins}$',
@@ -93,7 +94,7 @@ def plot(result):
                      zlabel=None)
 
     plt.subplot(2, 2, 3)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.DEGREES,
                      title="In degs",
                      xlabel=r'$\phi_f ^{\circ}$',
@@ -101,7 +102,7 @@ def plot(result):
                      zlabel=None)
 
     plt.subplot(2, 2, 4)
-    ba.plot_colormap(result,
+    ba_plot.plot_colormap(result,
                      units=ba.Axes.QSPACE,
                      title="Q-space",
                      xlabel=r'$Q_{y} [1/nm]$',

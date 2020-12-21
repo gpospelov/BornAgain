@@ -4623,6 +4623,16 @@ def getRelativeDifference(dat, ref):
 
     """
     return _libBornAgainDevice.getRelativeDifference(dat, ref)
+
+def agreesWithReference(dat, refFileName, tol):
+    r"""
+    agreesWithReference(SimulationResult dat, std::string const & refFileName, double tol) -> bool
+    bool HistoUtils::agreesWithReference(const SimulationResult &dat, const std::string &refFileName, double tol)
+
+    Returns true if SimulatioResult agrees with data from reference file. 
+
+    """
+    return _libBornAgainDevice.agreesWithReference(dat, refFileName, tol)
 class IHistogram(object):
     r"""
 

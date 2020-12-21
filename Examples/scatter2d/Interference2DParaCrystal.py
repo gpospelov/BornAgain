@@ -1,7 +1,6 @@
 """
 2D paracrystal
 """
-import numpy, sys
 import bornagain as ba
 from bornagain import deg, nm
 
@@ -61,4 +60,7 @@ def get_simulation(sample):
 
 
 if __name__ == '__main__':
-    ba.run_and_plot(get_simulation(get_sample()))
+    import ba_plot
+    sample = get_sample()
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation)

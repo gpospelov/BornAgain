@@ -27,7 +27,7 @@
 
 namespace pyfmt {
 
-std::string preambled(const std::string& code);
+std::string printImportedSymbols(const std::string& code);
 
 std::string printInt(int value);
 std::string printBool(double value);

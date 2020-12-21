@@ -1,5 +1,5 @@
 """
-Example of simulating a rough sample with a 
+Example of simulating a rough sample with a
 tanh and Nevot-Croce roughness model using BornAgain.
 
 """
@@ -43,13 +43,14 @@ def get_sample(roughness_model):
     return multi_layer
 
 
-def get_simulation(scan_size=500):
+def get_simulation(sample, scan_size=500):
     """
     Defines and returns a specular simulation.
     """
     simulation = ba.SpecularSimulation()
     scan = ba.AngularSpecScan(1.54*angstrom, scan_size, 0.0*deg, 2.0*deg)
     simulation.setScan(scan)
+    simulation.setSample(sample)
     return simulation
 
 
@@ -58,8 +59,7 @@ def run_simulation(roughness_model=ba.RoughnessModel.TANH):
     Runs simulation and returns its result.
     """
     sample = get_sample(roughness_model)
-    simulation = get_simulation()
-    simulation.setSample(sample)
+    simulation = get_simulation(sample)
     simulation.runSimulation()
     return simulation.result()
 

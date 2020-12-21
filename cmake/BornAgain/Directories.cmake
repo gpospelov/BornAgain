@@ -7,11 +7,11 @@ set(WRAP_DIR ${CMAKE_SOURCE_DIR}/Wrap)
 set(SWIG_DIR ${WRAP_DIR}/Swig)
 set(EXAMPLES_DIR ${CMAKE_SOURCE_DIR}/Examples)
 
-set(TEST_REFERENCE_DIR            ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
-set(TEST_REFERENCE_DIR_CORE       ${TEST_REFERENCE_DIR}/Core)
-set(TEST_REFERENCE_DIR_PY_CORE    ${TEST_REFERENCE_DIR}/PyCore)
-set(TEST_REFERENCE_DIR_PY_PERSIST ${TEST_REFERENCE_DIR}/PyPersist)
-set(TEST_REFERENCE_DIR_STD        ${TEST_REFERENCE_DIR}/Std)
+set(TEST_REFERENCE_DIR               ${CMAKE_SOURCE_DIR}/Tests/ReferenceData)
+set(TEST_REFERENCE_DIR_CORE          ${TEST_REFERENCE_DIR}/Core)
+set(TEST_REFERENCE_DIR_PY_CORE       ${TEST_REFERENCE_DIR}/PyCore)
+set(TEST_REFERENCE_DIR_EXAMPLES_MINI ${TEST_REFERENCE_DIR}/ExamplesMini)
+set(TEST_REFERENCE_DIR_STD           ${TEST_REFERENCE_DIR}/Std)
 
 # -----------------------------------------------------------------------------
 # auto directories (refreshed when CONFIGURE options are set)

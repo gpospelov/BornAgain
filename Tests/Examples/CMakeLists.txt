@@ -24,7 +24,7 @@ endfunction()
 
 function(run_examples examples label)
     foreach(example ${examples})
-        run_example(${example} ${label})
+        run_example(${example} "${label}")
     endforeach()
 endfunction()
 
@@ -32,20 +32,20 @@ endfunction()
 set(prototype ${EXAMPLES_DIR}/scatter2d/CylindersInDWBA.py)
 file(GLOB examples ${EXAMPLES_DIR}/scatter2d/*.py)
 list(REMOVE_ITEM examples ${prototype})
+if (WIN32)
+    # Convergence problem in Gauss-Kronrod integration
+    list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
+endif()
 run_example(${prototype} "")
-run_examples(${examples} "XL")
+run_examples("${examples}" "XL")
 
 # Examples from other directories
 file(GLOB examples
     ${EXAMPLES_DIR}/specular/*.py
     ${EXAMPLES_DIR}/varia/*.py
     ${EXAMPLES_DIR}/fit55_Specular/FitSpecularBasics.py)
-if (WIN32)
-    # Convergence problem in Gauss-Kronrod integration
-    list(REMOVE_ITEM examples ${EXAMPLES_DIR}/scatter2d/Interference2DParaCrystal.py)
-endif()
 list(REMOVE_ITEM examples ${EXAMPLES_DIR}/varia/SimulationParameters.py)
-run_examples(${examples} "")
+run_examples("${examples}" "")
 
 ############################################################################
 # Check results of modified examples

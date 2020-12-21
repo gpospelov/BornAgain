@@ -242,11 +242,6 @@ class ObserverCallbackWrapper(PyObserverCallback):
     def finalize(self, minimizer_result):
         return self.finalize_cpp(self.convert_result(minimizer_result))
 
-    def create_default_plotter(self):
-        import plot_utils
-        self.m_plotter = plot_utils.PlotterGISAS()
-        return self.m_plotter.plot
-
     def initPlot(self, every_nth, callback = None):
         if not callback:
             callback = self.create_default_plotter()

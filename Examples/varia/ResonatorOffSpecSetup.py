@@ -50,7 +50,7 @@ def get_sample(nlayers=3):
     return sample
 
 
-def get_offspec_simulation():
+def get_simulation(sample):
     """
     characterizing the input beam and output detector
     """
@@ -83,18 +83,12 @@ def get_offspec_simulation():
         ba.ResolutionFunction2DGaussian(sigma_factor*d_alpha,
                                         sigma_factor*d_phi))
 
+    simulation.setSample(sample)
     return simulation
 
 
-def run_simulation():
-    sample = get_sample(nlayers=3)
-    simulation = get_offspec_simulation()
-    simulation.setSample(sample)
-    simulation.runSimulation()
-    return simulation.result()
-
-
 if __name__ == '__main__':
-    result = run_simulation()
-    ba.plot_simulation_result(result,
-                              intensity_min=1e-03)
+    import ba_plot
+    sample = get_sample(nlayers=3)
+    simulation = get_simulation(sample)
+    ba_plot.run_and_plot(simulation, intensity_min=1e-03)

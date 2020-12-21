@@ -2,7 +2,7 @@
 """
 #   BornAgain: simulate and fit reflection and scattering
 #
-#   @file      Wrap/Python/plot_utils.py
+#   @file      Wrap/Python/ba_plot.py
 #   @brief     Python extensions of the SWIG-generated Python module bornagain.
 #
 #   @homepage  http://apps.jcns.fz-juelich.de/BornAgain
@@ -19,11 +19,13 @@ try:  # workaround for build servers
     from matplotlib import pyplot as plt
     from matplotlib import gridspec, colors
 except Exception as e:
-    print("In plot_utils.py: {:s}".format(str(e)))
+    print("In ba_plot.py: {:s}".format(str(e)))
 
 label_fontsize = 16
 
+# default values from environment variables
 CMAP = "CMAP" in os.environ and os.environ["CMAP"] or 'inferno'
+NOSHOW = "NOSHOW" in os.environ
 
 
 def get_axes_limits(result, units):
@@ -206,7 +208,7 @@ def plot_simulation_result(result, **kwargs):
     :param units: units for plot axes
     :param noshow: don't plot to interactive device
     """
-    noshow = kwargs.pop('noshow', "NOSHOW" in os.environ)
+    noshow = kwargs.pop('noshow', NOSHOW)
 
     if len(result.array().shape) == 1:  # 1D data, specular simulation assumed
         plot_specular_simulation_result(result, **kwargs)
@@ -221,7 +223,3 @@ def plot_simulation_result(result, **kwargs):
 def run_and_plot(simulation, **kwargs):
     simulation.runSimulation()
     plot_simulation_result(simulation.result(), **kwargs)
-
-def run_and_save(simulation, fname):
-    simulation.runSimulation()
-    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), fname)

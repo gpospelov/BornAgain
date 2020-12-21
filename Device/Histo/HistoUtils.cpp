@@ -16,8 +16,10 @@
 #include "Base/Math/Numeric.h"
 #include "Device/Data/DataUtils.h"
 #include "Device/Histo/Histogram2D.h"
+#include "Device/Histo/IntensityDataIOFactory.h"
 #include "Device/Histo/SimulationResult.h"
 #include <cmath>
+#include <iostream>
 #include <tspectrum.h> // third-party code, extracted from CERN ROOT (class TSpectrum2)
 
 std::vector<std::pair<double, double>> HistoUtils::FindPeaks(const Histogram2D& hist, double sigma,
@@ -73,4 +75,16 @@ double HistoUtils::getRelativeDifference(const IHistogram& dat, const IHistogram
     return DataUtils::relativeDataDifference(
         *std::unique_ptr<OutputData<double>>(dat.getData().meanValues()),
         *std::unique_ptr<OutputData<double>>(ref.getData().meanValues()));
+}
+
+bool HistoUtils::agreesWithReference(
+    const SimulationResult& dat, const std::string& refFileName, double tol)
+{
+    std::unique_ptr<OutputData<double>> refDat{IntensityDataIOFactory::readOutputData(refFileName)};
+    if (!refDat) {
+        std::cerr << "Could not read reference data from file " << refFileName << std::endl;
+        return false;
+    }
+    std::unique_ptr<OutputData<double>> datDat(dat.data());
+    return DataUtils::checkRelativeDifference(*datDat, *refDat, tol);
 }

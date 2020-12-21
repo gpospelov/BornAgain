@@ -80,7 +80,7 @@ class LMFITPlotter:
     """
     def __init__(self, fit_objective, every_nth=10):
         self.fit_objective = fit_objective
-        self.plotter_gisas = ba.fit_monitor.PlotterGISAS()
+        self.plotter_gisas = ba_fitmonitor.PlotterGISAS()
         self.every_nth = every_nth
 
     def __call__(self, params, iter, resid):

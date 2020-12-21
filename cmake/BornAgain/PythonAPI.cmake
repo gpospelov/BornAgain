@@ -16,7 +16,7 @@ endif()
 
 configure_file(${WRAP_DIR}/Python/__init__.py.in
     ${CMAKE_BINARY_DIR}/lib/bornagain/__init__.py @ONLY)
-foreach(mod plot_utils.py fit_monitor.py)
+foreach(mod ba_plot.py ba_fitmonitor.py)
     configure_file(${WRAP_DIR}/Python/${mod} ${CMAKE_BINARY_DIR}/lib/bornagain/${mod} COPYONLY)
 endforeach()
 

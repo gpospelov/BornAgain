@@ -121,18 +121,21 @@ GUITranslationTest::~GUITranslationTest() = default;
 
 bool GUITranslationTest::runTest()
 {
+    ASSERT(m_translations.empty());
     processParameterTree();
     std::cout << translationResultsToString() << std::endl;
 
-    bool success = checkExistingTranslations();
-    success &= checkMissedTranslations();
-
-    if (!success) {
-        std::cout << "GUITranslationTest failed: " << m_simulationName << " " << m_sampleName
-                  << std::endl;
+    if (!checkExistingTranslations()) {
+        std::cout << "GUITranslationTest::checkExistingTranslations failed: "
+                  << m_simulationName << " " << m_sampleName << std::endl;
+        return false;
     }
-
-    return success;
+    if (!checkMissedTranslations()) {
+        std::cout << "GUITranslationTest::checkMissedTranslations failed: "
+                  << m_simulationName << " " << m_sampleName << std::endl;
+        return false;
+    }
+    return true;
 }
 
 //! Runs through GUI models and constructs list of available domain fit parameters names.
@@ -241,8 +244,8 @@ bool GUITranslationTest::checkExistingTranslations()
         }
     }
 
-    std::ostringstream ostr;
     if (wrong_translations.size() > 0) {
+        std::ostringstream ostr;
         ostr << header() << std::endl;
         ostr << "Translation doesn't match domain parameters:" << std::endl;
         ostr << header() << std::endl;
@@ -252,11 +255,10 @@ bool GUITranslationTest::checkExistingTranslations()
             ostr << "Translated     : " << guiPar.translatedName << "\n";
             ostr << header(8) << std::endl;
         }
+        std::cout << ostr.str();
+        return false;
     }
-    std::cout << ostr.str();
-
-    bool isSuccess = (wrong_translations.empty());
-    return isSuccess;
+    return true;
 }
 
 //! Checks if all simulation parameters have translation.
@@ -274,15 +276,14 @@ bool GUITranslationTest::checkMissedTranslations()
         std::string domainName = "*" + StringUtils::removeSubstring(name, "/GISASSimulation");
 
         bool translationFound(false);
-        for (auto pair : m_translations) {
-            if (pair.translatedName == domainName) {
+        for (auto tr : m_translations) {
+            if (tr.translatedName == domainName) {
                 translationFound = true;
                 break;
             }
         }
-        if (!translationFound && isValidDomainName(domainName)) {
+        if (!translationFound && isValidDomainName(domainName))
             missedNames.push_back(name);
-        }
     }
 
     if (!missedNames.empty()) {
@@ -291,8 +292,7 @@ bool GUITranslationTest::checkMissedTranslations()
         std::cout << header() << std::endl;
         for (auto name : missedNames)
             std::cout << "domain : " << name << std::endl;
+        return false;
     }
-
-    bool isSuccess = (missedNames.empty());
-    return isSuccess;
+    return true;
 }

@@ -152,7 +152,7 @@ def get_simulation(det):
     simulation.setDetectorParameters(det.phi.n, det.phi.vmin*deg,
                                      det.phi.vmax*deg, det.alpha.n,
                                      det.alpha.vmin*deg, det.alpha.vmax*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0, 0)
+    simulation.setBeamParameters(1.0*angstrom, 1e-8*deg, 0)
     return simulation
 
 
@@ -170,7 +170,10 @@ def run_simulation(det, ff, trafo=None):
     simulation = get_simulation(det)
     simulation.setSample(sample)
     simulation.runSimulation()
-    data = simulation.result().array()
+    result = simulation.result()
+    #import ba_plot
+    #ba_plot.plot_simulation_result(result)
+    data = result.array()
     nor = data[det.alpha.n - det.alpha.central_index() - 1,
                det.phi.central_index()]
     data /= nor

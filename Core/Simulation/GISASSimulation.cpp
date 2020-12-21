@@ -40,6 +40,16 @@ GISASSimulation::GISASSimulation()
     initialize();
 }
 
+GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(other)
+{
+    initialize();
+}
+
+void GISASSimulation::initialize()
+{
+    setName("GISASSimulation");
+}
+
 void GISASSimulation::prepareSimulation()
 {
     if (detector().dimension() != 2)
@@ -72,19 +82,9 @@ size_t GISASSimulation::intensityMapSize() const
     return result;
 }
 
-GISASSimulation::GISASSimulation(const GISASSimulation& other) : ISimulation2D(other)
-{
-    initialize();
-}
-
 void GISASSimulation::initSimulationElementVector()
 {
     m_sim_elements = generateSimulationElements(beam());
     if (m_cache.empty())
         m_cache.resize(m_sim_elements.size(), 0.0);
-}
-
-void GISASSimulation::initialize()
-{
-    setName("GISASSimulation");
 }

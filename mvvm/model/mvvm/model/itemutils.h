@@ -17,6 +17,7 @@
 
 #include "mvvm/model_export.h"
 #include <functional>
+#include <string>
 #include <vector>
 
 namespace ModelView {
@@ -45,8 +46,13 @@ MVVM_MODEL_EXPORT SessionItem* ChildAt(const SessionItem* parent, int index);
 //! index is considered as global index in the combined array of all children.
 MVVM_MODEL_EXPORT int IndexOfChild(const SessionItem* parent, const SessionItem* child);
 
-//! Returns vector of children representing top level items.
+//! Returns true if given item has registered tag.
+MVVM_MODEL_EXPORT bool HasTag(const SessionItem& item, const std::string& tag);
 
+//! Returns true if given item has registered `tag`, and it belongs to single property.
+MVVM_MODEL_EXPORT bool IsSinglePropertyTag(const SessionItem& item, const std::string& tag);
+
+//! Returns vector of children representing top level items.
 MVVM_MODEL_EXPORT std::vector<SessionItem*> TopLevelItems(const SessionItem& item);
 
 //! Returns vector of children representing property items.
@@ -87,4 +93,4 @@ template <typename T> std::vector<T*> CastedItems(const std::vector<SessionItem*
 
 } // namespace ModelView
 
-#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_ITEMUTILS_H
+#endif // MVVM_MODEL_ITEMUTILS_H

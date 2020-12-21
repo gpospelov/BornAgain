@@ -15,6 +15,7 @@
 #include "gui2/model/materialitems.h"
 #include "gui2/model/item_constants.h"
 #include "mvvm/model/externalproperty.h"
+#include "mvvm/model/itemutils.h"
 #include <QColor>
 
 using namespace ModelView;
@@ -41,8 +42,8 @@ MaterialBaseItem::MaterialBaseItem(const std::string& model_type)
 
 ModelView::ExternalProperty MaterialBaseItem::external_property() const
 {
-    QColor color = isTag(P_COLOR) ? property<QColor>(P_COLOR) : QColor(Qt::red);
-    std::string name = isTag(P_NAME) ? property<std::string>(P_NAME) : std::string();
+    QColor color = Utils::HasTag(*this, P_COLOR) ? property<QColor>(P_COLOR) : QColor(Qt::red);
+    std::string name = Utils::HasTag(*this, P_NAME) ? property<std::string>(P_NAME) : std::string();
     return ModelView::ExternalProperty(name, color, identifier());
 }
 

@@ -15,6 +15,7 @@
 #include "google_test.h"
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/customvariants.h"
+#include "mvvm/model/itemutils.h"
 #include "mvvm/model/sessionmodel.h"
 #include "test_utils.h"
 #include <memory>
@@ -47,7 +48,7 @@ TEST_F(CompoundItemTest, addIntProperty)
 
     const int expected = 42;
     auto propertyItem = item.addProperty(property_name, expected);
-    EXPECT_TRUE(item.isTag("name"));
+    EXPECT_TRUE(Utils::HasTag(item, "name"));
 
     EXPECT_EQ(propertyItem->modelType(), Constants::PropertyType);
     EXPECT_TRUE(Utils::IsIntVariant(propertyItem->data<QVariant>()));
@@ -75,7 +76,7 @@ TEST_F(CompoundItemTest, addDoubleProperty)
 
     const double expected = 42.1;
     auto propertyItem = item.addProperty(property_name, expected);
-    EXPECT_TRUE(item.isTag(property_name));
+    EXPECT_TRUE(Utils::HasTag(item, property_name));
 
     EXPECT_EQ(propertyItem->modelType(), Constants::PropertyType);
     EXPECT_TRUE(Utils::IsDoubleVariant(propertyItem->data<QVariant>()));
@@ -107,7 +108,7 @@ TEST_F(CompoundItemTest, addCharProperty)
     CompoundItem item;
 
     auto propertyItem = item.addProperty(property_name, "abc");
-    EXPECT_TRUE(item.isTag(property_name));
+    EXPECT_TRUE(Utils::HasTag(item, property_name));
 
     EXPECT_EQ(propertyItem->modelType(), Constants::PropertyType);
     EXPECT_TRUE(Utils::IsStdStringVariant(propertyItem->data<QVariant>()));
@@ -133,7 +134,7 @@ TEST_F(CompoundItemTest, addStringProperty)
     CompoundItem item;
 
     auto propertyItem = item.addProperty(property_name, std::string("abc"));
-    EXPECT_TRUE(item.isTag(property_name));
+    EXPECT_TRUE(Utils::HasTag(item, property_name));
 
     EXPECT_EQ(propertyItem->modelType(), Constants::PropertyType);
     EXPECT_TRUE(Utils::IsStdStringVariant(propertyItem->data<QVariant>()));
@@ -160,7 +161,7 @@ TEST_F(CompoundItemTest, addBoolProperty)
 
     const bool expected = true;
     auto propertyItem = item.addProperty(property_name, expected);
-    EXPECT_TRUE(item.isTag(property_name));
+    EXPECT_TRUE(Utils::HasTag(item, property_name));
 
     EXPECT_EQ(propertyItem->modelType(), Constants::PropertyType);
     EXPECT_TRUE(Utils::IsBoolVariant(propertyItem->data<QVariant>()));

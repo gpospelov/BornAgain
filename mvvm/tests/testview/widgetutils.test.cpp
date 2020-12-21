@@ -31,7 +31,8 @@ WidgetUtilsTest::~WidgetUtilsTest() = default;
 
 //! Test of WithTildeHomePath function.
 
-TEST_F(WidgetUtilsTest, WithTildeHomePath) {
+TEST_F(WidgetUtilsTest, WithTildeHomePath)
+{
     if (ModelView::Utils::IsWindowsHost()) {
         auto test_dir = QString::fromStdString(TestUtils::TestOutputDir());
         EXPECT_EQ(Utils::WithTildeHomePath(test_dir), test_dir);

@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "google_test.h"
+#include "mvvm/model/itemutils.h"
 #include "mvvm/standarditems/vectoritem.h"
 #include "mvvm/viewmodel/defaultviewmodel.h"
 #include "mvvm/viewmodel/standardviewitems.h"
@@ -37,9 +38,9 @@ ToyLayerItemTest::~ToyLayerItemTest() = default;
 TEST_F(ToyLayerItemTest, initialState)
 {
     ToyItems::LayerItem item;
-    EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::LayerItem::P_THICKNESS));
-    EXPECT_TRUE(item.isSinglePropertyTag(ToyItems::LayerItem::P_COLOR));
-    EXPECT_FALSE(item.isSinglePropertyTag(ToyItems::LayerItem::T_PARTICLES));
+    EXPECT_TRUE(Utils::IsSinglePropertyTag(item, ToyItems::LayerItem::P_THICKNESS));
+    EXPECT_TRUE(Utils::IsSinglePropertyTag(item, ToyItems::LayerItem::P_COLOR));
+    EXPECT_FALSE(Utils::IsSinglePropertyTag(item, ToyItems::LayerItem::T_PARTICLES));
 }
 
 //! Toy layer as prodused by toy SampleModel.

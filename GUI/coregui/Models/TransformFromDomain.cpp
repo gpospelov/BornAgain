@@ -312,7 +312,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
                                       const ISimulation2D& simulation)
 {
-    const IDetector* p_detector = simulation.instrument().getDetector();
+    const IDetector* p_detector = simulation.getDetector();
     setDetectorGeometry(instrument_item, *p_detector);
 
     auto detector_item = instrument_item->detectorItem();
@@ -473,7 +473,7 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
 void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
                                            const ISimulation& simulation)
 {
-    const IDetector* detector = simulation.instrument().getDetector();
+    const IDetector* detector = simulation.getDetector();
     if ((detector->detectorMask() && detector->detectorMask()->numberOfMasks())
         || detector->regionOfInterest()) {
         detector_item->createMaskContainer();

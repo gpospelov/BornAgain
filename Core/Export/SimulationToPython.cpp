@@ -128,7 +128,7 @@ std::string defineScan(const ISpecularScan* scan)
 
 std::string defineDetector(const ISimulation* simulation)
 {
-    const IDetector* const detector = simulation->instrument().getDetector();
+    const IDetector* const detector = simulation->getDetector();
     if (detector->dimension() != 2)
         throw std::runtime_error("defineDetector: "
                                  "detector must be two-dimensional for GISAS");
@@ -202,7 +202,7 @@ std::string defineDetector(const ISimulation* simulation)
 std::string defineDetectorResolutionFunction(const ISimulation* simulation)
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
 
     if (const IDetectorResolution* resfunc = detector->detectorResolution()) {
         if (auto* convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(resfunc)) {
@@ -225,7 +225,7 @@ std::string defineDetectorResolutionFunction(const ISimulation* simulation)
 std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation)
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
     double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
     double analyzer_total_transmission =
@@ -346,7 +346,7 @@ std::string defineMasks(const ISimulation* simulation)
     std::ostringstream result;
     result << std::setprecision(12);
 
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
     const DetectorMask* detectorMask = detector->detectorMask();
     if (detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";

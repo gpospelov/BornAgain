@@ -52,9 +52,6 @@ public:
     IDetector& detector();
     const IDetector& detector() const;
 
-    IDetector2D& detector2D();
-    const IDetector2D& detector2D() const;
-
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);
 

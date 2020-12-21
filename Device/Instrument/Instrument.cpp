@@ -109,21 +109,3 @@ IDetector& Instrument::detector()
     ASSERT(m_detector);
     return *m_detector;
 }
-
-IDetector2D& Instrument::detector2D()
-{
-    ASSERT(m_detector);
-    IDetector2D* p = dynamic_cast<IDetector2D*>(m_detector.get());
-    if (!p)
-        throw std::runtime_error("Error: Detector is not twodimensional");
-    return *p;
-}
-
-const IDetector2D& Instrument::detector2D() const
-{
-    ASSERT(m_detector);
-    IDetector2D* const p = dynamic_cast<IDetector2D* const>(m_detector.get());
-    if (!p)
-        throw std::runtime_error("Error: Detector is not twodimensional");
-    return *p;
-}

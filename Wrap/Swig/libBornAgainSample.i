@@ -137,6 +137,7 @@
 
 %include "Sample/RT/SimulationOptions.h"
 
+%include "Base/Vector/Transform3D.h"
 %include "Sample/Scattering/ISampleNode.h"
 %include "Sample/Scattering/IFormFactor.h"
 %include "Sample/Scattering/IBornFF.h"

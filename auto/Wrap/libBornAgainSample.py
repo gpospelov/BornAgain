@@ -2878,7 +2878,7 @@ class Material(libBornAgainParam.IComponent):
 
     def rotatedMaterial(self, transform):
         r"""
-        rotatedMaterial(Material self, Transform3D const & transform) -> Material
+        rotatedMaterial(Material self, Transform3D transform) -> Material
         Material Material::rotatedMaterial(const Transform3D &transform) const
 
         """
@@ -2955,7 +2955,7 @@ class WavevectorInfo(object):
 
     def transformed(self, transform):
         r"""
-        transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo
+        transformed(WavevectorInfo self, Transform3D transform) -> WavevectorInfo
         WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const
 
         """
@@ -3156,6 +3156,120 @@ class SimulationOptions(object):
 
 # Register SimulationOptions in _libBornAgainSample:
 _libBornAgainSample.SimulationOptions_swigregister(SimulationOptions)
+
+class Transform3D(object):
+    r"""Proxy of C++ Transform3D class."""
+
+    thisown = property(lambda x: x.this.own(), lambda x, v: x.this.own(v), doc="The membership flag")
+    __repr__ = _swig_repr
+    EULER = _libBornAgainSample.Transform3D_EULER
+    
+    XAXIS = _libBornAgainSample.Transform3D_XAXIS
+    
+    YAXIS = _libBornAgainSample.Transform3D_YAXIS
+    
+    ZAXIS = _libBornAgainSample.Transform3D_ZAXIS
+    
+
+    def __init__(self):
+        r"""__init__(Transform3D self) -> Transform3D"""
+        _libBornAgainSample.Transform3D_swiginit(self, _libBornAgainSample.new_Transform3D())
+    __swig_destroy__ = _libBornAgainSample.delete_Transform3D
+
+    def clone(self):
+        r"""clone(Transform3D self) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_clone(self)
+
+    @staticmethod
+    def createRotateX(phi):
+        r"""createRotateX(double phi) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_createRotateX(phi)
+
+    @staticmethod
+    def createRotateY(phi):
+        r"""createRotateY(double phi) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_createRotateY(phi)
+
+    @staticmethod
+    def createRotateZ(phi):
+        r"""createRotateZ(double phi) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_createRotateZ(phi)
+
+    @staticmethod
+    def createRotateEuler(alpha, beta, gamma):
+        r"""createRotateEuler(double alpha, double beta, double gamma) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_createRotateEuler(alpha, beta, gamma)
+
+    def calculateEulerAngles(self, p_alpha, p_beta, p_gamma):
+        r"""calculateEulerAngles(Transform3D self, double * p_alpha, double * p_beta, double * p_gamma)"""
+        return _libBornAgainSample.Transform3D_calculateEulerAngles(self, p_alpha, p_beta, p_gamma)
+
+    def calculateRotateXAngle(self):
+        r"""calculateRotateXAngle(Transform3D self) -> double"""
+        return _libBornAgainSample.Transform3D_calculateRotateXAngle(self)
+
+    def calculateRotateYAngle(self):
+        r"""calculateRotateYAngle(Transform3D self) -> double"""
+        return _libBornAgainSample.Transform3D_calculateRotateYAngle(self)
+
+    def calculateRotateZAngle(self):
+        r"""calculateRotateZAngle(Transform3D self) -> double"""
+        return _libBornAgainSample.Transform3D_calculateRotateZAngle(self)
+
+    def getInverse(self):
+        r"""getInverse(Transform3D self) -> Transform3D"""
+        return _libBornAgainSample.Transform3D_getInverse(self)
+
+    def __mul__(self, other):
+        r"""__mul__(Transform3D self, Transform3D other) -> Transform3D"""
+        return _libBornAgainSample.Transform3D___mul__(self, other)
+
+    def __eq__(self, other):
+        r"""__eq__(Transform3D self, Transform3D other) -> bool"""
+        return _libBornAgainSample.Transform3D___eq__(self, other)
+
+    def getRotationType(self):
+        r"""getRotationType(Transform3D self) -> Transform3D::ERotationType"""
+        return _libBornAgainSample.Transform3D_getRotationType(self)
+
+    def isIdentity(self):
+        r"""isIdentity(Transform3D self) -> bool"""
+        return _libBornAgainSample.Transform3D_isIdentity(self)
+
+    def _print(self, ostr):
+        r"""_print(Transform3D self, std::ostream & ostr)"""
+        return _libBornAgainSample.Transform3D__print(self, ostr)
+
+    def isXRotation(self):
+        r"""isXRotation(Transform3D self) -> bool"""
+        return _libBornAgainSample.Transform3D_isXRotation(self)
+
+    def isYRotation(self):
+        r"""isYRotation(Transform3D self) -> bool"""
+        return _libBornAgainSample.Transform3D_isYRotation(self)
+
+    def isZRotation(self):
+        r"""isZRotation(Transform3D self) -> bool"""
+        return _libBornAgainSample.Transform3D_isZRotation(self)
+
+# Register Transform3D in _libBornAgainSample:
+_libBornAgainSample.Transform3D_swigregister(Transform3D)
+
+def Transform3D_createRotateX(phi):
+    r"""Transform3D_createRotateX(double phi) -> Transform3D"""
+    return _libBornAgainSample.Transform3D_createRotateX(phi)
+
+def Transform3D_createRotateY(phi):
+    r"""Transform3D_createRotateY(double phi) -> Transform3D"""
+    return _libBornAgainSample.Transform3D_createRotateY(phi)
+
+def Transform3D_createRotateZ(phi):
+    r"""Transform3D_createRotateZ(double phi) -> Transform3D"""
+    return _libBornAgainSample.Transform3D_createRotateZ(phi)
+
+def Transform3D_createRotateEuler(alpha, beta, gamma):
+    r"""Transform3D_createRotateEuler(double alpha, double beta, double gamma) -> Transform3D"""
+    return _libBornAgainSample.Transform3D_createRotateEuler(alpha, beta, gamma)
 
 class ISampleNode(libBornAgainBase.ICloneable, libBornAgainParam.INode):
     r"""
@@ -3599,7 +3713,7 @@ class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 
     @staticmethod
     def createRotation(transform):
-        r"""createRotation(Transform3D const & transform) -> IRotation"""
+        r"""createRotation(Transform3D transform) -> IRotation"""
         return _libBornAgainSample.IRotation_createRotation(transform)
 
     def clone(self):
@@ -3661,7 +3775,7 @@ class IRotation(libBornAgainBase.ICloneable, libBornAgainParam.INode):
 _libBornAgainSample.IRotation_swigregister(IRotation)
 
 def IRotation_createRotation(transform):
-    r"""IRotation_createRotation(Transform3D const & transform) -> IRotation"""
+    r"""IRotation_createRotation(Transform3D transform) -> IRotation"""
     return _libBornAgainSample.IRotation_createRotation(transform)
 
 
@@ -11254,7 +11368,7 @@ class Lattice3D(libBornAgainParam.INode):
 
     def transformed(self, transform):
         r"""
-        transformed(Lattice3D self, Transform3D const & transform) -> Lattice3D
+        transformed(Lattice3D self, Transform3D transform) -> Lattice3D
         Lattice3D Lattice3D::transformed(const Transform3D &transform) const
 
         Creates transformed lattice. 

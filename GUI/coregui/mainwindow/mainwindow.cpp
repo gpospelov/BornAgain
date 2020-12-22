@@ -81,7 +81,12 @@ MainWindow::MainWindow()
     fillerButton->setEnabled(false);
     m_viewSelectionButtonsLayout->insertWidget(-1, fillerButton);
 
+#  if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
     connect(m_viewSelectionButtons, &QButtonGroup::idClicked, this, &MainWindow::setCurrentView);
+#  else
+    connect(m_viewSelectionButtons, QOverload<int>::of(&QButtonGroup::buttonClicked), this,
+            &MainWindow::setCurrentView);
+#  endif
 
     m_statusBar->setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Fixed);
 

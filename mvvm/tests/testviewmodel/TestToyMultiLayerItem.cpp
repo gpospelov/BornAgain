@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "google_test.h"
+#include "mvvm/model/itemutils.h"
 #include "mvvm/viewmodel/defaultviewmodel.h"
 #include "mvvm/viewmodel/standardviewitems.h"
 #include "mvvm/viewmodel/viewmodelutils.h"
@@ -36,7 +37,7 @@ ToyMultilayerItemTest::~ToyMultilayerItemTest() = default;
 TEST_F(ToyMultilayerItemTest, initialState)
 {
     ToyItems::MultiLayerItem item;
-    EXPECT_FALSE(item.isSinglePropertyTag(ToyItems::MultiLayerItem::T_LAYERS));
+    EXPECT_FALSE(Utils::IsSinglePropertyTag(item, ToyItems::MultiLayerItem::T_LAYERS));
 }
 
 //! Toy multilayer in a SampleModel.

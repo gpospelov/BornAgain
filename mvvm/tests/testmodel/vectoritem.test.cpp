@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "google_test.h"
+#include "mvvm/model/itemutils.h"
 #include "mvvm/model/sessionmodel.h"
 #include "mvvm/standarditems/vectoritem.h"
 
@@ -33,9 +34,9 @@ TEST_F(VectorItemTest, initialState)
 {
     VectorItem item;
 
-    EXPECT_TRUE(item.isSinglePropertyTag(VectorItem::P_X));
-    EXPECT_TRUE(item.isSinglePropertyTag(VectorItem::P_Y));
-    EXPECT_TRUE(item.isSinglePropertyTag(VectorItem::P_Z));
+    EXPECT_TRUE(Utils::IsSinglePropertyTag(item, VectorItem::P_X));
+    EXPECT_TRUE(Utils::IsSinglePropertyTag(item, VectorItem::P_Y));
+    EXPECT_TRUE(Utils::IsSinglePropertyTag(item, VectorItem::P_Z));
 
     EXPECT_FALSE(item.isEditable());
 

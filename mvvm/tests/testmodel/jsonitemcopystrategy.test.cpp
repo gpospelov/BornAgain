@@ -17,6 +17,7 @@
 #include "mvvm/model/compounditem.h"
 #include "mvvm/model/itemfactory.h"
 #include "mvvm/model/propertyitem.h"
+#include "mvvm/model/sessionitemtags.h"
 #include "mvvm/serialization/jsonitemcopystrategy.h"
 
 using namespace ModelView;
@@ -94,7 +95,7 @@ TEST_F(JsonItemCopyStrategyTest, customItem)
     EXPECT_EQ(parent_copy->childrenCount(), 1);
     EXPECT_EQ(parent_copy->modelType(), model_type);
     EXPECT_EQ(parent_copy->displayName(), "parent_name");
-    EXPECT_EQ(parent_copy->defaultTag(), "defaultTag");
+    EXPECT_EQ(parent_copy->itemTags()->defaultTag(), "defaultTag");
     EXPECT_EQ(parent_copy->model(), nullptr);
     EXPECT_FALSE(parent_copy->identifier() == parent->identifier());
 
@@ -104,6 +105,6 @@ TEST_F(JsonItemCopyStrategyTest, customItem)
     EXPECT_EQ(child_copy->childrenCount(), 0);
     EXPECT_EQ(child_copy->modelType(), model_type);
     EXPECT_EQ(child_copy->displayName(), "child_name");
-    EXPECT_EQ(child_copy->defaultTag(), "");
+    EXPECT_EQ(child_copy->itemTags()->defaultTag(), "");
     EXPECT_FALSE(child_copy->identifier() == child->identifier());
 }

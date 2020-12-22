@@ -19,7 +19,6 @@
 #include "Core/Simulation/MPISimulation.h"
 #include "Core/Simulation/UnitConverterUtils.h"
 #include "Param/Base/ParameterPool.h"
-#include "Sample/Multilayer/MultiLayer.h"
 #include "Sample/Multilayer/MultiLayerUtils.h"
 #include "Sample/SampleBuilderEngine/ISampleBuilder.h"
 #include <gsl/gsl_errno.h>
@@ -123,6 +122,13 @@ ISimulation::ISimulation(const Beam& beam, const MultiLayer& sample, const IDete
     initialize();
 }
 
+#ifndef SWIG
+ISimulation::ISimulation(const Beam& beam, const IDetector& detector) : m_instrument(beam, detector)
+{
+    initialize();
+}
+#endif // SWIG
+
 ISimulation::ISimulation()
 {
     initialize();
@@ -149,6 +155,14 @@ void ISimulation::initialize()
     registerChild(&m_instrument);
     registerChild(&m_sample_provider);
 }
+
+#ifndef SWIG
+void ISimulation::setInstrument(const Instrument& instrument_)
+{
+    m_instrument = instrument_;
+    updateIntensityMap();
+}
+#endif // SWIG
 
 //! Initializes a progress monitor that prints to stdout.
 void ISimulation::setTerminalProgressMonitor()
@@ -218,12 +232,6 @@ void ISimulation::runMPISimulation()
 {
     MPISimulation ompi;
     ompi.runSimulation(this);
-}
-
-void ISimulation::setInstrument(const Instrument& instrument_)
-{
-    m_instrument = instrument_;
-    updateIntensityMap();
 }
 
 //! The MultiLayer object will not be owned by the ISimulation object
@@ -308,12 +316,10 @@ SimulationResult ISimulation::convertData(const OutputData<double>& data,
     auto converter = UnitConverterUtils::createConverter(*this);
     auto roi_data = UnitConverterUtils::createOutputData(*converter, converter->defaultUnits());
 
-    const IDetector& detector = instrument().detector();
-
     if (roi_data->hasSameDimensions(data)) {
         // data is already cropped to ROI
         if (put_masked_areas_to_zero) {
-            detector.iterate(
+            detector().iterate(
                 [&](IDetector::const_iterator it) {
                     (*roi_data)[it.roiIndex()] = data[it.roiIndex()];
                 },
@@ -322,9 +328,9 @@ SimulationResult ISimulation::convertData(const OutputData<double>& data,
             roi_data->setRawDataVector(data.getRawDataVector());
         }
 
-    } else if (detHasSameDimensions(detector, data)) {
+    } else if (detHasSameDimensions(detector(), data)) {
         // exp data has same shape as the detector, we have to put orig data to smaller roi map
-        detector.iterate(
+        detector().iterate(
             [&](IDetector::const_iterator it) {
                 (*roi_data)[it.roiIndex()] = data[it.detectorIndex()];
             },

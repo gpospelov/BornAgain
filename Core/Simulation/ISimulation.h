@@ -52,13 +52,14 @@ public:
     //! Run a simulation in a MPI environment
     void runMPISimulation();
 
-    void setInstrument(const Instrument& instrument_);
     const Instrument& instrument() const { return m_instrument; }
     Instrument& instrument() { return m_instrument; }
 
     Beam& beam() { return m_instrument.beam(); }
     const Beam& beam() const { return m_instrument.beam(); }
 
+    IDetector* getDetector() { return m_instrument.getDetector(); }
+    const IDetector* getDetector() const { return m_instrument.getDetector(); }
     IDetector& detector() { return m_instrument.detector(); }
     const IDetector& detector() const { return m_instrument.detector(); }
 
@@ -102,6 +103,11 @@ public:
                                  bool put_masked_areas_to_zero = true);
 
     friend class MPISimulation;
+
+#ifndef SWIG
+    ISimulation(const Beam& beam, const IDetector& detector);
+    void setInstrument(const Instrument& instrument_);
+#endif // SWIG
 
 protected:
     ISimulation(const ISimulation& other);

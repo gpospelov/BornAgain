@@ -13,32 +13,15 @@ import bornagain as ba
 from bornagain import deg, angstrom
 
 
-class BinRange:
-    def __init__(self, vmin, vmax, n):
-        self.vmin = vmin
-        self.vmax = vmax
-        self.n = n
-
-    def central_index(self):
-        return int((0. - self.vmin)/(self.vmax - self.vmin)*self.n)
-
-
-class Detector:
-    def __init__(self, bins_per_dimension, phi_min, phi_max, alpha_min,
-                 alpha_max):
-        self.phi = BinRange(phi_min, phi_max, bins_per_dimension)
-        self.alpha = BinRange(alpha_min, alpha_max, bins_per_dimension)
-
-    def rectangle(self):
-        return self.phi.vmin, self.phi.vmax, self.alpha.vmin, self.alpha.vmax
-
-
 class Result:
     def __init__(self, idx, data, title=""):
         self.idx = idx
         self.data = data
         self.title = title
 
+def rectangle(det):
+    return (det.axis(0).lowerBound(), det.axis(0).upperBound(),
+            det.axis(1).lowerBound(), det.axis(1).upperBound())
 
 def make_plot(results, det, name, nrow=1):
     """
@@ -46,7 +29,7 @@ def make_plot(results, det, name, nrow=1):
     plus one common color scale.
 
     :param results: List of simulation results
-    :param det: Detector limits
+    :param det: Detector
     :param name: Filename for plot during save
     :param nrow: Number of rows for different plots
     """
@@ -83,7 +66,7 @@ def make_plot(results, det, name, nrow=1):
     # Plot the subfigures.
     for res in results:
         ax = axes[res.idx]
-        im = ax.imshow(res.data, norm=norm, extent=det.rectangle(), aspect=1)
+        im = ax.imshow(res.data, norm=norm, extent=rectangle(det), aspect=1)
         ax.set_xlabel(r'$\phi_{\rm f} (^{\circ})$', fontsize=fontsize)
         if res.idx % ncol == 0:
             ax.set_ylabel(r'$\alpha_{\rm f} (^{\circ})$', fontsize=fontsize)
@@ -143,19 +126,6 @@ def get_sample(ff, trafo):
     return multi_layer
 
 
-def get_simulation(det):
-    """Create and return GISAXS simulation with beam and detector defined
-
-    :param det: Detector limits
-    """
-    simulation = ba.GISASSimulation()
-    simulation.setDetectorParameters(det.phi.n, det.phi.vmin*deg,
-                                     det.phi.vmax*deg, det.alpha.n,
-                                     det.alpha.vmin*deg, det.alpha.vmax*deg)
-    simulation.setBeamParameters(1.0*angstrom, 0, 0)
-    return simulation
-
-
 def run_simulation(det, ff, trafo=None):
     """Run simulation and plot results
 
@@ -167,11 +137,14 @@ def run_simulation(det, ff, trafo=None):
     volume = abs(ff.evaluate_for_q(zero))
     print("Volume: %g" % volume)
     sample = get_sample(ff, trafo)
-    simulation = get_simulation(det)
-    simulation.setSample(sample)
+    beam = ba.Beam(1, 1*angstrom, ba.Direction(1e-8*deg, 0))
+    simulation = ba.GISASSimulation(beam, sample, det)
     simulation.runSimulation()
-    data = simulation.result().array()
-    nor = data[det.alpha.n - det.alpha.central_index() - 1,
-               det.phi.central_index()]
+    result = simulation.result()
+    #import ba_plot
+    #ba_plot.plot_simulation_result(result)
+    data = result.array()
+    nor = data[det.axis(1).size() - det.axis(1).findClosestIndex(0) - 1,
+               det.axis(0).findClosestIndex(0)]
     data /= nor
     return data + 1e-80  # for log scale

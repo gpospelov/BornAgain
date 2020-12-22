@@ -372,9 +372,8 @@ TEST_F(PyEmbedded, ExportToPythonAndBack)
     std::unique_ptr<MultiLayer> sample(factory.createSampleByName("CylindersAndPrismsBuilder"));
 
     const std::string code = ExportToPython::sampleCode(*sample);
-    const std::string snippet = "import bornagain as ba\n"
-        + pyfmt::printImportedSymbols(code)
-        + "\n\n" + code;
+    const std::string snippet =
+        "import bornagain as ba\n" + pyfmt::printImportedSymbols(code) + "\n\n" + code;
 
     const auto multilayer =
         PyImport::createFromPython(snippet, "get_sample", BABuild::buildLibDir());

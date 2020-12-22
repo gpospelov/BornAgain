@@ -18,7 +18,7 @@
 #include "Sample/StandardSamples/SampleBuilderFactory.h"
 #include <memory>
 
-//! Defines correspondance between example name and real name of simulation from SimulationFactory
+//! Defines correspondence between example name and real name of simulation from SimulationFactory
 QMap<QString, QString> init_NameToRegistry()
 {
     QMap<QString, QString> result;
@@ -70,17 +70,3 @@ SessionItem* GUIExamplesFactory::createSampleItems(const QString& name, SampleMo
 
     return GUIObjectBuilder::populateSampleModel(sampleModel, materialModel, *sample.get(), name);
 }
-
-// SessionItem *GUIExamplesFactory::createInstrumentItems(const QString &name, InstrumentModel
-// *instrumentModel)
-//{
-//    QString exampleName = m_name_to_registry[name];
-//    SimulationFactory registry;
-//    const std::unique_ptr<GISASSimulation>
-//    P_simulation(registry.createSimulation(exampleName.toStdString()));
-//    ASSERT(P_simulation.get());
-
-//    QString instrumentName = name + "_instrument";
-//    GUIObjectBuilder guiBuilder;
-//    return guiBuilder.populateInstrumentModel(instrumentModel, *P_simulation, instrumentName);
-//}

@@ -5715,7 +5715,7 @@ SWIG_AsVal_std_complex_Sl_double_Sg_  (PyObject *o, std::complex<double>* val)
 
 
 SWIGINTERNINLINE PyObject*
-SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/local/share/swig/4.0.2/typemaps/swigmacros.swg,104,%ifcplusplus@*/
+SWIG_From_std_complex_Sl_double_Sg_  (/*@SWIG:/usr/share/swig4.0/typemaps/swigmacros.swg,104,%ifcplusplus@*/
 
 const std::complex<double>&
 
@@ -38864,38 +38864,6 @@ fail:
 }
 
 
-SWIGINTERN PyObject *_wrap_ISimulation_setInstrument(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
-  PyObject *resultobj = 0;
-  ISimulation *arg1 = (ISimulation *) 0 ;
-  Instrument *arg2 = 0 ;
-  void *argp1 = 0 ;
-  int res1 = 0 ;
-  void *argp2 = 0 ;
-  int res2 = 0 ;
-  PyObject *swig_obj[2] ;
-  
-  if (!SWIG_Python_UnpackTuple(args, "ISimulation_setInstrument", 2, 2, swig_obj)) SWIG_fail;
-  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
-  if (!SWIG_IsOK(res1)) {
-    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_setInstrument" "', argument " "1"" of type '" "ISimulation *""'"); 
-  }
-  arg1 = reinterpret_cast< ISimulation * >(argp1);
-  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Instrument,  0  | 0);
-  if (!SWIG_IsOK(res2)) {
-    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "ISimulation_setInstrument" "', argument " "2"" of type '" "Instrument const &""'"); 
-  }
-  if (!argp2) {
-    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "ISimulation_setInstrument" "', argument " "2"" of type '" "Instrument const &""'"); 
-  }
-  arg2 = reinterpret_cast< Instrument * >(argp2);
-  (arg1)->setInstrument((Instrument const &)*arg2);
-  resultobj = SWIG_Py_Void();
-  return resultobj;
-fail:
-  return NULL;
-}
-
-
 SWIGINTERN PyObject *_wrap_ISimulation_instrument__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   ISimulation *arg1 = (ISimulation *) 0 ;
@@ -39048,6 +39016,84 @@ fail:
     "  Possible C/C++ prototypes are:\n"
     "    ISimulation::beam()\n"
     "    ISimulation::beam() const\n");
+  return 0;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_getDetector__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_getDetector" "', argument " "1"" of type '" "ISimulation *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (IDetector *)(arg1)->getDetector();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_getDetector__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation *arg1 = (ISimulation *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation_getDetector" "', argument " "1"" of type '" "ISimulation const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation * >(argp1);
+  result = (IDetector *)((ISimulation const *)arg1)->getDetector();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation_getDetector(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ISimulation_getDetector", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_getDetector__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation_getDetector__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ISimulation_getDetector'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ISimulation::getDetector()\n"
+    "    ISimulation::getDetector() const\n");
   return 0;
 }
 
@@ -40127,6 +40173,84 @@ SWIGINTERN PyObject *_wrap_ISimulation2D_clone(PyObject *SWIGUNUSEDPARM(self), P
   return resultobj;
 fail:
   return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation2D_detector2D__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector2D *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_detector2D" "', argument " "1"" of type '" "ISimulation2D *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
+  result = (IDetector2D *) &(arg1)->detector2D();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector2D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation2D_detector2D__SWIG_1(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
+  PyObject *resultobj = 0;
+  ISimulation2D *arg1 = (ISimulation2D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  IDetector2D *result = 0 ;
+  
+  if ((nobjs < 1) || (nobjs > 1)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_ISimulation2D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "ISimulation2D_detector2D" "', argument " "1"" of type '" "ISimulation2D const *""'"); 
+  }
+  arg1 = reinterpret_cast< ISimulation2D * >(argp1);
+  result = (IDetector2D *) &((ISimulation2D const *)arg1)->detector2D();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_IDetector2D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_ISimulation2D_detector2D(PyObject *self, PyObject *args) {
+  Py_ssize_t argc;
+  PyObject *argv[2] = {
+    0
+  };
+  
+  if (!(argc = SWIG_Python_UnpackTuple(args, "ISimulation2D_detector2D", 0, 1, argv))) SWIG_fail;
+  --argc;
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation2D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation2D_detector2D__SWIG_0(self, argc, argv);
+    }
+  }
+  if (argc == 1) {
+    int _v;
+    void *vptr = 0;
+    int res = SWIG_ConvertPtr(argv[0], &vptr, SWIGTYPE_p_ISimulation2D, 0);
+    _v = SWIG_CheckState(res);
+    if (_v) {
+      return _wrap_ISimulation2D_detector2D__SWIG_1(self, argc, argv);
+    }
+  }
+  
+fail:
+  SWIG_Python_RaiseOrModifyTypeError("Wrong number or type of arguments for overloaded function 'ISimulation2D_detector2D'.\n"
+    "  Possible C/C++ prototypes are:\n"
+    "    ISimulation2D::detector2D()\n"
+    "    ISimulation2D::detector2D() const\n");
+  return 0;
 }
 
 
@@ -44647,11 +44771,6 @@ static PyMethodDef SwigMethods[] = {
 		"Run a simulation in a MPI environment. \n"
 		"\n"
 		""},
-	 { "ISimulation_setInstrument", _wrap_ISimulation_setInstrument, METH_VARARGS, "\n"
-		"ISimulation_setInstrument(ISimulation self, Instrument const & instrument_)\n"
-		"void ISimulation::setInstrument(const Instrument &instrument_)\n"
-		"\n"
-		""},
 	 { "ISimulation_instrument", _wrap_ISimulation_instrument, METH_VARARGS, "\n"
 		"ISimulation_instrument(ISimulation self) -> Instrument const\n"
 		"ISimulation_instrument(ISimulation self) -> Instrument &\n"
@@ -44662,6 +44781,12 @@ static PyMethodDef SwigMethods[] = {
 		"ISimulation_beam(ISimulation self) -> Beam\n"
 		"ISimulation_beam(ISimulation self) -> Beam const &\n"
 		"const Beam& ISimulation::beam() const\n"
+		"\n"
+		""},
+	 { "ISimulation_getDetector", _wrap_ISimulation_getDetector, METH_VARARGS, "\n"
+		"ISimulation_getDetector(ISimulation self) -> IDetector\n"
+		"ISimulation_getDetector(ISimulation self) -> IDetector const *\n"
+		"const IDetector* ISimulation::getDetector() const\n"
 		"\n"
 		""},
 	 { "ISimulation_detector", _wrap_ISimulation_detector, METH_VARARGS, "\n"
@@ -44778,6 +44903,12 @@ static PyMethodDef SwigMethods[] = {
 	 { "ISimulation2D_clone", _wrap_ISimulation2D_clone, METH_O, "\n"
 		"ISimulation2D_clone(ISimulation2D self) -> ISimulation2D\n"
 		"ISimulation2D* ISimulation2D::clone() const override=0\n"
+		"\n"
+		""},
+	 { "ISimulation2D_detector2D", _wrap_ISimulation2D_detector2D, METH_VARARGS, "\n"
+		"ISimulation2D_detector2D(ISimulation2D self) -> IDetector2D\n"
+		"ISimulation2D_detector2D(ISimulation2D self) -> IDetector2D const &\n"
+		"const IDetector2D & ISimulation2D::detector2D() const\n"
 		"\n"
 		""},
 	 { "ISimulation2D_prepareSimulation", _wrap_ISimulation2D_prepareSimulation, METH_O, "\n"

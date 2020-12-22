@@ -45,8 +45,6 @@ SphericalDetectorItem::SphericalDetectorItem() : DetectorItem("SphericalDetector
 
 std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
 {
-    std::unique_ptr<SphericalDetector> result(new SphericalDetector());
-
     auto x_axis = dynamic_cast<BasicAxisItem*>(getItem(SphericalDetectorItem::P_PHI_AXIS));
     ASSERT(x_axis);
     int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
@@ -59,7 +57,8 @@ std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
     double y_min = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble());
     double y_max = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble());
 
-    result->setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    std::unique_ptr<SphericalDetector> result(
+        new SphericalDetector(n_x, x_min, x_max, n_y, y_min, y_max));
 
     return std::unique_ptr<IDetector2D>(result.release());
 }

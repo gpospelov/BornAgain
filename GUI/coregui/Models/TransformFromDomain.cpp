@@ -239,7 +239,7 @@ bool TransformFromDomain::isValidRoughness(const LayerRoughness* roughness)
 void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimulation& simulation)
 {
     ASSERT(beam_item);
-    Beam beam = simulation.instrument().beam();
+    Beam beam = simulation.beam();
 
     beam_item->setIntensity(beam.intensity());
     beam_item->setWavelength(beam.wavelength());
@@ -265,7 +265,7 @@ void TransformFromDomain::setGISASBeamItem(BeamItem* beam_item, const GISASSimul
 void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
                                                  const OffSpecularSimulation& simulation)
 {
-    Beam beam = simulation.instrument().beam();
+    Beam beam = simulation.beam();
 
     beam_item->setIntensity(beam.intensity());
     beam_item->setWavelength(beam.wavelength());
@@ -277,7 +277,7 @@ void TransformFromDomain::setOffSpecularBeamItem(BeamItem* beam_item,
 void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
                                               const SpecularSimulation& simulation)
 {
-    const Beam& beam = simulation.instrument().beam();
+    const Beam& beam = simulation.beam();
 
     beam_item->setIntensity(beam.intensity());
     beam_item->setWavelength(beam.wavelength());
@@ -312,7 +312,7 @@ void TransformFromDomain::setSpecularBeamItem(SpecularBeamItem* beam_item,
 void TransformFromDomain::setDetector(Instrument2DItem* instrument_item,
                                       const ISimulation2D& simulation)
 {
-    const IDetector* p_detector = simulation.instrument().getDetector();
+    const IDetector* p_detector = simulation.getDetector();
     setDetectorGeometry(instrument_item, *p_detector);
 
     auto detector_item = instrument_item->detectorItem();
@@ -473,7 +473,7 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
 void TransformFromDomain::setDetectorMasks(DetectorItem* detector_item,
                                            const ISimulation& simulation)
 {
-    const IDetector* detector = simulation.instrument().getDetector();
+    const IDetector* detector = simulation.getDetector();
     if ((detector->detectorMask() && detector->detectorMask()->numberOfMasks())
         || detector->regionOfInterest()) {
         detector_item->createMaskContainer();

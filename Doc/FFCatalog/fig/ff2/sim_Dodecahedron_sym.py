@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 Plot form factors.
 """
@@ -6,7 +7,7 @@ from bornagain import nm, deg
 import bornplot as bp
 import math
 
-det = bp.Detector(200, -5, 5, -5, 5)
+det = ba.SphericalDetector(200, 10*deg, 0*deg, 0*deg)
 n = 3
 results = []
 edge = 3.2

@@ -47,12 +47,10 @@ public:
     //! Sets the beam wavelength and incoming angles
     void setBeamParameters(double wavelength, double alpha_i, double phi_i);
 
+    IDetector* getDetector();
     const IDetector* getDetector() const;
     IDetector& detector();
     const IDetector& detector() const;
-
-    IDetector2D& detector2D();
-    const IDetector2D& detector2D() const;
 
     //! Sets the detector (axes can be overwritten later)
     void setDetector(const IDetector& detector);

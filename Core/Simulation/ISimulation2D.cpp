@@ -14,39 +14,62 @@
 
 #include "Core/Simulation/ISimulation2D.h"
 #include "Base/Pixel/SimulationElement.h"
+#include "Base/Utils/Assert.h"
 #include "Core/Computation/DWBAComputation.h"
 #include "Core/Computation/IBackground.h"
 #include "Device/Detector/DetectorContext.h"
-#include "Device/Histo/Histogram2D.h"
 
 ISimulation2D::ISimulation2D(const Beam& beam, const MultiLayer& sample, const IDetector& detector)
     : ISimulation(beam, sample, detector)
 {
 }
 
+#ifndef SWIG
+ISimulation2D::ISimulation2D(const Beam& beam, const IDetector& detector)
+    : ISimulation(beam, detector)
+{
+}
+#endif // SWIG
+
 ISimulation2D::ISimulation2D() = default;
 
 ISimulation2D::~ISimulation2D() = default;
 
+IDetector2D& ISimulation2D::detector2D()
+{
+    ASSERT(getDetector());
+    IDetector2D* p = dynamic_cast<IDetector2D*>(getDetector());
+    ASSERT(p);
+    return *p;
+}
+
+const IDetector2D& ISimulation2D::detector2D() const
+{
+    ASSERT(getDetector());
+    const IDetector2D* p = dynamic_cast<const IDetector2D*>(getDetector());
+    ASSERT(p);
+    return *p;
+}
+
 void ISimulation2D::prepareSimulation()
 {
     ISimulation::prepareSimulation();
-    m_detector_context = instrument().detector2D().createContext();
+    m_detector_context = detector2D().createContext();
 }
 
 void ISimulation2D::addMask(const IShape2D& shape, bool mask_value)
 {
-    instrument().detector2D().addMask(shape, mask_value);
+    detector2D().addMask(shape, mask_value);
 }
 
 void ISimulation2D::maskAll()
 {
-    instrument().detector2D().maskAll();
+    detector2D().maskAll();
 }
 
 void ISimulation2D::setRegionOfInterest(double xlow, double ylow, double xup, double yup)
 {
-    instrument().detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
+    detector2D().setRegionOfInterest(xlow, ylow, xup, yup);
 }
 
 ISimulation2D::ISimulation2D(const ISimulation2D& other)
@@ -64,7 +87,7 @@ size_t ISimulation2D::numberOfSimulationElements() const
 void ISimulation2D::setDetectorParameters(size_t n_x, double x_min, double x_max, size_t n_y,
                                           double y_min, double y_max)
 {
-    instrument().detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
+    detector2D().setDetectorParameters(n_x, x_min, x_max, n_y, y_min, y_max);
     updateIntensityMap();
 }
 
@@ -90,7 +113,7 @@ std::vector<SimulationElement> ISimulation2D::generateSimulationElements(const B
     const double phi_i = beam.direction().phi();
     const Eigen::Matrix2cd beam_polarization = beam.getPolarization();
 
-    const IDetector2D& detector = instrument().detector2D();
+    const IDetector2D& detector = detector2D();
     const Eigen::Matrix2cd analyzer_operator = detector.detectionProperties().analyzerOperator();
     const size_t spec_index = detector.indexOfSpecular(beam);
 

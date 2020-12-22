@@ -128,7 +128,7 @@ std::string defineScan(const ISpecularScan* scan)
 
 std::string defineDetector(const ISimulation* simulation)
 {
-    const IDetector* const detector = simulation->instrument().getDetector();
+    const IDetector* const detector = simulation->getDetector();
     if (detector->dimension() != 2)
         throw std::runtime_error("defineDetector: "
                                  "detector must be two-dimensional for GISAS");
@@ -202,7 +202,7 @@ std::string defineDetector(const ISimulation* simulation)
 std::string defineDetectorResolutionFunction(const ISimulation* simulation)
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
 
     if (const IDetectorResolution* resfunc = detector->detectorResolution()) {
         if (auto* convfunc = dynamic_cast<const ConvolutionDetectorResolution*>(resfunc)) {
@@ -225,7 +225,7 @@ std::string defineDetectorResolutionFunction(const ISimulation* simulation)
 std::string defineDetectorPolarizationAnalysis(const ISimulation* simulation)
 {
     std::ostringstream result;
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
     kvector_t analyzer_direction = detector->detectionProperties().analyzerDirection();
     double analyzer_efficiency = detector->detectionProperties().analyzerEfficiency();
     double analyzer_total_transmission =
@@ -272,7 +272,7 @@ std::string defineBeamIntensity(const Beam& beam)
 std::string defineGISASBeam(const GISASSimulation& simulation)
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().beam();
+    const Beam& beam = simulation.beam();
 
     result << indent() << "beam = ba.Beam(" << pyfmt::printDouble(beam.intensity()) << ", "
            << pyfmt::printNm(beam.wavelength()) << ", ba.Direction("
@@ -287,7 +287,7 @@ std::string defineGISASBeam(const GISASSimulation& simulation)
 std::string defineOffSpecularBeam(const OffSpecularSimulation& simulation)
 {
     std::ostringstream result;
-    const Beam& beam = simulation.instrument().beam();
+    const Beam& beam = simulation.beam();
 
     const std::string axidef = indent() + "alpha_i_axis = ";
     result << axidef << pyfmt2::printAxis(simulation.beamAxis(), "rad") << "\n";
@@ -310,7 +310,7 @@ std::string defineSpecularScan(const SpecularSimulation& simulation)
                                  "does not contain any scan");
     result << defineScan(scan) << "\n";
     result << indent() << "simulation.setScan(scan)\n";
-    result << defineBeamIntensity(simulation.instrument().beam()) << "\n";
+    result << defineBeamIntensity(simulation.beam()) << "\n";
     return result.str();
 }
 
@@ -346,7 +346,7 @@ std::string defineMasks(const ISimulation* simulation)
     std::ostringstream result;
     result << std::setprecision(12);
 
-    const IDetector* detector = simulation->instrument().getDetector();
+    const IDetector* detector = simulation->getDetector();
     const DetectorMask* detectorMask = detector->detectorMask();
     if (detectorMask && detectorMask->numberOfMasks()) {
         result << "\n";
@@ -464,9 +464,7 @@ std::string simulationCode(const ISimulation& simulation)
         throw std::runtime_error("Cannot export: Simulation has no sample");
     std::string code =
         SampleToPython().sampleCode(*simulation.sample()) + defineSimulate(&simulation);
-    return "import bornagain as ba\n"
-        + pyfmt::printImportedSymbols(code)
-        + "\n\n" + code;
+    return "import bornagain as ba\n" + pyfmt::printImportedSymbols(code) + "\n\n" + code;
 }
 
 } // namespace
@@ -494,5 +492,5 @@ std::string SimulationToPython::simulationSaveCode(const ISimulation& simulation
              "    simulation = get_simulation(sample)\n"
              "    simulation.runSimulation()\n"
              "    ba.IntensityDataIOFactory.writeSimulationResult(simulation.result(), \""
-        + fname + "\")\n";
+           + fname + "\")\n";
 }

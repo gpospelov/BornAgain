@@ -37,7 +37,7 @@ public:
     //! function which will be used to create object of AbstractProduct base type
     typedef typename std::function<AbstractProduct*()> CreateItemCallback;
 
-    //! map for correspondance between object identifier and object creation function
+    //! map for correspondence between object identifier and object creation function
     typedef std::map<Key, CreateItemCallback> CallbackMap_t;
 
     //! Creates object by calling creation function corresponded to given identifier

@@ -76,7 +76,7 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
     for (const auto& q_rec : rec_vectors)
 //        if (!(q_rec.mag() < inner_radius)) {
             // result += m_peak_shape->evaluate(q, q_rec);
-            result += exp(-(q-q_rec).mag2()/2/pow(.03,2));
+            result += exp(-(q-q_rec).mag2()/2/pow(.06,2));
             // std::cout << "  INCR: qr=" << q_rec << " => " << result << std::endl;
 //        }
     return result;

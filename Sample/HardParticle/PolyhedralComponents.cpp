@@ -371,17 +371,26 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
         return m_area;
     } else if (qpa_red < qpa_limit_series && !sym_S2) {
         // summation of power series
-        return m_area + expansion(1., 1., qpa, std::abs(m_area));
+        return ff_2D_expanded(qpa);
     } else {
         // direct evaluation of analytic formula
-        complex_t ff = edge_sum_ff(qpa, qpa, false);
-        complex_t ret = (sym_S2 ? 4. : 2. / I) * ff / qpa.mag2();
+        complex_t ret = ff_2D_direct(qpa);
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << std::setprecision(16) << "    ret=" << ret << " ff=" << ff << "\n";
 #endif
         return ret;
     }
+}
+
+complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
+{
+    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
+}
+
+complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
+{
+    return m_area + expansion(1., 1., qpa, std::abs(m_area));
 }
 
 //! Throws if deviation from inversion symmetry is detected. Does not check vertices.

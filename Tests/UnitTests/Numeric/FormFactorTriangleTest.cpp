@@ -20,11 +20,11 @@ TEST_F(FFTriangleTest, Triangle)
     EXPECT_NEAR(T.area(), sqrt(3)/4, 1e-15);
 
     int failures = 0;
-    const int M=43;
+    const int M=37;
     for (int j=0; j < M; ++j) {
         const double phi = M_PI_2*j/(M-1);
         const cvector_t uQ{ sin(phi), cos(phi), 0. };
-        const int N=4000+j;
+        const int N=2800+j;
         for (int i = 0; i < N; ++i) {
             const double q = 1e-17*pow(1.7e17,i/(N-1.));
             const cvector_t Q = uQ * q;
@@ -32,9 +32,17 @@ TEST_F(FFTriangleTest, Triangle)
             const double f2 = std::abs(T.ff_2D_expanded(Q));
             const double relerr = std::abs(f1-f2)/f2;
             if (relerr>7e-16) {
-                printf("%9.6f %16.11e %21.16e %21.16e %10.4e\n", phi, q, f1, f2, relerr);
+                printf("ERR1 %9.6f %16.11e %21.16e %21.16e %10.4e\n", phi, q, f1, f2, relerr);
                 ++failures;
             }
+            if (q>1e-7)
+                continue;
+            const double relerr2 = std::abs(f1-T.area())/f2;
+            if (relerr2>7e-16) {
+                printf("ERR2 %9.6f %16.11e %21.16e %21.16e %10.4e\n", phi, q, f1, f2, relerr2);
+                ++failures;
+            }
+
         }
     }
     EXPECT_EQ(failures, 0);

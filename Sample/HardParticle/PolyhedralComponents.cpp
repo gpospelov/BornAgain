@@ -204,20 +204,13 @@ void PolyhedralFace::decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) 
 
 complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const
 {
-    cvector_t prevec = 2. * m_normal.cross(qpa); // complex conjugation will take place in .dot
+    const cvector_t prevec = 2. * m_normal.cross(qpa); // complex conjugation not here but in .dot
     complex_t ret = 0;
-    complex_t vfacsum = 0;
-    complex_t qrperp = qperp * m_rperp;
+    const complex_t qrperp = qperp * m_rperp;
     for (size_t i = 0; i < edges.size(); ++i) {
         const PolyhedralEdge& e = edges[i];
-        complex_t vfac;
-        if (sym_S2 || i < edges.size() - 1) {
-            vfac = prevec.dot(e.E());
-            vfacsum += vfac;
-        } else {
-            vfac = -vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
-        }
-        complex_t tmp = e.contrib(m + 1, qpa, qrperp);
+        const complex_t vfac = prevec.dot(e.E());
+        const complex_t tmp = e.contrib(m + 1, qpa, qrperp);
         ret += vfac * tmp;
 #ifdef POLYHEDRAL_DIAGNOSTIC
         if (diagnosis.debmsg >= 4)

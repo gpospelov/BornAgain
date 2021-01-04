@@ -3242,61 +3242,63 @@ namespace Swig {
 #define SWIGTYPE_p_allocator_type swig_types[142]
 #define SWIGTYPE_p_char swig_types[143]
 #define SWIGTYPE_p_difference_type swig_types[144]
-#define SWIGTYPE_p_first_type swig_types[145]
-#define SWIGTYPE_p_int swig_types[146]
-#define SWIGTYPE_p_key_type swig_types[147]
-#define SWIGTYPE_p_long_long swig_types[148]
-#define SWIGTYPE_p_mapped_type swig_types[149]
-#define SWIGTYPE_p_p_PyObject swig_types[150]
-#define SWIGTYPE_p_second_type swig_types[151]
-#define SWIGTYPE_p_short swig_types[152]
-#define SWIGTYPE_p_signed_char swig_types[153]
-#define SWIGTYPE_p_size_type swig_types[154]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[155]
-#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[156]
-#define SWIGTYPE_p_std__allocatorT_IFormFactor_p_t swig_types[157]
-#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[158]
-#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[159]
-#define SWIGTYPE_p_std__allocatorT_double_t swig_types[160]
-#define SWIGTYPE_p_std__allocatorT_int_t swig_types[161]
-#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[162]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[163]
-#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[164]
-#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[165]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[166]
-#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[167]
-#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[168]
-#define SWIGTYPE_p_std__complexT_double_t swig_types[169]
-#define SWIGTYPE_p_std__functionT_ISampleBuilder_pfF_t swig_types[170]
-#define SWIGTYPE_p_std__invalid_argument swig_types[171]
-#define SWIGTYPE_p_std__lessT_std__string_t swig_types[172]
-#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[173]
-#define SWIGTYPE_p_std__pairT_double_double_t swig_types[174]
-#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[175]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[176]
-#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[177]
-#define SWIGTYPE_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t swig_types[178]
-#define SWIGTYPE_p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t swig_types[179]
-#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[180]
-#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[181]
-#define SWIGTYPE_p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t swig_types[182]
-#define SWIGTYPE_p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t swig_types[183]
-#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[184]
-#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[185]
-#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[186]
-#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[187]
-#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[188]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[189]
-#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[190]
-#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[191]
-#define SWIGTYPE_p_swig__SwigPyIterator swig_types[192]
-#define SWIGTYPE_p_unsigned_char swig_types[193]
-#define SWIGTYPE_p_unsigned_int swig_types[194]
-#define SWIGTYPE_p_unsigned_long_long swig_types[195]
-#define SWIGTYPE_p_unsigned_short swig_types[196]
-#define SWIGTYPE_p_value_type swig_types[197]
-static swig_type_info *swig_types[199];
-static swig_module_info swig_module = {swig_types, 198, 0, 0, 0, 0};
+#define SWIGTYPE_p_double swig_types[145]
+#define SWIGTYPE_p_first_type swig_types[146]
+#define SWIGTYPE_p_int swig_types[147]
+#define SWIGTYPE_p_key_type swig_types[148]
+#define SWIGTYPE_p_long_long swig_types[149]
+#define SWIGTYPE_p_mapped_type swig_types[150]
+#define SWIGTYPE_p_p_PyObject swig_types[151]
+#define SWIGTYPE_p_second_type swig_types[152]
+#define SWIGTYPE_p_short swig_types[153]
+#define SWIGTYPE_p_signed_char swig_types[154]
+#define SWIGTYPE_p_size_type swig_types[155]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_double_t_t swig_types[156]
+#define SWIGTYPE_p_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t swig_types[157]
+#define SWIGTYPE_p_std__allocatorT_IFormFactor_p_t swig_types[158]
+#define SWIGTYPE_p_std__allocatorT_INode_const_p_t swig_types[159]
+#define SWIGTYPE_p_std__allocatorT_INode_p_t swig_types[160]
+#define SWIGTYPE_p_std__allocatorT_double_t swig_types[161]
+#define SWIGTYPE_p_std__allocatorT_int_t swig_types[162]
+#define SWIGTYPE_p_std__allocatorT_std__complexT_double_t_t swig_types[163]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_double_double_t_t swig_types[164]
+#define SWIGTYPE_p_std__allocatorT_std__pairT_std__string_const_double_t_t swig_types[165]
+#define SWIGTYPE_p_std__allocatorT_std__string_t swig_types[166]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t swig_types[167]
+#define SWIGTYPE_p_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t swig_types[168]
+#define SWIGTYPE_p_std__allocatorT_unsigned_long_t swig_types[169]
+#define SWIGTYPE_p_std__complexT_double_t swig_types[170]
+#define SWIGTYPE_p_std__functionT_ISampleBuilder_pfF_t swig_types[171]
+#define SWIGTYPE_p_std__invalid_argument swig_types[172]
+#define SWIGTYPE_p_std__lessT_std__string_t swig_types[173]
+#define SWIGTYPE_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t swig_types[174]
+#define SWIGTYPE_p_std__ostream swig_types[175]
+#define SWIGTYPE_p_std__pairT_double_double_t swig_types[176]
+#define SWIGTYPE_p_std__shared_ptrT_ISampleBuilder_t swig_types[177]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t swig_types[178]
+#define SWIGTYPE_p_std__vectorT_BasicVector3DT_std__complexT_double_t_t_std__allocatorT_BasicVector3DT_std__complexT_double_t_t_t_t swig_types[179]
+#define SWIGTYPE_p_std__vectorT_HomogeneousRegion_std__allocatorT_HomogeneousRegion_t_t swig_types[180]
+#define SWIGTYPE_p_std__vectorT_IFormFactor_p_std__allocatorT_IFormFactor_p_t_t swig_types[181]
+#define SWIGTYPE_p_std__vectorT_INode_const_p_std__allocatorT_INode_const_p_t_t swig_types[182]
+#define SWIGTYPE_p_std__vectorT_INode_p_std__allocatorT_INode_p_t_t swig_types[183]
+#define SWIGTYPE_p_std__vectorT_Material_const_p_std__allocatorT_Material_const_p_t_t swig_types[184]
+#define SWIGTYPE_p_std__vectorT_ParticleLayout_const_p_std__allocatorT_ParticleLayout_const_p_t_t swig_types[185]
+#define SWIGTYPE_p_std__vectorT_double_std__allocatorT_double_t_t swig_types[186]
+#define SWIGTYPE_p_std__vectorT_int_std__allocatorT_int_t_t swig_types[187]
+#define SWIGTYPE_p_std__vectorT_std__complexT_double_t_std__allocatorT_std__complexT_double_t_t_t swig_types[188]
+#define SWIGTYPE_p_std__vectorT_std__pairT_double_double_t_std__allocatorT_std__pairT_double_double_t_t_t swig_types[189]
+#define SWIGTYPE_p_std__vectorT_std__string_std__allocatorT_std__string_t_t swig_types[190]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_double_std__allocatorT_double_t_t_std__allocatorT_std__vectorT_double_std__allocatorT_double_t_t_t_t swig_types[191]
+#define SWIGTYPE_p_std__vectorT_std__vectorT_int_std__allocatorT_int_t_t_std__allocatorT_std__vectorT_int_std__allocatorT_int_t_t_t_t swig_types[192]
+#define SWIGTYPE_p_std__vectorT_unsigned_long_std__allocatorT_unsigned_long_t_t swig_types[193]
+#define SWIGTYPE_p_swig__SwigPyIterator swig_types[194]
+#define SWIGTYPE_p_unsigned_char swig_types[195]
+#define SWIGTYPE_p_unsigned_int swig_types[196]
+#define SWIGTYPE_p_unsigned_long_long swig_types[197]
+#define SWIGTYPE_p_unsigned_short swig_types[198]
+#define SWIGTYPE_p_value_type swig_types[199]
+static swig_type_info *swig_types[201];
+static swig_module_info swig_module = {swig_types, 200, 0, 0, 0, 0};
 #define SWIG_TypeQuery(name) SWIG_TypeQueryModule(&swig_module, &swig_module, name)
 #define SWIG_MangledTypeQuery(name) SWIG_MangledTypeQueryModule(&swig_module, &swig_module, name)
 
@@ -38352,6 +38354,536 @@ SWIGINTERN PyObject *SimulationOptions_swiginit(PyObject *SWIGUNUSEDPARM(self), 
   return SWIG_Python_InitShadowInstance(args);
 }
 
+SWIGINTERN PyObject *_wrap_new_Transform3D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *result = 0 ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "new_Transform3D", 0, 0, 0)) SWIG_fail;
+  result = (Transform3D *)new Transform3D();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Transform3D, SWIG_POINTER_NEW |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_delete_Transform3D(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, SWIG_POINTER_DISOWN |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "delete_Transform3D" "', argument " "1"" of type '" "Transform3D *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  delete arg1;
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_clone(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D *result = 0 ;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_clone" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (Transform3D *)((Transform3D const *)arg1)->clone();
+  resultobj = SWIG_NewPointerObj(SWIG_as_voidptr(result), SWIGTYPE_p_Transform3D, 0 |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_createRotateX(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Transform3D_createRotateX" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = Transform3D::createRotateX(arg1);
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_createRotateY(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Transform3D_createRotateY" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = Transform3D::createRotateY(arg1);
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_createRotateZ(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Transform3D_createRotateZ" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  result = Transform3D::createRotateZ(arg1);
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_createRotateEuler(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  double arg1 ;
+  double arg2 ;
+  double arg3 ;
+  double val1 ;
+  int ecode1 = 0 ;
+  double val2 ;
+  int ecode2 = 0 ;
+  double val3 ;
+  int ecode3 = 0 ;
+  PyObject *swig_obj[3] ;
+  Transform3D result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Transform3D_createRotateEuler", 3, 3, swig_obj)) SWIG_fail;
+  ecode1 = SWIG_AsVal_double(swig_obj[0], &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "Transform3D_createRotateEuler" "', argument " "1"" of type '" "double""'");
+  } 
+  arg1 = static_cast< double >(val1);
+  ecode2 = SWIG_AsVal_double(swig_obj[1], &val2);
+  if (!SWIG_IsOK(ecode2)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode2), "in method '" "Transform3D_createRotateEuler" "', argument " "2"" of type '" "double""'");
+  } 
+  arg2 = static_cast< double >(val2);
+  ecode3 = SWIG_AsVal_double(swig_obj[2], &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "Transform3D_createRotateEuler" "', argument " "3"" of type '" "double""'");
+  } 
+  arg3 = static_cast< double >(val3);
+  result = Transform3D::createRotateEuler(arg1,arg2,arg3);
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_calculateEulerAngles(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  double *arg2 = (double *) 0 ;
+  double *arg3 = (double *) 0 ;
+  double *arg4 = (double *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  void *argp3 = 0 ;
+  int res3 = 0 ;
+  void *argp4 = 0 ;
+  int res4 = 0 ;
+  PyObject *swig_obj[4] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Transform3D_calculateEulerAngles", 4, 4, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_calculateEulerAngles" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Transform3D_calculateEulerAngles" "', argument " "2"" of type '" "double *""'"); 
+  }
+  arg2 = reinterpret_cast< double * >(argp2);
+  res3 = SWIG_ConvertPtr(swig_obj[2], &argp3,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res3)) {
+    SWIG_exception_fail(SWIG_ArgError(res3), "in method '" "Transform3D_calculateEulerAngles" "', argument " "3"" of type '" "double *""'"); 
+  }
+  arg3 = reinterpret_cast< double * >(argp3);
+  res4 = SWIG_ConvertPtr(swig_obj[3], &argp4,SWIGTYPE_p_double, 0 |  0 );
+  if (!SWIG_IsOK(res4)) {
+    SWIG_exception_fail(SWIG_ArgError(res4), "in method '" "Transform3D_calculateEulerAngles" "', argument " "4"" of type '" "double *""'"); 
+  }
+  arg4 = reinterpret_cast< double * >(argp4);
+  ((Transform3D const *)arg1)->calculateEulerAngles(arg2,arg3,arg4);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_calculateRotateXAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_calculateRotateXAngle" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (double)((Transform3D const *)arg1)->calculateRotateXAngle();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_calculateRotateYAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_calculateRotateYAngle" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (double)((Transform3D const *)arg1)->calculateRotateYAngle();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_calculateRotateZAngle(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  double result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_calculateRotateZAngle" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (double)((Transform3D const *)arg1)->calculateRotateZAngle();
+  resultobj = SWIG_From_double(static_cast< double >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_getInverse(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_getInverse" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = ((Transform3D const *)arg1)->getInverse();
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D___mul__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  Transform3D *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  Transform3D result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Transform3D___mul__", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D___mul__" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Transform3D___mul__" "', argument " "2"" of type '" "Transform3D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Transform3D___mul__" "', argument " "2"" of type '" "Transform3D const &""'"); 
+  }
+  arg2 = reinterpret_cast< Transform3D * >(argp2);
+  result = ((Transform3D const *)arg1)->operator *((Transform3D const &)*arg2);
+  resultobj = SWIG_NewPointerObj((new Transform3D(static_cast< const Transform3D& >(result))), SWIGTYPE_p_Transform3D, SWIG_POINTER_OWN |  0 );
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D___eq__(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  Transform3D *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  bool result;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Transform3D___eq__", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D___eq__" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_Transform3D,  0  | 0);
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Transform3D___eq__" "', argument " "2"" of type '" "Transform3D const &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Transform3D___eq__" "', argument " "2"" of type '" "Transform3D const &""'"); 
+  }
+  arg2 = reinterpret_cast< Transform3D * >(argp2);
+  result = (bool)((Transform3D const *)arg1)->operator ==((Transform3D const &)*arg2);
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  PyErr_Clear();
+  Py_INCREF(Py_NotImplemented);
+  return Py_NotImplemented;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_getRotationType(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  Transform3D::ERotationType result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_getRotationType" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (Transform3D::ERotationType)((Transform3D const *)arg1)->getRotationType();
+  resultobj = SWIG_From_int(static_cast< int >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_isIdentity(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_isIdentity" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (bool)((Transform3D const *)arg1)->isIdentity();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D__print(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  std::ostream *arg2 = 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  void *argp2 = 0 ;
+  int res2 = 0 ;
+  PyObject *swig_obj[2] ;
+  
+  if (!SWIG_Python_UnpackTuple(args, "Transform3D__print", 2, 2, swig_obj)) SWIG_fail;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D__print" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  res2 = SWIG_ConvertPtr(swig_obj[1], &argp2, SWIGTYPE_p_std__ostream,  0 );
+  if (!SWIG_IsOK(res2)) {
+    SWIG_exception_fail(SWIG_ArgError(res2), "in method '" "Transform3D__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  if (!argp2) {
+    SWIG_exception_fail(SWIG_ValueError, "invalid null reference " "in method '" "Transform3D__print" "', argument " "2"" of type '" "std::ostream &""'"); 
+  }
+  arg2 = reinterpret_cast< std::ostream * >(argp2);
+  ((Transform3D const *)arg1)->print(*arg2);
+  resultobj = SWIG_Py_Void();
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_isXRotation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_isXRotation" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (bool)((Transform3D const *)arg1)->isXRotation();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_isYRotation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_isYRotation" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (bool)((Transform3D const *)arg1)->isYRotation();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_Transform3D_isZRotation(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  Transform3D *arg1 = (Transform3D *) 0 ;
+  void *argp1 = 0 ;
+  int res1 = 0 ;
+  PyObject *swig_obj[1] ;
+  bool result;
+  
+  if (!args) SWIG_fail;
+  swig_obj[0] = args;
+  res1 = SWIG_ConvertPtr(swig_obj[0], &argp1,SWIGTYPE_p_Transform3D, 0 |  0 );
+  if (!SWIG_IsOK(res1)) {
+    SWIG_exception_fail(SWIG_ArgError(res1), "in method '" "Transform3D_isZRotation" "', argument " "1"" of type '" "Transform3D const *""'"); 
+  }
+  arg1 = reinterpret_cast< Transform3D * >(argp1);
+  result = (bool)((Transform3D const *)arg1)->isZRotation();
+  resultobj = SWIG_From_bool(static_cast< bool >(result));
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *Transform3D_swigregister(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *obj;
+  if (!SWIG_Python_UnpackTuple(args, "swigregister", 1, 1, &obj)) return NULL;
+  SWIG_TypeNewClientData(SWIGTYPE_p_Transform3D, SWIG_NewClientData(obj));
+  return SWIG_Py_Void();
+}
+
+SWIGINTERN PyObject *Transform3D_swiginit(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  return SWIG_Python_InitShadowInstance(args);
+}
+
 SWIGINTERN PyObject *_wrap_new_ISampleNode__SWIG_0(PyObject *SWIGUNUSEDPARM(self), Py_ssize_t nobjs, PyObject **swig_obj) {
   PyObject *resultobj = 0;
   PyObject *arg1 = (PyObject *) 0 ;
@@ -70319,7 +70851,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Material_rotatedMaterial", _wrap_Material_rotatedMaterial, METH_VARARGS, "\n"
-		"Material_rotatedMaterial(Material self, Transform3D const & transform) -> Material\n"
+		"Material_rotatedMaterial(Material self, Transform3D transform) -> Material\n"
 		"Material Material::rotatedMaterial(const Transform3D &transform) const\n"
 		"\n"
 		""},
@@ -70366,7 +70898,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "WavevectorInfo_transformed", _wrap_WavevectorInfo_transformed, METH_VARARGS, "\n"
-		"WavevectorInfo_transformed(WavevectorInfo self, Transform3D const & transform) -> WavevectorInfo\n"
+		"WavevectorInfo_transformed(WavevectorInfo self, Transform3D transform) -> WavevectorInfo\n"
 		"WavevectorInfo WavevectorInfo::transformed(const Transform3D &transform) const\n"
 		"\n"
 		""},
@@ -70488,6 +71020,28 @@ static PyMethodDef SwigMethods[] = {
 	 { "delete_SimulationOptions", _wrap_delete_SimulationOptions, METH_O, "delete_SimulationOptions(SimulationOptions self)"},
 	 { "SimulationOptions_swigregister", SimulationOptions_swigregister, METH_O, NULL},
 	 { "SimulationOptions_swiginit", SimulationOptions_swiginit, METH_VARARGS, NULL},
+	 { "new_Transform3D", _wrap_new_Transform3D, METH_NOARGS, "new_Transform3D() -> Transform3D"},
+	 { "delete_Transform3D", _wrap_delete_Transform3D, METH_O, "delete_Transform3D(Transform3D self)"},
+	 { "Transform3D_clone", _wrap_Transform3D_clone, METH_O, "Transform3D_clone(Transform3D self) -> Transform3D"},
+	 { "Transform3D_createRotateX", _wrap_Transform3D_createRotateX, METH_O, "Transform3D_createRotateX(double phi) -> Transform3D"},
+	 { "Transform3D_createRotateY", _wrap_Transform3D_createRotateY, METH_O, "Transform3D_createRotateY(double phi) -> Transform3D"},
+	 { "Transform3D_createRotateZ", _wrap_Transform3D_createRotateZ, METH_O, "Transform3D_createRotateZ(double phi) -> Transform3D"},
+	 { "Transform3D_createRotateEuler", _wrap_Transform3D_createRotateEuler, METH_VARARGS, "Transform3D_createRotateEuler(double alpha, double beta, double gamma) -> Transform3D"},
+	 { "Transform3D_calculateEulerAngles", _wrap_Transform3D_calculateEulerAngles, METH_VARARGS, "Transform3D_calculateEulerAngles(Transform3D self, double * p_alpha, double * p_beta, double * p_gamma)"},
+	 { "Transform3D_calculateRotateXAngle", _wrap_Transform3D_calculateRotateXAngle, METH_O, "Transform3D_calculateRotateXAngle(Transform3D self) -> double"},
+	 { "Transform3D_calculateRotateYAngle", _wrap_Transform3D_calculateRotateYAngle, METH_O, "Transform3D_calculateRotateYAngle(Transform3D self) -> double"},
+	 { "Transform3D_calculateRotateZAngle", _wrap_Transform3D_calculateRotateZAngle, METH_O, "Transform3D_calculateRotateZAngle(Transform3D self) -> double"},
+	 { "Transform3D_getInverse", _wrap_Transform3D_getInverse, METH_O, "Transform3D_getInverse(Transform3D self) -> Transform3D"},
+	 { "Transform3D___mul__", _wrap_Transform3D___mul__, METH_VARARGS, "Transform3D___mul__(Transform3D self, Transform3D other) -> Transform3D"},
+	 { "Transform3D___eq__", _wrap_Transform3D___eq__, METH_VARARGS, "Transform3D___eq__(Transform3D self, Transform3D other) -> bool"},
+	 { "Transform3D_getRotationType", _wrap_Transform3D_getRotationType, METH_O, "Transform3D_getRotationType(Transform3D self) -> Transform3D::ERotationType"},
+	 { "Transform3D_isIdentity", _wrap_Transform3D_isIdentity, METH_O, "Transform3D_isIdentity(Transform3D self) -> bool"},
+	 { "Transform3D__print", _wrap_Transform3D__print, METH_VARARGS, "Transform3D__print(Transform3D self, std::ostream & ostr)"},
+	 { "Transform3D_isXRotation", _wrap_Transform3D_isXRotation, METH_O, "Transform3D_isXRotation(Transform3D self) -> bool"},
+	 { "Transform3D_isYRotation", _wrap_Transform3D_isYRotation, METH_O, "Transform3D_isYRotation(Transform3D self) -> bool"},
+	 { "Transform3D_isZRotation", _wrap_Transform3D_isZRotation, METH_O, "Transform3D_isZRotation(Transform3D self) -> bool"},
+	 { "Transform3D_swigregister", Transform3D_swigregister, METH_O, NULL},
+	 { "Transform3D_swiginit", Transform3D_swiginit, METH_VARARGS, NULL},
 	 { "new_ISampleNode", _wrap_new_ISampleNode, METH_VARARGS, "\n"
 		"ISampleNode()\n"
 		"new_ISampleNode(PyObject * _self, NodeMeta meta, vdouble1d_t PValues) -> ISampleNode\n"
@@ -70727,7 +71281,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "IFormFactorDecorator_swigregister", IFormFactorDecorator_swigregister, METH_O, NULL},
-	 { "IRotation_createRotation", _wrap_IRotation_createRotation, METH_O, "IRotation_createRotation(Transform3D const & transform) -> IRotation"},
+	 { "IRotation_createRotation", _wrap_IRotation_createRotation, METH_O, "IRotation_createRotation(Transform3D transform) -> IRotation"},
 	 { "IRotation_clone", _wrap_IRotation_clone, METH_O, "\n"
 		"IRotation_clone(IRotation self) -> IRotation\n"
 		"virtual IRotation* IRotation::clone() const =0\n"
@@ -75080,7 +75634,7 @@ static PyMethodDef SwigMethods[] = {
 		"\n"
 		""},
 	 { "Lattice3D_transformed", _wrap_Lattice3D_transformed, METH_VARARGS, "\n"
-		"Lattice3D_transformed(Lattice3D self, Transform3D const & transform) -> Lattice3D\n"
+		"Lattice3D_transformed(Lattice3D self, Transform3D transform) -> Lattice3D\n"
 		"Lattice3D Lattice3D::transformed(const Transform3D &transform) const\n"
 		"\n"
 		"Creates transformed lattice. \n"
@@ -77613,6 +78167,7 @@ static swig_type_info _swigt__p_ZLimits = {"_p_ZLimits", "ZLimits *", 0, 0, (voi
 static swig_type_info _swigt__p_allocator_type = {"_p_allocator_type", "allocator_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_char = {"_p_char", "char *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_difference_type = {"_p_difference_type", "difference_type *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_double = {"_p_double", "double *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_first_type = {"_p_first_type", "first_type *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_int = {"_p_int", "intptr_t *|int *|int_least32_t *|int_fast32_t *|int32_t *|int_fast16_t *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_key_type = {"_p_key_type", "key_type *", 0, 0, (void*)0, 0};
@@ -77642,6 +78197,7 @@ static swig_type_info _swigt__p_std__functionT_ISampleBuilder_pfF_t = {"_p_std__
 static swig_type_info _swigt__p_std__invalid_argument = {"_p_std__invalid_argument", "std::invalid_argument *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__lessT_std__string_t = {"_p_std__lessT_std__string_t", "std::less< std::string > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t = {"_p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t", "std::map< std::string,double,std::less< std::string >,std::allocator< std::pair< std::string const,double > > > *|std::map< std::string,double > *", 0, 0, (void*)0, 0};
+static swig_type_info _swigt__p_std__ostream = {"_p_std__ostream", "std::ostream *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__pairT_double_double_t = {"_p_std__pairT_double_double_t", "std::pair< double,double > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__shared_ptrT_ISampleBuilder_t = {"_p_std__shared_ptrT_ISampleBuilder_t", "std::shared_ptr< ISampleBuilder > *", 0, 0, (void*)0, 0};
 static swig_type_info _swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t = {"_p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t", "std::vector< BasicVector3D< double > > *|std::vector< BasicVector3D< double >,std::allocator< BasicVector3D< double > > > *", 0, 0, (void*)0, 0};
@@ -77813,6 +78369,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_allocator_type,
   &_swigt__p_char,
   &_swigt__p_difference_type,
+  &_swigt__p_double,
   &_swigt__p_first_type,
   &_swigt__p_int,
   &_swigt__p_key_type,
@@ -77842,6 +78399,7 @@ static swig_type_info *swig_type_initial[] = {
   &_swigt__p_std__invalid_argument,
   &_swigt__p_std__lessT_std__string_t,
   &_swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t,
+  &_swigt__p_std__ostream,
   &_swigt__p_std__pairT_double_double_t,
   &_swigt__p_std__shared_ptrT_ISampleBuilder_t,
   &_swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t,
@@ -78013,6 +78571,7 @@ static swig_cast_info _swigc__p_ZLimits[] = {  {&_swigt__p_ZLimits, 0, 0, 0},{0,
 static swig_cast_info _swigc__p_allocator_type[] = {  {&_swigt__p_allocator_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_char[] = {  {&_swigt__p_char, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_difference_type[] = {  {&_swigt__p_difference_type, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_double[] = {  {&_swigt__p_double, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_first_type[] = {  {&_swigt__p_first_type, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_int[] = {  {&_swigt__p_int, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_key_type[] = {  {&_swigt__p_key_type, 0, 0, 0},{0, 0, 0, 0}};
@@ -78042,6 +78601,7 @@ static swig_cast_info _swigc__p_std__functionT_ISampleBuilder_pfF_t[] = {  {&_sw
 static swig_cast_info _swigc__p_std__invalid_argument[] = {  {&_swigt__p_std__invalid_argument, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__lessT_std__string_t[] = {  {&_swigt__p_std__lessT_std__string_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t[] = {  {&_swigt__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
+static swig_cast_info _swigc__p_std__ostream[] = {  {&_swigt__p_std__ostream, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__pairT_double_double_t[] = {  {&_swigt__p_std__pairT_double_double_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__shared_ptrT_ISampleBuilder_t[] = {  {&_swigt__p_std__shared_ptrT_ISampleBuilder_t, 0, 0, 0},{0, 0, 0, 0}};
 static swig_cast_info _swigc__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t[] = {  {&_swigt__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t, 0, 0, 0},{0, 0, 0, 0}};
@@ -78213,6 +78773,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_allocator_type,
   _swigc__p_char,
   _swigc__p_difference_type,
+  _swigc__p_double,
   _swigc__p_first_type,
   _swigc__p_int,
   _swigc__p_key_type,
@@ -78242,6 +78803,7 @@ static swig_cast_info *swig_cast_initial[] = {
   _swigc__p_std__invalid_argument,
   _swigc__p_std__lessT_std__string_t,
   _swigc__p_std__mapT_std__string_double_std__lessT_std__string_t_std__allocatorT_std__pairT_std__string_const_double_t_t_t,
+  _swigc__p_std__ostream,
   _swigc__p_std__pairT_double_double_t,
   _swigc__p_std__shared_ptrT_ISampleBuilder_t,
   _swigc__p_std__vectorT_BasicVector3DT_double_t_std__allocatorT_BasicVector3DT_double_t_t_t,
@@ -79009,6 +79571,10 @@ SWIG_init(void) {
   // thread safe initialization
   swig::container_owner_attribute();
   
+  SWIG_Python_SetConstant(d, "Transform3D_EULER",SWIG_From_int(static_cast< int >(Transform3D::EULER)));
+  SWIG_Python_SetConstant(d, "Transform3D_XAXIS",SWIG_From_int(static_cast< int >(Transform3D::XAXIS)));
+  SWIG_Python_SetConstant(d, "Transform3D_YAXIS",SWIG_From_int(static_cast< int >(Transform3D::YAXIS)));
+  SWIG_Python_SetConstant(d, "Transform3D_ZAXIS",SWIG_From_int(static_cast< int >(Transform3D::ZAXIS)));
   SWIG_Python_SetConstant(d, "RoughnessModel_DEFAULT",SWIG_From_int(static_cast< int >(RoughnessModelWrap::DEFAULT)));
   SWIG_Python_SetConstant(d, "RoughnessModel_TANH",SWIG_From_int(static_cast< int >(RoughnessModelWrap::TANH)));
   SWIG_Python_SetConstant(d, "RoughnessModel_NEVOT_CROCE",SWIG_From_int(static_cast< int >(RoughnessModelWrap::NEVOT_CROCE)));

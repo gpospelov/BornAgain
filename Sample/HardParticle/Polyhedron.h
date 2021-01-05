@@ -21,8 +21,9 @@
 #define BORNAGAIN_SAMPLE_HARDPARTICLE_POLYHEDRON_H
 
 #include "Sample/HardParticle/PolyhedralComponents.h"
-#include "Sample/HardParticle/PolyhedralTopology.h"
 #include <memory>
+
+class PolyhedralTopology;
 
 //! A polyhedron, implementation class for use in IFormFactorPolyhedron
 

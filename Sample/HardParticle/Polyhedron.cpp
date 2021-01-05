@@ -17,6 +17,7 @@
 //! "Numerically stable form factor of any polygon and polyhedron"
 
 #include "Sample/HardParticle/Polyhedron.h"
+#include "Sample/HardParticle/PolyhedralTopology.h"
 #include "Base/Math/Functions.h"
 #include <iomanip>
 #include <iostream>

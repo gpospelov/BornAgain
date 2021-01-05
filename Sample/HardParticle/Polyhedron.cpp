@@ -14,7 +14,7 @@
 
 //! The mathematics implemented here is described in full detail in a paper
 //! by Joachim Wuttke, entitled
-//! "Form factor (Fourier shape transform) of polygon and polyhedron."
+//! "Numerically stable form factor of any polygon and polyhedron"
 
 #include "Sample/HardParticle/Polyhedron.h"
 #include "Base/Math/Functions.h"

@@ -56,8 +56,8 @@ complex_t Prism::evaluate_for_q(const cvector_t& q) const
 {
     try {
 #ifdef ALGORITHM_DIAGNOSTIC
-        diagnosis.maxOrder = 0;
-        diagnosis.nExpandedFaces = 0;
+        polyhedralDiagnosis.order = 0;
+        polyhedralDiagnosis.algo = 0;
 #endif
         cvector_t qxy(q.x(), q.y(), 0.);
         return m_height * exp_I(m_height / 2 * q.z()) * Math::sinc(m_height / 2 * q.z())

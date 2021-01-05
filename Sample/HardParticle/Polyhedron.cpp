@@ -142,8 +142,8 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
 {
     double q_red = m_radius * q.mag();
 #ifdef ALGORITHM_DIAGNOSTIC
-    diagnosis.maxOrder = 0;
-    diagnosis.nExpandedFaces = 0;
+    polyhedralDiagnosis.order = 0;
+    polyhedralDiagnosis.algo = 0;
 #endif
     if (q_red == 0) {
         return m_volume;
@@ -156,23 +156,16 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             if (m_sym_Ci && n & 1)
                 continue;
 #ifdef ALGORITHM_DIAGNOSTIC
-            diagnosis.maxOrder = std::max(diagnosis.maxOrder, n);
+            polyhedralDiagnosis.order = std::max(polyhedralDiagnosis.order, n);
 #endif
             complex_t term = 0;
             for (const PolyhedralFace& Gk : m_faces) {
                 complex_t tmp = Gk.ff_n(n + 1, q);
                 term += tmp;
-#ifdef ALGORITHM_DIAGNOSTIC
-                if (diagnosis.debmsg >= 2)
-                    std::cout << "Gkffn sum=" << term << " incr=" << tmp << "\n";
-#endif
             }
             term *= n_fac;
-#ifdef ALGORITHM_DIAGNOSTIC
-            if (diagnosis.debmsg >= 1)
-                std::cout << std::scientific << std::showpos << std::setprecision(16)
-                          << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
-#endif
+            // std::cout << std::scientific << std::showpos << std::setprecision(16)
+            //              << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
             sum += term;
             if (std::abs(term) <= eps * std::abs(sum) || std::abs(sum) < eps * m_volume)
                 ++count_return_condition;
@@ -182,12 +175,6 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 return m_volume + sum; // regular exit
             n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
-#ifdef ALGORITHM_DIAGNOSTIC
-        if (!diagnosis.request_convergence) {
-            std::cout << "series F(q) not converged\n";
-            return m_volume + sum;
-        }
-#endif
         throw std::runtime_error("Series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
@@ -198,12 +185,9 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 continue;
             complex_t ff = Gk.ff(q, m_sym_Ci);
             sum += qn * ff;
-#ifdef ALGORITHM_DIAGNOSTIC
-            if (diagnosis.debmsg >= 1)
-                std::cout << std::scientific << std::showpos << std::setprecision(16)
-                          << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()
-                          << " ff=" << ff << "\n";
-#endif
+            // std::cout << std::scientific << std::showpos << std::setprecision(16)
+            //              << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()
+            //              << " ff=" << ff << "\n";
         }
         return sum / (I * q.mag2());
     }

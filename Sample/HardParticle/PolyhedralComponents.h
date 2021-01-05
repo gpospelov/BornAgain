@@ -23,6 +23,14 @@
 #include "Base/Vector/Vectors3D.h"
 #include <vector>
 
+#ifdef ALGORITHM_DIAGNOSTIC
+struct PolyhedralDiagnosis {
+    int algo;
+    int order;
+};
+inline PolyhedralDiagnosis polyhedralDiagnosis;
+#endif
+
 //! One edge of a polygon, for form factor computation.
 
 class PolyhedralEdge {
@@ -46,9 +54,6 @@ private:
 class PolyhedralFace {
 public:
     static double diameter(const std::vector<kvector_t>& V);
-#ifdef ALGORITHM_DIAGNOSTIC
-    static void setLimits(double _qpa, int _n);
-#endif
 
     PolyhedralFace(const std::vector<kvector_t>& _V = std::vector<kvector_t>(),
                    bool _sym_S2 = false);

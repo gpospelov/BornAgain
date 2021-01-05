@@ -2,6 +2,7 @@
 #include "Sample/HardParticle/HardParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/Numeric/FormFactorTest.h"
+#include "Sample/HardParticle/PolyhedralComponents.h" // for diagnostic
 
 //! Check that form factors are invariant when q is transformed according to particle symmetry.
 
@@ -14,8 +15,18 @@ private:
         complex_t f0 = ff->evaluate_for_q(q);
         complex_t f1 = ff->evaluate_for_q(p);
         double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q  << ", p=" << p;
-        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q  << ", p=" << p;
+        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q  << ", p=" << p
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << " < algo=" << polyhedralDiagnosis.algo
+                                                    << " < order=" << polyhedralDiagnosis.order
+#endif
+            ;
+        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q  << ", p=" << p
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << " < algo=" << polyhedralDiagnosis.algo
+                                                    << " < order=" << polyhedralDiagnosis.order
+#endif
+            ;
     }
 
 protected:

@@ -26,9 +26,9 @@ class Polyhedron;
 
 class IFormFactorPolyhedron : public IBornFF {
 public:
-#ifdef ALGORITHM_DIAGNOSTIC
-    static void setLimits(double _q, int _n);
-#endif
+// #ifdef ALGORITHM_DIAGNOSTIC
+//     static void setLimits(double _q, int _n);
+// #endif
 
     IFormFactorPolyhedron() = delete;
     IFormFactorPolyhedron(const NodeMeta& meta, const std::vector<double>& PValues);

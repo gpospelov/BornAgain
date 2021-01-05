@@ -14,8 +14,8 @@ private:
         complex_t f0 = ff->evaluate_for_q(q);
         complex_t f1 = ff->evaluate_for_q(p);
         double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q;
-        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q;
+        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q  << ", p=" << p;
+        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q  << ", p=" << p;
     }
 
 protected:
@@ -60,7 +60,7 @@ TEST_F(FFSymmetryTest, Cone6_flat)
     // TODO for larger q, imag(ff) is nan
     FormFactorCone6 p(4.3, .09, .1);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 1e-11, 1e-99,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 1e-12, 1e-99,
         50);
 }
 
@@ -68,7 +68,7 @@ TEST_F(FFSymmetryTest, Cone6_steep)
 {
     FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 1e-11, 1e-99,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 4e-12, 1e-99,
         50);
 }
 

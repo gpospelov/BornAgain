@@ -48,7 +48,7 @@ public:
     static double diameter(const std::vector<kvector_t>& V);
 #ifdef POLYHEDRAL_DIAGNOSTIC
     static void setLimits(double _qpa, int _n);
-#endif // BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
+#endif // POLYHEDRAL_DIAGNOSTIC
 
     PolyhedralFace(const std::vector<kvector_t>& _V = std::vector<kvector_t>(),
                    bool _sym_S2 = false);

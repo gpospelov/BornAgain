@@ -1,5 +1,5 @@
 #include "Tests/UnitTests/Numeric/FormFactorTest.h"
-#include "Tests/GTestWrapper/google_test.h" // tests segfault under Linux/clang-9.0.1 if this include is missing
+#include "Tests/GTestWrapper/google_test.h"
 
 using ::testing::Combine;
 using ::testing::Values;
@@ -36,7 +36,7 @@ void run_test_for_many_q(std::function<void(cvector_t)> run_one_test, double qma
         if (q.mag() <= qmag_min || q.mag() >= qmag_max)
             continue;
 
-        run_one_test(q);
+        run_one_test(q); // callback passed as argument
     }
 }
 

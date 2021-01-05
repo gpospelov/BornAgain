@@ -9,19 +9,19 @@ class FFSymmetryTest : public testing::Test {
 private:
     using transform_t = std::function<cvector_t(const cvector_t&)>;
 
-    void test_qq_eq(cvector_t q, IBornFF* p, transform_t trafo, double eps = 1e-12)
+    void test_qq_eq(IBornFF* ff, cvector_t q, transform_t trafo, double eps = 1e-12)
     {
-        complex_t f0 = p->evaluate_for_q(q);
-        complex_t f1 = p->evaluate_for_q(trafo(q));
+        complex_t f0 = ff->evaluate_for_q(q);
+        complex_t f1 = ff->evaluate_for_q(trafo(q));
         double avge = (std::abs(f0) + std::abs(f1)) / 2;
         EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q;
         EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q;
     }
 
 protected:
-    void run_test(IBornFF* p, transform_t trafo, double eps, double qmag1, double qmag2)
+    void run_test(IBornFF* ff, transform_t trafo, double eps, double qmag1, double qmag2)
     {
-        formFactorTest::run_test_for_many_q([&](cvector_t q) { test_qq_eq(q, p, trafo, eps); },
+        formFactorTest::run_test_for_many_q([&](cvector_t q) { test_qq_eq(ff, q, trafo, eps); },
                                             qmag1, qmag2);
     }
 };

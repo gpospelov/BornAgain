@@ -55,7 +55,7 @@ const std::vector<kvector_t>& Prism::vertices()
 complex_t Prism::evaluate_for_q(const cvector_t& q) const
 {
     try {
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         diagnosis.maxOrder = 0;
         diagnosis.nExpandedFaces = 0;
 #endif

@@ -26,7 +26,7 @@ class Polyhedron;
 
 class IFormFactorPolyhedron : public IBornFF {
 public:
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     static void setLimits(double _q, int _n);
 #endif
 

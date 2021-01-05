@@ -42,7 +42,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
     complex_t v2 = m_R.dot(qpa);
     complex_t v1 = qrperp;
     complex_t v = v2 + v1;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     if (diagnosis.debmsg >= 5)
         std::cout << std::scientific << std::showpos << std::setprecision(16) << "contrib: u=" << u
                   << " v1=" << v1 << " v2=" << v2 << "\n";
@@ -65,7 +65,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
             complex_t term = ReciprocalFactorialArray[mm] * ReciprocalFactorialArray[M - mm]
                              * pow(v2, mm) * pow(v1, M - mm);
             ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
             if (diagnosis.debmsg >= 6)
                 std::cout << "contrib mm=" << mm << " t=" << term << " s=" << ret << "\n";
 #endif
@@ -77,7 +77,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
         complex_t term = ReciprocalFactorialArray[M - 2 * l] * ReciprocalFactorialArray[2 * l + 1]
                          * pow(u, 2 * l) * pow(v, M - 2 * l);
         ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 6)
             std::cout << "contrib l=" << l << " t=" << term << " s=" << ret << "\n";
 #endif
@@ -103,7 +103,7 @@ double PolyhedralFace::diameter(const std::vector<kvector_t>& V)
     return diameterFace;
 }
 
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
 void PolyhedralFace::setLimits(double _qpa, int _n)
 {
     qpa_limit_series = _qpa;
@@ -212,7 +212,7 @@ complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const
         const complex_t vfac = prevec.dot(e.E());
         const complex_t tmp = e.contrib(m + 1, qpa, qrperp);
         ret += vfac * tmp;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 4)
             std::cout << std::scientific << std::showpos << std::setprecision(16)
                       << "DBX ff_n_core " << m << " " << vfac << " " << tmp
@@ -239,7 +239,7 @@ complex_t PolyhedralFace::ff_n(int n, cvector_t q) const
         return qn * (ff_n_core(n, qpa, qperp) + ff_n_core(n, -qpa, qperp)) / qpa_mag2;
     } else {
         complex_t tmp = ff_n_core(n, qpa, qperp);
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 3)
             std::cout << "DBX ff_n " << n << " " << qn << " " << tmp << " " << qpa_mag2 << "\n";
 #endif
@@ -252,18 +252,18 @@ complex_t PolyhedralFace::ff_n(int n, cvector_t q) const
 complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvector_t qpa,
                                     double abslevel) const
 {
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     diagnosis.nExpandedFaces += 1;
 #endif
     complex_t sum = 0;
     complex_t n_fac = I;
     int count_return_condition = 0;
     for (int n = 1; n < n_limit_series; ++n) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         diagnosis.maxOrder = std::max(diagnosis.maxOrder, n);
 #endif
         complex_t term = n_fac * (n & 1 ? fac_odd : fac_even) * ff_n_core(n, qpa, 0) / qpa.mag2();
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << std::setprecision(16) << "    sum=" << sum << " +term=" << term << "\n";
 #endif
@@ -276,7 +276,7 @@ complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvect
             return sum; // regular exit
         n_fac = mul_I(n_fac);
     }
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     if (!diagnosis.request_convergence)
         return sum;
 #endif
@@ -304,7 +304,7 @@ complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) c
         }
         complex_t term = vfac * Math::sinc(qE) * Rfac;
         sum += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << std::scientific << std::showpos << std::setprecision(16)
                       << "    sum=" << sum << " term=" << term << " vf=" << vfac << " qE=" << qE
@@ -345,7 +345,7 @@ complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
             prefac = sym_Ci ? -8. * sin(qr_perp) : 4. * mul_I(exp_I(qr_perp));
         else
             prefac = sym_Ci ? 4. : 2. * exp_I(qr_perp);
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << "       qrperp=" << qr_perp << " => prefac=" << prefac << "\n";
 #endif
@@ -368,7 +368,7 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
     } else {
         // direct evaluation of analytic formula
         complex_t ret = ff_2D_direct(qpa);
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (diagnosis.debmsg >= 2)
             std::cout << std::setprecision(16) << "    ret=" << ret << " ff=" << ff << "\n";
 #endif

@@ -38,7 +38,6 @@ option(BORNAGAIN_NEWREFL "Compile reflectometry GUI prototype" ON)
 
 # options that are off by default (switch on for additional functionality)
 option(BORNAGAIN_MPI "Build with MPI support" OFF)
-option(SLOWTESTS "CTest also covers slow tests" OFF)
 
 option(CONFIGURE_BINDINGS "Generate python bindings during build (requires swig)" OFF)
 option(CONFIGURE_PYTHON_DOCS "Generate python documentation from the doxygen comments" OFF)
@@ -53,6 +52,7 @@ option(ZERO_TOLERANCE "Terminate compilation on warnings" OFF)
 option(BORNAGAIN_COVERAGE "Build with test coverage information" OFF)
 option(BORNAGAIN_DEBUG_OPTIMIZATION "Build with debug optimization (gcc only)" OFF)
 option(BORNAGAIN_TIDY "Invokes clang-tidy" OFF)
+option(ALGORITHM_DIAGNOSTIC "Let some algorithms set diagnostic variables" OFF)
 
 if(BORNAGAIN_TIDY AND BORNAGAIN_PYTHON)
     message(FATAL_ERROR "BORNAGAIN_TIDY is incompatible with BORNAGAIN_PYTHON")

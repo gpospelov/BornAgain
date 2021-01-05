@@ -46,9 +46,9 @@ private:
 class PolyhedralFace {
 public:
     static double diameter(const std::vector<kvector_t>& V);
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     static void setLimits(double _qpa, int _n);
-#endif // POLYHEDRAL_DIAGNOSTIC
+#endif // ALGORITHM_DIAGNOSTIC
 
     PolyhedralFace(const std::vector<kvector_t>& _V = std::vector<kvector_t>(),
                    bool _sym_S2 = false);

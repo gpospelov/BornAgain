@@ -140,7 +140,7 @@ complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const
 complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
 {
     double q_red = m_radius * q.mag();
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
     diagnosis.maxOrder = 0;
     diagnosis.nExpandedFaces = 0;
 #endif
@@ -154,20 +154,20 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         for (int n = 2; n < n_limit_series; ++n) {
             if (m_sym_Ci && n & 1)
                 continue;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
             diagnosis.maxOrder = std::max(diagnosis.maxOrder, n);
 #endif
             complex_t term = 0;
             for (const PolyhedralFace& Gk : m_faces) {
                 complex_t tmp = Gk.ff_n(n + 1, q);
                 term += tmp;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
                 if (diagnosis.debmsg >= 2)
                     std::cout << "Gkffn sum=" << term << " incr=" << tmp << "\n";
 #endif
             }
             term *= n_fac;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
             if (diagnosis.debmsg >= 1)
                 std::cout << std::scientific << std::showpos << std::setprecision(16)
                           << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
@@ -181,7 +181,7 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 return m_volume + sum; // regular exit
             n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
         if (!diagnosis.request_convergence) {
             std::cout << "series F(q) not converged\n";
             return m_volume + sum;
@@ -197,7 +197,7 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 continue;
             complex_t ff = Gk.ff(q, m_sym_Ci);
             sum += qn * ff;
-#ifdef POLYHEDRAL_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC
             if (diagnosis.debmsg >= 1)
                 std::cout << std::scientific << std::showpos << std::setprecision(16)
                           << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()

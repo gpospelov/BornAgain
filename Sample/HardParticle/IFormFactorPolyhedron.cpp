@@ -19,7 +19,7 @@
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/Polyhedron.h"
 
-#ifdef POLYHEDRAL_DIAGNOSTIC // TODO restore
+#ifdef ALGORITHM_DIAGNOSTIC // TODO restore
 void IFormFactorPolyhedron::setLimits(double _q, int _n)
 {
     q_limit_series = _q;

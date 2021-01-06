@@ -13,18 +13,23 @@ private:
     void test_qq_eq(IBornFF* ff, cvector_t q, cvector_t p, double eps)
     {
         complex_t f0 = ff->evaluate_for_q(q);
+#ifdef ALGORITHM_DIAGNOSTIC
+        std::string msg0 = polyhedralDiagnosis.message();
+#endif
         complex_t f1 = ff->evaluate_for_q(p);
         double avge = (std::abs(f0) + std::abs(f1)) / 2;
         EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q  << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << " < algo=" << polyhedralDiagnosis.algo
-                                                    << " < order=" << polyhedralDiagnosis.order
+                                                    << "\n msg(q): " << msg0 << "\n"
+                                                    << "\n msg(p): "
+                                                    << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
         EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q  << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << " < algo=" << polyhedralDiagnosis.algo
-                                                    << " < order=" << polyhedralDiagnosis.order
+                                                    << "\n msg(q): " << msg0 << "\n"
+                                                    << "\n msg(p): "
+                                                    << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
     }

@@ -24,9 +24,13 @@
 #include <vector>
 
 #ifdef ALGORITHM_DIAGNOSTIC
+#include <string>
 struct PolyhedralDiagnosis {
     int algo;
     int order;
+    std::string msg;
+    void reset();
+    std::string message() const;
 };
 inline PolyhedralDiagnosis polyhedralDiagnosis;
 #endif

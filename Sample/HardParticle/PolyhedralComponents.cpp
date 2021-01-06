@@ -23,6 +23,16 @@ const double eps = 2e-16;
 constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 } // namespace
 
+#ifdef ALGORITHM_DIAGNOSTIC
+void PolyhedralDiagnosis::reset() {
+    order = 0; algo = 0; msg.clear();
+};
+std::string PolyhedralDiagnosis::message() const {
+    return "algo=" + std::to_string(algo) + ", order=" + std::to_string(order) + ", msg:\n" + msg;
+}
+#endif
+
+
 //  ************************************************************************************************
 //  PolyhedralEdge implementation
 //  ************************************************************************************************

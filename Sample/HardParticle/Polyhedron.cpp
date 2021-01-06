@@ -22,6 +22,7 @@
 #include <iomanip>
 #include <iostream>
 #include <stdexcept> // need overlooked by g++ 5.4
+#include <boost/format.hpp>
 
 namespace {
 const double eps = 2e-16;
@@ -142,8 +143,7 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
 {
     double q_red = m_radius * q.mag();
 #ifdef ALGORITHM_DIAGNOSTIC
-    polyhedralDiagnosis.order = 0;
-    polyhedralDiagnosis.algo = 0;
+    polyhedralDiagnosis.reset();
 #endif
     if (q_red == 0) {
         return m_volume;
@@ -166,6 +166,11 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             term *= n_fac;
             // std::cout << std::scientific << std::showpos << std::setprecision(16)
             //              << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.msg +=
+                boost::str(boost::format("  + term(n=%2i) = %21.16g+i*%21.16g\n")
+                           % n % term.real() % term.imag());
+#endif
             sum += term;
             if (std::abs(term) <= eps * std::abs(sum) || std::abs(sum) < eps * m_volume)
                 ++count_return_condition;
@@ -183,12 +188,22 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             complex_t qn = Gk.normalProjectionConj(q); // conj(q)*normal
             if (std::abs(qn) < eps * q.mag())
                 continue;
-            complex_t ff = Gk.ff(q, m_sym_Ci);
-            sum += qn * ff;
+            complex_t term = qn * Gk.ff(q, m_sym_Ci);
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.msg +=
+                boost::str(boost::format("  + face_ff = %21.16g+i*%21.16g\n")
+                           % term.real() % term.imag());
+#endif
+            sum += term;
             // std::cout << std::scientific << std::showpos << std::setprecision(16)
             //              << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()
             //              << " ff=" << ff << "\n";
         }
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.msg +=
+                boost::str(boost::format(" -> raw sum  = %21.16g+i*%21.16g\n")
+                           % sum.real() % sum.imag());
+#endif
         return sum / (I * q.mag2());
     }
 }

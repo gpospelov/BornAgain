@@ -164,11 +164,9 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 term += tmp;
             }
             term *= n_fac;
-            // std::cout << std::scientific << std::showpos << std::setprecision(16)
-            //              << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
 #ifdef ALGORITHM_DIAGNOSTIC
             polyhedralDiagnosis.msg +=
-                boost::str(boost::format("  + term(n=%2i) = %21.16g+i*%21.16g\n")
+                boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n")
                            % n % term.real() % term.imag());
 #endif
             sum += term;
@@ -191,19 +189,16 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             complex_t term = qn * Gk.ff(q, m_sym_Ci);
 #ifdef ALGORITHM_DIAGNOSTIC
             polyhedralDiagnosis.msg +=
-                boost::str(boost::format("  + face_ff = %21.16g+i*%21.16g\n")
+                boost::str(boost::format("  + face_ff = %23.17e+i*%23.17e\n")
                            % term.real() % term.imag());
 #endif
             sum += term;
-            // std::cout << std::scientific << std::showpos << std::setprecision(16)
-            //              << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()
-            //              << " ff=" << ff << "\n";
         }
 #ifdef ALGORITHM_DIAGNOSTIC
-            polyhedralDiagnosis.msg +=
-                boost::str(boost::format(" -> raw sum  = %21.16g+i*%21.16g\n")
-                           % sum.real() % sum.imag());
+        polyhedralDiagnosis.msg +=
+            boost::str(boost::format(" -> raw sum = %23.17e+i*%23.17e; divisor = %23.17e\n")
+                       % sum.real() % sum.imag() % q.mag2());
 #endif
-        return sum / (I * q.mag2());
+        return sum / I / q.mag2();
     }
 }

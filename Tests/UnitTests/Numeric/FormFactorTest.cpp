@@ -15,7 +15,7 @@ const auto qlist = testing::Combine(
                     cvector_t({1, 1, 0}), cvector_t({1, 0, 1}), cvector_t({1, 0, 1}),
                     cvector_t({1, 1, 1})),
     testing::Values(1e-19, 1e-17, 1e-15, 1e-12, 1e-9, 1e-6, 1e-3, .03, 1., 1e1, 1e2, 1e3, 1e4),
-    testing::Values(-4e-16, +8e-16, -5e-11, 3e-7, -2e-3, .01, .1),
+    testing::Values(0, -4e-16, +8e-16, -5e-11, 3e-7, -2e-3, .01, .1),
     testing::Values(-1e-15, +1e-14, -1e-11, 1e-7, -1e-3, .1, 1, sqrt(2), sqrt(3))
     );
 

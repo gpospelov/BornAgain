@@ -16,16 +16,17 @@ private:
 #ifdef ALGORITHM_DIAGNOSTIC
         std::string msg0 = polyhedralDiagnosis.message();
 #endif
-        complex_t f1 = ff->evaluate_for_q(p);
-        double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q  << ", p=" << p
+        const complex_t f1 = ff->evaluate_for_q(p);
+        const double avge = (std::abs(f0) + std::abs(f1)) / 2;
+        const double precision = std::max(1e-16, eps*avge);
+        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q  << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
                                                     << "\n msg(q): " << msg0 << "\n"
                                                     << "\n msg(p): "
                                                     << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
-        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q  << ", p=" << p
+        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q  << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
                                                     << "\n msg(q): " << msg0 << "\n"
                                                     << "\n msg(p): "

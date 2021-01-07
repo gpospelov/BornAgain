@@ -7,34 +7,36 @@ using ::testing::internal::ParamGenerator;
 
 namespace formFactorTest {
 
-const complex_t I{0, 1};
-
-auto qlist = testing::Combine(
+const auto qlist = testing::Combine(
     testing::Values(cvector_t({1, 0, 0}), cvector_t({0, 1, 0}), cvector_t({0, 0, 1}),
                     cvector_t({1, 1, 0}), cvector_t({1, 0, 1}), cvector_t({0, 1, 1}),
-                    cvector_t({0, .25, 1}), cvector_t({-.2, 0, 1}), cvector_t({.25, -.2, 1}),
                     cvector_t({1, 1, 1})),
     testing::Values(cvector_t({1, 0, 0}), cvector_t({0, 1, 0}), cvector_t({0, 0, 1}),
                     cvector_t({1, 1, 0}), cvector_t({1, 0, 1}), cvector_t({1, 0, 1}),
                     cvector_t({1, 1, 1})),
-    testing::Values(1e-19, 1e-17, 1e-15, 1e-13, 1e-11, 1e-9, 1e-6, 1e-3, .03, 1., 1e1, 1e2, 1e3,
-                    1e4),
-    testing::Values(-1e-15, +1e-14, -1e-13 * I, -1e-11, 1e-9 * I, -1e-7, -1e-5 * I, 1e-3, +1e-2,
-                    .1 + .1 * I, -.99 + .3 * I, .999, -.9999));
+    testing::Values(1e-19, 1e-17, 1e-15, 1e-12, 1e-9, 1e-6, 1e-3, .03, 1., 1e1, 1e2, 1e3, 1e4),
+    testing::Values(-4e-16, +8e-16, -5e-11, 3e-7, -2e-3, .01, .1),
+    testing::Values(-1e-15, +1e-14, -1e-11, 1e-7, -1e-3, .1, 1, sqrt(2), sqrt(3))
+    );
 
 void run_test_for_many_q(std::function<void(cvector_t)> run_one_test, double qmag_min,
                          double qmag_max)
 {
-    ParamGenerator<std::tuple<cvector_t, cvector_t, double, complex_t>> gen = qlist;
+    ParamGenerator<std::tuple<cvector_t, cvector_t, double, double, double>> gen = qlist;
     for (auto it : gen) {
-        cvector_t qdir = std::get<0>(it);
-        cvector_t qdev = std::get<1>(it);
-        double qmag = std::get<2>(it);
-        complex_t qeps = std::get<3>(it);
-        const cvector_t q = qmag * (qdir + qeps * qdev).unit();
-
-        if (q.mag() <= qmag_min || q.mag() >= qmag_max)
+        const double qrealmag = std::get<2>(it);
+        const double qimagmag = std::get<3>(it);
+        if (std::abs(qimagmag)<2e-16*qrealmag || std::abs(qimagmag)>qrealmag/3)
             continue;
+        const complex_t qmag(qrealmag, qimagmag);
+        if (std::abs(qmag) <= qmag_min || std::abs(qmag) >= qmag_max)
+            continue;
+        const double qsidemag = std::get<4>(it);
+        const cvector_t q_maindir = std::get<0>(it);
+        const cvector_t q_sidedir = std::get<1>(it);
+        if (q_maindir == q_sidedir)
+            continue;
+        const cvector_t q = qmag * (q_maindir + qsidemag * q_sidedir).unit();
 
         run_one_test(q); // callback passed as argument
     }

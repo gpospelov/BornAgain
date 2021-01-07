@@ -49,7 +49,7 @@ TEST_F(FFSymmetryTest, Prism3)
 {
     FormFactorPrism3 p(.83, .45);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_TWOPI / 3); }, 1e-12, 1e-99,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_TWOPI / 3); }, 1e-13, 1e-99,
         2e2);
 }
 
@@ -57,9 +57,9 @@ TEST_F(FFSymmetryTest, Prism6)
 {
     FormFactorPrism6 p(1.33, .42);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3); }, 1e-12, 1e-99, 50);
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3); }, 1e-13, 1e-99, 50);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_TWOPI / 3); }, 3.8e-12,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_TWOPI / 3); }, 1e-13,
         1e-99, 50);
 }
 
@@ -67,7 +67,7 @@ TEST_F(FFSymmetryTest, Tetrahedron)
 {
     FormFactorTetrahedron p(8.43, .25, .53);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_TWOPI / 3); }, 6e-12, 1e-99,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_TWOPI / 3); }, 2e-12, 1e-99,
         2e2);
     // Linux: 3e-12, relaxed for Mac
 }
@@ -106,7 +106,7 @@ TEST_F(FFSymmetryTest, TruncatedSphere)
 {
     FormFactorTruncatedSphere p(.79, .34, 0);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3.13698); }, 1e-10,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3.13698); }, 1e-12,
         1e-99, 2e2);
 }
 

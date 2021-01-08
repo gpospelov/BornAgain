@@ -77,19 +77,19 @@ struct ItemMapper::ItemMapperImpl {
         }
     }
 
-    void processItemInserted(SessionItem* parent, TagRow tagrow)
+    void processItemInserted(SessionItem* parent, const TagRow& tagrow)
     {
         if (parent == m_item)
             callOnItemInserted(m_item, tagrow);
     }
 
-    void processItemRemoved(SessionItem* parent, TagRow tagrow)
+    void processItemRemoved(SessionItem* parent, const TagRow& tagrow)
     {
         if (parent == m_item)
             callOnItemRemoved(m_item, tagrow);
     }
 
-    void processAboutToRemoveItem(SessionItem* parent, TagRow tagrow)
+    void processAboutToRemoveItem(SessionItem* parent, const TagRow& tagrow)
     {
         if (parent == m_item)
             callOnAboutToRemoveItem(m_item, tagrow);
@@ -105,7 +105,7 @@ struct ItemMapper::ItemMapperImpl {
 
     //! Notifies all callbacks subscribed to "item property is changed" event.
 
-    void callOnPropertyChange(SessionItem* item, std::string property_name)
+    void callOnPropertyChange(SessionItem* item, const std::string& property_name)
     {
         if (m_active)
             m_on_property_change(item, property_name);
@@ -113,7 +113,7 @@ struct ItemMapper::ItemMapperImpl {
 
     //! Notifies all callbacks subscribed to "child property changed" event.
 
-    void callOnChildPropertyChange(SessionItem* item, std::string property_name)
+    void callOnChildPropertyChange(SessionItem* item, const std::string& property_name)
     {
         if (m_active)
             m_on_child_property_change(item, property_name);
@@ -121,7 +121,7 @@ struct ItemMapper::ItemMapperImpl {
 
     //! Notifies all callbacks subscribed to "on row inserted" event.
 
-    void callOnItemInserted(SessionItem* parent, TagRow tagrow)
+    void callOnItemInserted(SessionItem* parent, const TagRow& tagrow)
     {
         if (m_active)
             m_on_item_inserted(parent, tagrow);
@@ -129,7 +129,7 @@ struct ItemMapper::ItemMapperImpl {
 
     //! Notifies all callbacks subscribed to "on row removed" event.
 
-    void callOnItemRemoved(SessionItem* parent, TagRow tagrow)
+    void callOnItemRemoved(SessionItem* parent, const TagRow& tagrow)
     {
         if (m_active)
             m_on_item_removed(parent, tagrow);
@@ -137,7 +137,7 @@ struct ItemMapper::ItemMapperImpl {
 
     //! Notifies all callbacks subscribed to "on row about to be removed".
 
-    void callOnAboutToRemoveItem(SessionItem* parent, TagRow tagrow)
+    void callOnAboutToRemoveItem(SessionItem* parent, const TagRow& tagrow)
     {
         if (m_active)
             m_on_about_to_remove_item(parent, tagrow);

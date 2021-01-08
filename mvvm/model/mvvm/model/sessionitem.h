@@ -32,6 +32,9 @@ class ItemMapper;
 class SessionItemData;
 class SessionItemTags;
 
+//! The main object representing an editable/displayable/serializable entity. Serves as a
+//! construction element (node) of SessionModel to represent all the data of GUI application.
+
 class MVVM_MODEL_EXPORT SessionItem {
 public:
     explicit SessionItem(model_type modelType = Constants::BaseType);
@@ -60,8 +63,8 @@ public:
 
     template <typename T> T data(int role = ItemDataRole::DATA) const;
 
-    template <typename T> bool setData(const T& value, int role = ItemDataRole::DATA);
-    bool setDataIntern(const Variant& variant, int role);
+    template <typename T>
+    bool setData(const T& value, int role = ItemDataRole::DATA, bool direct = false);
 
     SessionItemData* itemData();
     const SessionItemData* itemData() const;
@@ -118,7 +121,7 @@ private:
     friend class SessionModel;
     friend class JsonItemConverter;
     virtual void activate() {}
-    bool set_data_internal(const Variant& value, int role);
+    bool set_data_internal(const Variant& value, int role, bool direct);
     Variant data_internal(int role) const;
     void setParent(SessionItem* parent);
     void setModel(SessionModel* model);
@@ -131,11 +134,13 @@ private:
     std::unique_ptr<SessionItemImpl> p_impl;
 };
 
-//! Sets data for given role.
+//! Sets data for a given role. When extra parameter `direct` is false (default case), will act
+//! through the model to register command in undo/redo framework (if enabled) and so allow later
+//! undo.
 
-template <typename T> inline bool SessionItem::setData(const T& value, int role)
+template <typename T> inline bool SessionItem::setData(const T& value, int role, bool direct)
 {
-    return set_data_internal(Variant::fromValue(value), role);
+    return set_data_internal(Variant::fromValue(value), role, direct);
 }
 
 //! Returns data of given type T for given role.
@@ -198,4 +203,4 @@ inline void SessionItem::setProperty(const std::string& tag, const char* value)
 
 } // namespace ModelView
 
-#endif // MVVM_MODEL_SESSIONITEM_H
+#endif // BORNAGAIN_MVVM_MODEL_MVVM_MODEL_SESSIONITEM_H

@@ -30,11 +30,7 @@ const std::string property_name("name");
 //! Test of CompountItem machinery (property children etc).
 
 class CompoundItemTest : public ::testing::Test {
-public:
-    ~CompoundItemTest();
 };
-
-CompoundItemTest::~CompoundItemTest() = default;
 
 TEST_F(CompoundItemTest, initialState)
 {
@@ -85,9 +81,9 @@ TEST_F(CompoundItemTest, addDoubleProperty)
 
     EXPECT_TRUE(propertyItem->data<QVariant>(ItemDataRole::LIMITS).isValid());
 
-    // limits should be non negative by default
+    // limits should be "negative 'unlimited' by default
     auto limits = propertyItem->data<RealLimits>(ItemDataRole::LIMITS);
-    EXPECT_TRUE(limits.hasLowerLimit());
+    EXPECT_FALSE(limits.hasLowerLimit());
     EXPECT_FALSE(limits.hasUpperLimit());
 }
 
@@ -243,4 +239,15 @@ TEST_F(CompoundItemTest, displayNameIndexAddition)
     child1->setDisplayName("Hyde");
     EXPECT_EQ(child0->displayName(), "Jekyll");
     EXPECT_EQ(child1->displayName(), "Hyde");
+}
+
+//! Test all children method.
+//! Property items are also children.
+
+TEST_F(CompoundItemTest, children)
+{
+    CompoundItem item;
+    EXPECT_TRUE(item.children().empty());
+    auto propertyItem = item.addProperty(property_name, false);
+    EXPECT_EQ(item.children(), std::vector<SessionItem*>({propertyItem}));
 }

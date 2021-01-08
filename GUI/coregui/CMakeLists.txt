@@ -104,6 +104,7 @@ target_link_libraries(${library_name}
     Qt5::PrintSupport
     Qt5::Network
     qcustomplot
+    MVVM::View
 )
 
 # --- Installation ---------

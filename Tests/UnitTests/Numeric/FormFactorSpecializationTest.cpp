@@ -1,4 +1,5 @@
 #include "Sample/HardParticle/HardParticles.h"
+#include "Sample/HardParticle/PolyhedralComponents.h" // for diagnostic
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/Numeric/MultiQTestbed.h"
 

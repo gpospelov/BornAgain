@@ -30,6 +30,14 @@ void PolyhedralDiagnosis::reset() {
 std::string PolyhedralDiagnosis::message() const {
     return "algo=" + std::to_string(algo) + ", order=" + std::to_string(order) + ", msg:\n" + msg;
 }
+bool PolyhedralDiagnosis::operator==(const PolyhedralDiagnosis& other) const
+{
+    return order==other.order && algo==other.algo;
+}
+bool PolyhedralDiagnosis::operator!=(const PolyhedralDiagnosis& other) const
+{
+    return !(*this==other);
+}
 #endif
 
 

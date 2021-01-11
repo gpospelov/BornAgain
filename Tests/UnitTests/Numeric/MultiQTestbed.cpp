@@ -1,4 +1,4 @@
-#include "Tests/UnitTests/Numeric/FormFactorTest.h"
+#include "Tests/UnitTests/Numeric/MultiQTestbed.h"
 #include "Tests/GTestWrapper/google_test.h"
 
 using ::testing::Combine;
@@ -24,16 +24,14 @@ void run_test_for_many_q(std::function<void(cvector_t)> run_one_test, double qma
 {
     ParamGenerator<std::tuple<cvector_t, cvector_t, double, double, double>> gen = qlist;
     for (auto it : gen) {
-        const double qrealmag = std::get<2>(it);
-        const double qimagmag = std::get<3>(it);
-        if (std::abs(qimagmag)<2e-16*qrealmag || std::abs(qimagmag)>qrealmag/3)
-            continue;
-        const complex_t qmag(qrealmag, qimagmag);
-        if (std::abs(qmag) <= qmag_min || std::abs(qmag) >= qmag_max)
-            continue;
-        const double qsidemag = std::get<4>(it);
         const cvector_t q_maindir = std::get<0>(it);
         const cvector_t q_sidedir = std::get<1>(it);
+        const double qrealmag = std::get<2>(it);
+        const double qimagrel = std::get<3>(it);
+        const double qsidemag = std::get<4>(it);
+        const complex_t qmag(qrealmag, qrealmag*qimagrel);
+        if (std::abs(qmag) <= qmag_min || std::abs(qmag) >= qmag_max)
+            continue;
         if (q_maindir == q_sidedir)
             continue;
         const cvector_t q = qmag * (q_maindir + qsidemag * q_sidedir).unit();

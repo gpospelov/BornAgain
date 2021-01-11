@@ -19,13 +19,13 @@
 #include "Sample/HardParticle/IFormFactorPolyhedron.h"
 #include "Sample/HardParticle/Polyhedron.h"
 
-#ifdef POLYHEDRAL_DIAGNOSTIC // TODO restore
-void IFormFactorPolyhedron::setLimits(double _q, int _n)
-{
-    q_limit_series = _q;
-    n_limit_series = _n;
-}
-#endif
+// #ifdef ALGORITHM_DIAGNOSTIC // TODO restore
+// void IFormFactorPolyhedron::setLimits(double _q, int _n)
+// {
+//     q_limit_series = _q;
+//     n_limit_series = _n;
+// }
+// #endif
 
 IFormFactorPolyhedron::IFormFactorPolyhedron(const NodeMeta& meta,
                                              const std::vector<double>& PValues)

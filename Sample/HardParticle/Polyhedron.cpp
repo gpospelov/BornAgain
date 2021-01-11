@@ -14,13 +14,15 @@
 
 //! The mathematics implemented here is described in full detail in a paper
 //! by Joachim Wuttke, entitled
-//! "Form factor (Fourier shape transform) of polygon and polyhedron."
+//! "Numerically stable form factor of any polygon and polyhedron"
 
 #include "Sample/HardParticle/Polyhedron.h"
+#include "Sample/HardParticle/PolyhedralTopology.h"
 #include "Base/Math/Functions.h"
 #include <iomanip>
 #include <iostream>
 #include <stdexcept> // need overlooked by g++ 5.4
+#include <boost/format.hpp>
 
 namespace {
 const double eps = 2e-16;
@@ -140,9 +142,8 @@ complex_t Polyhedron::evaluate_for_q(const cvector_t& q) const
 complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
 {
     double q_red = m_radius * q.mag();
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis.maxOrder = 0;
-    diagnosis.nExpandedFaces = 0;
+#ifdef ALGORITHM_DIAGNOSTIC
+    polyhedralDiagnosis.reset();
 #endif
     if (q_red == 0) {
         return m_volume;
@@ -154,23 +155,19 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         for (int n = 2; n < n_limit_series; ++n) {
             if (m_sym_Ci && n & 1)
                 continue;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            diagnosis.maxOrder = std::max(diagnosis.maxOrder, n);
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.order = std::max(polyhedralDiagnosis.order, n);
 #endif
             complex_t term = 0;
             for (const PolyhedralFace& Gk : m_faces) {
                 complex_t tmp = Gk.ff_n(n + 1, q);
                 term += tmp;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-                if (diagnosis.debmsg >= 2)
-                    std::cout << "Gkffn sum=" << term << " incr=" << tmp << "\n";
-#endif
             }
             term *= n_fac;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if (diagnosis.debmsg >= 1)
-                std::cout << std::scientific << std::showpos << std::setprecision(16)
-                          << "  SUM=" << m_volume + sum << " +TERM=" << term << "\n";
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.msg +=
+                boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n")
+                           % n % term.real() % term.imag());
 #endif
             sum += term;
             if (std::abs(term) <= eps * std::abs(sum) || std::abs(sum) < eps * m_volume)
@@ -181,12 +178,6 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 return m_volume + sum; // regular exit
             n_fac = m_sym_Ci ? -n_fac : mul_I(n_fac);
         }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (!diagnosis.request_convergence) {
-            std::cout << "series F(q) not converged\n";
-            return m_volume + sum;
-        }
-#endif
         throw std::runtime_error("Series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
@@ -195,15 +186,19 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             complex_t qn = Gk.normalProjectionConj(q); // conj(q)*normal
             if (std::abs(qn) < eps * q.mag())
                 continue;
-            complex_t ff = Gk.ff(q, m_sym_Ci);
-            sum += qn * ff;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if (diagnosis.debmsg >= 1)
-                std::cout << std::scientific << std::showpos << std::setprecision(16)
-                          << "  SUM=" << sum << " TERM=" << qn * ff << " qn=" << qn.real()
-                          << " ff=" << ff << "\n";
+            complex_t term = qn * Gk.ff(q, m_sym_Ci);
+#ifdef ALGORITHM_DIAGNOSTIC
+            polyhedralDiagnosis.msg +=
+                boost::str(boost::format("  + face_ff = %23.17e+i*%23.17e\n")
+                           % term.real() % term.imag());
 #endif
+            sum += term;
         }
-        return sum / (I * q.mag2());
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.msg +=
+            boost::str(boost::format(" -> raw sum = %23.17e+i*%23.17e; divisor = %23.17e\n")
+                       % sum.real() % sum.imag() % q.mag2());
+#endif
+        return sum / I / q.mag2();
     }
 }

@@ -1,6 +1,6 @@
 #include "Sample/HardParticle/HardParticles.h"
 #include "Tests/GTestWrapper/google_test.h"
-#include "Tests/UnitTests/Numeric/FormFactorTest.h"
+#include "Tests/UnitTests/Numeric/MultiQTestbed.h"
 
 //! Compare form factor for particle shapes A and B, where A is given special
 //! parameter values so that it coincides with the more symmetric B.
@@ -16,15 +16,24 @@ protected:
 private:
     void test_ff_eq(cvector_t q, IBornFF* p0, IBornFF* p1, double eps)
     {
-        complex_t f0 = p0->evaluate_for_q(q);
-        complex_t f1 = p1->evaluate_for_q(q);
-        double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q;
-        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q;
+        const complex_t f0 = p0->evaluate_for_q(q);
+        const complex_t f1 = p1->evaluate_for_q(q);
+        const double avge = (std::abs(f0) + std::abs(f1)) / 2;
+        const double precision = std::max(1e-16, eps*avge);
+        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q  << "\n"
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << polyhedralDiagnosis.message() << "\n"
+#endif
+            ;
+        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q  << "\n"
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << polyhedralDiagnosis.message() << "\n"
+#endif
+            ;
     }
 };
 
-const double eps_polyh = 7.5e-13;
+const double eps_polyh = 2e-13;
 
 TEST_F(FFSpecializationTest, TruncatedCubeAsBox)
 {

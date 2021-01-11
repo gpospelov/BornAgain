@@ -85,7 +85,7 @@ TEST_F(FFSymmetryTest, Cone6_steep)
 {
     FormFactorCone6 p(.23, 3.5, .999 * M_PI / 2);
     run_test(
-        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 1e-11, 1e-99,
+        &p, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 3e-10, 1e-99,
         50);
 }
 

@@ -164,7 +164,7 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 term += tmp;
             }
             term *= n_fac;
-#ifdef ALGORITHM_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC_LEVEL2
             polyhedralDiagnosis.msg +=
                 boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n")
                            % n % term.real() % term.imag());

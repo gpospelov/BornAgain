@@ -10,8 +10,6 @@
 #include <complex>
 #include <vector>
 
-static double eps(2e-16);
-
 const auto qlist = testing::Combine(
     testing::Values(cvector_t({1, 0, 0}), cvector_t({0, 1, 0}), cvector_t({0, 0, 1}),
                     cvector_t({1, 1, 0}), cvector_t({1, 0, 1}), cvector_t({0, 1, 1}),
@@ -22,6 +20,7 @@ const auto qlist = testing::Combine(
                     cvector_t({2, 3, 0}), cvector_t({5, 0, 2}), cvector_t({0, 5, 3}),
                     cvector_t({1, sqrt(2), 0}), cvector_t({sqrt(3), 0, 1}), cvector_t({1, 1, 1})),
     testing::Values(1e-19, 1e-17, 1e-15, 1e-12, 1e-9, 1e-6, 1e-3, .03, 1., 3., 10., 30.),
+    testing::Values(-1., 1.),
     testing::Values(0, -4e-16, +8e-16, -5e-11, 3e-7, -2e-3, .01, .1)
     );
 
@@ -44,7 +43,7 @@ std::string nice_q( cvector_t q )
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    const IBornFF& ff,
+    int& ifail, const IBornFF& ff,
     const cvector_t& q0, const cvector_t& q1, const complex_t F0, const complex_t F1,
     const PolyhedralDiagnosis& d0, const PolyhedralDiagnosis& d1,
     const double qmindiff, const double Fmaxreldiff)
@@ -56,7 +55,8 @@ void bisect(
         double step = std::abs(F0-F1);
         double relstep = step/aval;
         if( relstep>Fmaxreldiff){
-            std::cout<<"relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<d0.message()<<"->"<<d1.message()<<" at q between "<<nice_q(q0)<<" and "<<nice_q(q1)<<"\n";
+            std::cout<<"relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<d0.message()<<"->"<<d1.message()<<" at q between "<<nice_q(q0)<<" and "<<nice_q(q1)<<std::endl;
+            ++ifail;
             // maxrelstep = relstep;
         }
         return;
@@ -64,15 +64,16 @@ void bisect(
     cvector_t q2 = (q0 + q1)/2.;
     complex_t F2 = ff.evaluate_for_q(q2);
     PolyhedralDiagnosis d2 = polyhedralDiagnosis;
+    //std::cout << nice_q(q2) << " -> " << F2 << ": " << d2.message() << std::endl;
     if( d2!=d0 )
-        bisect(ff, q0, q2, F0, F2, d0, d2, qmindiff, Fmaxreldiff);
+        bisect(ifail, ff, q0, q2, F0, F2, d0, d2, qmindiff, Fmaxreldiff);
     if( d2!=d1 )
-        bisect(ff, q2, q1, F2, F1, d2, d1, qmindiff, Fmaxreldiff);
+        bisect(ifail, ff, q2, q1, F2, F1, d2, d1, qmindiff, Fmaxreldiff);
 }
 
-void run_bisection(IBornFF& ff, const cvector_t& q0, const cvector_t& q1)
+void run_bisection(int& ifail, IBornFF& ff, const cvector_t& q0, const cvector_t& q1)
 {
-    const double qdiffmin = std::max(q0.mag(), q1.mag())/4e16;
+    const double qdiffmin = std::max(q0.mag(), q1.mag())/4e15;
     complex_t F0 = ff.evaluate_for_q(q0);
     PolyhedralDiagnosis d0 = polyhedralDiagnosis;
     complex_t F1 = ff.evaluate_for_q(q1);
@@ -80,24 +81,30 @@ void run_bisection(IBornFF& ff, const cvector_t& q0, const cvector_t& q1)
 
     if (d0==d1)
         return;
-    bisect(ff, q0, q1, F0, F1, d0, d1, qdiffmin, 1e-14);
+    std::cout << "0:: " << nice_q(q0) << " -> " << F0 << ": " << d0.message() << std::endl;
+    std::cout << "1:: " << nice_q(q1) << " -> " << F1 << ": " << d1.message() << std::endl;
+    bisect(ifail, ff, q0, q1, F0, F1, d0, d1, qdiffmin, 1e-18);
 }
 
 void run_test(IBornFF& ff)
 {
-    ::testing::internal::ParamGenerator<std::tuple<cvector_t, cvector_t, double, double>>
+    ::testing::internal::ParamGenerator<std::tuple<cvector_t, cvector_t, double, double, double>>
         gen = qlist;
+    int ifail = 0;
     for (auto it : gen) {
         const cvector_t q_dir0 = std::get<0>(it).unit();
         const cvector_t q_dir1 = std::get<1>(it).unit();
         const double qrealmag = std::get<2>(it);
-        const double qimagrel = std::get<3>(it);
+        const double qrel1 = std::get<3>(it);
+        const double qimagrel = std::get<4>(it);
         const complex_t qmag(qrealmag, qrealmag*qimagrel);
-        const cvector_t q0 = qmag * q_dir0;
-        const cvector_t q1 = qmag * q_dir1;
+        const cvector_t q0 = q_dir0 * qmag;
+        const cvector_t q1 = q_dir1 * (qmag * qrel1);
+        std::cout << "DEBUG " << qmag << " vs " << qmag*qrel1 << " -> " << q1 << std::endl;
 
-        run_bisection(ff, q0, q1);
+        run_bisection(ifail, ff, q0, q1);
     }
+    EXPECT_EQ(ifail, 0);
 }
 
 class BisectFF : public testing::Test {};

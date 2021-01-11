@@ -28,7 +28,10 @@ void PolyhedralDiagnosis::reset() {
     order = 0; algo = 0; msg.clear();
 };
 std::string PolyhedralDiagnosis::message() const {
-    return "algo=" + std::to_string(algo) + ", order=" + std::to_string(order) + ", msg:\n" + msg;
+    std::string ret = "algo=" + std::to_string(algo) + ", order=" + std::to_string(order);
+    if (!msg.empty())
+        ret += ", msg:\n" + msg;
+    return ret;
 }
 bool PolyhedralDiagnosis::operator==(const PolyhedralDiagnosis& other) const
 {

@@ -27,9 +27,8 @@ FancyLabel::FancyLabel(QWidget* parent) : QLabel(parent)
 
 void FancyLabel::setTextAnimated(const QString& animated_text)
 {
-    if (m_timer->isActive()) {
+    if (m_timer->isActive())
         m_timer->stop();
-    }
 
     if (animated_text == text())
         return;
@@ -47,7 +46,7 @@ void FancyLabel::setTextAnimated(const QString& animated_text)
     m_timer->start();
 }
 
-void FancyLabel::timeout()
+void FancyLabel::onTimeout()
 {
     if (m_current_index <= m_text.size()) {
         setText(m_text.left(m_current_index));
@@ -62,5 +61,5 @@ void FancyLabel::init_fancy_label()
     m_total_effect_duration = 200; // in msec
     m_current_index = 0;
     m_timer = new QTimer(this);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(timeout()));
+    connect(m_timer, &QTimer::timeout, this, &FancyLabel::onTimeout);
 }

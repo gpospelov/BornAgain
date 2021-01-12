@@ -251,7 +251,6 @@ bool ProjectManager::saveProject(QString projectFileName)
 
     try {
         m_saveService->save(projectFileName);
-
     } catch (const std::exception& ex) {
         QString message = QString("Failed to save project under '%1'. \n\n").arg(projectFileName);
         message.append("Exception was thrown.\n\n");
@@ -321,7 +320,8 @@ void ProjectManager::createNewProject()
     m_messageService->clear();
 
     m_project_document = new ProjectDocument();
-    connect(m_project_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
+    connect(m_project_document, &ProjectDocument::modified, this,
+            &ProjectManager::onDocumentModified);
     m_project_document->setProjectName("Untitled");
     m_project_document->setApplicationModels(m_mainWindow->models());
     m_project_document->setLogger(m_messageService);

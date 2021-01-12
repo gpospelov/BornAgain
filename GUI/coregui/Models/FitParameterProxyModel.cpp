@@ -324,18 +324,19 @@ void FitParameterProxyModel::connectModel(QAbstractItemModel* sourceModel, bool 
 {
     ASSERT(sourceModel);
     if (isConnect) {
-        connect(sourceModel, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                SLOT(onSourceDataChanged(QModelIndex, QModelIndex, QVector<int>)));
-        connect(sourceModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onSourceRowsRemoved(QModelIndex, int, int)));
-        connect(sourceModel, SIGNAL(modelAboutToBeReset()), this, SLOT(onSourceAboutToBeReset()));
+        connect(sourceModel, &QAbstractItemModel::dataChanged, this,
+                &FitParameterProxyModel::onSourceDataChanged);
+        connect(sourceModel, &QAbstractItemModel::rowsRemoved, this,
+                &FitParameterProxyModel::onSourceRowsRemoved);
+        connect(sourceModel, &QAbstractItemModel::modelAboutToBeReset, this,
+                &FitParameterProxyModel::onSourceAboutToBeReset);
     } else {
-        disconnect(sourceModel, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-                   SLOT(onSourceDataChanged(QModelIndex, QModelIndex, QVector<int>)));
-        disconnect(sourceModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SLOT(onSourceRowsRemoved(QModelIndex, int, int)));
-        disconnect(sourceModel, SIGNAL(modelAboutToBeReset()), this,
-                   SLOT(onSourceAboutToBeReset()));
+        disconnect(sourceModel, &QAbstractItemModel::dataChanged, this,
+                   &FitParameterProxyModel::onSourceDataChanged);
+        disconnect(sourceModel, &QAbstractItemModel::rowsRemoved, this,
+                   &FitParameterProxyModel::onSourceRowsRemoved);
+        disconnect(sourceModel, &QAbstractItemModel::modelAboutToBeReset, this,
+                   &FitParameterProxyModel::onSourceAboutToBeReset);
     }
 }
 

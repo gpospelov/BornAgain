@@ -25,10 +25,20 @@ const auto qlist = testing::Combine(
     );
 
 
+complex_t deriv(const IBornFF& ff, const cvector_t& qf, const complex_t Ff,
+                const PolyhedralDiagnosis& df, const cvector_t& qdir, const double qstep)
+{
+    assert(Ff==ff.evaluate_for_q(qf));
+    complex_t Fi = ff.evaluate_for_q(qf+qstep*qdir);
+    PolyhedralDiagnosis di = polyhedralDiagnosis;
+    //assert(di==df);
+    return (Ff-Fi)/qstep;
+}
+
 //! Bisect between two q's to find possible discontinuities
 
 void bisect(
-    int& ifail, const IBornFF& ff,
+    int& ifail, const cvector_t& qdir, const IBornFF& ff,
     const cvector_t& q0, const cvector_t& q1, const complex_t F0, const complex_t F1,
     const PolyhedralDiagnosis& d0, const PolyhedralDiagnosis& d1,
     const double qmindiff, const double Fmaxreldiff)
@@ -40,7 +50,20 @@ void bisect(
         double step = std::abs(F0-F1);
         double relstep = step/aval;
         if( relstep>Fmaxreldiff){
-            std::cout<<"relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<" for "<<d0.message()<<"->"<<d1.message()<<" at q between "<<q0<<" and "<<q1<<std::endl;
+            std::cout<<d0.message()<<" -> "<<d1.message()<<":\n";
+            std::cout<<"relstep "<<std::setprecision(8)<<relstep<<"="<<step<<"/"<<std::setprecision(16)<<aval<<"\n";
+            std::cout<<"    q[-] = "<<q0<<"\n";
+            std::cout<<"    q[+] = "<<q1<<"\n";
+            std::cout<<"    F[-] = "<<F0<<"\n";
+            std::cout<<"    F[+] = "<<F1<<"\n";
+            std::cout<<"    F'[-10] ="<<deriv(ff, q0, F0, d0, -qdir, 10*qmindiff)<<"\n";
+            std::cout<<"    F'[-3]  ="<<deriv(ff, q0, F0, d0, -qdir,  3*qmindiff)<<"\n";
+            std::cout<<"    F'[-1]  ="<<deriv(ff, q0, F0, d0, -qdir,  1*qmindiff)<<"\n";
+            std::cout<<"    F'[here]="<<(F1-F0)/(q0-q1).mag()<<"\n";
+            std::cout<<"    F'[+1]  ="<<deriv(ff, q1, F1, d1, +qdir, 1*qmindiff)<<"\n";
+            std::cout<<"    F'[+3]  ="<<deriv(ff, q1, F1, d1, +qdir, 3*qmindiff)<<"\n";
+            std::cout<<"    F'[+10] ="<<deriv(ff, q1, F1, d1, +qdir, 10*qmindiff)<<"\n";
+            std::cout<<std::endl;
             ++ifail;
             // maxrelstep = relstep;
             return;
@@ -52,14 +75,14 @@ void bisect(
     complex_t F2 = ff.evaluate_for_q(q2);
     PolyhedralDiagnosis d2 = polyhedralDiagnosis;
     if( d2!=d0 )
-        bisect(ifail, ff, q0, q2, F0, F2, d0, d2, qmindiff, Fmaxreldiff);
+        bisect(ifail, qdir, ff, q0, q2, F0, F2, d0, d2, qmindiff, Fmaxreldiff);
     if( d2!=d1 )
-        bisect(ifail, ff, q2, q1, F2, F1, d2, d1, qmindiff, Fmaxreldiff);
+        bisect(ifail, qdir, ff, q2, q1, F2, F1, d2, d1, qmindiff, Fmaxreldiff);
 }
 
 void run_bisection(int& ifail, IBornFF& ff, const cvector_t& q0, const cvector_t& q1)
 {
-    const double qdiffmin = std::max(q0.mag(), q1.mag())/4e15;
+    const double qdiffmin = std::max(q0.mag(), q1.mag())/4e11;
     complex_t F0 = ff.evaluate_for_q(q0);
     PolyhedralDiagnosis d0 = polyhedralDiagnosis;
     complex_t F1 = ff.evaluate_for_q(q1);
@@ -67,7 +90,7 @@ void run_bisection(int& ifail, IBornFF& ff, const cvector_t& q0, const cvector_t
 
     if (d0==d1)
         return;
-    bisect(ifail, ff, q0, q1, F0, F1, d0, d1, qdiffmin, 1e-11);
+    bisect(ifail, q1-q0, ff, q0, q1, F0, F1, d0, d1, qdiffmin, 1e-11);
 }
 
 void run_test(IBornFF& ff)

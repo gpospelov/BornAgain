@@ -338,6 +338,20 @@ complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
     }
 }
 
+//! Two-dimensional form factor, for use in prism, from power series.
+
+complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
+{
+    return m_area + expansion(1., 1., qpa, std::abs(m_area));
+}
+
+//! Two-dimensional form factor, for use in prism, from sum over edge form factors.
+
+complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
+{
+    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
+}
+
 //! Returns the two-dimensional form factor of this face, for use in a prism.
 
 complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
@@ -348,24 +362,10 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
     if (qpa_red == 0) {
         return m_area;
     } else if (qpa_red < qpa_limit_series && !sym_S2) {
-        // summation of power series
         return ff_2D_expanded(qpa);
     } else {
-        // direct evaluation of analytic formula
-        complex_t ret = ff_2D_direct(qpa);
-        // std::cout << std::setprecision(16) << "    ret=" << ret << " ff=" << ff << "\n";
-        return ret;
+        return ff_2D_direct(qpa);
     }
-}
-
-complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
-{
-    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
-}
-
-complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
-{
-    return m_area + expansion(1., 1., qpa, std::abs(m_area));
 }
 
 //! Throws if deviation from inversion symmetry is detected. Does not check vertices.

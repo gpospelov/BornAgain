@@ -48,8 +48,14 @@ ProjectionsToolBar::ProjectionsToolBar(ProjectionsEditorActions* editorActions, 
     setup_shapes_group();
     setup_extratools_group();
 
-    connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)), this,
-            SLOT(onActivityGroupChange(int)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    connect(m_activityButtonGroup, &QButtonGroup::idClicked, this,
+            &ProjectionsToolBar::onActivityGroupChange);
+#else
+    connect(m_activityButtonGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this,
+            &ProjectionsToolBar::onActivityGroupChange);
+#endif
 
     m_previousActivity = currentActivity();
 }

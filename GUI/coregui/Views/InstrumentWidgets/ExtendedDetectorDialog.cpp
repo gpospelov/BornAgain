@@ -35,7 +35,7 @@ ExtendedDetectorDialog::ExtendedDetectorDialog(QWidget* parent)
 
     QVBoxLayout* layout = new QVBoxLayout;
     QPushButton* button = new QPushButton("Close", this);
-    connect(button, SIGNAL(clicked()), this, SLOT(close()));
+    connect(button, &QPushButton::clicked, this, &ExtendedDetectorDialog::close);
 
     QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);

@@ -59,7 +59,8 @@ RealDataPropertiesWidget::RealDataPropertiesWidget(QWidget* parent)
     setLayout(mainLayout);
 
     setComboConnected(true);
-    connect(m_linkManager, SIGNAL(instrumentMapUpdated()), this, SLOT(onInstrumentMapUpdate()));
+    connect(m_linkManager, &LinkInstrumentManager::instrumentMapUpdated, this,
+            &RealDataPropertiesWidget::onInstrumentMapUpdate);
 
     setPropertiesEnabled(false);
 }
@@ -179,11 +180,13 @@ void RealDataPropertiesWidget::setComboToIdentifier(const QString& identifier)
 void RealDataPropertiesWidget::setComboConnected(bool isConnected)
 {
     if (isConnected) {
-        connect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)), this,
-                SLOT(onInstrumentComboIndexChanged(int)));
+        connect(m_instrumentCombo,
+                static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+                &RealDataPropertiesWidget::onInstrumentComboIndexChanged);
     } else {
-        disconnect(m_instrumentCombo, SIGNAL(currentIndexChanged(int)), this,
-                   SLOT(onInstrumentComboIndexChanged(int)));
+        disconnect(m_instrumentCombo,
+                   static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this,
+                   &RealDataPropertiesWidget::onInstrumentComboIndexChanged);
     }
 }
 

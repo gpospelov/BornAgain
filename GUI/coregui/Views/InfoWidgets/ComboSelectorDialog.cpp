@@ -116,10 +116,10 @@ QBoxLayout* ComboSelectorDialog::createButtonLayout()
     auto result = new QHBoxLayout;
 
     auto cancelButton = new QPushButton("Cancel");
-    connect(cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(cancelButton, &QPushButton::clicked, this, &ComboSelectorDialog::reject);
 
     auto okButton = new QPushButton("Try current selection");
-    connect(okButton, SIGNAL(clicked()), this, SLOT(accept()));
+    connect(okButton, &QPushButton::clicked, this, &ComboSelectorDialog::accept);
 
     result->addStretch(1);
     result->addWidget(okButton);

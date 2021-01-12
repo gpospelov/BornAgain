@@ -38,9 +38,19 @@ MaskEditorToolBar::MaskEditorToolBar(MaskEditorActions* editorActions, QWidget* 
     setup_maskmodify_group();
     setup_extratools_group();
 
-    connect(m_activityButtonGroup, SIGNAL(buttonClicked(int)), this,
-            SLOT(onActivityGroupChange(int)));
-    connect(m_maskValueGroup, SIGNAL(buttonClicked(int)), this, SLOT(onMaskValueGroupChange(int)));
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+    connect(m_activityButtonGroup, &QButtonGroup::idClicked, this,
+            &MaskEditorToolBar::onActivityGroupChange);
+    connect(m_maskValueGroup, &QButtonGroup::idClicked, this,
+            &MaskEditorToolBar::onMaskValueGroupChange);
+#else
+    connect(m_activityButtonGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this,
+            &MaskEditorToolBar::onActivityGroupChange);
+    connect(m_maskValueGroup,
+            static_cast<void (QButtonGroup::*)(int)>(&QButtonGroup::buttonClicked), this,
+            &MaskEditorToolBar::onMaskValueGroupChange);
+#endif
 
     m_previousActivity = currentActivity();
 }
@@ -93,7 +103,8 @@ void MaskEditorToolBar::setup_selection_group()
     resetViewButton->setIcon(QIcon(":/images/camera-metering-center.svg"));
     resetViewButton->setToolTip("Reset pan/zoom to initial state");
     addWidget(resetViewButton);
-    connect(resetViewButton, SIGNAL(clicked()), m_editorActions, SIGNAL(resetViewRequest()));
+    connect(resetViewButton, &QToolButton::clicked, m_editorActions,
+            &MaskEditorActions::resetViewRequest);
 
     add_separator();
 
@@ -201,16 +212,18 @@ void MaskEditorToolBar::setup_extratools_group()
     presentationButton->setToolTip("Press and hold to see mask results.");
     addWidget(presentationButton);
 
-    connect(presentationButton, SIGNAL(pressed()), this, SLOT(onPresentationTypePressed()));
-    connect(presentationButton, SIGNAL(released()), this, SLOT(onPresentationTypeReleased()));
+    connect(presentationButton, &QToolButton::pressed, this,
+            &MaskEditorToolBar::onPresentationTypePressed);
+    connect(presentationButton, &QToolButton::released, this,
+            &MaskEditorToolBar::onPresentationTypeReleased);
 
     QToolButton* propertyPanelButton = new QToolButton(this);
     propertyPanelButton->setIcon(QIcon(":/MaskWidgets/images/maskeditor_toolpanel.svg"));
     propertyPanelButton->setToolTip("Open panel with additional properties");
     addWidget(propertyPanelButton);
 
-    connect(propertyPanelButton, SIGNAL(clicked()), m_editorActions,
-            SIGNAL(propertyPanelRequest()));
+    connect(propertyPanelButton, &QToolButton::clicked, m_editorActions,
+            &MaskEditorActions::propertyPanelRequest);
     add_separator();
 }
 

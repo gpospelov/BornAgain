@@ -46,9 +46,10 @@ ProjectionsEditorCanvas::ProjectionsEditorCanvas(QWidget* parent)
     mainLayout->setSpacing(0);
     setLayout(mainLayout);
 
-    connect(m_view, SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)), this,
-            SIGNAL(changeActivityRequest(MaskEditorFlags::Activity)));
-    connect(m_view, SIGNAL(deleteSelectedRequest()), this, SIGNAL(deleteSelectedRequest()));
+    connect(m_view, &MaskGraphicsView::changeActivityRequest, this,
+            &ProjectionsEditorCanvas::changeActivityRequest);
+    connect(m_view, &MaskGraphicsView::deleteSelectedRequest, this,
+            &ProjectionsEditorCanvas::deleteSelectedRequest);
 }
 
 void ProjectionsEditorCanvas::setContext(SessionModel* model,

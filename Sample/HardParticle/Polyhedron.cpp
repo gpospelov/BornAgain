@@ -149,6 +149,9 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         return m_volume;
     } else if (q_red < q_limit_series) {
         // summation of power series
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.algo = 100;
+#endif
         complex_t sum = 0;
         complex_t n_fac = (m_sym_Ci ? -2 : -1) / q.mag2();
         int count_return_condition = 0;
@@ -181,6 +184,9 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         throw std::runtime_error("Series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.algo = 200;
+#endif
         complex_t sum = 0;
         for (const PolyhedralFace& Gk : m_faces) {
             complex_t qn = Gk.normalProjectionConj(q); // conj(q)*normal

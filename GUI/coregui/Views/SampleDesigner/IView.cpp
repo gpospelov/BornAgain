@@ -18,8 +18,8 @@
 
 IView::IView(QGraphicsItem* parent) : QGraphicsObject(parent), m_item(0)
 {
-    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+    connect(this, &IView::xChanged, [this]() { onChangedX(); });
+    connect(this, &IView::yChanged, [this]() { onChangedX(); });
 }
 
 IView::~IView()

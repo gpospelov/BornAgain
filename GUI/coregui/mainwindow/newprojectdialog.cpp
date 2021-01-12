@@ -39,27 +39,27 @@ NewProjectDialog::NewProjectDialog(QWidget* parent, Mode mode, const QString& wo
     QLabel* nameLabel = new QLabel("Project name:");
     m_projectNameEdit = new QLineEdit;
     m_projectNameEdit->setText("Untitled");
-    connect(m_projectNameEdit, SIGNAL(textEdited(QString)), this,
-            SLOT(checkIfProjectNameIsValid(QString)));
+    connect(m_projectNameEdit, &QLineEdit::textEdited, this,
+            &NewProjectDialog::checkIfProjectNameIsValid);
     nameLabel->setBuddy(m_projectNameEdit);
 
     QLabel* parentDirLabel = new QLabel(mode == CREATE ? "Create in:" : "Save in:");
     m_workDirEdit = new QLineEdit;
     m_workDirEdit->setText(QDir::toNativeSeparators(QDir::homePath()));
-    connect(m_workDirEdit, SIGNAL(textEdited(QString)), this,
-            SLOT(checkIfProjectPathIsValid(QString)));
+    connect(m_workDirEdit, &QLineEdit::textEdited, this,
+            &NewProjectDialog::checkIfProjectPathIsValid);
     parentDirLabel->setBuddy(m_workDirEdit);
 
     m_browseButton = new QPushButton("Browse");
-    connect(m_browseButton, SIGNAL(clicked()), this, SLOT(onBrowseDirectory()));
+    connect(m_browseButton, &QPushButton::clicked, this, &NewProjectDialog::onBrowseDirectory);
 
     m_warningLabel = new QLabel();
 
     m_createButton = new QPushButton(mode == CREATE ? "Create" : "Save");
-    connect(m_createButton, SIGNAL(clicked()), this, SLOT(createProjectDir()));
+    connect(m_createButton, &QPushButton::clicked, this, &NewProjectDialog::createProjectDir);
     m_createButton->setDefault(true);
     m_cancelButton = new QPushButton("Cancel");
-    connect(m_cancelButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(m_cancelButton, &QPushButton::clicked, this, &NewProjectDialog::reject);
 
     QGroupBox* projectGroup = new QGroupBox("Project name and location");
 

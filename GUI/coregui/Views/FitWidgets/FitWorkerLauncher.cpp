@@ -41,7 +41,7 @@ void FitWorkerLauncher::runFitting(std::shared_ptr<FitObjectiveBuilder> suite)
     connect(fw, &FitWorker::finished, this, &FitWorkerLauncher::intern_workerFinished);
 
     // delete fitting worker and thread when done
-    connect(fw, SIGNAL(finished(int)), fw, SLOT(deleteLater()));
+    connect(fw, &FitWorker::finished, fw, &FitWorker::deleteLater);
     connect(thread, &QThread::finished, thread, &QThread::deleteLater);
 
     m_is_fit_running = true;

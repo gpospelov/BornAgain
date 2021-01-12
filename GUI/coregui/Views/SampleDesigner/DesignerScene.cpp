@@ -49,11 +49,11 @@ DesignerScene::DesignerScene(QObject* parent)
 
     m_nodeEditor = new NodeEditor(parent);
     m_nodeEditor->install(this);
-    connect(m_nodeEditor, SIGNAL(connectionIsEstablished(NodeEditorConnection*)), this,
-            SLOT(onEstablishedConnection(NodeEditorConnection*)));
-    connect(m_nodeEditor, SIGNAL(selectionModeChangeRequest(int)), this,
-            SIGNAL(selectionModeChangeRequest(int)));
-    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
+    connect(m_nodeEditor, &NodeEditor::connectionIsEstablished, this,
+            &DesignerScene::onEstablishedConnection);
+    connect(m_nodeEditor, &NodeEditor::selectionModeChangeRequest, this,
+            &DesignerScene::selectionModeChangeRequest);
+    connect(this, &DesignerScene::selectionChanged, [this]() { onSceneSelectionChanged(); });
 }
 
 DesignerScene::~DesignerScene()
@@ -68,26 +68,25 @@ void DesignerScene::setSampleModel(SampleModel* sampleModel)
     if (sampleModel != m_sampleModel) {
 
         if (m_sampleModel) {
-            disconnect(m_sampleModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            disconnect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int, int)));
-            disconnect(m_sampleModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            disconnect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
-            disconnect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            disconnect(m_sampleModel, &SampleModel::modelAboutToBeReset, this,
+                       &DesignerScene::resetScene);
+            disconnect(m_sampleModel, &SampleModel::rowsInserted, this,
+                       &DesignerScene::onRowsInserted);
+            disconnect(m_sampleModel, &SampleModel::rowsAboutToBeRemoved, this,
+                       &DesignerScene::onRowsAboutToBeRemoved);
+            disconnect(m_sampleModel, &SampleModel::rowsRemoved, this,
+                       &DesignerScene::onRowsRemoved);
+            disconnect(m_sampleModel, &SampleModel::modelReset, this, &DesignerScene::updateScene);
         }
 
         m_sampleModel = sampleModel;
 
-        connect(m_sampleModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-        connect(m_sampleModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                SLOT(onRowsInserted(QModelIndex, int, int)));
-        connect(m_sampleModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-        connect(m_sampleModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                SLOT(onRowsRemoved(QModelIndex, int, int)));
-        connect(m_sampleModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+        connect(m_sampleModel, &SampleModel::modelAboutToBeReset, this, &DesignerScene::resetScene);
+        connect(m_sampleModel, &SampleModel::rowsInserted, this, &DesignerScene::onRowsInserted);
+        connect(m_sampleModel, &SampleModel::rowsAboutToBeRemoved, this,
+                &DesignerScene::onRowsAboutToBeRemoved);
+        connect(m_sampleModel, &SampleModel::rowsRemoved, this, &DesignerScene::onRowsRemoved);
+        connect(m_sampleModel, &SampleModel::modelReset, this, &DesignerScene::updateScene);
 
         resetScene();
         updateScene();
@@ -111,15 +110,15 @@ void DesignerScene::setSelectionModel(QItemSelectionModel* model, FilterProperty
     if (model != m_selectionModel) {
 
         if (m_selectionModel) {
-            disconnect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)),
-                       this, SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
+            disconnect(m_selectionModel, &QItemSelectionModel::selectionChanged, this,
+                       &DesignerScene::onSessionSelectionChanged);
         }
 
         m_selectionModel = model;
         m_proxy = proxy;
 
-        connect(m_selectionModel, SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-                SLOT(onSessionSelectionChanged(QItemSelection, QItemSelection)));
+        connect(m_selectionModel, &QItemSelectionModel::selectionChanged, this,
+                &DesignerScene::onSessionSelectionChanged);
     }
 }
 

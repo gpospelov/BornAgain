@@ -46,8 +46,11 @@ void MaskGraphicsView::wheelEvent(QWheelEvent* event)
 {
     // hold control button
     if (isControlButtonIsPressed(event)) {
+#if QT_VERSION >= QT_VERSION_CHECK(5, 15, 0)
+        centerOn(mapToScene(event->position().toPoint()));
+#else
         centerOn(mapToScene(event->pos())); // TODO upon Qt5.14: pos() -> position().toPoint()
-
+#endif
         if (event->angleDelta().y() > 0) {
             // Zoom in
             increazeZoomValue();

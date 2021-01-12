@@ -31,7 +31,7 @@ DistributionDialog::DistributionDialog(QWidget* parent)
     QVBoxLayout* layout = new QVBoxLayout;
     QPushButton* button = new QPushButton("Close", this);
     button->setAutoDefault(false);
-    connect(button, SIGNAL(clicked()), this, SLOT(close()));
+    connect(button, &QPushButton::clicked, this, &DistributionDialog::close);
 
     QHBoxLayout* buttonLayout = new QHBoxLayout;
     buttonLayout->addStretch(1);

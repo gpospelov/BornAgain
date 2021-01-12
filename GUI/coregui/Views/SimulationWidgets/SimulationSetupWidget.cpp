@@ -44,8 +44,10 @@ SimulationSetupWidget::SimulationSetupWidget(QWidget* parent)
     setLayout(mainLayout);
 
     // signal and slots
-    connect(runSimulationButton, SIGNAL(clicked()), this, SLOT(onRunSimulation()));
-    connect(exportToPyScriptButton, SIGNAL(clicked()), this, SLOT(onExportToPythonScript()));
+    connect(runSimulationButton, &QPushButton::clicked, this,
+            &SimulationSetupWidget::onRunSimulation);
+    connect(exportToPyScriptButton, &QPushButton::clicked, this,
+            &SimulationSetupWidget::onExportToPythonScript);
 }
 
 void SimulationSetupWidget::setApplicationModels(ApplicationModels* model)

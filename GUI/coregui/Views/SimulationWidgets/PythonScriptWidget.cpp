@@ -53,7 +53,8 @@ PythonScriptWidget::PythonScriptWidget(QWidget* parent)
     QPushButton* exportToFileButton = new QPushButton;
     exportToFileButton->setText("Save to file");
     exportToFileButton->setToolTip("Opens dialog to save given script into the file");
-    connect(exportToFileButton, SIGNAL(clicked()), this, SLOT(onExportToFileButton()));
+    connect(exportToFileButton, &QPushButton::clicked, this,
+            &PythonScriptWidget::onExportToFileButton);
     exportToFileButton->setAutoDefault(false);
     m_toolBar->addWidget(exportToFileButton);
 

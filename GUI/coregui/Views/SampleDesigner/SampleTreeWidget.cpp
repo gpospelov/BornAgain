@@ -39,16 +39,16 @@ SampleTreeWidget::SampleTreeWidget(QWidget* parent, SampleModel* model)
     m_treeView->setModel(proxy);
     m_treeView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-            SLOT(showContextMenu(const QPoint&)));
+    connect(m_treeView, &ItemTreeView::customContextMenuRequested, this,
+            &SampleTreeWidget::showContextMenu);
 
     m_delete_item_action = new QAction("Delete", this);
     m_delete_item_action->setStatusTip("Delete current object");
-    connect(m_delete_item_action, SIGNAL(triggered()), this, SLOT(deleteItem()));
+    connect(m_delete_item_action, &QAction::triggered, this, &SampleTreeWidget::deleteItem);
 
     m_treeView->expandAll();
-    connect(m_treeView->model(), SIGNAL(rowsInserted(QModelIndex, int, int)), m_treeView,
-            SLOT(expandAll()));
+    connect(m_treeView->model(), &QAbstractItemModel::rowsInserted, this,
+            [this]() { m_treeView->expandAll(); });
 }
 
 QTreeView* SampleTreeWidget::treeView()

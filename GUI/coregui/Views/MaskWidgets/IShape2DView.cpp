@@ -23,8 +23,8 @@
 IShape2DView::IShape2DView()
     : m_item(nullptr), m_adaptor(nullptr), m_block_on_property_change(false)
 {
-    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+    connect(this, &IShape2DView::xChanged, this, &IShape2DView::onChangedX);
+    connect(this, &IShape2DView::yChanged, this, &IShape2DView::onChangedY);
 }
 
 IShape2DView::~IShape2DView()
@@ -69,10 +69,10 @@ void IShape2DView::setSceneAdaptor(const ISceneAdaptor* adaptor)
 
     if (m_adaptor != adaptor) {
         if (m_adaptor)
-            disconnect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()));
+            disconnect(m_adaptor, &ISceneAdaptor::update_request, this, &IShape2DView::update_view);
 
         m_adaptor = adaptor;
-        connect(m_adaptor, SIGNAL(update_request()), this, SLOT(update_view()),
+        connect(m_adaptor, &ISceneAdaptor::update_request, this, &IShape2DView::update_view,
                 Qt::UniqueConnection);
         update_view();
     }

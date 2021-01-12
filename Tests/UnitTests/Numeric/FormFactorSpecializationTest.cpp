@@ -34,7 +34,7 @@ private:
     }
 };
 
-const double eps_polyh = 2e-13;
+const double eps_polyh = 3e-12;
 
 TEST_F(FFSpecializationTest, TruncatedCubeAsBox)
 {
@@ -65,7 +65,7 @@ TEST_F(FFSpecializationTest, PyramidAsBox)
     const double L = 1.8, H = .3;
     FormFactorPyramid p0(L, H, M_PI / 2);
     FormFactorBox p1(L, L, H);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 100);
 }
 
 TEST_F(FFSpecializationTest, Cone6AsPrism)
@@ -73,7 +73,7 @@ TEST_F(FFSpecializationTest, Cone6AsPrism)
     const double L = .8, H = 1.13;
     FormFactorCone6 p0(L, H, M_PI / 2);
     FormFactorPrism6 p1(L, H);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 100);
 }
 
 //*********** spheroids ***************

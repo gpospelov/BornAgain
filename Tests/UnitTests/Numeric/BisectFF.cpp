@@ -26,7 +26,7 @@ const auto qlist = testing::Combine(
 
 
 complex_t deriv(const IBornFF& ff, const cvector_t& qf, const complex_t Ff,
-                const PolyhedralDiagnosis& df, const cvector_t& qdir, const double qstep)
+                const PolyhedralDiagnosis& /*df*/, const cvector_t& qdir, const double qstep)
 {
     assert(Ff==ff.evaluate_for_q(qf));
     complex_t Fi = ff.evaluate_for_q(qf+qstep*qdir);
@@ -56,13 +56,21 @@ void bisect(
             std::cout<<"    q[+] = "<<q1<<"\n";
             std::cout<<"    F[-] = "<<F0<<"\n";
             std::cout<<"    F[+] = "<<F1<<"\n";
-            std::cout<<"    F'[-10] ="<<deriv(ff, q0, F0, d0, -qdir, 10*qmindiff)<<"\n";
-            std::cout<<"    F'[-3]  ="<<deriv(ff, q0, F0, d0, -qdir,  3*qmindiff)<<"\n";
-            std::cout<<"    F'[-1]  ="<<deriv(ff, q0, F0, d0, -qdir,  1*qmindiff)<<"\n";
+            std::cout<<"    F'[-1k] =" <<-deriv(ff, q0, F0, d0, -qdir, 1000*qmindiff)<<"\n";
+            std::cout<<"    F'[-300] ="<<-deriv(ff, q0, F0, d0, -qdir, 300*qmindiff)<<"\n";
+            std::cout<<"    F'[-100] ="<<-deriv(ff, q0, F0, d0, -qdir, 100*qmindiff)<<"\n";
+            std::cout<<"    F'[-30] =" <<-deriv(ff, q0, F0, d0, -qdir, 30*qmindiff)<<"\n";
+            std::cout<<"    F'[-10] =" <<-deriv(ff, q0, F0, d0, -qdir, 10*qmindiff)<<"\n";
+            std::cout<<"    F'[-3]  =" <<-deriv(ff, q0, F0, d0, -qdir,  3*qmindiff)<<"\n";
+            std::cout<<"    F'[-1]  =" <<-deriv(ff, q0, F0, d0, -qdir,  1*qmindiff)<<"\n";
             std::cout<<"    F'[here]="<<(F1-F0)/(q0-q1).mag()<<"\n";
             std::cout<<"    F'[+1]  ="<<deriv(ff, q1, F1, d1, +qdir, 1*qmindiff)<<"\n";
             std::cout<<"    F'[+3]  ="<<deriv(ff, q1, F1, d1, +qdir, 3*qmindiff)<<"\n";
             std::cout<<"    F'[+10] ="<<deriv(ff, q1, F1, d1, +qdir, 10*qmindiff)<<"\n";
+            std::cout<<"    F'[+30] ="<<deriv(ff, q1, F1, d1, +qdir, 30*qmindiff)<<"\n";
+            std::cout<<"    F'[+100] ="<<deriv(ff, q1, F1, d1, +qdir, 100*qmindiff)<<"\n";
+            std::cout<<"    F'[+300] ="<<deriv(ff, q1, F1, d1, +qdir, 300*qmindiff)<<"\n";
+            std::cout<<"    F'[+1k]  ="<<deriv(ff, q1, F1, d1, +qdir, 1000*qmindiff)<<"\n";
             std::cout<<std::endl;
             ++ifail;
             // maxrelstep = relstep;
@@ -90,7 +98,7 @@ void run_bisection(int& ifail, IBornFF& ff, const cvector_t& q0, const cvector_t
 
     if (d0==d1)
         return;
-    bisect(ifail, q1-q0, ff, q0, q1, F0, F1, d0, d1, qdiffmin, 1e-11);
+    bisect(ifail, q1-q0, ff, q0, q1, F0, F1, d0, d1, qdiffmin, .6e-10);
 }
 
 void run_test(IBornFF& ff)

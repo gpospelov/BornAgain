@@ -68,7 +68,7 @@ TEST_F(FFSymmetryTest, Tetrahedron)
     FormFactorTetrahedron ff(8.43, .25, .53);
     run_test(
         &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_TWOPI / 3); }, 1e-11, 1e-99,
-        2e2);
+        100);
     // Linux: 3e-12, relaxed for Mac
 }
 

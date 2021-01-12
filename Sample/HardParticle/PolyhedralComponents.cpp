@@ -101,7 +101,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
 //  PolyhedralFace implementation
 //  ************************************************************************************************
 
-double PolyhedralFace::qpa_limit_series = 3e-2;
+double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
 //! Static method, returns diameter of circle that contains all vertices.

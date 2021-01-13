@@ -77,8 +77,8 @@ TEST_F(FFSymmetryTest, Cone6_flat)
     // TODO for larger q, imag(ff) is nan
     FormFactorCone6 ff(4.3, .09, .1);
     run_test(
-        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 2e-12, 1e-99,
-        50);
+        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_PI / 3); }, 4e-12, 1e-99,
+        50); // Linux: 2e-12, relaxed for Mac
 }
 
 TEST_F(FFSymmetryTest, Cone6_steep)

@@ -34,7 +34,7 @@ private:
     }
 };
 
-const double eps_polyh = 5e-12; // Linux 3e-12, relaxed for Win
+const double eps_polyh = 6e-12; // Linux 3e-12, relaxed for Win
 
 TEST_F(FFSpecializationTest, TruncatedCubeAsBox)
 {

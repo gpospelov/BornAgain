@@ -96,7 +96,7 @@ public:
     {
         m_updateTimer->setSingleShot(true);
         m_updateTimer->setInterval(0);
-        QObject::connect(m_updateTimer, SIGNAL(timeout()), q, SLOT(updateWidth()));
+        QObject::connect(m_updateTimer, &QTimer::timeout, q, &ColumnResizer::updateWidth);
     }
 
     void scheduleWidthUpdate()
@@ -127,7 +127,6 @@ void ColumnResizer::addWidget(QWidget* widget)
 {
     d->m_widgets.append(widget);
     widget->installEventFilter(this);
-    //    connect(widget, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
     d->scheduleWidthUpdate();
 }
 
@@ -198,7 +197,6 @@ void ColumnResizer::addWidgetsFromGridLayout(QGridLayout* layout, int column)
         addWidget(widget);
     }
     d->m_gridColumnInfoList << GridColumnInfo(layout, column);
-    //    connect(layout, SIGNAL(destroyed(QObject*)), this, SLOT(onObjectDestroyed(QObject*)));
 }
 
 void ColumnResizer::addWidgetsFromFormLayout(QFormLayout* layout, QFormLayout::ItemRole role)

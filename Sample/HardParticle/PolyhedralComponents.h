@@ -31,6 +31,8 @@ struct PolyhedralDiagnosis {
     std::string msg;
     void reset();
     std::string message() const;
+    bool operator==(const PolyhedralDiagnosis&) const;
+    bool operator!=(const PolyhedralDiagnosis&) const;
 };
 inline PolyhedralDiagnosis polyhedralDiagnosis;
 #endif

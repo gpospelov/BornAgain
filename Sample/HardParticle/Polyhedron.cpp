@@ -149,6 +149,9 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         return m_volume;
     } else if (q_red < q_limit_series) {
         // summation of power series
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.algo = 100;
+#endif
         complex_t sum = 0;
         complex_t n_fac = (m_sym_Ci ? -2 : -1) / q.mag2();
         int count_return_condition = 0;
@@ -164,7 +167,7 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
                 term += tmp;
             }
             term *= n_fac;
-#ifdef ALGORITHM_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC_LEVEL2
             polyhedralDiagnosis.msg +=
                 boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n")
                            % n % term.real() % term.imag());
@@ -181,20 +184,23 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
         throw std::runtime_error("Series F(q) not converged");
     } else {
         // direct evaluation of analytic formula (coefficients may involve series)
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.algo = 200;
+#endif
         complex_t sum = 0;
         for (const PolyhedralFace& Gk : m_faces) {
             complex_t qn = Gk.normalProjectionConj(q); // conj(q)*normal
             if (std::abs(qn) < eps * q.mag())
                 continue;
             complex_t term = qn * Gk.ff(q, m_sym_Ci);
-#ifdef ALGORITHM_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC//_LEVEL2
             polyhedralDiagnosis.msg +=
                 boost::str(boost::format("  + face_ff = %23.17e+i*%23.17e\n")
                            % term.real() % term.imag());
 #endif
             sum += term;
         }
-#ifdef ALGORITHM_DIAGNOSTIC
+#ifdef ALGORITHM_DIAGNOSTIC//_LEVEL2
         polyhedralDiagnosis.msg +=
             boost::str(boost::format(" -> raw sum = %23.17e+i*%23.17e; divisor = %23.17e\n")
                        % sum.real() % sum.imag() % q.mag2());

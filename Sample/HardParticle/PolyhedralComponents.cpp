@@ -28,7 +28,18 @@ void PolyhedralDiagnosis::reset() {
     order = 0; algo = 0; msg.clear();
 };
 std::string PolyhedralDiagnosis::message() const {
-    return "algo=" + std::to_string(algo) + ", order=" + std::to_string(order) + ", msg:\n" + msg;
+    std::string ret = "algo=" + std::to_string(algo) + ", order=" + std::to_string(order);
+    if (!msg.empty())
+        ret += ", msg:\n" + msg;
+    return ret;
+}
+bool PolyhedralDiagnosis::operator==(const PolyhedralDiagnosis& other) const
+{
+    return order==other.order && algo==other.algo;
+}
+bool PolyhedralDiagnosis::operator!=(const PolyhedralDiagnosis& other) const
+{
+    return !(*this==other);
 }
 #endif
 
@@ -90,7 +101,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
 //  PolyhedralFace implementation
 //  ************************************************************************************************
 
-double PolyhedralFace::qpa_limit_series = 3e-2;
+double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
 //! Static method, returns diameter of circle that contains all vertices.
@@ -327,6 +338,20 @@ complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
     }
 }
 
+//! Two-dimensional form factor, for use in prism, from power series.
+
+complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
+{
+    return m_area + expansion(1., 1., qpa, std::abs(m_area));
+}
+
+//! Two-dimensional form factor, for use in prism, from sum over edge form factors.
+
+complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
+{
+    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
+}
+
 //! Returns the two-dimensional form factor of this face, for use in a prism.
 
 complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
@@ -337,24 +362,10 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
     if (qpa_red == 0) {
         return m_area;
     } else if (qpa_red < qpa_limit_series && !sym_S2) {
-        // summation of power series
         return ff_2D_expanded(qpa);
     } else {
-        // direct evaluation of analytic formula
-        complex_t ret = ff_2D_direct(qpa);
-        // std::cout << std::setprecision(16) << "    ret=" << ret << " ff=" << ff << "\n";
-        return ret;
+        return ff_2D_direct(qpa);
     }
-}
-
-complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
-{
-    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
-}
-
-complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
-{
-    return m_area + expansion(1., 1., qpa, std::abs(m_area));
 }
 
 //! Throws if deviation from inversion symmetry is detected. Does not check vertices.

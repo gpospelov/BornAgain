@@ -6262,6 +6262,16 @@ Returns the contribution ff(q) of this face to the polyhedral form factor.
 Returns the two-dimensional form factor of this face, for use in a prism. 
 ";
 
+%feature("docstring")  PolyhedralFace::ff_2D_direct "complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
+
+Two-dimensional form factor, for use in prism, from sum over edge form factors. 
+";
+
+%feature("docstring")  PolyhedralFace::ff_2D_expanded "complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
+
+Two-dimensional form factor, for use in prism, from power series. 
+";
+
 %feature("docstring")  PolyhedralFace::assert_Ci "void PolyhedralFace::assert_Ci(const PolyhedralFace &other) const
 
 Throws if deviation from inversion symmetry is detected. Does not check vertices. 

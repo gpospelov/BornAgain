@@ -1,6 +1,7 @@
 #include "Sample/HardParticle/HardParticles.h"
+#include "Sample/HardParticle/PolyhedralComponents.h" // for diagnostic
 #include "Tests/GTestWrapper/google_test.h"
-#include "Tests/UnitTests/Numeric/FormFactorTest.h"
+#include "Tests/UnitTests/Numeric/MultiQTestbed.h"
 
 //! Compare form factor for particle shapes A and B, where A is given special
 //! parameter values so that it coincides with the more symmetric B.
@@ -16,15 +17,24 @@ protected:
 private:
     void test_ff_eq(cvector_t q, IBornFF* p0, IBornFF* p1, double eps)
     {
-        complex_t f0 = p0->evaluate_for_q(q);
-        complex_t f1 = p1->evaluate_for_q(q);
-        double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        EXPECT_NEAR(real(f0), real(f1), eps * avge) << "q=" << q;
-        EXPECT_NEAR(imag(f0), imag(f1), eps * avge) << "q=" << q;
+        const complex_t f0 = p0->evaluate_for_q(q);
+        const complex_t f1 = p1->evaluate_for_q(q);
+        const double avge = (std::abs(f0) + std::abs(f1)) / 2;
+        const double precision = std::max(1e-16, eps*avge);
+        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q  << "\n"
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << polyhedralDiagnosis.message() << "\n"
+#endif
+            ;
+        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q  << "\n"
+#ifdef ALGORITHM_DIAGNOSTIC
+                                                    << polyhedralDiagnosis.message() << "\n"
+#endif
+            ;
     }
 };
 
-const double eps_polyh = 7.5e-13;
+const double eps_polyh = 6e-12; // Linux 3e-12, relaxed for Win
 
 TEST_F(FFSpecializationTest, TruncatedCubeAsBox)
 {
@@ -55,7 +65,7 @@ TEST_F(FFSpecializationTest, PyramidAsBox)
     const double L = 1.8, H = .3;
     FormFactorPyramid p0(L, H, M_PI / 2);
     FormFactorBox p1(L, L, H);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 100);
 }
 
 TEST_F(FFSpecializationTest, Cone6AsPrism)
@@ -63,7 +73,7 @@ TEST_F(FFSpecializationTest, Cone6AsPrism)
     const double L = .8, H = 1.13;
     FormFactorCone6 p0(L, H, M_PI / 2);
     FormFactorPrism6 p1(L, H);
-    run_test(&p0, &p1, eps_polyh, 1e-99, 5e2);
+    run_test(&p0, &p1, eps_polyh, 1e-99, 100);
 }
 
 //*********** spheroids ***************

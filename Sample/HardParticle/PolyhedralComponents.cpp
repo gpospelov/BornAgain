@@ -23,6 +23,27 @@ const double eps = 2e-16;
 constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray<171>();
 } // namespace
 
+#ifdef ALGORITHM_DIAGNOSTIC
+void PolyhedralDiagnosis::reset() {
+    order = 0; algo = 0; msg.clear();
+};
+std::string PolyhedralDiagnosis::message() const {
+    std::string ret = "algo=" + std::to_string(algo) + ", order=" + std::to_string(order);
+    if (!msg.empty())
+        ret += ", msg:\n" + msg;
+    return ret;
+}
+bool PolyhedralDiagnosis::operator==(const PolyhedralDiagnosis& other) const
+{
+    return order==other.order && algo==other.algo;
+}
+bool PolyhedralDiagnosis::operator!=(const PolyhedralDiagnosis& other) const
+{
+    return !(*this==other);
+}
+#endif
+
+
 //  ************************************************************************************************
 //  PolyhedralEdge implementation
 //  ************************************************************************************************
@@ -42,11 +63,8 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
     complex_t v2 = m_R.dot(qpa);
     complex_t v1 = qrperp;
     complex_t v = v2 + v1;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    if (diagnosis.debmsg >= 5)
-        std::cout << std::scientific << std::showpos << std::setprecision(16) << "contrib: u=" << u
-                  << " v1=" << v1 << " v2=" << v2 << "\n";
-#endif
+    // std::cout << std::scientific << std::showpos << std::setprecision(16) << "contrib: u=" << u
+    //              << " v1=" << v1 << " v2=" << v2 << "\n";
     if (v == 0.) { // only 2l=M contributes
         if (M & 1) // M is odd
             return 0.;
@@ -65,10 +83,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
             complex_t term = ReciprocalFactorialArray[mm] * ReciprocalFactorialArray[M - mm]
                              * pow(v2, mm) * pow(v1, M - mm);
             ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-            if (diagnosis.debmsg >= 6)
-                std::cout << "contrib mm=" << mm << " t=" << term << " s=" << ret << "\n";
-#endif
+            // std::cout << "contrib mm=" << mm << " t=" << term << " s=" << ret << "\n";
         }
     }
     if (u == 0.)
@@ -77,10 +92,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
         complex_t term = ReciprocalFactorialArray[M - 2 * l] * ReciprocalFactorialArray[2 * l + 1]
                          * pow(u, 2 * l) * pow(v, M - 2 * l);
         ret += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 6)
-            std::cout << "contrib l=" << l << " t=" << term << " s=" << ret << "\n";
-#endif
+        // std::cout << "contrib l=" << l << " t=" << term << " s=" << ret << "\n";
     }
     return ret;
 }
@@ -89,7 +101,7 @@ complex_t PolyhedralEdge::contrib(int M, cvector_t qpa, complex_t qrperp) const
 //  PolyhedralFace implementation
 //  ************************************************************************************************
 
-double PolyhedralFace::qpa_limit_series = 3e-2;
+double PolyhedralFace::qpa_limit_series = 1e-2;
 int PolyhedralFace::n_limit_series = 20;
 
 //! Static method, returns diameter of circle that contains all vertices.
@@ -102,14 +114,6 @@ double PolyhedralFace::diameter(const std::vector<kvector_t>& V)
             diameterFace = std::max(diameterFace, (V[j] - V[jj]).mag());
     return diameterFace;
 }
-
-#ifdef POLYHEDRAL_DIAGNOSTIC
-void PolyhedralFace::setLimits(double _qpa, int _n)
-{
-    qpa_limit_series = _qpa;
-    n_limit_series = _n;
-}
-#endif
 
 //! Sets internal variables for given vertex chain.
 
@@ -204,27 +208,17 @@ void PolyhedralFace::decompose_q(cvector_t q, complex_t& qperp, cvector_t& qpa) 
 
 complex_t PolyhedralFace::ff_n_core(int m, cvector_t qpa, complex_t qperp) const
 {
-    cvector_t prevec = 2. * m_normal.cross(qpa); // complex conjugation will take place in .dot
+    const cvector_t prevec = 2. * m_normal.cross(qpa); // complex conjugation not here but in .dot
     complex_t ret = 0;
-    complex_t vfacsum = 0;
-    complex_t qrperp = qperp * m_rperp;
+    const complex_t qrperp = qperp * m_rperp;
     for (size_t i = 0; i < edges.size(); ++i) {
         const PolyhedralEdge& e = edges[i];
-        complex_t vfac;
-        if (sym_S2 || i < edges.size() - 1) {
-            vfac = prevec.dot(e.E());
-            vfacsum += vfac;
-        } else {
-            vfac = -vfacsum; // to improve numeric accuracy: qcE_J = - sum_{j=0}^{J-1} qcE_j
-        }
-        complex_t tmp = e.contrib(m + 1, qpa, qrperp);
+        const complex_t vfac = prevec.dot(e.E());
+        const complex_t tmp = e.contrib(m + 1, qpa, qrperp);
         ret += vfac * tmp;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 4)
-            std::cout << std::scientific << std::showpos << std::setprecision(16)
-                      << "DBX ff_n_core " << m << " " << vfac << " " << tmp
-                      << " term=" << vfac * tmp << " sum=" << ret << "\n";
-#endif
+        //     std::cout << std::scientific << std::showpos << std::setprecision(16)
+        //               << "DBX ff_n_core " << m << " " << vfac << " " << tmp
+        //               << " term=" << vfac * tmp << " sum=" << ret << "\n";
     }
     return ret;
 }
@@ -246,10 +240,7 @@ complex_t PolyhedralFace::ff_n(int n, cvector_t q) const
         return qn * (ff_n_core(n, qpa, qperp) + ff_n_core(n, -qpa, qperp)) / qpa_mag2;
     } else {
         complex_t tmp = ff_n_core(n, qpa, qperp);
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 3)
-            std::cout << "DBX ff_n " << n << " " << qn << " " << tmp << " " << qpa_mag2 << "\n";
-#endif
+        // std::cout << "DBX ff_n " << n << " " << qn << " " << tmp << " " << qpa_mag2 << "\n";
         return qn * tmp / qpa_mag2;
     }
 }
@@ -259,21 +250,18 @@ complex_t PolyhedralFace::ff_n(int n, cvector_t q) const
 complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvector_t qpa,
                                     double abslevel) const
 {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    diagnosis.nExpandedFaces += 1;
+#ifdef ALGORITHM_DIAGNOSTIC
+    polyhedralDiagnosis.algo += 1;
 #endif
     complex_t sum = 0;
     complex_t n_fac = I;
     int count_return_condition = 0;
     for (int n = 1; n < n_limit_series; ++n) {
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        diagnosis.maxOrder = std::max(diagnosis.maxOrder, n);
+#ifdef ALGORITHM_DIAGNOSTIC
+        polyhedralDiagnosis.order = std::max(polyhedralDiagnosis.order, n);
 #endif
         complex_t term = n_fac * (n & 1 ? fac_odd : fac_even) * ff_n_core(n, qpa, 0) / qpa.mag2();
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 2)
-            std::cout << std::setprecision(16) << "    sum=" << sum << " +term=" << term << "\n";
-#endif
+        // std::cout << std::setprecision(16) << "    sum=" << sum << " +term=" << term << "\n";
         sum += term;
         if (std::abs(term) <= eps * std::abs(sum) || std::abs(sum) < eps * abslevel)
             ++count_return_condition;
@@ -283,10 +271,6 @@ complex_t PolyhedralFace::expansion(complex_t fac_even, complex_t fac_odd, cvect
             return sum; // regular exit
         n_fac = mul_I(n_fac);
     }
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    if (!diagnosis.request_convergence)
-        return sum;
-#endif
     throw std::runtime_error("Series f(q_pa) not converged");
 }
 
@@ -311,12 +295,9 @@ complex_t PolyhedralFace::edge_sum_ff(cvector_t q, cvector_t qpa, bool sym_Ci) c
         }
         complex_t term = vfac * Math::sinc(qE) * Rfac;
         sum += term;
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 2)
-            std::cout << std::scientific << std::showpos << std::setprecision(16)
-                      << "    sum=" << sum << " term=" << term << " vf=" << vfac << " qE=" << qE
-                      << " qR=" << qR << " sinc=" << Math::sinc(qE) << " Rfac=" << Rfac << "\n";
-#endif
+        //    std::cout << std::scientific << std::showpos << std::setprecision(16)
+        //              << "    sum=" << sum << " term=" << term << " vf=" << vfac << " qE=" << qE
+        //              << " qR=" << qR << " sinc=" << Math::sinc(qE) << " Rfac=" << Rfac << "\n";
     }
     return sum;
 }
@@ -352,12 +333,23 @@ complex_t PolyhedralFace::ff(cvector_t q, bool sym_Ci) const
             prefac = sym_Ci ? -8. * sin(qr_perp) : 4. * mul_I(exp_I(qr_perp));
         else
             prefac = sym_Ci ? 4. : 2. * exp_I(qr_perp);
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 2)
-            std::cout << "       qrperp=" << qr_perp << " => prefac=" << prefac << "\n";
-#endif
+        // std::cout << "       qrperp=" << qr_perp << " => prefac=" << prefac << "\n";
         return prefac * edge_sum_ff(q, qpa, sym_Ci) / mul_I(qpa.mag2());
     }
+}
+
+//! Two-dimensional form factor, for use in prism, from power series.
+
+complex_t PolyhedralFace::ff_2D_expanded(cvector_t qpa) const
+{
+    return m_area + expansion(1., 1., qpa, std::abs(m_area));
+}
+
+//! Two-dimensional form factor, for use in prism, from sum over edge form factors.
+
+complex_t PolyhedralFace::ff_2D_direct(cvector_t qpa) const
+{
+    return (sym_S2 ? 4. : 2. / I) * edge_sum_ff(qpa, qpa, false) / qpa.mag2();
 }
 
 //! Returns the two-dimensional form factor of this face, for use in a prism.
@@ -370,17 +362,9 @@ complex_t PolyhedralFace::ff_2D(cvector_t qpa) const
     if (qpa_red == 0) {
         return m_area;
     } else if (qpa_red < qpa_limit_series && !sym_S2) {
-        // summation of power series
-        return m_area + expansion(1., 1., qpa, std::abs(m_area));
+        return ff_2D_expanded(qpa);
     } else {
-        // direct evaluation of analytic formula
-        complex_t ff = edge_sum_ff(qpa, qpa, false);
-        complex_t ret = (sym_S2 ? 4. : 2. / I) * ff / qpa.mag2();
-#ifdef POLYHEDRAL_DIAGNOSTIC
-        if (diagnosis.debmsg >= 2)
-            std::cout << std::setprecision(16) << "    ret=" << ret << " ff=" << ff << "\n";
-#endif
-        return ret;
+        return ff_2D_direct(qpa);
     }
 }
 

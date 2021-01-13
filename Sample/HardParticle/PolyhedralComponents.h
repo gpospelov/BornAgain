@@ -23,6 +23,20 @@
 #include "Base/Vector/Vectors3D.h"
 #include <vector>
 
+#ifdef ALGORITHM_DIAGNOSTIC
+#include <string>
+struct PolyhedralDiagnosis {
+    int algo;
+    int order;
+    std::string msg;
+    void reset();
+    std::string message() const;
+    bool operator==(const PolyhedralDiagnosis&) const;
+    bool operator!=(const PolyhedralDiagnosis&) const;
+};
+inline PolyhedralDiagnosis polyhedralDiagnosis;
+#endif
+
 //! One edge of a polygon, for form factor computation.
 
 class PolyhedralEdge {
@@ -46,9 +60,6 @@ private:
 class PolyhedralFace {
 public:
     static double diameter(const std::vector<kvector_t>& V);
-#ifdef POLYHEDRAL_DIAGNOSTIC
-    static void setLimits(double _qpa, int _n);
-#endif // BORNAGAIN_CORE_HARDPARTICLE_POLYHEDRALCOMPONENTS_H
 
     PolyhedralFace(const std::vector<kvector_t>& _V = std::vector<kvector_t>(),
                    bool _sym_S2 = false);
@@ -61,6 +72,8 @@ public:
     complex_t ff_n(int m, cvector_t q) const;
     complex_t ff(cvector_t q, bool sym_Ci) const;
     complex_t ff_2D(cvector_t qpa) const;
+    complex_t ff_2D_direct(cvector_t qpa) const; // for TestTriangle
+    complex_t ff_2D_expanded(cvector_t qpa) const; // for TestTriangle
     void assert_Ci(const PolyhedralFace& other) const;
 
 private:

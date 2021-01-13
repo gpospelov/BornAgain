@@ -53,7 +53,7 @@ DesignerScene::DesignerScene(QObject* parent)
             &DesignerScene::onEstablishedConnection);
     connect(m_nodeEditor, &NodeEditor::selectionModeChangeRequest, this,
             &DesignerScene::selectionModeChangeRequest);
-    connect(this, &DesignerScene::selectionChanged, [this]() { onSceneSelectionChanged(); });
+    connect(this, &DesignerScene::selectionChanged, this, &DesignerScene::onSceneSelectionChanged);
 }
 
 DesignerScene::~DesignerScene()

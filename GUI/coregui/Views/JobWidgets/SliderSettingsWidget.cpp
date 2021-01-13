@@ -55,7 +55,7 @@ SliderSettingsWidget::SliderSettingsWidget(QWidget* parent)
     m_lockzCheckBox = new QCheckBox("Lock-Z");
     m_lockzCheckBox->setToolTip(
         "Preserve (min, max) range of intensity axis during parameter tuning.");
-    connect(m_lockzCheckBox, &QCheckBox::stateChanged, this, &SliderSettingsWidget::rangeChanged);
+    connect(m_lockzCheckBox, &QCheckBox::stateChanged, this, &SliderSettingsWidget::onLockZChanged);
 
     QHBoxLayout* hbox = new QHBoxLayout;
 

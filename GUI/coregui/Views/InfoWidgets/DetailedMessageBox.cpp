@@ -107,7 +107,7 @@ QBoxLayout* DetailedMessageBox::createButtonLayout()
     auto result = new QHBoxLayout;
 
     auto okButton = new QPushButton("Ok");
-    connect(okButton, SIGNAL(clicked()), this, SLOT(reject()));
+    connect(okButton, &QPushButton::clicked, this, &DetailedMessageBox::reject);
 
     result->addStretch(1);
     result->addWidget(okButton);

@@ -79,11 +79,14 @@ void ItemComboToolBar::setActionList(const QList<QAction*>& actionList)
 void ItemComboToolBar::setComboConnected(bool value)
 {
     if (value)
-        connect(m_comboBox, SIGNAL(currentIndexChanged(QString)), this,
-                SIGNAL(comboChanged(QString)), Qt::UniqueConnection);
+        connect(m_comboBox,
+                static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged),
+                this, &ItemComboToolBar::comboChanged, Qt::UniqueConnection);
     else
-        disconnect(m_comboBox, SIGNAL(currentIndexChanged(QString)), this,
-                   SIGNAL(comboChanged(QString)));
+        disconnect(
+            m_comboBox,
+            static_cast<void (QComboBox::*)(const QString&)>(&QComboBox::currentIndexChanged), this,
+            &ItemComboToolBar::comboChanged);
 }
 
 //! All items in QComboBox which are not in given list, will be disabled (gray and unselectable).

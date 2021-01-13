@@ -60,8 +60,8 @@ FitParameterWidget::FitParameterWidget(QWidget* parent)
     m_treeView->setAlternatingRowColors(true);
     m_treeView->setStyleSheet("alternate-background-color: #EFF0F1;");
 
-    connect(m_treeView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-            SLOT(onFitParameterTreeContextMenu(const QPoint&)));
+    connect(m_treeView, &QTreeView::customContextMenuRequested, this,
+            &FitParameterWidget::onFitParameterTreeContextMenu);
 
     m_infoLabel->setArea(m_treeView);
     m_infoLabel->setText("Drop parameter(s) to fit here");
@@ -77,15 +77,15 @@ void FitParameterWidget::setParameterTuningWidget(ParameterTuningWidget* tuningW
 
     } else {
         if (m_tuningWidget)
-            disconnect(m_tuningWidget, SIGNAL(itemContextMenuRequest(QPoint)), this,
-                       SLOT(onTuningWidgetContextMenu(QPoint)));
+            disconnect(m_tuningWidget, &ParameterTuningWidget::itemContextMenuRequest, this,
+                       &FitParameterWidget::onTuningWidgetContextMenu);
 
         m_tuningWidget = tuningWidget;
         if (!m_tuningWidget)
             return;
 
-        connect(m_tuningWidget, SIGNAL(itemContextMenuRequest(QPoint)), this,
-                SLOT(onTuningWidgetContextMenu(QPoint)), Qt::UniqueConnection);
+        connect(m_tuningWidget, &ParameterTuningWidget::itemContextMenuRequest, this,
+                &FitParameterWidget::onTuningWidgetContextMenu, Qt::UniqueConnection);
         connect(m_tuningWidget, &QObject::destroyed, [this] { m_tuningWidget = nullptr; });
     }
 }
@@ -224,15 +224,19 @@ void FitParameterWidget::subscribeToItem()
 void FitParameterWidget::init_actions()
 {
     m_createFitParAction = new QAction("Create fit parameter", this);
-    connect(m_createFitParAction, SIGNAL(triggered()), this, SLOT(onCreateFitParAction()));
+    connect(m_createFitParAction, &QAction::triggered, this,
+            &FitParameterWidget::onCreateFitParAction);
 
     m_removeFromFitParAction = new QAction("Remove from fit parameters", this);
-    connect(m_removeFromFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFromFitParAction()));
+    connect(m_removeFromFitParAction, &QAction::triggered, this,
+            &FitParameterWidget::onRemoveFromFitParAction);
 
     m_removeFitParAction = new QAction("Remove fit parameter", this);
-    connect(m_removeFitParAction, SIGNAL(triggered()), this, SLOT(onRemoveFitParAction()));
+    connect(m_removeFitParAction, &QAction::triggered, this,
+            &FitParameterWidget::onRemoveFitParAction);
 
-    connect(m_keyboardFilter, SIGNAL(removeItem()), this, SLOT(onRemoveFitParAction()));
+    connect(m_keyboardFilter, &DeleteEventFilter::removeItem, this,
+            &FitParameterWidget::onRemoveFitParAction);
 }
 
 //! Fills context menu for ParameterTuningWidget with content.
@@ -291,9 +295,10 @@ void FitParameterWidget::init_fit_model()
         jobItem()->fitParameterContainerItem(), jobItem()->fitParameterContainerItem()->model());
     m_treeView->setModel(m_fitParameterModel);
 
-    connect(m_fitParameterModel, SIGNAL(dataChanged(QModelIndex, QModelIndex, QVector<int>)), this,
-            SLOT(onFitParameterModelChange()));
-    connect(m_fitParameterModel, SIGNAL(modelReset()), this, SLOT(onFitParameterModelChange()));
+    connect(m_fitParameterModel, &FitParameterProxyModel::dataChanged, this,
+            &FitParameterWidget::onFitParameterModelChange);
+    connect(m_fitParameterModel, &FitParameterProxyModel::modelReset, this,
+            &FitParameterWidget::onFitParameterModelChange);
 
     onFitParameterModelChange();
     connectFitParametersSelection(true);
@@ -417,26 +422,22 @@ void FitParameterWidget::connectTuningWidgetSelection(bool active)
     ASSERT(m_tuningWidget);
 
     if (active) {
-        connect(m_tuningWidget->selectionModel(),
-                SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-                SLOT(onTuningWidgetSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+        connect(m_tuningWidget->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+                &FitParameterWidget::onTuningWidgetSelectionChanged, Qt::UniqueConnection);
     } else {
-        disconnect(m_tuningWidget->selectionModel(),
-                   SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-                   SLOT(onTuningWidgetSelectionChanged(QItemSelection)));
+        disconnect(m_tuningWidget->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+                   &FitParameterWidget::onTuningWidgetSelectionChanged);
     }
 }
 
 void FitParameterWidget::connectFitParametersSelection(bool active)
 {
     if (active) {
-        connect(m_treeView->selectionModel(),
-                SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-                SLOT(onFitParametersSelectionChanged(QItemSelection)), Qt::UniqueConnection);
+        connect(m_treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+                &FitParameterWidget::onFitParametersSelectionChanged, Qt::UniqueConnection);
     } else {
-        disconnect(m_treeView->selectionModel(),
-                   SIGNAL(selectionChanged(QItemSelection, QItemSelection)), this,
-                   SLOT(onFitParametersSelectionChanged(QItemSelection)));
+        disconnect(m_treeView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+                   &FitParameterWidget::onFitParametersSelectionChanged);
     }
 }
 

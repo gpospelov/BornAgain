@@ -253,7 +253,7 @@ void ColorMap::initColorMap()
     m_customPlot->yAxis->setTickLabelFont(
         QFont(QFont().family(), Constants::plot_tick_label_size()));
 
-    connect(m_customPlot, SIGNAL(afterReplot()), this, SLOT(marginsChangedNotify()));
+    connect(m_customPlot, &QCustomPlot::afterReplot, this, &ColorMap::marginsChangedNotify);
 }
 
 void ColorMap::setConnected(bool isConnected)
@@ -268,18 +268,22 @@ void ColorMap::setConnected(bool isConnected)
 void ColorMap::setAxesRangeConnected(bool isConnected)
 {
     if (isConnected) {
-        connect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                SLOT(onXaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_customPlot->xAxis,
+                static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                &ColorMap::onXaxisRangeChanged, Qt::UniqueConnection);
 
-        connect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                SLOT(onYaxisRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_customPlot->yAxis,
+                static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                &ColorMap::onYaxisRangeChanged, Qt::UniqueConnection);
 
     } else {
-        disconnect(m_customPlot->xAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                   SLOT(onXaxisRangeChanged(QCPRange)));
+        disconnect(m_customPlot->xAxis,
+                   static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                   &ColorMap::onXaxisRangeChanged);
 
-        disconnect(m_customPlot->yAxis, SIGNAL(rangeChanged(QCPRange)), this,
-                   SLOT(onYaxisRangeChanged(QCPRange)));
+        disconnect(m_customPlot->yAxis,
+                   static_cast<void (QCPAxis::*)(const QCPRange&)>(&QCPAxis::rangeChanged), this,
+                   &ColorMap::onYaxisRangeChanged);
     }
 }
 
@@ -288,20 +292,19 @@ void ColorMap::setAxesRangeConnected(bool isConnected)
 void ColorMap::setDataRangeConnected(bool isConnected)
 {
     if (isConnected)
-        connect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
-                SLOT(onDataRangeChanged(QCPRange)), Qt::UniqueConnection);
+        connect(m_colorMap, &QCPColorMap::dataRangeChanged, this, &ColorMap::onDataRangeChanged,
+                Qt::UniqueConnection);
     else
-        disconnect(m_colorMap, SIGNAL(dataRangeChanged(QCPRange)), this,
-                   SLOT(onDataRangeChanged(QCPRange)));
+        disconnect(m_colorMap, &QCPColorMap::dataRangeChanged, this, &ColorMap::onDataRangeChanged);
 }
 
 void ColorMap::setUpdateTimerConnected(bool isConnected)
 {
     if (isConnected)
-        connect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(onTimeToReplot()),
+        connect(m_updateTimer, &UpdateTimer::timeToUpdate, this, &ColorMap::onTimeToReplot,
                 Qt::UniqueConnection);
     else
-        disconnect(m_updateTimer, SIGNAL(timeToUpdate()), this, SLOT(onTimeToReplot()));
+        disconnect(m_updateTimer, &UpdateTimer::timeToUpdate, this, &ColorMap::onTimeToReplot);
 }
 
 //! to make fixed margins for whole colormap (change in axes labels wont affect axes rectangle)

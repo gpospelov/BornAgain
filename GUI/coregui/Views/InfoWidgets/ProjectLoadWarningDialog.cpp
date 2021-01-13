@@ -209,7 +209,7 @@ QLayout* ProjectLoadWarningDialog::buttonLayout()
 
     auto button = new QPushButton("Close", this);
     button->setAutoDefault(false);
-    connect(button, SIGNAL(clicked()), this, SLOT(close()));
+    connect(button, &QPushButton::clicked, this, &ProjectLoadWarningDialog::close);
 
     result->addStretch(3);
     result->setContentsMargins(0, 0, 0, 0);

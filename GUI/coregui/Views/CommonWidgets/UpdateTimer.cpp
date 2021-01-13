@@ -24,7 +24,7 @@ UpdateTimer::UpdateTimer(int timerInterval, QObject* parent)
 {
     m_timer->setInterval(m_timer_interval);
     m_timer->setSingleShot(true);
-    connect(m_timer, SIGNAL(timeout()), this, SLOT(onTimerTimeout()));
+    connect(m_timer, &QTimer::timeout, this, &UpdateTimer::onTimerTimeout);
 }
 
 void UpdateTimer::reset()

@@ -33,8 +33,8 @@ JobModel::JobModel(QObject* parent)
     : SessionModel(SessionXML::JobModelTag, parent), m_queue_data(nullptr)
 {
     m_queue_data = new JobQueueData(this);
-    connect(m_queue_data, SIGNAL(focusRequest(JobItem*)), this, SIGNAL(focusRequest(JobItem*)));
-    connect(m_queue_data, SIGNAL(globalProgress(int)), this, SIGNAL(globalProgress(int)));
+    connect(m_queue_data, &JobQueueData::focusRequest, this, &JobModel::focusRequest);
+    connect(m_queue_data, &JobQueueData::globalProgress, this, &JobModel::globalProgress);
     setObjectName(SessionXML::JobModelTag);
 }
 

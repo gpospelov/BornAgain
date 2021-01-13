@@ -109,14 +109,14 @@ void EllipseView::mouseMoveEvent(QGraphicsSceneMouseEvent* event)
 
 void EllipseView::update_position()
 {
-    disconnect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    disconnect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+    disconnect(this, &EllipseView::xChanged, this, &EllipseView::onChangedX);
+    disconnect(this, &EllipseView::yChanged, this, &EllipseView::onChangedY);
 
     setX(toSceneX(EllipseItem::P_XCENTER));
     setY(toSceneY(EllipseItem::P_YCENTER));
 
-    connect(this, SIGNAL(xChanged()), this, SLOT(onChangedX()));
-    connect(this, SIGNAL(yChanged()), this, SLOT(onChangedY()));
+    connect(this, &EllipseView::xChanged, this, &EllipseView::onChangedX);
+    connect(this, &EllipseView::yChanged, this, &EllipseView::onChangedY);
 
     if (par(EllipseItem::P_ANGLE) != 0.0)
         setTransform(QTransform().rotate(-1.0 * par(EllipseItem::P_ANGLE)));

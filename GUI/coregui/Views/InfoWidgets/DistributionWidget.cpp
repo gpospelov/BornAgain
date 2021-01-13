@@ -45,7 +45,7 @@ DistributionWidget::DistributionWidget(QWidget* parent)
     setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     m_resetAction->setText("Reset View");
-    connect(m_resetAction, SIGNAL(triggered()), this, SLOT(resetView()));
+    connect(m_resetAction, &QAction::triggered, this, &DistributionWidget::resetView);
 
     m_label->setAlignment(Qt::AlignVCenter | Qt::AlignLeft);
     m_label->setStyleSheet("background-color:white;");
@@ -59,8 +59,8 @@ DistributionWidget::DistributionWidget(QWidget* parent)
     setLayout(mainLayout);
 
     setStyleSheet("background-color:white;");
-    connect(m_plot, SIGNAL(mousePress(QMouseEvent*)), this, SLOT(onMousePress(QMouseEvent*)));
-    connect(m_plot, SIGNAL(mouseMove(QMouseEvent*)), this, SLOT(onMouseMove(QMouseEvent*)));
+    connect(m_plot, &QCustomPlot::mousePress, this, &DistributionWidget::onMousePress);
+    connect(m_plot, &QCustomPlot::mouseMove, this, &DistributionWidget::onMouseMove);
 }
 
 DistributionWidget::~DistributionWidget()

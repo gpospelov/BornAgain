@@ -76,11 +76,11 @@ void ItemStackWidget::connectModel()
     if (!m_model)
         return;
 
-    connect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(onModelAboutToBeReset()),
-            Qt::UniqueConnection);
+    connect(m_model, &SessionModel::modelAboutToBeReset, this,
+            &ItemStackWidget::onModelAboutToBeReset, Qt::UniqueConnection);
 
-    connect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-            SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)), Qt::UniqueConnection);
+    connect(m_model, &SessionModel::rowsAboutToBeRemoved, this,
+            &ItemStackWidget::onRowsAboutToBeRemoved, Qt::UniqueConnection);
 }
 
 void ItemStackWidget::disconnectModel()
@@ -88,10 +88,11 @@ void ItemStackWidget::disconnectModel()
     if (!m_model)
         return;
 
-    disconnect(m_model, SIGNAL(modelAboutToBeReset()), this, SLOT(onModelAboutToBeReset()));
+    disconnect(m_model, &SessionModel::modelAboutToBeReset, this,
+               &ItemStackWidget::onModelAboutToBeReset);
 
-    disconnect(m_model, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-               SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
+    disconnect(m_model, &SessionModel::rowsAboutToBeRemoved, this,
+               &ItemStackWidget::onRowsAboutToBeRemoved);
 }
 
 //! Checks if model was set correctly.

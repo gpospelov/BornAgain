@@ -27,6 +27,7 @@ class MultiLayerView : public ILayerView {
 
 public:
     MultiLayerView(QGraphicsItem* parent = 0);
+    ~MultiLayerView();
 
     int type() const override { return ViewTypes::MULTILAYER; }
 

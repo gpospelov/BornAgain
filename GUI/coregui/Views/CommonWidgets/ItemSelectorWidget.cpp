@@ -33,8 +33,8 @@ ItemSelectorWidget::ItemSelectorWidget(QWidget* parent)
     m_listView->setContextMenuPolicy(Qt::CustomContextMenu);
     m_listView->setAttribute(Qt::WA_MacShowFocusRect, false);
 
-    connect(m_listView, SIGNAL(customContextMenuRequested(const QPoint&)), this,
-            SLOT(onCustomContextMenuRequested(const QPoint&)));
+    connect(m_listView, &QListView::customContextMenuRequested, this,
+            &ItemSelectorWidget::onCustomContextMenuRequested);
 }
 
 ItemSelectorWidget::~ItemSelectorWidget() = default;
@@ -118,10 +118,8 @@ void ItemSelectorWidget::connectModel()
     m_decorationModel = std::make_unique<SessionDecorationModel>(nullptr, m_model);
     m_listView->setModel(m_decorationModel.get());
 
-    connect(m_listView->selectionModel(),
-            SIGNAL(selectionChanged(const QItemSelection&, const QItemSelection&)), this,
-            SLOT(onSelectionChanged(const QItemSelection&, const QItemSelection&)),
-            Qt::UniqueConnection);
+    connect(m_listView->selectionModel(), &QItemSelectionModel::selectionChanged, this,
+            &ItemSelectorWidget::onSelectionChanged, Qt::UniqueConnection);
 }
 
 void ItemSelectorWidget::disconnectModel()

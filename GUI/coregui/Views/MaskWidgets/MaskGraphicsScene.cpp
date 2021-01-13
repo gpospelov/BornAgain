@@ -42,7 +42,8 @@ MaskGraphicsScene::MaskGraphicsScene(QObject* parent)
     , m_currentItem(0)
 {
     setSceneRect(default_scene_rect);
-    connect(this, SIGNAL(selectionChanged()), this, SLOT(onSceneSelectionChanged()));
+    connect(this, &MaskGraphicsScene::selectionChanged, this,
+            &MaskGraphicsScene::onSceneSelectionChanged);
 }
 
 MaskGraphicsScene::~MaskGraphicsScene()
@@ -60,14 +61,16 @@ void MaskGraphicsScene::setMaskContext(SessionModel* model, const QModelIndex& m
     if (model != m_maskModel || m_maskContainerIndex != maskContainerIndex) {
 
         if (m_maskModel) {
-            disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                       SLOT(onRowsInserted(QModelIndex, int, int)));
-            disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                       SLOT(onRowsRemoved(QModelIndex, int, int)));
-            disconnect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            disconnect(m_maskModel, &SessionModel::modelAboutToBeReset, this,
+                       &MaskGraphicsScene::resetScene);
+            disconnect(m_maskModel, &SessionModel::rowsInserted, this,
+                       &MaskGraphicsScene::onRowsInserted);
+            disconnect(m_maskModel, &SessionModel::rowsAboutToBeRemoved, this,
+                       &MaskGraphicsScene::onRowsAboutToBeRemoved);
+            disconnect(m_maskModel, &SessionModel::rowsRemoved, this,
+                       &MaskGraphicsScene::onRowsRemoved);
+            disconnect(m_maskModel, &SessionModel::modelReset, this,
+                       &MaskGraphicsScene::updateScene);
         }
 
         m_maskModel = model;
@@ -80,14 +83,15 @@ void MaskGraphicsScene::setMaskContext(SessionModel* model, const QModelIndex& m
         m_maskContainerIndex = maskContainerIndex;
 
         if (m_maskModel) {
-            connect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-            connect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                    SLOT(onRowsInserted(QModelIndex, int, int)));
-            connect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                    SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-            connect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                    SLOT(onRowsRemoved(QModelIndex, int, int)));
-            connect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+            connect(m_maskModel, &SessionModel::modelAboutToBeReset, this,
+                    &MaskGraphicsScene::resetScene);
+            connect(m_maskModel, &SessionModel::rowsInserted, this,
+                    &MaskGraphicsScene::onRowsInserted);
+            connect(m_maskModel, &SessionModel::rowsAboutToBeRemoved, this,
+                    &MaskGraphicsScene::onRowsAboutToBeRemoved);
+            connect(m_maskModel, &SessionModel::rowsRemoved, this,
+                    &MaskGraphicsScene::onRowsRemoved);
+            connect(m_maskModel, &SessionModel::modelReset, this, &MaskGraphicsScene::updateScene);
         }
 
         resetScene();
@@ -99,14 +103,15 @@ void MaskGraphicsScene::resetContext()
 {
     m_intensityItem = nullptr;
     if (m_maskModel) {
-        disconnect(m_maskModel, SIGNAL(modelAboutToBeReset()), this, SLOT(resetScene()));
-        disconnect(m_maskModel, SIGNAL(rowsInserted(QModelIndex, int, int)), this,
-                   SLOT(onRowsInserted(QModelIndex, int, int)));
-        disconnect(m_maskModel, SIGNAL(rowsAboutToBeRemoved(QModelIndex, int, int)), this,
-                   SLOT(onRowsAboutToBeRemoved(QModelIndex, int, int)));
-        disconnect(m_maskModel, SIGNAL(rowsRemoved(QModelIndex, int, int)), this,
-                   SLOT(onRowsRemoved(QModelIndex, int, int)));
-        disconnect(m_maskModel, SIGNAL(modelReset()), this, SLOT(updateScene()));
+        disconnect(m_maskModel, &SessionModel::modelAboutToBeReset, this,
+                   &MaskGraphicsScene::resetScene);
+        disconnect(m_maskModel, &SessionModel::rowsInserted, this,
+                   &MaskGraphicsScene::onRowsInserted);
+        disconnect(m_maskModel, &SessionModel::rowsAboutToBeRemoved, this,
+                   &MaskGraphicsScene::onRowsAboutToBeRemoved);
+        disconnect(m_maskModel, &SessionModel::rowsRemoved, this,
+                   &MaskGraphicsScene::onRowsRemoved);
+        disconnect(m_maskModel, &SessionModel::modelReset, this, &MaskGraphicsScene::updateScene);
     }
     m_maskModel = nullptr;
     m_maskContainerIndex = {};

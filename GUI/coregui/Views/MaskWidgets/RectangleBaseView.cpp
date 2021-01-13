@@ -107,7 +107,8 @@ void RectangleBaseView::create_size_handle_elements()
 
     for (SizeHandleElement::EHandleLocation point_type : points) {
         SizeHandleElement* el = new SizeHandleElement(point_type, this);
-        connect(el, SIGNAL(resize_request(bool)), this, SLOT(onSizeHandleElementRequest(bool)));
+        connect(el, &SizeHandleElement::resize_request, this,
+                &RectangleBaseView::onSizeHandleElementRequest);
         el->setVisible(false);
         m_resize_handles[point_type] = el;
     }

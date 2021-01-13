@@ -47,7 +47,7 @@ public:
 
     void dropWidgetsFromGridLayout(QGridLayout* layout);
 
-private slots:
+public slots:
     void updateWidth();
 
 protected:

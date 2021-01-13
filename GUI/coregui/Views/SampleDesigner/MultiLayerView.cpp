@@ -29,8 +29,14 @@ MultiLayerView::MultiLayerView(QGraphicsItem* parent) : ILayerView(parent)
     setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
-    connect(this, SIGNAL(childrenChanged()), this, SLOT(updateHeight()));
     updateGeometry();
+    connect(this, &MultiLayerView::childrenChanged, this, &MultiLayerView::updateHeight);
+}
+
+MultiLayerView::~MultiLayerView()
+{
+    // to prevent call on LayerView destruction on final scene shutdown
+    disconnect(this, &MultiLayerView::childrenChanged, this, &MultiLayerView::updateHeight);
 }
 
 QRectF MultiLayerView::boundingRect() const
@@ -80,8 +86,9 @@ void MultiLayerView::addView(IView* childView, int row)
 void MultiLayerView::addNewLayer(ILayerView* layer, int row)
 {
     m_layers.insert(row, layer);
-    connect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()), Qt::UniqueConnection);
-    connect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()),
+    connect(layer, &ILayerView::heightChanged, this, &MultiLayerView::updateHeight,
+            Qt::UniqueConnection);
+    connect(layer, &ILayerView::aboutToBeDeleted, this, &MultiLayerView::onLayerAboutToBeDeleted,
             Qt::UniqueConnection);
     layer->setParentItem(this);
 }
@@ -96,8 +103,9 @@ void MultiLayerView::onLayerAboutToBeDeleted()
 void MultiLayerView::removeLayer(ILayerView* layer)
 {
     ASSERT(m_layers.contains(layer));
-    disconnect(layer, SIGNAL(heightChanged()), this, SLOT(updateHeight()));
-    disconnect(layer, SIGNAL(aboutToBeDeleted()), this, SLOT(onLayerAboutToBeDeleted()));
+    disconnect(layer, &ILayerView::heightChanged, this, &MultiLayerView::updateHeight);
+    disconnect(layer, &ILayerView::aboutToBeDeleted, this,
+               &MultiLayerView::onLayerAboutToBeDeleted);
     m_layers.removeOne(layer);
     updateGeometry();
 }

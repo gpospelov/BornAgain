@@ -289,12 +289,13 @@ void ProjectDocument::writeTo(QIODevice* device)
 void ProjectDocument::disconnectModels()
 {
     if (m_applicationModels)
-        disconnect(m_applicationModels, SIGNAL(modelChanged()), this, SLOT(onModelChanged()));
+        disconnect(m_applicationModels, &ApplicationModels::modelChanged, this,
+                   &ProjectDocument::onModelChanged);
 }
 
 void ProjectDocument::connectModels()
 {
     if (m_applicationModels)
-        connect(m_applicationModels, SIGNAL(modelChanged()), this, SLOT(onModelChanged()),
-                Qt::UniqueConnection);
+        connect(m_applicationModels, &ApplicationModels::modelChanged, this,
+                &ProjectDocument::onModelChanged, Qt::UniqueConnection);
 }

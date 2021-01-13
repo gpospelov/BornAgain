@@ -48,8 +48,9 @@ void PolygonView::addView(IShape2DView* childView, int row)
     pointView->setVisible(true);
     update_polygon();
 
-    connect(pointView, SIGNAL(propertyChanged()), this, SLOT(update_view()));
-    connect(pointView, SIGNAL(closePolygonRequest(bool)), this, SLOT(onClosePolygonRequest(bool)));
+    connect(pointView, &PolygonPointView::propertyChanged, this, &PolygonView::update_view);
+    connect(pointView, &PolygonPointView::closePolygonRequest, this,
+            &PolygonView::onClosePolygonRequest);
 }
 
 //! returns last added poligon point in scene coordinates
@@ -174,9 +175,9 @@ void PolygonView::update_points()
     for (QGraphicsItem* childItem : childItems()) {
         PolygonPointView* view = dynamic_cast<PolygonPointView*>(childItem);
         QPointF pos = view->scenePos();
-        disconnect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+        disconnect(view, &PolygonPointView::propertyChanged, this, &PolygonView::update_view);
         view->updateParameterizedItem(pos);
-        connect(view, SIGNAL(propertyChanged()), this, SLOT(update_view()));
+        connect(view, &PolygonPointView::propertyChanged, this, &PolygonView::update_view);
     }
 }
 

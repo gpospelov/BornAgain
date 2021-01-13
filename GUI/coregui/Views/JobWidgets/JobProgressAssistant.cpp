@@ -21,11 +21,8 @@
 JobProgressAssistant::JobProgressAssistant(MainWindow* mainWindow)
     : QObject(mainWindow), m_mainWindow(mainWindow)
 {
-    connect(m_mainWindow->jobModel(), SIGNAL(globalProgress(int)), this,
-            SLOT(onGlobalProgress(int)));
-
-    connect(m_mainWindow->progressBar(), SIGNAL(clicked()), m_mainWindow->jobModel(),
-            SLOT(onCancelAllJobs()));
+    connect(m_mainWindow->jobModel(), &JobModel::globalProgress, this,
+            &JobProgressAssistant::onGlobalProgress);
 }
 
 void JobProgressAssistant::onGlobalProgress(int progress)

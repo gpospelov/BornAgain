@@ -47,7 +47,8 @@ SessionModelView::SessionModelView(MainWindow* mainWindow)
     m_expandCollapseButton->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     m_expandCollapseButton->setToolTip("Click to  switch between expanded/collapsed tree view");
     m_toolBar->addWidget(m_expandCollapseButton);
-    connect(m_expandCollapseButton, SIGNAL(clicked()), this, SLOT(onExpandCollapseTree()));
+    connect(m_expandCollapseButton, &QToolButton::clicked, this,
+            &SessionModelView::onExpandCollapseTree);
 
     layout->addWidget(m_toolBar);
     layout->addWidget(m_tabs);

@@ -25,7 +25,7 @@ const int update_every = 20000; // in msec
 AutosaveController::AutosaveController(QObject* parent)
     : QObject(parent), m_document(0), m_timer(new UpdateTimer(update_every, this))
 {
-    connect(m_timer, SIGNAL(timeToUpdate()), this, SLOT(onTimerTimeout()));
+    connect(m_timer, &UpdateTimer::timeToUpdate, this, &AutosaveController::onTimerTimeout);
 }
 
 void AutosaveController::setDocument(ProjectDocument* document)
@@ -131,13 +131,14 @@ void AutosaveController::setDocumentConnected(bool set_connected)
         return;
 
     if (set_connected) {
-        connect(m_document, SIGNAL(destroyed(QObject*)), this, SLOT(onDocumentDestroyed(QObject*)),
-                Qt::UniqueConnection);
-        connect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()),
-                Qt::UniqueConnection);
+        connect(m_document, &ProjectDocument::destroyed, this,
+                &AutosaveController::onDocumentDestroyed, Qt::UniqueConnection);
+        connect(m_document, &ProjectDocument::modified, this,
+                &AutosaveController::onDocumentModified, Qt::UniqueConnection);
     } else {
-        disconnect(m_document, SIGNAL(destroyed(QObject*)), this,
-                   SLOT(onDocumentDestroyed(QObject*)));
-        disconnect(m_document, SIGNAL(modified()), this, SLOT(onDocumentModified()));
+        disconnect(m_document, &ProjectDocument::destroyed, this,
+                   &AutosaveController::onDocumentDestroyed);
+        disconnect(m_document, &ProjectDocument::modified, this,
+                   &AutosaveController::onDocumentModified);
     }
 }

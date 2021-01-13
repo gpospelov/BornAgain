@@ -17,26 +17,28 @@
 
 #include <QLabel>
 
-//! The FancyLabel class is QLabel-like class with trivail animation, when text slowly
-//! appears on the screen from left to right pretending to be typed
+//! The FancyLabel class is a QLabel-like class with trivial animation when text slowly
+//! appears on the screen from left to right, pretending to be typed.
+
 class FancyLabel : public QLabel {
     Q_OBJECT
+
 public:
-    FancyLabel(const QString& text, QWidget* parent = 0);
-    FancyLabel(QWidget* parent = 0);
+    FancyLabel(const QString& text, QWidget* parent = nullptr);
+    FancyLabel(QWidget* parent = nullptr);
 
     void setTextAnimated(const QString& animated_text);
 
 private slots:
-    void timeout();
+    void onTimeout();
 
 private:
     void init_fancy_label();
 
     QString m_text;
-    QTimer* m_timer;
-    int m_total_effect_duration;
-    int m_current_index;
+    QTimer* m_timer{nullptr};
+    int m_total_effect_duration{0};
+    int m_current_index{0};
 };
 
 #endif // BORNAGAIN_GUI_COREGUI_UTILS_FANCYLABEL_H

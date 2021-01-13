@@ -37,7 +37,7 @@ ItemComboWidget::ItemComboWidget(QWidget* parent)
     layout->addWidget(m_stackedWidget);
     setLayout(layout);
 
-    connect(m_toolBar, SIGNAL(comboChanged(QString)), this, SLOT(onComboChanged(QString)));
+    connect(m_toolBar, &ItemComboToolBar::comboChanged, this, &ItemComboWidget::onComboChanged);
 }
 
 void ItemComboWidget::registerWidget(const QString& presentationType, factory_function_t f)

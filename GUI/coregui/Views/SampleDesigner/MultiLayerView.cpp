@@ -29,8 +29,14 @@ MultiLayerView::MultiLayerView(QGraphicsItem* parent) : ILayerView(parent)
     setRectangle(DesignerHelper::getDefaultBoundingRect("MultiLayer"));
     setAcceptHoverEvents(false);
     setAcceptDrops(true);
-    connect(this, &MultiLayerView::childrenChanged, this, &MultiLayerView::updateHeight);
     updateGeometry();
+    connect(this, &MultiLayerView::childrenChanged, this, &MultiLayerView::updateHeight);
+}
+
+MultiLayerView::~MultiLayerView()
+{
+    // to prevent call on LayerView destruction on final scene shutdown
+    disconnect(this, &MultiLayerView::childrenChanged, this, &MultiLayerView::updateHeight);
 }
 
 QRectF MultiLayerView::boundingRect() const

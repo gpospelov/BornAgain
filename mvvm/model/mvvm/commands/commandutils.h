@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDUTILS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_COMMANDS_COMMANDUTILS_H
 
-//! @file commandutils.h
+//! @file mvvm/model/mvvm/commands/commandutils.h
 //! Collection of various utility functions for command service.
 
 #include "mvvm/interfaces/itembackupstrategy.h"

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_PLOTTABLEITEMS_H
 
-//! @file plottableitems.h
+//! @file mvvm/model/mvvm/standarditems/plottableitems.h
 //! Collection of items to plot in QCustomPlot context.
 
 #include "mvvm/model/compounditem.h"

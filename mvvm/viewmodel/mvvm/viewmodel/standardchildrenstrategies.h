@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
 #define BORNAGAIN_MVVM_VIEWMODEL_MVVM_VIEWMODEL_STANDARDCHILDRENSTRATEGIES_H
 
-//! @file childrenstrategies.h
+//! @file mvvm/viewmodel/mvvm/viewmodel/standardchildrenstrategies.h
 //! @brief Collection of strategies to find children, actual of fictional, of given SessionItem.
 //! Used for ViewModel generation when underlying SessionModel changes its layout.
 

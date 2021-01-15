@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_COMPATIBILITYUTILS_H
 
-//! @file compatibilityutils.h
+//! @file mvvm/model/mvvm/serialization/compatibilityutils.h
 //! @brief Place for utils to fix back compatibility of serialized projects.
 
 #include "mvvm/model_export.h"

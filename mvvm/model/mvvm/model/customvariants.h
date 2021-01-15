@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_MODEL_CUSTOMVARIANTS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_MODEL_CUSTOMVARIANTS_H
 
-//! @file customvariants.h
+//! @file mvvm/model/mvvm/model/customvariants.h
 //! Registrations and translations for custom variants.
 
 #include "mvvm/core/variant.h"

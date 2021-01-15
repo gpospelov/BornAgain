@@ -17,7 +17,7 @@
 
 #include <string>
 
-//! @file variant-constants.h
+//! @file mvvm/model/mvvm/model/variant_constants.h
 //! Collection of constants with supported variant names.
 
 namespace ModelView {

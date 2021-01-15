@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_ITEMCONVERTERFACTORY_H
 
-//! @file itemconverterfactory.h
+//! @file mvvm/model/mvvm/factories/itemconverterfactory.h
 //! Collection of factory functions to create SessionItem converters to/from serialized content.
 
 #include "mvvm/serialization/jsonitemconverterinterface.h"

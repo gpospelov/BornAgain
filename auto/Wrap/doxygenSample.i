@@ -4587,7 +4587,7 @@ C++ includes: ISelectionRule.h
 
 Abstract base class for different shapes.
 
-In contrast to the form factors, these shapes only provide an intereface for returning a set of vertices.
+In contrast to the form factors, these shapes only provide an interface for returning a set of vertices.
 
 C++ includes: IShape.h
 ";

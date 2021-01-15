@@ -20,7 +20,7 @@
 #include <string>
 #include <vector>
 
-//! @file viewmodelcontrollers.h
+//! @file mvvm/viewmodel/mvvm/viewmodel/standardviewmodelcontrollers.h
 //! Collection of standard controllers for AbstractViewModel.
 
 namespace ModelView {

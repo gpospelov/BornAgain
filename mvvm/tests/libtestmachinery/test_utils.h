@@ -19,7 +19,7 @@
 #include <QString>
 #include <memory>
 
-//! @file test_utils.h
+//! @file mvvm/tests/libtestmachinery/test_utils.h
 //! @brief Collection of utility functions for various unit tests.
 
 class QJsonObject;

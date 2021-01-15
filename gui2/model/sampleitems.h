@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI2_MODEL_SAMPLEITEMS_H
 #define BORNAGAIN_GUI2_MODEL_SAMPLEITEMS_H
 
-//! @file sampleitems.h
+//! @file gui2/model/sampleitems.h
 //! Collection of layer and multi-layer items to populate SampleModel.
 
 #include "darefl_export.h"

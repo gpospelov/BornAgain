@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_AXISITEMS_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_AXISITEMS_H
 
-//! @file axisitems.h
+//! @file mvvm/model/mvvm/standarditems/axisitems.h
 //! Collection of axis items for 1D and 2D data/plotting support.
 
 #include "mvvm/model/compounditem.h"

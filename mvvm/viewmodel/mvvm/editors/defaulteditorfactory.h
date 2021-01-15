@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_DEFAULTEDITORFACTORY_H
 #define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_DEFAULTEDITORFACTORY_H
 
-//! @file defaulteditorfactory.h
+//! @file mvvm/viewmodel/mvvm/editors/defaulteditorfactory.h
 //! Defines DefaultEditorFactory and auxiliary classes for custom view model delegates.
 
 #include "mvvm/editors/editorbuilders.h"

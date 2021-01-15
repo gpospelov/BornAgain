@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit reflection and scattering
 //
-//! @file      Sample/Shapes/IShape.h
-//! @brief     Defines interface IShape.
+//! @file      Sample/Shapes/IShape3D.h
+//! @brief     Defines interface IShape3D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -30,10 +30,10 @@
 
 //! @ingroup shapes_internal
 
-class IShape {
+class IShape3D {
 public:
-    IShape() {}
-    virtual ~IShape() {}
+    IShape3D() {}
+    virtual ~IShape3D() {}
 
     //! Retrieves a list of the vertices constituting this concrete shape
     virtual std::vector<kvector_t> vertices() const;

@@ -20,9 +20,9 @@
 #ifndef BORNAGAIN_SAMPLE_SHAPES_TRUNCATEDELLIPSOID_H
 #define BORNAGAIN_SAMPLE_SHAPES_TRUNCATEDELLIPSOID_H
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
-class TruncatedEllipsoid : public IShape {
+class TruncatedEllipsoid : public IShape3D {
 public:
     TruncatedEllipsoid(double r_x, double r_y, double r_z, double height, double dh);
     ~TruncatedEllipsoid();

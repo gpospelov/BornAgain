@@ -16,7 +16,7 @@
 #include "Base/Utils/Algorithms.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Scattering/Rotations.h"
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
 IBornFF::IBornFF() = default;
 

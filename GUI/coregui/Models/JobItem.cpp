@@ -46,7 +46,7 @@ const QString JobItem::T_OUTPUT = "Output tag";
 const QString JobItem::T_REALDATA = "Real Data tag";
 const QString JobItem::T_DATAVIEW = "Data View tag";
 const QString JobItem::T_PARAMETER_TREE = "Parameter tree tag";
-const QString JobItem::T_SIMULATION_OPTIONS = "ISimulation options tag";
+const QString JobItem::T_SIMULATION_OPTIONS = "Simulation options tag";
 const QString JobItem::T_FIT_SUITE = "Fit suite tag";
 
 JobItem::JobItem() : SessionItem("JobItem")

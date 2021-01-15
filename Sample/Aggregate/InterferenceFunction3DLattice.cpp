@@ -62,23 +62,23 @@ double InterferenceFunction3DLattice::iff_without_dw(const kvector_t q) const
     kvector_t center = q;
     double radius = 2.1 * m_rec_radius;
     double inner_radius = 0.0;
-//    if (m_peak_shape->angularDisorder()) {
-//        center = kvector_t(0.0, 0.0, 0.0);
-//        inner_radius = std::max(0.0, q.mag() - radius);
-//        radius += q.mag();
-//    }
+    //    if (m_peak_shape->angularDisorder()) {
+    //        center = kvector_t(0.0, 0.0, 0.0);
+    //        inner_radius = std::max(0.0, q.mag() - radius);
+    //        radius += q.mag();
+    //    }
     const auto rec_vectors = m_lattice.reciprocalLatticeVectorsWithinRadius(center, radius);
-    //std::cout << "IWD: q=" << q << ", r=" << radius << ", ir=" << inner_radius <<
+    // std::cout << "IWD: q=" << q << ", r=" << radius << ", ir=" << inner_radius <<
     //    ", disordered=" << m_peak_shape->angularDisorder() << " => nVec=" << rec_vectors.size()
     //          << std::endl;
 
     double result = 0.0;
     for (const auto& q_rec : rec_vectors)
-//        if (!(q_rec.mag() < inner_radius)) {
-            // result += m_peak_shape->evaluate(q, q_rec);
-            result += exp(-(q-q_rec).mag2()/2/pow(.06,2));
-            // std::cout << "  INCR: qr=" << q_rec << " => " << result << std::endl;
-//        }
+        //        if (!(q_rec.mag() < inner_radius)) {
+        // result += m_peak_shape->evaluate(q, q_rec);
+        result += exp(-(q - q_rec).mag2() / 2 / pow(.06, 2));
+    // std::cout << "  INCR: qr=" << q_rec << " => " << result << std::endl;
+    //        }
     return result;
 }
 

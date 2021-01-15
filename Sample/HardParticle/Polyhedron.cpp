@@ -17,12 +17,12 @@
 //! "Numerically stable form factor of any polygon and polyhedron"
 
 #include "Sample/HardParticle/Polyhedron.h"
-#include "Sample/HardParticle/PolyhedralTopology.h"
 #include "Base/Math/Functions.h"
+#include "Sample/HardParticle/PolyhedralTopology.h"
+#include <boost/format.hpp>
 #include <iomanip>
 #include <iostream>
 #include <stdexcept> // need overlooked by g++ 5.4
-#include <boost/format.hpp>
 
 namespace {
 const double eps = 2e-16;
@@ -169,8 +169,8 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             term *= n_fac;
 #ifdef ALGORITHM_DIAGNOSTIC_LEVEL2
             polyhedralDiagnosis.msg +=
-                boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n")
-                           % n % term.real() % term.imag());
+                boost::str(boost::format("  + term(n=%2i) = %23.17e+i*%23.17e\n") % n % term.real()
+                           % term.imag());
 #endif
             sum += term;
             if (std::abs(term) <= eps * std::abs(sum) || std::abs(sum) < eps * m_volume)
@@ -193,14 +193,13 @@ complex_t Polyhedron::evaluate_centered(const cvector_t& q) const
             if (std::abs(qn) < eps * q.mag())
                 continue;
             complex_t term = qn * Gk.ff(q, m_sym_Ci);
-#ifdef ALGORITHM_DIAGNOSTIC//_LEVEL2
-            polyhedralDiagnosis.msg +=
-                boost::str(boost::format("  + face_ff = %23.17e+i*%23.17e\n")
-                           % term.real() % term.imag());
+#ifdef ALGORITHM_DIAGNOSTIC //_LEVEL2
+            polyhedralDiagnosis.msg += boost::str(boost::format("  + face_ff = %23.17e+i*%23.17e\n")
+                                                  % term.real() % term.imag());
 #endif
             sum += term;
         }
-#ifdef ALGORITHM_DIAGNOSTIC//_LEVEL2
+#ifdef ALGORITHM_DIAGNOSTIC //_LEVEL2
         polyhedralDiagnosis.msg +=
             boost::str(boost::format(" -> raw sum = %23.17e+i*%23.17e; divisor = %23.17e\n")
                        % sum.real() % sum.imag() % q.mag2());

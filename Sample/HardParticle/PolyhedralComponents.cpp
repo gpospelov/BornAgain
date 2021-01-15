@@ -24,10 +24,14 @@ constexpr auto ReciprocalFactorialArray = Math::generateReciprocalFactorialArray
 } // namespace
 
 #ifdef ALGORITHM_DIAGNOSTIC
-void PolyhedralDiagnosis::reset() {
-    order = 0; algo = 0; msg.clear();
+void PolyhedralDiagnosis::reset()
+{
+    order = 0;
+    algo = 0;
+    msg.clear();
 };
-std::string PolyhedralDiagnosis::message() const {
+std::string PolyhedralDiagnosis::message() const
+{
     std::string ret = "algo=" + std::to_string(algo) + ", order=" + std::to_string(order);
     if (!msg.empty())
         ret += ", msg:\n" + msg;
@@ -35,14 +39,13 @@ std::string PolyhedralDiagnosis::message() const {
 }
 bool PolyhedralDiagnosis::operator==(const PolyhedralDiagnosis& other) const
 {
-    return order==other.order && algo==other.algo;
+    return order == other.order && algo == other.algo;
 }
 bool PolyhedralDiagnosis::operator!=(const PolyhedralDiagnosis& other) const
 {
-    return !(*this==other);
+    return !(*this == other);
 }
 #endif
-
 
 //  ************************************************************************************************
 //  PolyhedralEdge implementation

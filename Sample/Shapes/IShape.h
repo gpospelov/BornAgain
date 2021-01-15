@@ -25,7 +25,7 @@
 
 //! Abstract base class for different shapes.
 //!
-//! In contrast to the form factors, these shapes only provide an intereface
+//! In contrast to the form factors, these shapes only provide an interface
 //! for returning a set of vertices.
 
 //! @ingroup shapes_internal

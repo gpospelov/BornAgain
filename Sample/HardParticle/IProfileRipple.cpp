@@ -63,7 +63,7 @@ complex_t IProfileRectangularRipple::factor_yz(complex_t qy, complex_t qz) const
 
 void IProfileRectangularRipple::onChange()
 {
-    m_shape = std::make_unique<Box>(m_length, m_width, m_height);
+    m_shape3D = std::make_unique<Box>(m_length, m_width, m_height);
 }
 
 //  ************************************************************************************************
@@ -84,7 +84,7 @@ complex_t ICosineRipple::factor_yz(complex_t qy, complex_t qz) const
 
 void ICosineRipple::onChange()
 {
-    m_shape = std::make_unique<RippleCosine>(m_length, m_width, m_height);
+    m_shape3D = std::make_unique<RippleCosine>(m_length, m_width, m_height);
 }
 
 //  ************************************************************************************************
@@ -108,5 +108,5 @@ complex_t ISawtoothRipple::factor_yz(complex_t qy, complex_t qz) const
 
 void ISawtoothRipple::onChange()
 {
-    m_shape = std::make_unique<RippleSawtooth>(m_length, m_width, m_height, m_asymmetry);
+    m_shape3D = std::make_unique<RippleSawtooth>(m_length, m_width, m_height, m_asymmetry);
 }

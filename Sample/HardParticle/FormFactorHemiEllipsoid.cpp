@@ -76,5 +76,5 @@ complex_t FormFactorHemiEllipsoid::evaluate_for_q(cvector_t q) const
 
 void FormFactorHemiEllipsoid::onChange()
 {
-    m_shape = std::make_unique<TruncatedEllipsoid>(m_radius_x, m_radius_x, m_height, m_height, 0.0);
+    m_shape3D = std::make_unique<TruncatedEllipsoid>(m_radius_x, m_radius_x, m_height, m_height, 0.0);
 }

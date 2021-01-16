@@ -97,6 +97,6 @@ IFormFactor* FormFactorTruncatedSpheroid::sliceFormFactor(ZLimits limits, const 
 
 void FormFactorTruncatedSpheroid::onChange()
 {
-    m_shape.reset(
+    m_shape3D.reset(
         new TruncatedEllipsoid(m_radius, m_radius, m_height_flattening * m_radius, m_height, m_dh));
 }

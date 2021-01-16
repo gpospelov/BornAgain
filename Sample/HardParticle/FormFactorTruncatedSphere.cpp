@@ -90,5 +90,5 @@ IFormFactor* FormFactorTruncatedSphere::sliceFormFactor(ZLimits limits, const IR
 
 void FormFactorTruncatedSphere::onChange()
 {
-    m_shape = std::make_unique<TruncatedEllipsoid>(m_radius, m_radius, m_radius, m_height, m_dh);
+    m_shape3D = std::make_unique<TruncatedEllipsoid>(m_radius, m_radius, m_radius, m_height, m_dh);
 }

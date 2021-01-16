@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_VARIANT_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_CORE_VARIANT_H
 
-//! @file variant.h
+//! @file mvvm/model/mvvm/core/variant.h
 //! Defines variant type (intermediate step toward migration from QVariant to std::variant).
 
 #include <QVariant>

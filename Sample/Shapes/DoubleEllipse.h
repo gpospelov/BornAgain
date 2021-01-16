@@ -20,9 +20,9 @@
 #ifndef BORNAGAIN_SAMPLE_SHAPES_DOUBLEELLIPSE_H
 #define BORNAGAIN_SAMPLE_SHAPES_DOUBLEELLIPSE_H
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
-class DoubleEllipse : public IShape {
+class DoubleEllipse : public IShape3D {
 public:
     DoubleEllipse(double r0_x, double r0_y, double z, double rz_x, double rz_y);
     ~DoubleEllipse();

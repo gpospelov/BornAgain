@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_STANDARDITEMS_STANDARDITEMINCLUDES_H
 
-//! @file standarditemincludes.h
+//! @file mvvm/model/mvvm/standarditems/standarditemincludes.h
 //! Collection of all includes with items supported by the model out-of-the-box.
 
 #include "mvvm/model/compounditem.h"

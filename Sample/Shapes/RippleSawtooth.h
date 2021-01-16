@@ -20,9 +20,9 @@
 #ifndef BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
 #define BORNAGAIN_SAMPLE_SHAPES_RIPPLESAWTOOTH_H
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
-class RippleSawtooth : public IShape {
+class RippleSawtooth : public IShape3D {
 public:
     RippleSawtooth(double length, double width, double height, double asymmetry);
     ~RippleSawtooth();

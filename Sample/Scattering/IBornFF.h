@@ -18,7 +18,7 @@
 
 #include "Sample/Scattering/IFormFactor.h"
 
-class IShape;
+class IShape3D;
 
 //! Nested structure that holds slicing effects on position and removed parts.
 
@@ -72,9 +72,9 @@ protected:
     virtual Eigen::Matrix2cd evaluate_for_q_pol(cvector_t q) const;
 #endif
 
-    //! IShape object, used to retrieve vertices (which may be approximate in the case
+    //! IShape3D object, used to retrieve vertices (which may be approximate in the case
     //! of round shapes). For soft particles, this will be a hard mean shape.
-    std::unique_ptr<IShape> m_shape;
+    std::unique_ptr<IShape3D> m_shape3D;
 
     //! Helper method for slicing
     static SlicingEffects computeSlicingEffects(ZLimits limits, const kvector_t& position,

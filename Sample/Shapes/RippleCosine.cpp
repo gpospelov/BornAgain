@@ -18,8 +18,8 @@
 
 RippleCosine::RippleCosine(double length, double width, double height)
 {
-    size_t n_y = IShape::N_Circle + 1;
-    double y_step = width / (IShape::N_Circle);
+    size_t n_y = IShape3D::N_Circle + 1;
+    double y_step = width / (IShape3D::N_Circle);
     m_vertices.resize(2 * n_y);
     for (size_t i = 0; i < n_y; ++i) {
         double y = i * y_step - width / 2.0;

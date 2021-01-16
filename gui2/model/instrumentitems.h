@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_GUI2_MODEL_INSTRUMENTITEMS_H
 #define BORNAGAIN_GUI2_MODEL_INSTRUMENTITEMS_H
 
-//! @file instrumentitems.h
+//! @file gui2/model/instrumentitems.h
 //! Collection of items to construct specular instrument.
 
 #include "darefl_export.h"

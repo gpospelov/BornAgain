@@ -72,7 +72,7 @@ public:
     complex_t ff_n(int m, cvector_t q) const;
     complex_t ff(cvector_t q, bool sym_Ci) const;
     complex_t ff_2D(cvector_t qpa) const;
-    complex_t ff_2D_direct(cvector_t qpa) const; // for TestTriangle
+    complex_t ff_2D_direct(cvector_t qpa) const;   // for TestTriangle
     complex_t ff_2D_expanded(cvector_t qpa) const; // for TestTriangle
     void assert_Ci(const PolyhedralFace& other) const;
 

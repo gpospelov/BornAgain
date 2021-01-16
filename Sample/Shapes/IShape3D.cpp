@@ -2,8 +2,8 @@
 //
 //  BornAgain: simulate and fit reflection and scattering
 //
-//! @file      Sample/Shapes/IShape.cpp
-//! @brief     Implements default methods of interface IShape.
+//! @file      Sample/Shapes/IShape3D.cpp
+//! @brief     Implements default methods of interface IShape3D.
 //!
 //! @homepage  http://www.bornagainproject.org
 //! @license   GNU General Public License v3 or higher (see COPYING)
@@ -12,15 +12,15 @@
 //
 //  ************************************************************************************************
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
 #include <cmath>
 
 // Value of 24 ensures that real points stick out of the convex hull at most
 // 1% of the radius
-const size_t IShape::N_Circle = 24;
+const size_t IShape3D::N_Circle = 24;
 
-std::vector<kvector_t> IShape::vertices() const
+std::vector<kvector_t> IShape3D::vertices() const
 {
     return m_vertices;
 }
@@ -36,9 +36,9 @@ std::vector<kvector_t> RectangleVertices(double length, double width, double z)
 
 std::vector<kvector_t> EllipseVertices(double r_x, double r_y, double z)
 {
-    static constexpr double delta_angle = 2.0 * M_PI / IShape::N_Circle;
-    std::vector<kvector_t> result(IShape::N_Circle);
-    for (size_t i = 0; i < IShape::N_Circle; ++i) {
+    static constexpr double delta_angle = 2.0 * M_PI / IShape3D::N_Circle;
+    std::vector<kvector_t> result(IShape3D::N_Circle);
+    for (size_t i = 0; i < IShape3D::N_Circle; ++i) {
         double angle = i * delta_angle;
         double x = r_x * std::cos(angle);
         double y = r_y * std::sin(angle);

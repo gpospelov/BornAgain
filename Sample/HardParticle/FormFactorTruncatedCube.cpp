@@ -64,10 +64,8 @@ void FormFactorTruncatedCube::onChange()
     double c = a - m_removed_length;
 
     setPolyhedron(topology, -a,
-                  {{-c, -a, -a}, {-a, -c, -a}, {-a, -a, -c}, {c, -a, -a},
-                   {a, -c, -a},  {a, -a, -c},  {-c, a, -a},  {-a, c, -a},
-                   {-a, a, -c},  {c, a, -a},   {a, c, -a},   {a, a, -c},
-                   {-c, -a, a},  {-a, -c, a},  {-a, -a, c},  {c, -a, a},
-                   {a, -c, a},   {a, -a, c},   {-c, a, a},   {-a, c, a},
-                   {-a, a, c},   {c, a, a},    {a, c, a},    {a, a, c}});
+                  {{-c, -a, -a}, {-a, -c, -a}, {-a, -a, -c}, {c, -a, -a}, {a, -c, -a}, {a, -a, -c},
+                   {-c, a, -a},  {-a, c, -a},  {-a, a, -c},  {c, a, -a},  {a, c, -a},  {a, a, -c},
+                   {-c, -a, a},  {-a, -c, a},  {-a, -a, c},  {c, -a, a},  {a, -c, a},  {a, -a, c},
+                   {-c, a, a},   {-a, c, a},   {-a, a, c},   {c, a, a},   {a, c, a},   {a, a, c}});
 }

@@ -20,9 +20,9 @@
 #ifndef BORNAGAIN_SAMPLE_SHAPES_BOX_H
 #define BORNAGAIN_SAMPLE_SHAPES_BOX_H
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
-class Box : public IShape {
+class Box : public IShape3D {
 public:
     Box(double length, double width, double height);
     ~Box();

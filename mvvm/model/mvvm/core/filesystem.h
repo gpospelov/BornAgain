@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_FILESYSTEM_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_CORE_FILESYSTEM_H
 
-//! @file Include of <filesystem> library for older compilers (<gcc8.0)
+//! @file mvvm/model/mvvm/core/filesystem.h of <filesystem> library for older compilers (<gcc8.0)
 //! See
 //! https://stackoverflow.com/questions/53365538/how-to-determine-whether-to-use-filesystem-or-experimental-filesystem
 

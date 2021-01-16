@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELCONVERTERFACTORY_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_FACTORIES_MODELCONVERTERFACTORY_H
 
-//! @file modelconverterfactory.h
+//! @file mvvm/model/mvvm/factories/modelconverterfactory.h
 //! Collection of factory functions to create SessionModel converters to/from serialized content.
 
 #include "mvvm/serialization/jsonmodelconverterinterface.h"

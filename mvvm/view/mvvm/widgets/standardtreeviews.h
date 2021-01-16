@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_STANDARDTREEVIEWS_H
 #define BORNAGAIN_MVVM_VIEW_MVVM_WIDGETS_STANDARDTREEVIEWS_H
 
-//! @file standardtreeviews.h
+//! @file mvvm/view/mvvm/widgets/standardtreeviews.h
 //! @brief Collection of includes to get all standard tree views.
 
 #include "mvvm/widgets/allitemstreeview.h"

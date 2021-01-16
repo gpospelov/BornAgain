@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_CORE_VERSION_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_CORE_VERSION_H
 
-//! @file version.h
+//! @file mvvm/model/mvvm/core/version.h
 //! Automatically generated from mvvm_version.h.in
 
 #include <string>

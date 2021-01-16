@@ -16,7 +16,7 @@
 #include "Base/Utils/Algorithms.h"
 #include "Sample/Material/WavevectorInfo.h"
 #include "Sample/Scattering/Rotations.h"
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
 IBornFF::IBornFF() = default;
 
@@ -39,16 +39,16 @@ Eigen::Matrix2cd IBornFF::evaluatePol(const WavevectorInfo& wavevectors) const
 
 double IBornFF::bottomZ(const IRotation& rotation) const
 {
-    if (!m_shape)
+    if (!m_shape3D)
         return 0;
-    return BottomZ(m_shape->vertices(), rotation);
+    return BottomZ(m_shape3D->vertices(), rotation);
 }
 
 double IBornFF::topZ(const IRotation& rotation) const
 {
-    if (!m_shape)
+    if (!m_shape3D)
         return 0;
-    return TopZ(m_shape->vertices(), rotation);
+    return TopZ(m_shape3D->vertices(), rotation);
 }
 
 bool IBornFF::canSliceAnalytically(const IRotation& rot) const

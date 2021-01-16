@@ -1,8 +1,8 @@
 #include "Base/Math/Constants.h"
 #include "Sample/HardParticle/HardParticles.h"
+#include "Sample/HardParticle/PolyhedralComponents.h" // for diagnostic
 #include "Tests/GTestWrapper/google_test.h"
 #include "Tests/UnitTests/Numeric/MultiQTestbed.h"
-#include "Sample/HardParticle/PolyhedralComponents.h" // for diagnostic
 
 //! Check that form factors are invariant when q is transformed according to particle symmetry.
 
@@ -18,19 +18,19 @@ private:
 #endif
         const complex_t f1 = ff->evaluate_for_q(p);
         const double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        const double precision = std::max(1e-16, eps*avge);
-        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q  << ", p=" << p
+        const double precision = std::max(1e-16, eps * avge);
+        EXPECT_NEAR(real(f0), real(f1), precision)
+            << "q=" << q << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << "\n msg(q): " << msg0 << "\n"
-                                                    << "\n msg(p): "
-                                                    << polyhedralDiagnosis.message() << "\n"
+            << "\n msg(q): " << msg0 << "\n"
+            << "\n msg(p): " << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
-        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q  << ", p=" << p
+        EXPECT_NEAR(imag(f0), imag(f1), precision)
+            << "q=" << q << ", p=" << p
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << "\n msg(q): " << msg0 << "\n"
-                                                    << "\n msg(p): "
-                                                    << polyhedralDiagnosis.message() << "\n"
+            << "\n msg(q): " << msg0 << "\n"
+            << "\n msg(p): " << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
     }
@@ -57,10 +57,11 @@ TEST_F(FFSymmetryTest, Prism6)
 {
     FormFactorPrism6 ff(1.33, .42);
     run_test(
-        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3); }, 1e-13, 1e-99, 50);
+        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(M_PI / 3); }, 1e-13, 1e-99,
+        50);
     run_test(
-        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_TWOPI / 3); }, 1e-13,
-        1e-99, 50);
+        &ff, [](const cvector_t& q) -> cvector_t { return q.rotatedZ(-M_TWOPI / 3); }, 1e-13, 1e-99,
+        50);
 }
 
 TEST_F(FFSymmetryTest, Tetrahedron)

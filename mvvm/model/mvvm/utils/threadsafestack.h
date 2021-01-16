@@ -24,7 +24,7 @@
 #include <stdexcept>
 #include <thread>
 
-//! @file threadsafestack.h
+//! @file mvvm/model/mvvm/utils/threadsafestack.h
 //! @brief Thread-safe stack borrowed from Anthony Williams, C++ Concurrency in Action, Second
 //! edition.
 

@@ -77,16 +77,11 @@ void FormFactorCantellatedCube::onChange()
     double a = m_length / 2;
     double c = a - m_removed_length;
 
-    setPolyhedron(topology, -a, {{-c, -c, +a}, // point 0
-                                 {+c, -c, +a}, {+c, +c, +a}, {-c, +c, +a},
-                                 {-a, -c, +c}, // point 4
-                                 {+c, -a, +c}, {+a, +c, +c}, {-c, +a, +c},
-                                 {-c, -a, +c}, // point 8
-                                 {+a, -c, +c}, {+c, +a, +c}, {-a, +c, +c},
-                                 {-a, -c, -c}, // point 12
-                                 {+c, -a, -c}, {+a, +c, -c}, {-c, +a, -c},
-                                 {-c, -a, -c}, // point 16
-                                 {+a, -c, -c}, {+c, +a, -c}, {-a, +c, -c},
-                                 {-c, -c, -a}, // point 20
+    setPolyhedron(topology, -a, {{-c, -c, +a},                                           // point 0
+                                 {+c, -c, +a}, {+c, +c, +a}, {-c, +c, +a}, {-a, -c, +c}, // point 4
+                                 {+c, -a, +c}, {+a, +c, +c}, {-c, +a, +c}, {-c, -a, +c}, // point 8
+                                 {+a, -c, +c}, {+c, +a, +c}, {-a, +c, +c}, {-a, -c, -c}, // point 12
+                                 {+c, -a, -c}, {+a, +c, -c}, {-c, +a, -c}, {-c, -a, -c}, // point 16
+                                 {+a, -c, -c}, {+c, +a, -c}, {-a, +c, -c}, {-c, -c, -a}, // point 20
                                  {+c, -c, -a}, {+c, +c, -a}, {-c, +c, -a}});
 }

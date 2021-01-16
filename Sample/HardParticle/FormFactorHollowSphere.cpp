@@ -56,7 +56,7 @@ complex_t FormFactorHollowSphere::evaluate_for_q(cvector_t q) const
 
 void FormFactorHollowSphere::onChange()
 {
-    m_shape = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
+    m_shape3D = std::make_unique<TruncatedEllipsoid>(m_mean, m_mean, m_mean, 2.0 * m_mean, 0.0);
 }
 
 bool FormFactorHollowSphere::checkParameters() const

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITOR_CONSTANTS_H
 #define BORNAGAIN_MVVM_VIEWMODEL_MVVM_EDITORS_EDITOR_CONSTANTS_H
 
-//! @file editor_constants.h
+//! @file mvvm/viewmodel/mvvm/editors/editor_constants.h
 //! Collection of constants specific for cell editing.
 
 #include <string>

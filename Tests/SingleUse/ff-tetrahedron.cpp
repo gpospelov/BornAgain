@@ -10,7 +10,8 @@
 //!
 //! To reactivate this code, just move in to ../UnitTest/Numeric/.
 
-class AdHoc : public ::testing::Test {};
+class AdHoc : public ::testing::Test {
+};
 
 void run(const IBornFF& ff, const cvector_t& q, const cvector_t& p)
 {
@@ -26,17 +27,17 @@ void run(const IBornFF& ff, const cvector_t& q, const cvector_t& p)
     std::cout << polyhedralDiagnosis.message() << "\n";
     polyhedralDiagnosis.reset();
 #endif
-    std::cout << "diff(ff)=" << ffq-ffp << "\n\n";
+    std::cout << "diff(ff)=" << ffq - ffp << "\n\n";
 }
 
 TEST_F(AdHoc, FF)
 {
     FormFactorTetrahedron ff(8.43, .25, .53);
     cvector_t q, p;
-    q = {{.03,-4e-16}, {-3e-17,0}, {0,0}};
+    q = {{.03, -4e-16}, {-3e-17, 0}, {0, 0}};
     run(ff, q, q.rotatedZ(M_TWOPI / 3));
 
-    q = {{.03,0}, {-3e-17,0}, {0,0}};
+    q = {{.03, 0}, {-3e-17, 0}, {0, 0}};
     run(ff, q, q.rotatedZ(M_TWOPI / 3));
 
     EXPECT_EQ(0, 0);

@@ -15,7 +15,7 @@
 #ifndef BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
 #define BORNAGAIN_MVVM_MODEL_MVVM_SERIALIZATION_JSONITEM_TYPES_H
 
-//! @file jsonitem_types.h
+//! @file mvvm/model/mvvm/serialization/jsonitem_types.h
 //! Collection of custom types involved into SessionItem and JSON mutual convertion.
 
 #include "mvvm/model_export.h"

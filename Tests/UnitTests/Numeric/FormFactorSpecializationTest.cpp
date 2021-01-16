@@ -20,15 +20,15 @@ private:
         const complex_t f0 = p0->evaluate_for_q(q);
         const complex_t f1 = p1->evaluate_for_q(q);
         const double avge = (std::abs(f0) + std::abs(f1)) / 2;
-        const double precision = std::max(1e-16, eps*avge);
-        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q  << "\n"
+        const double precision = std::max(1e-16, eps * avge);
+        EXPECT_NEAR(real(f0), real(f1), precision) << "q=" << q << "\n"
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << polyhedralDiagnosis.message() << "\n"
+                                                   << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
-        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q  << "\n"
+        EXPECT_NEAR(imag(f0), imag(f1), precision) << "q=" << q << "\n"
 #ifdef ALGORITHM_DIAGNOSTIC
-                                                    << polyhedralDiagnosis.message() << "\n"
+                                                   << polyhedralDiagnosis.message() << "\n"
 #endif
             ;
     }

@@ -4582,23 +4582,23 @@ C++ includes: ISelectionRule.h
 ";
 
 
-// File: classIShape.xml
-%feature("docstring") IShape "
+// File: classIShape3D.xml
+%feature("docstring") IShape3D "
 
 Abstract base class for different shapes.
 
-In contrast to the form factors, these shapes only provide an intereface for returning a set of vertices.
+In contrast to the form factors, these shapes only provide an interface for returning a set of vertices.
 
-C++ includes: IShape.h
+C++ includes: IShape3D.h
 ";
 
-%feature("docstring")  IShape::IShape "IShape::IShape()
+%feature("docstring")  IShape3D::IShape3D "IShape3D::IShape3D()
 ";
 
-%feature("docstring")  IShape::~IShape "virtual IShape::~IShape()
+%feature("docstring")  IShape3D::~IShape3D "virtual IShape3D::~IShape3D()
 ";
 
-%feature("docstring")  IShape::vertices "std::vector< kvector_t > IShape::vertices() const
+%feature("docstring")  IShape3D::vertices "std::vector< kvector_t > IShape3D::vertices() const
 
 Retrieves a list of the vertices constituting this concrete shape. 
 ";
@@ -8768,7 +8768,7 @@ Returns concatenated rotation (first right, then left).
 // File: DoubleEllipse_8h.xml
 
 
-// File: IShape_8cpp.xml
+// File: IShape3D_8cpp.xml
 %feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
 
 Helper functions to construct lists of vertices
@@ -8782,7 +8782,7 @@ Generate vertices of centered ellipse with given semi-axes at height z.
 ";
 
 
-// File: IShape_8h.xml
+// File: IShape3D_8h.xml
 %feature("docstring")  RectangleVertices "std::vector<kvector_t> RectangleVertices(double length, double width, double z)
 
 Helper functions to construct lists of vertices

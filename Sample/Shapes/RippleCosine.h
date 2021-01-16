@@ -20,9 +20,9 @@
 #ifndef BORNAGAIN_SAMPLE_SHAPES_RIPPLECOSINE_H
 #define BORNAGAIN_SAMPLE_SHAPES_RIPPLECOSINE_H
 
-#include "Sample/Shapes/IShape.h"
+#include "Sample/Shapes/IShape3D.h"
 
-class RippleCosine : public IShape {
+class RippleCosine : public IShape3D {
 public:
     RippleCosine(double length, double width, double height);
     ~RippleCosine();

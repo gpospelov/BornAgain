@@ -30,6 +30,36 @@ VectorItem::VectorItem() : SessionItem("Vector")
     setEditable(false);
 }
 
+double VectorItem::x() const
+{
+    return getItemValue(P_X).toDouble();
+}
+
+void VectorItem::setX(double value)
+{
+    setItemValue(P_X, value);
+}
+
+double VectorItem::y() const
+{
+    return getItemValue(P_Y).toDouble();
+}
+
+void VectorItem::setY(double value)
+{
+    setItemValue(P_Y, value);
+}
+
+double VectorItem::z() const
+{
+    return getItemValue(P_Z).toDouble();
+}
+
+void VectorItem::setZ(double value)
+{
+    setItemValue(P_Z, value);
+}
+
 kvector_t VectorItem::getVector() const
 {
     return kvector_t(getItemValue(P_X).toDouble(), getItemValue(P_Y).toDouble(),

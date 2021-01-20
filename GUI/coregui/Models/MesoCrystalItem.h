@@ -21,6 +21,7 @@
 class IFormFactor;
 class IParticle;
 class MesoCrystal;
+class VectorItem;
 
 class BA_CORE_API_ MesoCrystalItem : public SessionGraphicsItem {
 public:
@@ -31,6 +32,8 @@ public:
     static const QString P_VECTOR_C;
 
     MesoCrystalItem();
+
+    VectorItem* positionItem() const;
 
     std::unique_ptr<MesoCrystal> createMesoCrystal() const;
 

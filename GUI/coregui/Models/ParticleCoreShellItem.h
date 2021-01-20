@@ -18,12 +18,17 @@
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class ParticleCoreShell;
+class VectorItem;
 
 class BA_CORE_API_ ParticleCoreShellItem : public SessionGraphicsItem {
 public:
     static const QString T_CORE;
     static const QString T_SHELL;
+
     ParticleCoreShellItem();
+
+    VectorItem* positionItem() const;
+
     std::unique_ptr<ParticleCoreShell> createParticleCoreShell() const;
     QVector<SessionItem*> materialPropertyItems();
 };

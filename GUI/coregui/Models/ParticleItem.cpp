@@ -62,6 +62,12 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
         [this](SessionItem* newParent) { updatePropertiesAppearance(newParent); });
 }
 
+
+VectorItem* ParticleItem::positionItem() const
+{
+    return item<VectorItem>(P_POSITION);
+}
+
 std::unique_ptr<Particle> ParticleItem::createParticle() const
 {
     auto& ffItem = groupItem<FormFactorItem>(ParticleItem::P_FORM_FACTOR);
@@ -92,7 +98,7 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
-            auto pos = item<VectorItem>(P_POSITION);
+            auto pos = positionItem();
             pos->setVector(kvector_t());
             pos->setEnabled(false);
         }

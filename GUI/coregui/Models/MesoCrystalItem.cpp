@@ -105,6 +105,11 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
     });
 }
 
+VectorItem* MesoCrystalItem::positionItem() const
+{
+    return item<VectorItem>(ParticleItem::P_POSITION);
+}
+
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 {
     const Lattice3D& lattice = getLattice();

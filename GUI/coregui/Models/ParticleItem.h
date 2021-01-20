@@ -18,6 +18,7 @@
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 
 class Particle;
+class VectorItem;
 
 class BA_CORE_API_ ParticleItem : public SessionGraphicsItem {
 public:
@@ -28,6 +29,8 @@ public:
     static const QString T_TRANSFORMATION;
 
     ParticleItem();
+
+    VectorItem* positionItem() const;
 
     std::unique_ptr<Particle> createParticle() const;
     QVector<SessionItem*> materialPropertyItems();

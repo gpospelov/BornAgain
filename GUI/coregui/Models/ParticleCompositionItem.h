@@ -18,10 +18,15 @@
 #include "GUI/coregui/Models/SessionGraphicsItem.h"
 #include "Sample/Particle/ParticleComposition.h"
 
+class VectorItem;
+
 class BA_CORE_API_ ParticleCompositionItem : public SessionGraphicsItem {
 public:
     static const QString T_PARTICLES;
     ParticleCompositionItem();
+
+    VectorItem* positionItem() const;
+
     std::unique_ptr<ParticleComposition> createParticleComposition() const;
 };
 

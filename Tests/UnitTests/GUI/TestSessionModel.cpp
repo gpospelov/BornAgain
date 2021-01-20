@@ -6,6 +6,7 @@
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItemTags.h"
 #include "Tests/GTestWrapper/google_test.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include <QSignalSpy>
 #include <QXmlStreamWriter>
 #include <memory>
@@ -208,4 +209,11 @@ TEST_F(TestSessionModel, moveWithinSameParent)
     EXPECT_EQ(poly->getItems().indexOf(pC), 1);
     EXPECT_EQ(poly->getItems().indexOf(pD), 3);
     EXPECT_EQ(poly->getItems().indexOf(pE), 4);
+}
+
+TEST_F(TestSessionModel, insertItem)
+{
+    SessionModel model("TestModel");
+    auto vectorItem = model.insertItem<VectorItem>();
+    EXPECT_TRUE(dynamic_cast<VectorItem*>(vectorItem) != nullptr);
 }

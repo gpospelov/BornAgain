@@ -92,9 +92,9 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
-            auto& pos = item<VectorItem>(P_POSITION);
-            pos.setVector(kvector_t());
-            pos.setEnabled(false);
+            auto pos = item<VectorItem>(P_POSITION);
+            pos->setVector(kvector_t());
+            pos->setEnabled(false);
         }
     } else {
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);

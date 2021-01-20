@@ -73,7 +73,7 @@ QColor MaterialItem::color() const
 std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
     auto dataItem = getGroupItem(P_MATERIAL_DATA);
-    auto magnetization = item<VectorItem>(P_MAGNETIZATION).getVector();
+    auto magnetization = item<VectorItem>(P_MAGNETIZATION)->getVector();
     auto name = itemName().toStdString();
 
     if (dataItem->modelType() == "MaterialRefractiveData") {

@@ -335,14 +335,14 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
 
 SessionItem* SessionItem::setGroupProperty(const QString& groupTag, const QString& modelType) const
 {
-    return item<GroupItem>(groupTag).setCurrentType(modelType);
+    return item<GroupItem>(groupTag)->setCurrentType(modelType);
 }
 
 //! Access subitem of group item.
 
 SessionItem* SessionItem::getGroupItem(const QString& groupName) const
 {
-    return item<GroupItem>(groupName).currentItem();
+    return item<GroupItem>(groupName)->currentItem();
 }
 
 //! Returns corresponding variant under given role, invalid variant when role is not present.

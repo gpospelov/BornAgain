@@ -146,7 +146,7 @@ void RealDataItem::setImportData(ImportDataInfo data)
 
     dataItem()->reset(std::move(data));
     getItem(P_NATIVE_DATA_UNITS)->setValue(units_name);
-    item<DataItem>(T_NATIVE_DATA).setOutputData(output_data.release());
+    item<DataItem>(T_NATIVE_DATA)->setOutputData(output_data.release());
 }
 
 bool RealDataItem::holdsDimensionalData() const

@@ -78,7 +78,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
     auto cross_corr_length = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
-    auto external_field = item.item<VectorItem>(MultiLayerItem::P_EXTERNAL_FIELD).getVector();
+    auto external_field = item.item<VectorItem>(MultiLayerItem::P_EXTERNAL_FIELD)->getVector();
     P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
@@ -213,7 +213,7 @@ void TransformToDomain::setTransformationInfo(IParticle* result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
 {
-    kvector_t pos = item.item<VectorItem>(ParticleItem::P_POSITION).getVector();
+    kvector_t pos = item.item<VectorItem>(ParticleItem::P_POSITION)->getVector();
     result->setPosition(pos.x(), pos.y(), pos.z());
 }
 

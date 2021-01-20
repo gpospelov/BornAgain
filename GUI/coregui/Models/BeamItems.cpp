@@ -110,7 +110,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     auto result =
         std::make_unique<Beam>(intensity(), lambda, Direction(inclination_angle, azimuthal_angle));
 
-    result->setPolarization(item<VectorItem>(P_POLARIZATION).getVector());
+    result->setPolarization(item<VectorItem>(P_POLARIZATION)->getVector());
 
     return result;
 }
@@ -190,7 +190,7 @@ FootprintItem* SpecularBeamItem::currentFootprintItem() const
 
 void SpecularBeamItem::updateFileName(const QString& filename)
 {
-    item<SpecularBeamInclinationItem>(BeamItem::P_INCLINATION_ANGLE).updateFileName(filename);
+    item<SpecularBeamInclinationItem>(BeamItem::P_INCLINATION_ANGLE)->updateFileName(filename);
 }
 
 void SpecularBeamItem::updateToData(const IAxis& axis, QString units)

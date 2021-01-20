@@ -60,7 +60,7 @@ public:
 
     // access tagged items
     SessionItem* getItem(const QString& tag = "", int row = 0) const;
-    template <typename T> T& item(const QString& tag) const;
+    template <typename T> T* item(const QString& tag) const;
     QVector<SessionItem*> getItems(const QString& tag = "") const;
     bool insertItem(int row, SessionItem* item, const QString& tag = "");
     SessionItem* takeItem(int row, const QString& tag);
@@ -138,11 +138,11 @@ private:
     QVector<IPathTranslator*> m_translators;
 };
 
-template <typename T> T& SessionItem::item(const QString& tag) const
+template <typename T> T* SessionItem::item(const QString& tag) const
 {
     T* t = dynamic_cast<T*>(getItem(tag));
     ASSERT(t);
-    return *t;
+    return t;
 }
 
 template <typename T> T& SessionItem::groupItem(const QString& groupName) const

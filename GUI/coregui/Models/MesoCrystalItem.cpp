@@ -140,9 +140,9 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice3D MesoCrystalItem::getLattice() const
 {
-    const kvector_t a1 = item<VectorItem>(P_VECTOR_A).getVector();
-    const kvector_t a2 = item<VectorItem>(P_VECTOR_B).getVector();
-    const kvector_t a3 = item<VectorItem>(P_VECTOR_C).getVector();
+    const kvector_t a1 = item<VectorItem>(P_VECTOR_A)->getVector();
+    const kvector_t a2 = item<VectorItem>(P_VECTOR_B)->getVector();
+    const kvector_t a3 = item<VectorItem>(P_VECTOR_C)->getVector();
     return Lattice3D(a1, a2, a3);
 }
 

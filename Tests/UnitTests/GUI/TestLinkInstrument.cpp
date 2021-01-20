@@ -76,8 +76,8 @@ TEST_F(TestLinkInstrument, test_canLinkToInstrument)
 
     // changing detector binning and checking that link is destroyed
     DetectorItem* detectorItem = instrument->detectorItem();
-    auto& x_axis = detectorItem->item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
-    x_axis.setItemValue(BasicAxisItem::P_NBINS, 10);
+    auto x_axis = detectorItem->item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
+    x_axis->setItemValue(BasicAxisItem::P_NBINS, 10);
 
     EXPECT_EQ(manager.linkedItems(instrument), QList<RealDataItem*>());
     EXPECT_EQ(realData->getItemValue(RealDataItem::P_INSTRUMENT_ID).toString(), QString());

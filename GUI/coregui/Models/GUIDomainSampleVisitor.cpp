@@ -131,7 +131,7 @@ void GUIDomainSampleVisitor::visit(const MultiLayer* sample)
     multilayer_item->setItemName(sample->getName().c_str());
     multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->crossCorrLength());
     multilayer_item->item<VectorItem>(MultiLayerItem::P_EXTERNAL_FIELD)
-        .setVector(sample->externalField());
+        ->setVector(sample->externalField());
     m_levelToParentItem[depth()] = multilayer_item;
     m_itemToSample[multilayer_item] = sample;
 }
@@ -185,9 +185,9 @@ void GUIDomainSampleVisitor::visit(const Crystal* sample)
     auto vector_b = lattice.getBasisVectorB();
     auto vector_c = lattice.getBasisVectorC();
 
-    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_A).setVector(vector_a);
-    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_B).setVector(vector_b);
-    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_C).setVector(vector_c);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_A)->setVector(vector_a);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_B)->setVector(vector_b);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_C)->setVector(vector_c);
 
     // Since there is no CrystalItem, set the parent map to the MesoCrystalItem
     m_levelToParentItem[depth()] = mesocrystal_item;
@@ -595,7 +595,7 @@ void GUIDomainSampleVisitor::visit(const RotationEuler* sample)
 
 void GUIDomainSampleVisitor::buildPositionInfo(SessionItem* particle_item, const IParticle* sample)
 {
-    particle_item->item<VectorItem>(ParticleItem::P_POSITION).setVector(sample->position());
+    particle_item->item<VectorItem>(ParticleItem::P_POSITION)->setVector(sample->position());
 }
 
 ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material* material)
@@ -619,7 +619,7 @@ ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material
     }
 
     materialItem->item<VectorItem>(MaterialItem::P_MAGNETIZATION)
-        .setVector(material->magnetization());
+        ->setVector(material->magnetization());
     return MaterialItemUtils::materialProperty(*materialItem);
 }
 

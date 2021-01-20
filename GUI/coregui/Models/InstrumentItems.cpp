@@ -56,7 +56,7 @@ QStringList InstrumentItem::translateList(const QStringList& list) const
 
 BeamItem* InstrumentItem::beamItem() const
 {
-    return &item<BeamItem>(P_BEAM);
+    return item<BeamItem>(P_BEAM);
 }
 
 BackgroundItem* InstrumentItem::backgroundItem() const
@@ -66,7 +66,7 @@ BackgroundItem* InstrumentItem::backgroundItem() const
 
 GroupItem* InstrumentItem::backgroundGroup()
 {
-    return &item<GroupItem>(P_BACKGROUND);
+    return item<GroupItem>(P_BACKGROUND);
 }
 
 bool InstrumentItem::alignedWith(const RealDataItem* item) const
@@ -106,12 +106,13 @@ SpecularInstrumentItem::SpecularInstrumentItem() : InstrumentItem("SpecularInstr
 {
     initBeamGroup("SpecularBeam");
     initBackgroundGroup();
-    item<SpecularBeamItem>(P_BEAM).updateFileName(ItemFileNameUtils::instrumentDataFileName(*this));
+    item<SpecularBeamItem>(P_BEAM)->updateFileName(
+        ItemFileNameUtils::instrumentDataFileName(*this));
 }
 
 SpecularBeamItem* SpecularInstrumentItem::beamItem() const
 {
-    return &item<SpecularBeamItem>(P_BEAM);
+    return item<SpecularBeamItem>(P_BEAM);
 }
 
 SpecularInstrumentItem::~SpecularInstrumentItem() = default;
@@ -196,7 +197,7 @@ DetectorItem* Instrument2DItem::detectorItem() const
 
 GroupItem* Instrument2DItem::detectorGroup()
 {
-    return &item<GroupItem>(P_DETECTOR);
+    return item<GroupItem>(P_DETECTOR);
 }
 
 void Instrument2DItem::setDetectorGroup(const QString& modelType)

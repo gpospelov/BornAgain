@@ -1,29 +1,39 @@
-BornAgain-1.18.99, ongoing development
+BornAgain-1.19.0, released 2021.01.xx
   > API changes:
-    * Compact constructors like GISASimulation(beam, sample, detector)
-    * Removed "get" from several accessor functions
-    * Class Instrument removed  from Python API (instead use simulation.beam() etc)
-    * Lattice has been renamed to Lattice3D, for clearer disambuation from Lattice2D
-    * "OffSpecular" instead of "OffSpec"
-    * Removed some interference functions constructors
+    * Provide compact constructors like GISASimulation(beam, sample, detector)
+    * Remove "get" from several accessor functions
+    * Hide many internal classes from API
+    * Rename Lattice to Lattice3D, for clearer disambiguation from Lattice2D
+    * Rename OffSpec* to OffSpecular*
+    * Remove some interference functions constructors
     * Remove old R&T computations from API (now in Code/Legacy and Tests)
-    * Python plot API entirely keyword based
-    * Add support for Q-Offset in QSpecScan
-  > Fixes of unreported bugs:
-    * Several GUI bugs that caused crashes
+    * Make Python plot API entirely keyword based
+    * Add support for q offset in QSpecScan (redmine 2496)
+  > GUI changes:
+    * Add top-level menu View, with functionality moved in from other places
+    * Add accelerator keys to menus
+    * Minor layout improvements
+  > Bug fixes:
+    * Make polarized R,T coefficients numerically stable (redmine 726)
     * For alpha_i=0, set scattered intensity to 0
+    * Rectify native path representation for Windows (redmine 2502)
+    * Several GUI bugs that caused crashes (github 1034, 1060, 117, 1136)
+    * Fix modality of material editor (redmine 2503)
+    * Fix font size in error dialogs (redmine 2510)
   > Documentation:
-    * Unified API usage in many examples, using BornAgain's Python exporter
-    * Removed many entries from Doxygen user API
+    * Unify API usage in many examples, using BornAgain's Python exporter
+    * Remove many entries from Doxygen user API
   > Internal refactoring:
-    * Moved code to break directory include cycles
-    * Renamed a few classes (ISimulation)
-    * Simplified and commented std test machinery
-    * Simplified iteration over INode children
-    * Simplified export of get_sample function
-    * Simplified data read/write wrapper
-    * Replaced boost::filesystem by C++17 std
-    * IComputeFF and children drawn out of IFormFactor inheritance tree
+    * Move code to break directory include cycles
+    * Rename a few classes (ISimulation)
+    * Simplify and commented std test machinery
+    * Simplify iteration over INode children
+    * Simplify export of get_sample function
+    * Simplify data read/write wrapper
+    * Replace boost::filesystem by C++17 std
+    * Draw IComputeFF and children out of IFormFactor inheritance tree
+    * Replace any SIGNAL() & SLOT() by the non-macro-versions (github 1168)
+    * Removed dependence of GUI on qt-manhattan-style
 
 BornAgain-1.18.0, released 2020.10.30
   > API changes:

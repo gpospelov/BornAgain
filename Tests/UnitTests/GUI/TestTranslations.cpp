@@ -17,10 +17,9 @@ TEST_F(TestTranslations, test_TranslatePosition)
     SessionItem* multilayer = model.insertNewItem("MultiLayer");
     SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
     SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
-    SessionItem* particle = model.insertNewItem("Particle", layout->index());
+    auto particle = model.insertItem<ParticleItem>(layout->index());
 
-    auto positionItem = particle->item<VectorItem>(ParticleItem::P_POSITION);
-    SessionItem* xItem = positionItem->getItem(VectorItem::P_X);
+    auto xItem = particle->positionItem()->getItem(VectorItem::P_X);
 
     EXPECT_EQ(ModelPath::itemPathTranslation(*xItem, multilayer->parent()),
               "MultiLayer/Layer/ParticleLayout/Particle/PositionX");

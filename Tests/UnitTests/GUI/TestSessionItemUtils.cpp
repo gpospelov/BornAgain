@@ -39,7 +39,7 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item5), -1);
 
     // adding vector item
-    SessionItem* vector = model.insertNewItem("Vector");
+    auto vector = model.insertItem<VectorItem>();
     auto x = vector->getItem(VectorItem::P_X);
     auto y = vector->getItem(VectorItem::P_Y);
     auto z = vector->getItem(VectorItem::P_Z);

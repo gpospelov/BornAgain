@@ -76,17 +76,17 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
 
     // creating shell (not yet attached to the coreshell)
     SessionItem* shell = model.insertNewItem("Particle");
-    SessionItem* positionItem = shell->getItem(ParticleItem::P_POSITION);
+    auto& positionItem = shell->item<VectorItem>(ParticleItem::P_POSITION);
     // putting some values to position and abundance
     shell->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
-    positionItem->setItemValue(VectorItem::P_X, 1.0);
+    positionItem.setX(1.0);
 
     // attaching shell to coreshell and checking abundance disabled
     model.moveItem(shell, coreshell, -1, ParticleCoreShellItem::T_SHELL);
     EXPECT_FALSE(shell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_FALSE(shell->getItem(ParticleItem::P_POSITION)->isEnabled());
     // checking that position and abundance values were reset to defaults
-    EXPECT_EQ(positionItem->getItemValue(VectorItem::P_X).toDouble(), 0.0);
+    EXPECT_EQ(positionItem.x(), 0.0);
     EXPECT_EQ(shell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing shell and checking abundance, position restored

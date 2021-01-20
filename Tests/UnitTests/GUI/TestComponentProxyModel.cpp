@@ -64,10 +64,10 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector)
     const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
 
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("Vector");
-    item->setItemValue(VectorItem::P_X, 1.0);
-    item->setItemValue(VectorItem::P_Y, 2.0);
-    item->setItemValue(VectorItem::P_Z, 3.0);
+    auto item = model.insertItem<VectorItem>();
+    item->setX(1.0);
+    item->setY(2.0);
+    item->setZ(3.0);
 
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);

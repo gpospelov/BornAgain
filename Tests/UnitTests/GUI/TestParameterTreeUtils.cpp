@@ -63,6 +63,6 @@ TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
     EXPECT_EQ(ffItem->getItem(CylinderItem::P_HEIGHT),
               ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Height", particle));
     EXPECT_EQ(
-        particle->getItem(ParticleItem::P_POSITION)->getItem(VectorItem::P_X),
+        particle->item<VectorItem>(ParticleItem::P_POSITION).getItem(VectorItem::P_X),
         ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position Offset/X", particle));
 }

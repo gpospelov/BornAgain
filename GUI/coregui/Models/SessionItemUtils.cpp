@@ -47,12 +47,6 @@ int SessionItemUtils::ParentRow(const SessionItem& item)
     return -1;
 }
 
-kvector_t SessionItemUtils::GetVectorItem(const SessionItem& item, const QString& name)
-{
-    auto& vectorItem = item.item<VectorItem>(name);
-    return {vectorItem.x(), vectorItem.y(), vectorItem.z()};
-}
-
 void SessionItemUtils::SetVectorItem(const SessionItem& item, const QString& name, kvector_t value)
 {
     auto& vectorItem = item.item<VectorItem>(name);

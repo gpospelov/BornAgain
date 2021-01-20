@@ -57,7 +57,7 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_POSITION)->isEnabled());
-    kvector_t pos = GetVectorItem(*coreshell, ParticleItem::P_POSITION);
+    kvector_t pos = coreshell->item<VectorItem>(ParticleItem::P_POSITION).getVector();
     EXPECT_EQ(pos.x(), 0.0);
     EXPECT_EQ(pos.y(), 0.0);
     EXPECT_EQ(pos.z(), 0.0);

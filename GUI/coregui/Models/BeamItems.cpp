@@ -25,9 +25,9 @@
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include <cmath>
 
-using SessionItemUtils::GetVectorItem;
 
 namespace {
 const QString polarization_tooltip = "Polarization of the beam, given as the Bloch vector";
@@ -110,7 +110,7 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     auto result =
         std::make_unique<Beam>(intensity(), lambda, Direction(inclination_angle, azimuthal_angle));
 
-    result->setPolarization(GetVectorItem(*this, P_POLARIZATION));
+    result->setPolarization(item<VectorItem>(P_POLARIZATION).getVector());
 
     return result;
 }

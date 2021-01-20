@@ -53,8 +53,6 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 
-using SessionItemUtils::GetVectorItem;
-
 namespace {
 template <class T>
 void setParameterDistributionToSimulation(const std::string& parameter_name,
@@ -80,7 +78,7 @@ std::unique_ptr<MultiLayer> TransformToDomain::createMultiLayer(const SessionIte
     auto cross_corr_length = item.getItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH).toDouble();
     if (cross_corr_length > 0)
         P_multilayer->setCrossCorrLength(cross_corr_length);
-    auto external_field = GetVectorItem(item, MultiLayerItem::P_EXTERNAL_FIELD);
+    auto external_field = item.item<VectorItem>(MultiLayerItem::P_EXTERNAL_FIELD).getVector();
     P_multilayer->setExternalField(external_field);
     return P_multilayer;
 }
@@ -215,7 +213,7 @@ void TransformToDomain::setTransformationInfo(IParticle* result, const SessionIt
 
 void TransformToDomain::setPositionInfo(IParticle* result, const SessionItem& item)
 {
-    kvector_t pos = GetVectorItem(item, ParticleItem::P_POSITION);
+    kvector_t pos = item.item<VectorItem>(ParticleItem::P_POSITION).getVector();
     result->setPosition(pos.x(), pos.y(), pos.z());
 }
 

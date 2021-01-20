@@ -20,8 +20,7 @@
 #include "GUI/coregui/Models/ResolutionFunctionItems.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
-
-using SessionItemUtils::GetVectorItem;
+#include "GUI/coregui/Models/VectorItem.h"
 
 namespace {
 const QString res_func_group_label = "Type";
@@ -66,7 +65,7 @@ std::unique_ptr<IDetector2D> DetectorItem::createDetector() const
     if (auto resFunc = createResolutionFunction())
         result->setResolutionFunction(*resFunc);
 
-    kvector_t analyzer_dir = GetVectorItem(*this, P_ANALYZER_DIRECTION);
+    kvector_t analyzer_dir = item<VectorItem>(P_ANALYZER_DIRECTION).getVector();
     double analyzer_eff = getItemValue(P_ANALYZER_EFFICIENCY).toDouble();
     double analyzer_total_trans = getItemValue(P_ANALYZER_TOTAL_TRANSMISSION).toDouble();
     if (analyzer_dir.mag() > 0.0)

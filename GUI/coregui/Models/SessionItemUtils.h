@@ -27,9 +27,6 @@ namespace SessionItemUtils {
 int ParentRow(const SessionItem& item);
 
 //! Returns a VectorType group property's value as a kvector_t.
-kvector_t GetVectorItem(const SessionItem& item, const QString& name);
-
-//! Returns a VectorType group property's value as a kvector_t.
 void SetVectorItem(const SessionItem& item, const QString& name, kvector_t value);
 
 //! Returns the row of the given item within its parent not accounting for all hidden items

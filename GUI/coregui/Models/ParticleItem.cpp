@@ -24,8 +24,6 @@
 #include "Sample/Particle/Particle.h"
 #include "Sample/Scattering/IFormFactor.h"
 
-using SessionItemUtils::SetVectorItem;
-
 namespace {
 const QString abundance_tooltip = "Proportion of this type of particles normalized to the \n"
                                   "total number of particles in the layout";
@@ -94,10 +92,9 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         setItemValue(ParticleItem::P_ABUNDANCE, 1.0);
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(false);
         if (isShellParticle()) {
-            kvector_t zero_vector;
-            SetVectorItem(*this, ParticleItem::P_POSITION, zero_vector);
-            SessionItem* positionItem = getItem(ParticleItem::P_POSITION);
-            positionItem->setEnabled(false);
+            auto& pos = item<VectorItem>(P_POSITION);
+            pos.setVector(kvector_t());
+            pos.setEnabled(false);
         }
     } else {
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);

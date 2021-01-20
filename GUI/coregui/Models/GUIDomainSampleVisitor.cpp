@@ -25,9 +25,9 @@
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/RotationItems.h"
 #include "GUI/coregui/Models/SampleModel.h"
-#include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
 #include "GUI/coregui/Models/TransformationItem.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Param/Node/NodeUtils.h"
@@ -43,8 +43,6 @@
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Particle/ParticleDistribution.h"
 #include "Sample/SoftParticle/SoftParticles.h"
-
-using SessionItemUtils::SetVectorItem;
 
 namespace {
 SessionItem* AddFormFactorItem(SessionItem* parent, const QString& model_type)
@@ -132,7 +130,8 @@ void GUIDomainSampleVisitor::visit(const MultiLayer* sample)
     SessionItem* multilayer_item = m_sampleModel->insertNewItem("MultiLayer");
     multilayer_item->setItemName(sample->getName().c_str());
     multilayer_item->setItemValue(MultiLayerItem::P_CROSS_CORR_LENGTH, sample->crossCorrLength());
-    SetVectorItem(*multilayer_item, MultiLayerItem::P_EXTERNAL_FIELD, sample->externalField());
+    multilayer_item->item<VectorItem>(MultiLayerItem::P_EXTERNAL_FIELD)
+        .setVector(sample->externalField());
     m_levelToParentItem[depth()] = multilayer_item;
     m_itemToSample[multilayer_item] = sample;
 }
@@ -186,9 +185,9 @@ void GUIDomainSampleVisitor::visit(const Crystal* sample)
     auto vector_b = lattice.getBasisVectorB();
     auto vector_c = lattice.getBasisVectorC();
 
-    SetVectorItem(*mesocrystal_item, MesoCrystalItem::P_VECTOR_A, vector_a);
-    SetVectorItem(*mesocrystal_item, MesoCrystalItem::P_VECTOR_B, vector_b);
-    SetVectorItem(*mesocrystal_item, MesoCrystalItem::P_VECTOR_C, vector_c);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_A).setVector(vector_a);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_B).setVector(vector_b);
+    mesocrystal_item->item<VectorItem>(MesoCrystalItem::P_VECTOR_C).setVector(vector_c);
 
     // Since there is no CrystalItem, set the parent map to the MesoCrystalItem
     m_levelToParentItem[depth()] = mesocrystal_item;
@@ -596,8 +595,7 @@ void GUIDomainSampleVisitor::visit(const RotationEuler* sample)
 
 void GUIDomainSampleVisitor::buildPositionInfo(SessionItem* particle_item, const IParticle* sample)
 {
-    kvector_t position = sample->position();
-    SetVectorItem(*particle_item, ParticleItem::P_POSITION, position);
+    particle_item->item<VectorItem>(ParticleItem::P_POSITION).setVector(sample->position());
 }
 
 ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material* material)
@@ -620,7 +618,8 @@ ExternalProperty GUIDomainSampleVisitor::createMaterialFromDomain(const Material
                                 "Unsupported material");
     }
 
-    SetVectorItem(*materialItem, MaterialItem::P_MAGNETIZATION, material->magnetization());
+    materialItem->item<VectorItem>(MaterialItem::P_MAGNETIZATION)
+        .setVector(material->magnetization());
     return MaterialItemUtils::materialProperty(*materialItem);
 }
 

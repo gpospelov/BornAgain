@@ -85,9 +85,7 @@ SessionItem* GUIObjectBuilder::populateInstrumentModel(InstrumentModel* p_instru
 SessionItem* GUIObjectBuilder::populateDocumentModel(DocumentModel* p_document_model,
                                                      const ISimulation& simulation)
 {
-    SimulationOptionsItem* p_options_item =
-        dynamic_cast<SimulationOptionsItem*>(p_document_model->insertNewItem("SimulationOptions"));
-    ASSERT(p_options_item);
+    auto p_options_item = p_document_model->insertItem<SimulationOptionsItem>();
     if (simulation.getOptions().isIntegrate()) {
         p_options_item->setComputationMethod("Monte-Carlo Integration");
         p_options_item->setNumberOfMonteCarloPoints(
@@ -107,8 +105,7 @@ GISASInstrumentItem* createGISASInstrumentItem(InstrumentModel* model,
                                                const GISASSimulation& simulation,
                                                const QString& name)
 {
-    auto result = dynamic_cast<GISASInstrumentItem*>(model->insertNewItem("GISASInstrument"));
-
+    auto result = model->insertItem<GISASInstrumentItem>();
     result->setItemName(name);
     TransformFromDomain::setGISASBeamItem(result->beamItem(), simulation);
     TransformFromDomain::setDetector(result, simulation);
@@ -121,9 +118,7 @@ OffSpecularInstrumentItem* createOffSpecularInstrumentItem(InstrumentModel* mode
                                                            const OffSpecularSimulation& simulation,
                                                            const QString& name)
 {
-    auto result =
-        dynamic_cast<OffSpecularInstrumentItem*>(model->insertNewItem("OffSpecularInstrument"));
-
+    auto result = model->insertItem<OffSpecularInstrumentItem>();
     result->setItemName(name);
     TransformFromDomain::setOffSpecularBeamItem(result->beamItem(), simulation);
     TransformFromDomain::setDetector(result, simulation);
@@ -139,8 +134,7 @@ SpecularInstrumentItem* createSpecularInstrumentItem(InstrumentModel* model,
                                                      const SpecularSimulation& simulation,
                                                      const QString& name)
 {
-    auto result = dynamic_cast<SpecularInstrumentItem*>(model->insertNewItem("SpecularInstrument"));
-
+    auto result = model->insertItem<SpecularInstrumentItem>();
     result->setItemName(name);
     TransformFromDomain::setSpecularBeamItem(result->beamItem(), simulation);
     TransformFromDomain::setBackground(result, simulation);

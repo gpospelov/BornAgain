@@ -14,9 +14,9 @@ TEST_F(TestMultiLayerItem, test_twoLayerSystem)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem("MultiLayer");
-    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto top = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto bottom = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Thickness property should be disabled for top and bottom layers
     EXPECT_FALSE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
@@ -43,10 +43,10 @@ TEST_F(TestMultiLayerItem, test_threeLayerSystem)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem("MultiLayer");
-    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto middle = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto top = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto middle = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto bottom = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Thickness property should be disabled for top and bottom layers and enabled for middle
     EXPECT_FALSE(top->getItem(LayerItem::P_THICKNESS)->isEnabled());
@@ -78,10 +78,10 @@ TEST_F(TestMultiLayerItem, test_movingMiddleLayerOnTop)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem("MultiLayer");
-    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto middle = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto bottom = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto top = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto middle = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto bottom = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     const double thickness = 10.0;
     middle->setItemValue(LayerItem::P_THICKNESS, thickness);
@@ -126,9 +126,9 @@ TEST_F(TestMultiLayerItem, test_movingLayerOnCanvas)
 {
     SampleModel model;
 
-    auto multilayer = model.insertNewItem("MultiLayer");
-    auto top = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto top = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Moving top layer to canvas
     model.moveItem(top, nullptr);

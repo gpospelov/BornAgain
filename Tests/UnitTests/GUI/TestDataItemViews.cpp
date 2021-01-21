@@ -17,7 +17,7 @@ public:
 
 DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 {
-    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem("SpecularData"));
+    auto item = model.insertItem<DataItem>();
     auto data = GuiUnittestUtils::createData(val, GuiUnittestUtils::DIM::D1);
     item->setOutputData(data.release());
     return item;
@@ -26,8 +26,7 @@ DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 TEST_F(TestDataItemViews, testDataLinking)
 {
     SessionModel model("TempModel");
-    auto view_item =
-        dynamic_cast<DataPropertyContainer*>(model.insertNewItem("DataPropertyContainer"));
+    auto view_item = model.insertItem<DataPropertyContainer>();
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
@@ -39,8 +38,7 @@ TEST_F(TestDataItemViews, testDataLinking)
 TEST_F(TestDataItemViews, testLinkingSeveralItems)
 {
     SessionModel model("TempModel");
-    auto view_item =
-        dynamic_cast<DataPropertyContainer*>(model.insertNewItem("DataPropertyContainer"));
+    auto view_item = model.insertItem<DataPropertyContainer>();
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
@@ -58,8 +56,7 @@ TEST_F(TestDataItemViews, testLinkingSeveralItems)
 TEST_F(TestDataItemViews, testColors)
 {
     SessionModel model("TempModel");
-    auto view_item =
-        dynamic_cast<DataPropertyContainer*>(model.insertNewItem("DataPropertyContainer"));
+    auto view_item = model.insertItem<DataPropertyContainer>();
     DataItem* item = insertNewDataItem(model, 0.0);
     DataItem* item2 = insertNewDataItem(model, 1.0);
     DataItem* item3 = insertNewDataItem(model, 2.0);
@@ -95,8 +92,7 @@ TEST_F(TestDataItemViews, testColors)
 TEST_F(TestDataItemViews, testBrokenLink)
 {
     SessionModel model("TempModel");
-    auto view_item =
-        dynamic_cast<DataPropertyContainer*>(model.insertNewItem("DataPropertyContainer"));
+    auto view_item = model.insertItem<DataPropertyContainer>();
     DataItem* item = insertNewDataItem(model, 0.0);
     view_item->addItem(item);
 
@@ -113,8 +109,7 @@ TEST_F(TestDataItemViews, testWrongHostingModel)
 {
     SessionModel model("TempModel");
     DataItem* item = insertNewDataItem(model, 0.0);
-    auto view_item =
-        dynamic_cast<DataPropertyContainer*>(model.insertNewItem("DataPropertyContainer"));
+    auto view_item = model.insertItem<DataPropertyContainer>();
     view_item->addItem(item);
 
     SessionModel model2("TempModel2");
@@ -138,8 +133,7 @@ TEST_F(TestDataItemViews, testSavingLinkedData)
         SessionModel* real_data_model = models.realDataModel();
         DataItem* item = insertNewDataItem(*real_data_model, 0.0);
         DataItem* item2 = insertNewDataItem(*real_data_model, 1.0);
-        auto view_item = dynamic_cast<DataPropertyContainer*>(
-            real_data_model->insertNewItem("DataPropertyContainer"));
+        auto view_item = real_data_model->insertItem<DataPropertyContainer>();
         view_item->addItem(item);
         view_item->addItem(item2);
 

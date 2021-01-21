@@ -14,7 +14,7 @@ class TestDetectorItems : public ::testing::Test {
 TEST_F(TestDetectorItems, test_detectorAlignment)
 {
     InstrumentModel model;
-    SessionItem* detector = model.insertNewItem("RectangularDetector");
+    auto detector = model.insertItem<RectangularDetectorItem>();
 
     ComboProperty alignment =
         detector->getItemValue(RectangularDetectorItem::P_ALIGNMENT).value<ComboProperty>();
@@ -34,8 +34,7 @@ TEST_F(TestDetectorItems, test_detectorAlignment)
 TEST_F(TestDetectorItems, test_resolutionFunction)
 {
     InstrumentModel model;
-    GISASInstrumentItem* instrument =
-        dynamic_cast<GISASInstrumentItem*>(model.insertNewItem("GISASInstrument"));
+    auto instrument = model.insertItem<GISASInstrumentItem>();
 
     DetectorItem* detectorItem = instrument->detectorItem();
 

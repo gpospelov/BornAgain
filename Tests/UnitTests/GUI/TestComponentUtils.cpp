@@ -14,7 +14,7 @@ TEST_F(TestComponentUtils, test_componentItems)
 {
     SessionModel model("TestModel");
 
-    SessionItem* particle = model.insertNewItem("Particle");
+    auto particle = model.insertItem<ParticleItem>();
     SessionItem* group = particle->getItem(ParticleItem::P_FORM_FACTOR);
     SessionItem* ffItem = particle->getGroupItem(ParticleItem::P_FORM_FACTOR);
 
@@ -34,7 +34,7 @@ TEST_F(TestComponentUtils, test_componentItemsFFChange)
 {
     SessionModel model("TestModel");
 
-    SessionItem* particle = model.insertNewItem("Particle");
+    auto particle = model.insertItem<ParticleItem>();
     SessionItem* group = particle->getItem(ParticleItem::P_FORM_FACTOR);
 
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, "FullSphere");

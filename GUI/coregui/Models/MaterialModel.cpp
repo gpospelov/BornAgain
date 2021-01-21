@@ -93,7 +93,7 @@ MaterialItem* MaterialModel::cloneMaterial(const QModelIndex& index)
 
 MaterialItem* MaterialModel::createMaterial(const QString& name)
 {
-    auto result = dynamic_cast<MaterialItem*>(insertNewItem("Material"));
+    auto result = insertItem<MaterialItem>();
     result->setItemName(name);
 
     QColor color = MaterialItemUtils::suggestMaterialColor(name);

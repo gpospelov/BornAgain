@@ -56,11 +56,7 @@ void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
 void DetectorMaskDelegate::createIntensityDataItem()
 {
     m_tempIntensityDataModel->clear();
-
-    m_intensityItem =
-        dynamic_cast<IntensityDataItem*>(m_tempIntensityDataModel->insertNewItem("IntensityData"));
-    ASSERT(m_intensityItem);
-
+    m_intensityItem = m_tempIntensityDataModel->insertItem<IntensityDataItem>();
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
     m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
 

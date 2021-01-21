@@ -85,8 +85,7 @@ void TestView::test_MinimizerSettings()
     setLayout(layout);
 
     SessionModel* model = new SessionModel("TempModel", this);
-    MinimizerContainerItem* minimizerItem =
-        dynamic_cast<MinimizerContainerItem*>(model->insertNewItem("MinimizerContainer"));
+    auto minimizerItem = model->insertItem<MinimizerContainerItem>();
     widget->setItem(minimizerItem);
 }
 
@@ -181,7 +180,7 @@ void TestView::test_specular_data_widget()
     SessionModel* tempModel = new SessionModel("Test", this);
 
     // creating job item
-    auto job_item = dynamic_cast<JobItem*>(tempModel->insertNewItem("JobItem"));
+    auto job_item = tempModel->insertItem<JobItem>();
 
     // creating "simulation" data
     auto data_item = new SpecularDataItem();

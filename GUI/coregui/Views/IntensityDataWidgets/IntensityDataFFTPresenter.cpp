@@ -28,8 +28,7 @@ IntensityDataFFTPresenter::IntensityDataFFTPresenter(QWidget* parent)
     , m_fftItem(nullptr)
     , m_in_fft_mode(false)
 {
-    m_fftItem = dynamic_cast<IntensityDataItem*>(m_fftModel->insertNewItem("IntensityData"));
-
+    m_fftItem = m_fftModel->insertItem<IntensityDataItem>();
     m_fftAction = new QAction(this);
     m_fftAction->setText("Fourier");
     m_fftAction->setIcon(QIcon(":/images/alpha-f-box.svg"));

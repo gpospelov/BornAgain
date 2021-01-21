@@ -39,7 +39,7 @@ TEST_F(TestSessionItemController, test_setItem)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object.setItem(item);
     EXPECT_EQ(object.currentItem(), item);
@@ -55,7 +55,7 @@ TEST_F(TestSessionItemController, test_setItemAndSubscribeItem)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object.setItem(item);
     object.setVisible(true);
@@ -72,7 +72,7 @@ TEST_F(TestSessionItemController, test_onPropertyChange)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object.setItem(item);
     EXPECT_EQ(object.currentItem(), item);
@@ -119,7 +119,7 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetVisible)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object.setItem(item);
     object.setVisible(true);
@@ -145,7 +145,7 @@ TEST_F(TestSessionItemController, test_onItemDestroyWidgetHidden)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object.setItem(item);
     object.setVisible(true);
@@ -178,8 +178,8 @@ TEST_F(TestSessionItemController, test_onTwoItems)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item1 = model.insertNewItem("BasicAxis");
-    SessionItem* item2 = model.insertNewItem("BasicAxis");
+    auto item1 = model.insertItem<BasicAxisItem>();
+    auto item2 = model.insertItem<BasicAxisItem>();
 
     object.setItem(item1);
     EXPECT_EQ(object.currentItem(), item1);
@@ -212,8 +212,8 @@ TEST_F(TestSessionItemController, test_onTwoItemsWhenHidden)
     TestListener listener;
     TestObject object(&listener);
     SessionModel model("TestModel");
-    SessionItem* item1 = model.insertNewItem("BasicAxis");
-    SessionItem* item2 = model.insertNewItem("BasicAxis");
+    auto item1 = model.insertItem<BasicAxisItem>();
+    auto item2 = model.insertItem<BasicAxisItem>();
 
     object.setVisible(false);
 
@@ -245,7 +245,7 @@ TEST_F(TestSessionItemController, test_deleteWidget)
     TestListener listener;
     TestObject* object = new TestObject(&listener);
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("BasicAxis");
+    auto item = model.insertItem<BasicAxisItem>();
 
     object->setItem(item);
     object->setVisible(true);

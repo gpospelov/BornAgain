@@ -5,6 +5,7 @@
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/InstrumentModel.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/ItemFileNameUtils.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobModel.h"
@@ -38,14 +39,12 @@ TestSavingSpecularData::TestSavingSpecularData()
 
 SpecularInstrumentItem* TestSavingSpecularData::createSpecularInstrument(ApplicationModels& models)
 {
-    return dynamic_cast<SpecularInstrumentItem*>(
-        models.instrumentModel()->insertNewItem("SpecularInstrument"));
+    return models.instrumentModel()->insertItem<SpecularInstrumentItem>();
 }
 
 PointwiseAxisItem* TestSavingSpecularData::createPointwiseAxisItem(SessionModel& model)
 {
-    auto instrument_item =
-        dynamic_cast<SpecularInstrumentItem*>(model.insertNewItem("SpecularInstrument"));
+    auto instrument_item = model.insertItem<SpecularInstrumentItem>();
     return dynamic_cast<PointwiseAxisItem*>(
         getAxisGroup(instrument_item)->getChildOfType("PointwiseAxis"));
 }
@@ -104,14 +103,14 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
     ApplicationModels models;
 
     // adding JobItem
-    SessionItem* jobItem = models.jobModel()->insertNewItem("JobItem");
-    SessionItem* dataItem =
-        models.jobModel()->insertNewItem("IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
+    auto jobItem = models.jobModel()->insertItem<JobItem>();
+    auto dataItem =
+        models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding instrument
-    auto instrument = dynamic_cast<SpecularInstrumentItem*>(models.jobModel()->insertNewItem(
-        "SpecularInstrument", jobItem->index(), -1, JobItem::T_INSTRUMENT));
+    auto instrument = models.jobModel()->insertItem<SpecularInstrumentItem>(jobItem->index(), -1,
+                                                                            JobItem::T_INSTRUMENT);
     // instrument contains hidden pointwise axis item
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);
 

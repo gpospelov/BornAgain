@@ -1,7 +1,10 @@
 #include "GUI/coregui/Models/BeamDistributionItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
+#include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/ModelPath.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/RotationItems.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformationItem.h"
@@ -14,9 +17,9 @@ class TestTranslations : public ::testing::Test {
 TEST_F(TestTranslations, test_TranslatePosition)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
-    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(multilayer->index());
+    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
     auto particle = model.insertItem<ParticleItem>(layout->index());
 
     auto xItem = particle->positionItem()->getItem(VectorItem::P_X);
@@ -28,13 +31,13 @@ TEST_F(TestTranslations, test_TranslatePosition)
 TEST_F(TestTranslations, test_TranslateRotation)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
-    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
-    SessionItem* particle = model.insertNewItem("Particle", layout->index());
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(multilayer->index());
+    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
+    auto particle = model.insertItem<ParticleItem>(layout->index());
 
-    SessionItem* transformation =
-        model.insertNewItem("Rotation", particle->index(), -1, ParticleItem::T_TRANSFORMATION);
+    auto transformation =
+        model.insertItem<TransformationItem>(particle->index(), -1, ParticleItem::T_TRANSFORMATION);
 
     SessionItem* rotationItem =
         transformation->setGroupProperty(TransformationItem::P_ROT, "XRotation");
@@ -47,7 +50,7 @@ TEST_F(TestTranslations, test_TranslateRotation)
 TEST_F(TestTranslations, test_BeamDistributionNone)
 {
     SampleModel model;
-    SessionItem* instrument = model.insertNewItem("GISASInstrument");
+    auto instrument = model.insertItem<GISASInstrumentItem>();
     SessionItem* beam = instrument->getItem(Instrument2DItem::P_BEAM);
 
     SessionItem* wavelength = beam->getItem(BeamItem::P_WAVELENGTH);

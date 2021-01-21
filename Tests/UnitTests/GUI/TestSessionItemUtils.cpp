@@ -2,6 +2,7 @@
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
+#include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Views/MaterialEditor/ExternalProperty.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -15,9 +16,9 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     SessionModel model("TestModel");
 
     // 3 property items in root, all visible
-    auto item1 = model.insertNewItem("Property");
-    auto item2 = model.insertNewItem("Property");
-    auto item3 = model.insertNewItem("Property");
+    auto item1 = model.insertItem<PropertyItem>();
+    auto item2 = model.insertItem<PropertyItem>();
+    auto item3 = model.insertItem<PropertyItem>();
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item1), 0);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item2), 1);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item3), 2);
@@ -29,8 +30,8 @@ TEST_F(TestSessionItemUtils, test_ParentVisibleRow)
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item3), 1);
 
     // two more items
-    auto item4 = model.insertNewItem("Property");
-    auto item5 = model.insertNewItem("Property");
+    auto item4 = model.insertItem<PropertyItem>();
+    auto item5 = model.insertItem<PropertyItem>();
     item5->setVisible(false);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item1), 0);
     EXPECT_EQ(SessionItemUtils::ParentVisibleRow(*item2), -1);

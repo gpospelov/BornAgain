@@ -1,6 +1,7 @@
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Models/DataProperties.h"
 #include "GUI/coregui/Models/DataPropertyContainer.h"
 #include "GUI/coregui/Models/RealDataModel.h"
@@ -17,7 +18,7 @@ public:
 
 DataItem* TestDataItemViews::insertNewDataItem(SessionModel& model, double val)
 {
-    auto item = model.insertItem<DataItem>();
+    auto item = model.insertItem<SpecularDataItem>();
     auto data = GuiUnittestUtils::createData(val, GuiUnittestUtils::DIM::D1);
     item->setOutputData(data.release());
     return item;

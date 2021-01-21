@@ -55,7 +55,7 @@ TEST_F(TestGroupItem, test_CreateGroup)
     GroupInfo groupInfo = SessionItemUtils::GetGroupInfo("Form Factor");
     EXPECT_EQ(groupInfo.defaultType(), "Cylinder");
 
-    auto groupItem = dynamic_cast<GroupItem*>(model.insertNewItem("GroupProperty"));
+    auto groupItem = model.insertItem<GroupItem>();
     EXPECT_EQ(groupItem->children().size(), 0);
     EXPECT_TRUE(groupItem->currentItem() == nullptr);
     EXPECT_FALSE(groupItem->value().isValid());

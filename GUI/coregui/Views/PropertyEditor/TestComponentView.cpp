@@ -21,6 +21,7 @@
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"

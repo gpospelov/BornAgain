@@ -14,7 +14,7 @@ class TestLayerItems : public ::testing::Test {
 TEST_F(TestLayerItems, test_LayerDefaultMaterial)
 {
     ApplicationModels models;
-    auto layer = models.sampleModel()->insertNewItem("Layer");
+    auto layer = models.sampleModel()->insertItem<LayerItem>();
     auto materials = models.materialModel()->topItems();
     auto defMaterial = materials.front();
 

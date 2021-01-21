@@ -28,6 +28,7 @@
 #include "GUI/coregui/Models/RealDataItem.h"
 #include "GUI/coregui/Models/RealDataModel.h"
 #include "GUI/coregui/Models/SampleModel.h"
+#include "GUI/coregui/Models/SimulationOptionsItem.h"
 #include "GUI/coregui/Views/ImportDataWidgets/ImportDataUtils.h"
 #include "GUI/coregui/utils/MessageService.h"
 #include "Sample/Multilayer/MultiLayer.h"
@@ -85,7 +86,7 @@ JobModel* ApplicationModels::jobModel()
 void ApplicationModels::resetModels()
 {
     m_documentModel->clear();
-    m_documentModel->insertNewItem("SimulationOptions");
+    m_documentModel->insertItem<SimulationOptionsItem>();
 
     m_materialModel->clear();
     m_materialModel->addRefractiveMaterial("Default", 1e-3, 1e-5);
@@ -100,7 +101,7 @@ void ApplicationModels::resetModels()
     m_jobModel->clear();
 
     m_instrumentModel->clear();
-    SessionItem* instrument = m_instrumentModel->insertNewItem("GISASInstrument");
+    auto instrument = m_instrumentModel->insertItem<GISASInstrumentItem>();
     instrument->setItemName("GISAS");
 }
 
@@ -185,7 +186,7 @@ void ApplicationModels::createTestJob()
 
 void ApplicationModels::createTestRealData()
 {
-    auto realDataItem = dynamic_cast<RealDataItem*>(m_realDataModel->insertNewItem("RealData"));
+    auto realDataItem = m_realDataModel->insertItem<RealDataItem>();
     realDataItem->setItemName("realdata");
 
     std::unique_ptr<OutputData<double>> data(

@@ -30,11 +30,10 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem* container
 
     removeFromFitParameters(container, parameterItem);
 
-    FitParameterItem* fitPar = dynamic_cast<FitParameterItem*>(
-        container->model()->insertNewItem("FitParameter", container->index()));
-    ASSERT(fitPar);
+    auto model = container->model();
+    auto fitPar = model->insertItem<FitParameterItem>(container->index());
     fitPar->setDisplayName("par");
-    SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
+    auto link = model->insertItem<FitParameterLinkItem>(fitPar->index());
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 

@@ -88,7 +88,7 @@ MaskContainerItem* DetectorItem::maskContainerItem() const
 void DetectorItem::createMaskContainer()
 {
     if (!maskContainerItem())
-        model()->insertNewItem("MaskContainer", this->index());
+        model()->insertItem<MaskContainerItem>(this->index());
 }
 
 void DetectorItem::importMasks(const MaskContainerItem* maskContainer)

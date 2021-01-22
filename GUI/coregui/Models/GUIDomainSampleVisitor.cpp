@@ -539,8 +539,8 @@ void GUIDomainSampleVisitor::visit(const RotationY* sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
-    auto transformation_item = m_sampleModel->insertItem<TransformationItem>(
-        parent, -1, ParticleItem::T_TRANSFORMATION);
+    auto transformation_item =
+        m_sampleModel->insertItem<TransformationItem>(parent, -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "YRotation");
     rotationItem->setItemValue(YRotationItem::P_ANGLE, Units::rad2deg(sample->getAngle()));
@@ -552,8 +552,8 @@ void GUIDomainSampleVisitor::visit(const RotationZ* sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
-    auto transformation_item = m_sampleModel->insertItem<TransformationItem>(
-        parent, -1, ParticleItem::T_TRANSFORMATION);
+    auto transformation_item =
+        m_sampleModel->insertItem<TransformationItem>(parent, -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "ZRotation");
     rotationItem->setItemValue(ZRotationItem::P_ANGLE, Units::rad2deg(sample->getAngle()));
@@ -565,8 +565,8 @@ void GUIDomainSampleVisitor::visit(const RotationEuler* sample)
     SessionItem* parent = m_levelToParentItem[depth() - 1];
     ASSERT(parent);
 
-    auto transformation_item = m_sampleModel->insertItem<TransformationItem>(
-        parent, -1, ParticleItem::T_TRANSFORMATION);
+    auto transformation_item =
+        m_sampleModel->insertItem<TransformationItem>(parent, -1, ParticleItem::T_TRANSFORMATION);
     SessionItem* rotationItem =
         transformation_item->setGroupProperty(TransformationItem::P_ROT, "EulerRotation");
     rotationItem->setItemValue(EulerRotationItem::P_ALPHA, Units::rad2deg(sample->getAlpha()));
@@ -627,8 +627,7 @@ SessionItem* GUIDomainSampleVisitor::InsertIParticle(const IParticle* particle, 
             }
         }
     }
-    SessionItem* particle_item =
-        m_sampleModel->insertNewItem(model_type, m_sampleModel->indexOfItem(parent), -1, tag);
+    SessionItem* particle_item = m_sampleModel->insertNewItem(model_type, parent, -1, tag);
 
     ASSERT(particle_item);
     particle_item->setItemValue(ParticleItem::P_ABUNDANCE, particle->abundance());

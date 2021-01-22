@@ -249,7 +249,7 @@ SessionItem* createItem(SessionItem* item, const QString& modelType, const QStri
             result = item->getItem(tag);
         } else {
             try {
-                result = item->model()->insertNewItem(modelType, item->index(), -1, tag);
+                result = item->model()->insertNewItem(modelType, item, -1, tag);
             } catch (const std::exception&) {
                 result = nullptr; // error will be reported later
             }

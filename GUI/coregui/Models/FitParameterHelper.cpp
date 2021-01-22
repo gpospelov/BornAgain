@@ -69,7 +69,7 @@ void FitParameterHelper::addToFitParameter(FitParameterContainerItem* container,
     removeFromFitParameters(container, parameterItem);
     for (auto fitPar : container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (fitPar->displayName() == fitParName) {
-            SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
+            SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar);
             link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
             break;
         }

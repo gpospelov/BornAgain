@@ -53,7 +53,7 @@ public:
     // End overridden methods from QAbstractItemModel
 
     QModelIndex indexOfItem(SessionItem* item) const;
-    SessionItem* insertNewItem(QString model_type, const QModelIndex& parent = {}, int row = -1,
+    SessionItem* insertNewItem(QString model_type, SessionItem* parent_item = nullptr, int row = -1,
                                QString tag = "");
     template <typename T>
     T* insertItem(SessionItem* parent = nullptr, int row = -1, QString tag = "");
@@ -107,8 +107,7 @@ private:
 
 template <typename T> T* SessionModel::insertItem(SessionItem* parent, int row, QString tag)
 {
-    return static_cast<T*>(
-        insertNewItem(T().modelType(), parent ? parent->index() : QModelIndex(), row, tag));
+    return static_cast<T*>(insertNewItem(T().modelType(), parent, row, tag));
 }
 
 template <typename T> T* SessionModel::topItem() const

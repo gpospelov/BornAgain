@@ -257,10 +257,9 @@ QModelIndex SessionModel::indexOfItem(SessionItem* item) const
     return createIndex(row, 0, item);
 }
 
-SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent, int row,
+SessionItem* SessionModel::insertNewItem(QString model_type, SessionItem* parent_item, int row,
                                          QString tag)
 {
-    SessionItem* parent_item = itemForIndex(parent);
     if (!parent_item)
         parent_item = m_root_item;
     if (row > parent_item->numberOfChildren())

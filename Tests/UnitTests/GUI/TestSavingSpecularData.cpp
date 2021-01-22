@@ -265,7 +265,7 @@ TEST_F(TestSavingSpecularData, test_CopyInstrumentToJobItem)
     pointwise_axis_item->init(*m_axis, "q-space");
 
     // adding JobItem and copying instrument
-    auto jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem("JobItem"));
+    auto jobItem = models.jobModel()->insertItem<JobItem>();
     JobModelFunctions::setupJobItemInstrument(jobItem, instrument);
     auto job_instrument =
         dynamic_cast<SpecularInstrumentItem*>(jobItem->getItem(JobItem::T_INSTRUMENT));

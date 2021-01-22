@@ -55,8 +55,8 @@ void handleItem(SessionItem* tree, const SessionItem* source);
 
 void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 {
-    SessionItem* container = jobItem->model()->insertNewItem(
-        "Parameter Container", jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
+    auto container = jobItem->model()->insertItem<ParameterContainerItem>(
+        jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
 
     populateParameterContainer(container, jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
 
@@ -82,9 +82,7 @@ void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    SessionItem* sourceLabel =
-        container->model()->insertNewItem("Parameter Label", container->index());
-
+    auto sourceLabel = container->model()->insertItem<ParameterLabelItem>(container->index());
     handleItem(sourceLabel, source);
 }
 
@@ -144,7 +142,7 @@ QVector<QPair<QString, QString>> ParameterTreeUtils::parameterDictionary(const S
 
     // Create container with ParameterItem's of given source item
     SampleModel model;
-    SessionItem* container = model.insertNewItem("Parameter Container");
+    auto container = model.insertItem<ParameterContainerItem>();
     populateParameterContainer(container, source);
 
     // Iterate through all ParameterItems and retrieve necessary data.
@@ -198,7 +196,7 @@ SessionItem* ParameterTreeUtils::parameterNameToLinkedItem(const QString& parNam
                                                            const SessionItem* source)
 {
     SampleModel model;
-    SessionItem* container = model.insertNewItem("Parameter Container");
+    auto container = model.insertItem<ParameterContainerItem>();
     populateParameterContainer(container, source);
 
     // Iterate through all ParameterItems and retrieve necessary data.
@@ -246,20 +244,18 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == "Property") {
                 if (child->value().type() == QVariant::Double) {
-                    SessionItem* branch = tree->model()->insertNewItem("Parameter", tree->index());
+                    auto branch = tree->model()->insertItem<ParameterItem>(tree->index());
                     handleItem(branch, child);
                 }
 
             } else if (child->modelType() == "GroupProperty") {
                 SessionItem* currentItem = dynamic_cast<GroupItem*>(child)->currentItem();
                 if (currentItem && currentItem->numberOfChildren() > 0) {
-                    SessionItem* branch =
-                        tree->model()->insertNewItem("Parameter Label", tree->index());
+                    auto branch = tree->model()->insertItem<ParameterLabelItem>(tree->index());
                     handleItem(branch, currentItem);
                 }
             } else {
-                SessionItem* branch =
-                    tree->model()->insertNewItem("Parameter Label", tree->index());
+                auto branch = tree->model()->insertItem<ParameterLabelItem>(tree->index());
                 handleItem(branch, child);
             }
         }

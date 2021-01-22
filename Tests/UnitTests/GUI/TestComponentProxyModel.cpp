@@ -3,8 +3,11 @@
 #include "GUI/coregui/Models/ComponentProxyStrategy.h"
 #include "GUI/coregui/Models/FormFactorItems.h"
 #include "GUI/coregui/Models/GroupItem.h"
+#include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -46,7 +49,7 @@ TEST_F(TestComponentProxyModel, test_setModel)
 TEST_F(TestComponentProxyModel, test_setModelWithItem)
 {
     SessionModel model("TestModel");
-    model.insertNewItem("Property");
+    model.insertItem<PropertyItem>();
 
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);
@@ -64,10 +67,10 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector)
     const int ncols = static_cast<int>(SessionFlags::MAX_COLUMNS);
 
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("Vector");
-    item->setItemValue(VectorItem::P_X, 1.0);
-    item->setItemValue(VectorItem::P_Y, 2.0);
-    item->setItemValue(VectorItem::P_Z, 3.0);
+    auto item = model.insertItem<VectorItem>();
+    item->setX(1.0);
+    item->setY(2.0);
+    item->setZ(3.0);
 
     ComponentProxyModel proxy;
     proxy.setSessionModel(&model);
@@ -155,9 +158,9 @@ TEST_F(TestComponentProxyModel, test_setModelWithVector)
 TEST_F(TestComponentProxyModel, test_displayRole)
 {
     SessionModel model("TestModel");
-    SessionItem* item1 = model.insertNewItem("Property");
+    auto item1 = model.insertItem<PropertyItem>();
     item1->setValue(1.0);
-    SessionItem* item2 = model.insertNewItem("Property");
+    auto item2 = model.insertItem<PropertyItem>();
     item2->setValue(2.0);
 
     EXPECT_EQ(model.data(model.index(0, 1, QModelIndex()), Qt::DisplayRole).toDouble(), 1.0);
@@ -175,7 +178,7 @@ TEST_F(TestComponentProxyModel, test_displayRole)
 TEST_F(TestComponentProxyModel, test_setData)
 {
     SessionModel model("TestModel");
-    SessionItem* item = model.insertNewItem("Property");
+    auto item = model.insertItem<PropertyItem>();
     item->setValue(1.0);
 
     ComponentProxyModel proxy;
@@ -226,7 +229,7 @@ TEST_F(TestComponentProxyModel, test_insertRows)
     QSignalSpy spyProxy(&proxy, &ComponentProxyModel::layoutChanged);
 
     // inserting item in the source
-    model.insertNewItem("Property");
+    model.insertItem<PropertyItem>();
     EXPECT_EQ(spyProxy.count(), 1);
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);
 }
@@ -243,7 +246,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategy)
     proxy.setSessionModel(&model);
 
     // inserting particle
-    SessionItem* item = model.insertNewItem("Particle");
+    auto item = model.insertItem<ParticleItem>();
     auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
     EXPECT_TRUE(ffItem->parent() == group);
@@ -288,7 +291,7 @@ TEST_F(TestComponentProxyModel, test_componentStrategyFormFactorChanges)
     proxy.setSessionModel(&model);
 
     // inserting particle
-    SessionItem* item = model.insertNewItem("Particle");
+    auto item = model.insertItem<ParticleItem>();
     auto group = dynamic_cast<GroupItem*>(item->getItem(ParticleItem::P_FORM_FACTOR));
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
     EXPECT_TRUE(ffItem->parent() == group);
@@ -321,7 +324,7 @@ TEST_F(TestComponentProxyModel, test_setRootPropertyItem)
     proxy.setSessionModel(&model);
 
     // inserting simple property item
-    SessionItem* item = model.insertNewItem("Property");
+    auto item = model.insertItem<PropertyItem>();
     item->setValue(42.0);
     proxy.setRootIndex(model.indexOfItem(item));
 
@@ -358,10 +361,10 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
     proxy.setSessionModel(&model);
 
     // inserting multilayer with two layers
-    auto multilayer = model.insertNewItem("MultiLayer");
-    auto layer1 = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    auto layout = model.insertNewItem("ParticleLayout", model.indexOfItem(layer1));
-    model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer1 = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layout = model.insertItem<ParticleLayoutItem>(model.indexOfItem(layer1));
+    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     proxy.setRootIndex(model.indexOfItem(layer1));
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);

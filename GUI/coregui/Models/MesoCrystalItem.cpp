@@ -29,8 +29,6 @@
 #include "Sample/Particle/ParticleCoreShell.h"
 #include "Sample/Scattering/IFormFactor.h"
 
-using SessionItemUtils::GetVectorItem;
-
 namespace {
 const QString abundance_tooltip = "Proportion of this type of mesocrystal normalized to the \n"
                                   "total number of particles in the layout";
@@ -107,6 +105,11 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
     });
 }
 
+VectorItem* MesoCrystalItem::positionItem() const
+{
+    return item<VectorItem>(ParticleItem::P_POSITION);
+}
+
 std::unique_ptr<MesoCrystal> MesoCrystalItem::createMesoCrystal() const
 {
     const Lattice3D& lattice = getLattice();
@@ -142,9 +145,9 @@ QStringList MesoCrystalItem::translateList(const QStringList& list) const
 
 Lattice3D MesoCrystalItem::getLattice() const
 {
-    const kvector_t a1 = GetVectorItem(*this, P_VECTOR_A);
-    const kvector_t a2 = GetVectorItem(*this, P_VECTOR_B);
-    const kvector_t a3 = GetVectorItem(*this, P_VECTOR_C);
+    const kvector_t a1 = item<VectorItem>(P_VECTOR_A)->getVector();
+    const kvector_t a2 = item<VectorItem>(P_VECTOR_B)->getVector();
+    const kvector_t a3 = item<VectorItem>(P_VECTOR_C)->getVector();
     return Lattice3D(a1, a2, a3);
 }
 

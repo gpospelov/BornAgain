@@ -52,7 +52,7 @@ TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
 {
     SampleModel model;
 
-    SessionItem* particle = model.insertNewItem("Particle");
+    auto particle = model.insertItem<ParticleItem>();
 
     auto ffItem = static_cast<FormFactorItem*>(particle->getGroupItem(ParticleItem::P_FORM_FACTOR));
     ASSERT(ffItem);
@@ -63,6 +63,6 @@ TEST_F(TestParameterTreeUtils, test_linkItemFromParameterName)
     EXPECT_EQ(ffItem->getItem(CylinderItem::P_HEIGHT),
               ParameterTreeUtils::parameterNameToLinkedItem("Particle/Cylinder/Height", particle));
     EXPECT_EQ(
-        particle->getItem(ParticleItem::P_POSITION)->getItem(VectorItem::P_X),
+        particle->positionItem()->getItem(VectorItem::P_X),
         ParameterTreeUtils::parameterNameToLinkedItem("Particle/Position Offset/X", particle));
 }

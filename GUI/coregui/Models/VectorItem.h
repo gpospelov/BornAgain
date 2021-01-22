@@ -26,7 +26,19 @@ public:
     static const QString P_Z;
     VectorItem();
 
+    double x() const;
+    void setX(double value);
+
+    double y() const;
+    void setY(double value);
+
+    double z() const;
+    void setZ(double value);
+
+    void setXYZ(double x_value, double y_value, double z_value);
+
     kvector_t getVector() const;
+    void setVector(const kvector_t& vec);
 
 private:
     void updateLabel();

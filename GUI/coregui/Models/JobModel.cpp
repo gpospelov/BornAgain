@@ -78,7 +78,7 @@ JobItem* JobModel::addJob(const MultiLayerItem* multiLayerItem,
     ASSERT(instrumentItem);
     ASSERT(optionItem);
 
-    JobItem* jobItem = dynamic_cast<JobItem*>(insertNewItem("JobItem"));
+    auto jobItem = insertItem<JobItem>();
     jobItem->setItemName(generateJobName());
     jobItem->setIdentifier(GUIHelpers::createUuid());
 

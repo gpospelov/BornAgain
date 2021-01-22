@@ -19,6 +19,7 @@
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "Sample/Particle/MesoCrystal.h"
 #include "Sample/Particle/Particle.h"
 #include "Sample/Particle/ParticleCoreShell.h"
@@ -65,6 +66,11 @@ ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("Partic
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
+}
+
+VectorItem* ParticleCompositionItem::positionItem() const
+{
+    return item<VectorItem>(ParticleItem::P_POSITION);
 }
 
 std::unique_ptr<ParticleComposition> ParticleCompositionItem::createParticleComposition() const

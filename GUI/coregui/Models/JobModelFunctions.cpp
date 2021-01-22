@@ -19,6 +19,7 @@
 #include "GUI/coregui/Models/DataPropertyContainer.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/DomainObjectBuilder.h"
+#include "GUI/coregui/Models/FitParameterItems.h"
 #include "GUI/coregui/Models/FitSuiteItem.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
@@ -29,9 +30,11 @@
 #include "GUI/coregui/Models/JobModel.h"
 #include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/MaterialItemContainer.h"
+#include "GUI/coregui/Models/MinimizerItem.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
 #include "GUI/coregui/Models/RealDataItem.h"
+#include "GUI/coregui/Models/SpecularDataItem.h"
 #include "GUI/coregui/Views/MaskWidgets/MaskUnitsConverter.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
@@ -65,13 +68,10 @@ void JobModelFunctions::initDataView(JobItem* job_item)
     ASSERT(!job_item->getItem(JobItem::T_DATAVIEW));
 
     SessionModel* model = job_item->model();
-    auto view_item = dynamic_cast<Data1DViewItem*>(
-        model->insertNewItem("Data1DViewItem", job_item->index(), -1, JobItem::T_DATAVIEW));
-    ASSERT(view_item);
+    auto view_item = model->insertItem<Data1DViewItem>(job_item->index(), -1, JobItem::T_DATAVIEW);
 
-    auto property_container = dynamic_cast<DataPropertyContainer*>(model->insertNewItem(
-        "DataPropertyContainer", view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES));
-    ASSERT(property_container);
+    auto property_container = model->insertItem<DataPropertyContainer>(
+        view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES);
 
     property_container->addItem(job_item->realDataItem()->dataItem());
     property_container->addItem(job_item->dataItem());
@@ -91,8 +91,8 @@ void JobModelFunctions::setupJobItemSampleData(JobItem* jobItem, const MultiLaye
     multilayer->setItemName("MultiLayer");
 
     // copying materials
-    auto container = static_cast<MaterialItemContainer*>(jobItem->model()->insertNewItem(
-        "MaterialContainer", jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER));
+    auto container = jobItem->model()->insertItem<MaterialItemContainer>(
+        jobItem->index(), -1, JobItem::T_MATERIAL_CONTAINER);
 
     std::map<MaterialItem*, QString> materials;
     for (auto property_item : multilayer->materialPropertyItems()) {
@@ -144,11 +144,11 @@ void JobModelFunctions::setupJobItemOutput(JobItem* jobItem)
 
     auto instrumentType = jobItem->instrumentItem()->modelType();
     if (instrumentType == "SpecularInstrument") {
-        model->insertNewItem("SpecularData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+        model->insertItem<SpecularDataItem>(model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
     } else if (instrumentType == "GISASInstrument" || instrumentType == "OffSpecularInstrument"
                || instrumentType == "DepthProbeInstrument") {
-        model->insertNewItem("IntensityData", model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
+        model->insertItem<IntensityDataItem>(model->indexOfItem(jobItem), -1, JobItem::T_OUTPUT);
 
     } else {
         throw GUIHelpers::Error("JobModelFunctions::setupJobItemOutput() -> Error. "
@@ -269,7 +269,7 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitSuiteItem.");
     }
 
-    fitSuiteItem = model->insertNewItem("FitSuite", jobItem->index(), -1, JobItem::T_FIT_SUITE);
+    fitSuiteItem = model->insertItem<FitSuiteItem>(jobItem->index(), -1, JobItem::T_FIT_SUITE);
 
     SessionItem* parsContainerItem =
         fitSuiteItem->getItem(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
@@ -278,8 +278,8 @@ void createFitContainers(JobItem* jobItem)
                                 "a second FitParameterContainer.");
     }
 
-    model->insertNewItem("FitParameterContainer", fitSuiteItem->index(), -1,
-                         FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+    model->insertItem<FitParameterContainerItem>(fitSuiteItem->index(), -1,
+                                                 FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 
     // Minimizer settings
     SessionItem* minimizerContainerItem = fitSuiteItem->getItem(FitSuiteItem::T_MINIMIZER);
@@ -288,8 +288,7 @@ void createFitContainers(JobItem* jobItem)
                                 "a second MinimizerContainer.");
     }
 
-    model->insertNewItem("MinimizerContainer", fitSuiteItem->index(), -1,
-                         FitSuiteItem::T_MINIMIZER);
+    model->insertItem<MinimizerContainerItem>(fitSuiteItem->index(), -1, FitSuiteItem::T_MINIMIZER);
 }
 
 PointwiseAxisItem* getPointwiseAxisItem(const SpecularInstrumentItem* instrument)

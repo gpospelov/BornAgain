@@ -113,7 +113,7 @@ void RealDataItem::setOutputData(OutputData<double>* data)
         throw GUIHelpers::Error("Error in RealDataItem::setOutputData: trying to set data "
                                 "incompatible with underlying data item");
     if (!data_item) {
-        this->model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
+        model()->insertNewItem(target_model_type, this->index(), 0, T_INTENSITY_DATA);
         ASSERT(getItem(T_INTENSITY_DATA)
                && "Assertion failed in RealDataItem::setOutputData: inserting data item failed.");
     }
@@ -129,7 +129,7 @@ void RealDataItem::initDataItem(size_t data_rank, const QString& tag)
         throw GUIHelpers::Error("Error in RealDataItem::initDataItem: trying to set data "
                                 "incompatible with underlying data item");
     if (!data_item)
-        this->model()->insertNewItem(target_model_type, this->index(), 0, tag);
+        model()->insertNewItem(target_model_type, this->index(), 0, tag);
 }
 
 void RealDataItem::setImportData(ImportDataInfo data)
@@ -146,7 +146,7 @@ void RealDataItem::setImportData(ImportDataInfo data)
 
     dataItem()->reset(std::move(data));
     getItem(P_NATIVE_DATA_UNITS)->setValue(units_name);
-    item<DataItem>(T_NATIVE_DATA).setOutputData(output_data.release());
+    item<DataItem>(T_NATIVE_DATA)->setOutputData(output_data.release());
 }
 
 bool RealDataItem::holdsDimensionalData() const

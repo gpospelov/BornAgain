@@ -1,6 +1,7 @@
 #include "Device/Histo/IntensityDataIOFactory.h"
 #include "GUI/coregui/Models/ApplicationModels.h"
 #include "GUI/coregui/Models/DataItem.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/JobItem.h"
 #include "GUI/coregui/Models/JobItemUtils.h"
 #include "GUI/coregui/Models/JobModel.h"
@@ -41,21 +42,20 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    RealDataItem* realData =
-        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem("RealData"));
+    auto realData = models.realDataModel()->insertItem<RealDataItem>();
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
     realData->setOutputData(GuiUnittestUtils::createData().release());
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 1);
 
     // adding JobItem
-    SessionItem* jobItem = models.jobModel()->insertNewItem("JobItem");
-    SessionItem* dataItem =
-        models.jobModel()->insertNewItem("IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
+    auto jobItem = models.jobModel()->insertItem<JobItem>();
+    auto dataItem =
+        models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding RealDataItem to jobItem
-    RealDataItem* realData2 = dynamic_cast<RealDataItem*>(
-        models.jobModel()->insertNewItem("RealData", jobItem->index(), -1, JobItem::T_REALDATA));
+    RealDataItem* realData2 =
+        models.jobModel()->insertItem<RealDataItem>(jobItem->index(), -1, JobItem::T_REALDATA);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
     realData2->setOutputData(
         GuiUnittestUtils::createData(0.0, GuiUnittestUtils::DIM::D1).release());
@@ -88,7 +88,7 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
 TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 {
     SessionModel model("TempModel");
-    DataItem* item = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
+    auto item = model.insertItem<IntensityDataItem>();
 
     item->setLastModified(QDateTime::currentDateTime());
 
@@ -109,9 +109,8 @@ TEST_F(TestOutputDataIOService, test_OutputDataSaveInfo)
 TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 {
     SessionModel model("TempModel");
-    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
-
-    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
+    auto item1 = model.insertItem<IntensityDataItem>();
+    auto item2 = model.insertItem<IntensityDataItem>();
     item1->setOutputData(m_data.clone());
     item1->setLastModified(QDateTime::currentDateTime());
     item2->setLastModified(QDateTime::currentDateTime());
@@ -146,9 +145,9 @@ TEST_F(TestOutputDataIOService, test_OutputDataDirHistory)
 TEST_F(TestOutputDataIOService, test_OutputDataIOHistory)
 {
     SessionModel model("TempModel");
-    DataItem* item1 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
+    auto item1 = model.insertItem<IntensityDataItem>();
 
-    DataItem* item2 = dynamic_cast<DataItem*>(model.insertNewItem("IntensityData"));
+    auto item2 = model.insertItem<IntensityDataItem>();
     item1->setOutputData(m_data.clone());
     item2->setOutputData(m_data.clone());
 
@@ -250,8 +249,7 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     EXPECT_EQ(dataItems.size(), 0);
 
     // adding RealDataItem
-    RealDataItem* realData =
-        dynamic_cast<RealDataItem*>(models.realDataModel()->insertNewItem("RealData"));
+    auto realData = models.realDataModel()->insertItem<RealDataItem>();
     EXPECT_EQ(models.realDataModel()->nonXMLData().size(), 0);
 
     ImportDataInfo import_data(std::unique_ptr<OutputData<double>>(m_data.clone()), "nbins");
@@ -261,9 +259,9 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     realData->setItemValue(RealDataItem::P_NAME, "RealData");
 
     // adding JobItem
-    JobItem* jobItem = dynamic_cast<JobItem*>(models.jobModel()->insertNewItem("JobItem"));
+    auto jobItem = models.jobModel()->insertItem<JobItem>();
     jobItem->setIdentifier(GUIHelpers::createUuid());
-    models.jobModel()->insertNewItem("IntensityData", jobItem->index(), -1, JobItem::T_OUTPUT);
+    models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // copying RealDataItem to JobItem

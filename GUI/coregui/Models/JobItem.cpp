@@ -297,5 +297,5 @@ SimulationOptionsItem* JobItem::simulationOptionsItem()
 
 const SimulationOptionsItem* JobItem::simulationOptionsItem() const
 {
-    return &item<const SimulationOptionsItem>(T_SIMULATION_OPTIONS);
+    return item<const SimulationOptionsItem>(T_SIMULATION_OPTIONS);
 }

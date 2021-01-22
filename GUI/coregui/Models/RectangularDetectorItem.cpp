@@ -160,13 +160,13 @@ void RectangularDetectorItem::setYSize(int ny)
 std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() const
 {
     // basic axes parameters
-    auto& x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
-    size_t n_x = x_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double width = x_axis.getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    auto x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
+    size_t n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toUInt();
+    double width = x_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 
-    auto& y_axis = item<BasicAxisItem>(RectangularDetectorItem::P_Y_AXIS);
-    size_t n_y = y_axis.getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double height = y_axis.getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    auto y_axis = item<BasicAxisItem>(RectangularDetectorItem::P_Y_AXIS);
+    size_t n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toUInt();
+    double height = y_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
 
     std::unique_ptr<RectangularDetector> result(new RectangularDetector(n_x, width, n_y, height));
 
@@ -237,10 +237,10 @@ void RectangularDetectorItem::update_properties_appearance()
 
 kvector_t RectangularDetectorItem::normalVector() const
 {
-    return item<VectorItem>(RectangularDetectorItem::P_NORMAL).getVector();
+    return item<VectorItem>(RectangularDetectorItem::P_NORMAL)->getVector();
 }
 
 kvector_t RectangularDetectorItem::directionVector() const
 {
-    return item<VectorItem>(RectangularDetectorItem::P_DIRECTION).getVector();
+    return item<VectorItem>(RectangularDetectorItem::P_DIRECTION)->getVector();
 }

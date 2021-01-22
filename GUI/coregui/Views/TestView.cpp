@@ -85,8 +85,7 @@ void TestView::test_MinimizerSettings()
     setLayout(layout);
 
     SessionModel* model = new SessionModel("TempModel", this);
-    MinimizerContainerItem* minimizerItem =
-        dynamic_cast<MinimizerContainerItem*>(model->insertNewItem("MinimizerContainer"));
+    auto minimizerItem = model->insertItem<MinimizerContainerItem>();
     widget->setItem(minimizerItem);
 }
 
@@ -181,7 +180,7 @@ void TestView::test_specular_data_widget()
     SessionModel* tempModel = new SessionModel("Test", this);
 
     // creating job item
-    auto job_item = dynamic_cast<JobItem*>(tempModel->insertNewItem("JobItem"));
+    auto job_item = tempModel->insertItem<JobItem>();
 
     // creating "simulation" data
     auto data_item = new SpecularDataItem();
@@ -199,9 +198,9 @@ void TestView::test_specular_data_widget()
     auto data_view = new Data1DViewItem();
     job_item->insertItem(-1, data_view, JobItem::T_DATAVIEW);
     data_view->insertItem(-1, new DataPropertyContainer, Data1DViewItem::T_DATA_PROPERTIES);
-    auto& container = data_view->item<DataPropertyContainer>(Data1DViewItem::T_DATA_PROPERTIES);
-    container.addItem(job_item->realDataItem()->dataItem());
-    container.addItem(job_item->dataItem());
+    auto container = data_view->item<DataPropertyContainer>(Data1DViewItem::T_DATA_PROPERTIES);
+    container->addItem(job_item->realDataItem()->dataItem());
+    container->addItem(job_item->dataItem());
 
     QVBoxLayout* layout = new QVBoxLayout;
     layout->setMargin(0);

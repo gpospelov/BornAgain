@@ -1,5 +1,8 @@
 #include "GUI/coregui/Models/FormFactorItems.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
+#include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "Tests/GTestWrapper/google_test.h"
 #include <QXmlStreamReader>
@@ -32,7 +35,7 @@ TEST_F(TestSessionXML, test_sessionItem)
     QString expected;
 
     SessionModel source("TestModel");
-    source.insertNewItem("Property");
+    source.insertItem<PropertyItem>();
 
     expected = "<TestModel Name=\"DefaultName\">"
                "<Item ModelType=\"Property\" Tag=\"rootTag\" DisplayName=\"Property\"/>"
@@ -55,7 +58,7 @@ TEST_F(TestSessionXML, test_FullSphereItem)
 {
     // source model, to xml
     SessionModel source("TestModel");
-    SessionItem* sphere = source.insertNewItem("FullSphere");
+    auto sphere = source.insertItem<FullSphereItem>();
     SessionItem* radius = sphere->getItem(FullSphereItem::P_RADIUS);
     QString buffer = itemToXML(source.rootItem());
 
@@ -88,9 +91,9 @@ TEST_F(TestSessionXML, test_twoFullSphereItems)
 {
     // source model, to xml
     SessionModel source("TestModel");
-    SessionItem* sphere1 = source.insertNewItem("FullSphere");
+    auto sphere1 = source.insertItem<FullSphereItem>();
     sphere1->setItemValue(FullSphereItem::P_RADIUS, 1.0);
-    SessionItem* sphere2 = source.insertNewItem("FullSphere");
+    auto sphere2 = source.insertItem<FullSphereItem>();
     sphere2->setItemValue(FullSphereItem::P_RADIUS, 2.0);
     QString buffer = itemToXML(source.rootItem());
 
@@ -104,7 +107,7 @@ TEST_F(TestSessionXML, test_twoFullSphereItems)
 TEST_F(TestSessionXML, test_emptyMultiLayer)
 {
     SessionModel source("TestModel");
-    source.insertNewItem("MultiLayer");
+    source.insertItem<MultiLayerItem>();
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -117,7 +120,7 @@ TEST_F(TestSessionXML, test_emptyMultiLayer)
 TEST_F(TestSessionXML, test_Layer)
 {
     SessionModel source("TestModel");
-    source.insertNewItem("Layer");
+    source.insertItem<LayerItem>();
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -130,7 +133,7 @@ TEST_F(TestSessionXML, test_Layer)
 TEST_F(TestSessionXML, test_Particle)
 {
     SessionModel source("TestModel");
-    source.insertNewItem("Particle");
+    source.insertItem<ParticleItem>();
     QString buffer = itemToXML(source.rootItem());
 
     SessionModel target("TestModel");
@@ -143,7 +146,7 @@ TEST_F(TestSessionXML, test_Particle)
 TEST_F(TestSessionXML, test_ParticleWithFF)
 {
     SessionModel source("TestModel");
-    SessionItem* particle = source.insertNewItem("Particle");
+    auto particle = source.insertItem<ParticleItem>();
 
     particle->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
     QString buffer = itemToXML(source.rootItem());

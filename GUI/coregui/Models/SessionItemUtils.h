@@ -26,12 +26,6 @@ namespace SessionItemUtils {
 //! Returns the index of the given item within its parent. Returns -1 when no parent is set.
 int ParentRow(const SessionItem& item);
 
-//! Returns a VectorType group property's value as a kvector_t.
-kvector_t GetVectorItem(const SessionItem& item, const QString& name);
-
-//! Returns a VectorType group property's value as a kvector_t.
-void SetVectorItem(const SessionItem& item, const QString& name, kvector_t value);
-
 //! Returns the row of the given item within its parent not accounting for all hidden items
 //! above. Returns -1 when no parent set or item is hidden.
 int ParentVisibleRow(const SessionItem& item);

@@ -56,20 +56,16 @@ void DetectorMaskDelegate::initMaskEditorContext(MaskEditor* maskEditor,
 void DetectorMaskDelegate::createIntensityDataItem()
 {
     m_tempIntensityDataModel->clear();
-
-    m_intensityItem =
-        dynamic_cast<IntensityDataItem*>(m_tempIntensityDataModel->insertNewItem("IntensityData"));
-    ASSERT(m_intensityItem);
-
+    m_intensityItem = m_tempIntensityDataModel->insertItem<IntensityDataItem>();
     m_intensityItem->getItem(IntensityDataItem::P_PROJECTIONS_FLAG)->setEnabled(false);
     m_intensityItem->setItemValue(IntensityDataItem::P_IS_INTERPOLATED, false);
 
-    auto& zAxisItem = m_intensityItem->item<AmplitudeAxisItem>(IntensityDataItem::P_ZAXIS);
-    zAxisItem.setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
-    zAxisItem.setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
-    zAxisItem.setItemValue(BasicAxisItem::P_MAX_DEG, 2.0);
-    zAxisItem.setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
-    zAxisItem.setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
+    auto zAxisItem = m_intensityItem->item<AmplitudeAxisItem>(IntensityDataItem::P_ZAXIS);
+    zAxisItem->setItemValue(BasicAxisItem::P_IS_VISIBLE, false);
+    zAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
+    zAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, 2.0);
+    zAxisItem->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, false);
+    zAxisItem->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, true);
 
     // creating output data corresponding to the detector
     auto instrument = dynamic_cast<const GISASInstrumentItem*>(

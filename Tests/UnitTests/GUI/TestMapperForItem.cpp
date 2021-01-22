@@ -1,5 +1,7 @@
 #include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MaskItems.h"
 #include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/ProjectionItems.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -129,8 +131,8 @@ TEST_F(TestMapperForItem, test_onPropertyChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w);
@@ -189,8 +191,8 @@ TEST_F(TestMapperForItem, test_onParentChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
@@ -207,12 +209,12 @@ TEST_F(TestMapperForItem, test_onChildrenChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
+    auto multilayer = model.insertItem<MultiLayerItem>();
 
     // Mapper is looking on parent; adding new child to parent
     setItem(multilayer, &w);
     EXPECT_TRUE(m_mapped_item == multilayer);
-    model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 2);
@@ -227,14 +229,13 @@ TEST_F(TestMapperForItem, test_onSiblingsChange)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Mapper is looking on child; adding another child to parent
     setItem(layer, &w);
     EXPECT_TRUE(m_mapped_item == layer);
-    SessionItem* layer2 = model.insertNewItem("Layer", model.indexOfItem(multilayer));
-    Q_UNUSED(layer2);
+    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 0);
@@ -252,8 +253,8 @@ TEST_F(TestMapperForItem, test_Subscription)
 {
     Widget w;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w, true);
@@ -281,8 +282,8 @@ TEST_F(TestMapperForItem, test_TwoWidgetsSubscription)
 {
     Widget w1, w2;
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
 
     // Mapper is looking on child; set property of child
     setItem(layer);
@@ -305,9 +306,8 @@ TEST_F(TestMapperForItem, test_AboutToRemoveChild)
 {
     Widget w;
     SampleModel model;
-    SessionItem* container = model.insertNewItem("ProjectionContainer");
-
-    SessionItem* line = model.insertNewItem("HorizontalLineMask", container->index());
+    auto container = model.insertItem<ProjectionContainerItem>();
+    auto line = model.insertItem<HorizontalLineItem>(container->index());
 
     setItem(container, &w);
     EXPECT_EQ(w.m_onAboutToRemoveChild, 0);

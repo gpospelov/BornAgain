@@ -193,6 +193,8 @@ void SessionModel::setUndoRedoEnabled(bool value)
 
 void SessionModel::clear(std::function<void(SessionItem*)> callback)
 {
+    if (undoStack())
+        undoStack()->clear();
     mapper()->callOnModelAboutToBeReset();
     p_impl->createRootItem();
     if (callback)

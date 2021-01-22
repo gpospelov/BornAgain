@@ -19,6 +19,7 @@
 #include "GUI/coregui/Models/TransformToDomain.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Sample/Particle/Particle.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "Sample/Particle/ParticleCoreShell.h"
 
 namespace {
@@ -61,6 +62,11 @@ ParticleCoreShellItem::ParticleCoreShellItem() : SessionGraphicsItem("ParticleCo
             getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
         }
     });
+}
+
+VectorItem* ParticleCoreShellItem::positionItem() const
+{
+    return item<VectorItem>(ParticleItem::P_POSITION);
 }
 
 std::unique_ptr<ParticleCoreShell> ParticleCoreShellItem::createParticleCoreShell() const

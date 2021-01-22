@@ -30,18 +30,56 @@ VectorItem::VectorItem() : SessionItem("Vector")
     setEditable(false);
 }
 
+double VectorItem::x() const
+{
+    return getItemValue(P_X).toDouble();
+}
+
+void VectorItem::setX(double value)
+{
+    setItemValue(P_X, value);
+}
+
+double VectorItem::y() const
+{
+    return getItemValue(P_Y).toDouble();
+}
+
+void VectorItem::setY(double value)
+{
+    setItemValue(P_Y, value);
+}
+
+double VectorItem::z() const
+{
+    return getItemValue(P_Z).toDouble();
+}
+
+void VectorItem::setZ(double value)
+{
+    setItemValue(P_Z, value);
+}
+
+void VectorItem::setXYZ(double x_value, double y_value, double z_value)
+{
+    setX(x_value);
+    setY(y_value);
+    setZ(z_value);
+}
+
 kvector_t VectorItem::getVector() const
 {
-    return kvector_t(getItemValue(P_X).toDouble(), getItemValue(P_Y).toDouble(),
-                     getItemValue(P_Z).toDouble());
+    return kvector_t(x(), y(), z());
+}
+
+void VectorItem::setVector(const kvector_t& vec)
+{
+    setXYZ(vec.x(), vec.y(), vec.z());
 }
 
 void VectorItem::updateLabel()
 {
-    QString label = QString("(%1, %2, %3)")
-                        .arg(getItemValue(P_X).toDouble())
-                        .arg(getItemValue(P_Y).toDouble())
-                        .arg(getItemValue(P_Z).toDouble());
+    QString label = QString("(%1, %2, %3)").arg(x()).arg(y()).arg(z());
 
     setValue(label);
 }

@@ -13,11 +13,15 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/PropertyEditor/TestComponentView.h"
+#include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/GUIObjectBuilder.h"
+#include "GUI/coregui/Models/IntensityDataItem.h"
 #include "GUI/coregui/Models/MaterialDataItems.h"
 #include "GUI/coregui/Models/MaterialModel.h"
+#include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/SessionModelDelegate.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentFlatView.h"
@@ -88,7 +92,7 @@ void TestComponentView::onUpdateRequest()
 
 void TestComponentView::onAddItemRequest()
 {
-    m_sampleModel->insertNewItem("Particle");
+    m_sampleModel->insertItem<ParticleItem>();
 }
 
 void TestComponentView::onExpandRequest()
@@ -121,11 +125,9 @@ void TestComponentView::init_source()
     const std::unique_ptr<MultiLayer> sample(
         factory.createSampleByName("CylindersWithSizeDistributionBuilder"));
     GUIObjectBuilder::populateSampleModel(m_sampleModel, m_materialModel, *sample);
-    m_sampleModel->insertNewItem("Vector");
-    m_sampleModel->insertNewItem("GISASBeam");
-
-    // adding intensity data item
-    m_sampleModel->insertNewItem("IntensityData");
+    m_sampleModel->insertItem<VectorItem>();
+    m_sampleModel->insertItem<GISASBeamItem>();
+    m_sampleModel->insertItem<IntensityDataItem>();
 }
 
 void TestComponentView::onSelectionChanged(const QItemSelection& selected, const QItemSelection&)

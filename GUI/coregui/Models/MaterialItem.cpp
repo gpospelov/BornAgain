@@ -17,8 +17,7 @@
 #include "GUI/coregui/Views/MaterialEditor/MaterialItemUtils.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
 #include "Sample/Material/MaterialFactoryFuncs.h"
-
-using SessionItemUtils::GetVectorItem;
+#include "GUI/coregui/Models/VectorItem.h"
 
 namespace {
 const QString magnetization_tooltip = "Magnetization (A/m)";
@@ -74,7 +73,7 @@ QColor MaterialItem::color() const
 std::unique_ptr<Material> MaterialItem::createMaterial() const
 {
     auto dataItem = getGroupItem(P_MATERIAL_DATA);
-    auto magnetization = GetVectorItem(*this, P_MAGNETIZATION);
+    auto magnetization = item<VectorItem>(P_MAGNETIZATION)->getVector();
     auto name = itemName().toStdString();
 
     if (dataItem->modelType() == "MaterialRefractiveData") {

@@ -48,7 +48,7 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
 
 SpecularBeamItem* DepthProbeInstrumentItem::beamItem() const
 {
-    return &item<SpecularBeamItem>(P_BEAM);
+    return item<SpecularBeamItem>(P_BEAM);
 }
 
 std::unique_ptr<Instrument> DepthProbeInstrumentItem::createInstrument() const
@@ -82,12 +82,12 @@ std::unique_ptr<DepthProbeSimulation> DepthProbeInstrumentItem::createSimulation
     simulation->setZSpan(depthAxis->size(), depthAxis->lowerBound(), depthAxis->upperBound());
 
     TransformToDomain::setBeamDistribution(
-        "Wavelength", beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),
+        "Wavelength", *beamItem()->item<BeamWavelengthItem>(SpecularBeamItem::P_WAVELENGTH),
         *simulation.get());
 
     TransformToDomain::setBeamDistribution(
         "InclinationAngle",
-        beamItem()->item<SpecularBeamInclinationItem>(SpecularBeamItem::P_INCLINATION_ANGLE),
+        *beamItem()->item<SpecularBeamInclinationItem>(SpecularBeamItem::P_INCLINATION_ANGLE),
         *simulation.get());
 
     return simulation;

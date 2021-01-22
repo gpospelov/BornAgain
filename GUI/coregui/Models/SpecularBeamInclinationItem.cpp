@@ -43,8 +43,8 @@ double SpecularBeamInclinationItem::scaleFactor() const
 
 void SpecularBeamInclinationItem::updateFileName(const QString& filename)
 {
-    auto& group_item = item<GroupItem>(P_ALPHA_AXIS);
-    auto axis_item = group_item.getChildOfType("PointwiseAxis");
+    auto group_item = item<GroupItem>(P_ALPHA_AXIS);
+    auto axis_item = group_item->getChildOfType("PointwiseAxis");
     axis_item->setItemValue(PointwiseAxisItem::P_FILE_NAME, filename);
 }
 

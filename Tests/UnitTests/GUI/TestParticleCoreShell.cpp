@@ -53,46 +53,45 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
     SampleModel model;
 
     // empty coreshell particle
-    SessionItem* coreshell = model.insertNewItem("ParticleCoreShell");
+    auto coreshell = model.insertItem<ParticleCoreShellItem>();
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
-    EXPECT_TRUE(coreshell->getItem(ParticleItem::P_POSITION)->isEnabled());
-    kvector_t pos = GetVectorItem(*coreshell, ParticleItem::P_POSITION);
+    EXPECT_TRUE(coreshell->positionItem()->isEnabled());
+    kvector_t pos = coreshell->positionItem()->getVector();
     EXPECT_EQ(pos.x(), 0.0);
     EXPECT_EQ(pos.y(), 0.0);
     EXPECT_EQ(pos.z(), 0.0);
 
     // adding core, and checking that abundance is disabled
-    SessionItem* core =
-        model.insertNewItem("Particle", coreshell->index(), -1, ParticleCoreShellItem::T_CORE);
+    auto core =
+        model.insertItem<ParticleItem>(coreshell->index(), -1, ParticleCoreShellItem::T_CORE);
     EXPECT_FALSE(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
-    EXPECT_TRUE(core->getItem(ParticleItem::P_POSITION)->isEnabled());
+    EXPECT_TRUE(core->positionItem()->isEnabled());
 
     // removing core, checking that abundance restored
     coreshell->takeRow(ParentRow(*core));
     EXPECT_TRUE(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
-    EXPECT_TRUE(core->getItem(ParticleItem::P_POSITION)->isEnabled());
+    EXPECT_TRUE(core->positionItem()->isEnabled());
     delete core;
 
     // creating shell (not yet attached to the coreshell)
-    SessionItem* shell = model.insertNewItem("Particle");
-    SessionItem* positionItem = shell->getItem(ParticleItem::P_POSITION);
+    auto shell = model.insertItem<ParticleItem>();
     // putting some values to position and abundance
     shell->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
-    positionItem->setItemValue(VectorItem::P_X, 1.0);
+    shell->positionItem()->setX(1.0);
 
     // attaching shell to coreshell and checking abundance disabled
     model.moveItem(shell, coreshell, -1, ParticleCoreShellItem::T_SHELL);
     EXPECT_FALSE(shell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
-    EXPECT_FALSE(shell->getItem(ParticleItem::P_POSITION)->isEnabled());
+    EXPECT_FALSE(shell->positionItem()->isEnabled());
     // checking that position and abundance values were reset to defaults
-    EXPECT_EQ(positionItem->getItemValue(VectorItem::P_X).toDouble(), 0.0);
+    EXPECT_EQ(shell->positionItem()->x(), 0.0);
     EXPECT_EQ(shell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
 
     // removing shell and checking abundance, position restored
     coreshell->takeRow(ParentRow(*shell));
     EXPECT_TRUE(shell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
-    EXPECT_TRUE(shell->getItem(ParticleItem::P_POSITION)->isEnabled());
+    EXPECT_TRUE(shell->positionItem()->isEnabled());
     delete shell;
 }
 

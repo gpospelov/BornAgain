@@ -1,5 +1,6 @@
 #include "GUI/coregui/Models/LayerItem.h"
 #include "GUI/coregui/Models/ModelUtils.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
@@ -31,10 +32,10 @@ TEST_F(TestModelUtils, test_topItemNames)
     EXPECT_TRUE(ModelUtils::topItemNames(&model).isEmpty());
 
     // inserting three top items
-    auto item = model.insertNewItem("MultiLayer");
+    auto item = model.insertItem<MultiLayerItem>();
     item->setItemName("name1");
-    model.insertNewItem("Layer");
-    item = model.insertNewItem("MultiLayer");
+    model.insertItem<LayerItem>();
+    item = model.insertItem<MultiLayerItem>();
     item->setItemName("name2");
 
     // checking names of items of certain type
@@ -66,7 +67,7 @@ TEST_F(TestModelUtils, test_emptyModel)
 TEST_F(TestModelUtils, test_vectorItem)
 {
     SessionModel model("TestModel");
-    SessionItem* vectorItem = model.insertNewItem("Vector");
+    auto vectorItem = model.insertItem<VectorItem>();
 
     QVector<QModelIndex> indices;
 
@@ -92,8 +93,8 @@ TEST_F(TestModelUtils, test_vectorItem)
 TEST_F(TestModelUtils, test_iterateIf)
 {
     SessionModel model("TestModel");
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", model.indexOfItem(multilayer));
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    SessionItem* layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
     SessionItem* thicknessItem = layer->getItem(LayerItem::P_THICKNESS);
 
     layer->setVisible(true);

@@ -1,5 +1,9 @@
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/DocumentModel.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
+#include "GUI/coregui/Models/ParticleCompositionItem.h"
+#include "GUI/coregui/Models/ParticleDistributionItem.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
@@ -16,28 +20,28 @@ class TestMapperCases : public ::testing::Test {
 TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
-    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(multilayer->index());
+    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
 
     // composition added to layout should have abundance enabled
-    SessionItem* compositionFree = model.insertNewItem("ParticleComposition", layout->index());
+    auto compositionFree = model.insertItem<ParticleCompositionItem>(layout->index());
     EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
-    SessionItem* distribution = model.insertNewItem("ParticleDistribution", layout->index());
-    SessionItem* composition = model.insertNewItem("ParticleComposition", distribution->index());
+    auto distribution = model.insertItem<ParticleDistributionItem>(layout->index());
+    auto composition = model.insertItem<ParticleCompositionItem>(distribution->index());
     EXPECT_FALSE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
-    composition = distribution->takeRow(ParentRow(*composition));
-    EXPECT_TRUE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
-    delete composition;
+    auto taken = distribution->takeRow(ParentRow(*composition));
+    EXPECT_TRUE(taken->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
+    delete taken;
 }
 
 TEST_F(TestMapperCases, test_SimulationOptionsComputationToggle)
 {
     DocumentModel model;
-    model.insertNewItem("SimulationOptions");
+    model.insertItem<SimulationOptionsItem>();
 
     SimulationOptionsItem* item = model.simulationOptionsItem();
 

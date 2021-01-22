@@ -66,9 +66,9 @@ TEST_F(TestMaterialPropertyController, test_ControllerInEditorContext)
     auto mat3 = materialModel.addRefractiveMaterial("name3", 1.0, 2.0);
 
     SampleModel sampleModel;
-    auto layer1 = sampleModel.insertNewItem("Layer");
-    auto layer2 = sampleModel.insertNewItem("Layer");
-    auto layer3 = sampleModel.insertNewItem("Layer");
+    auto layer1 = sampleModel.insertItem<LayerItem>();
+    auto layer2 = sampleModel.insertItem<LayerItem>();
+    auto layer3 = sampleModel.insertItem<LayerItem>();
 
     MaterialPropertyController controller;
     controller.setModels(&materialModel, &sampleModel);

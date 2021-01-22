@@ -8,12 +8,12 @@ namespace {
 
 IntensityDataItem* createData(SessionModel& model)
 {
-    return dynamic_cast<IntensityDataItem*>(model.insertNewItem("IntensityData"));
+    return model.insertItem<IntensityDataItem>();
 }
 
 BasicAxisItem* createAxis(SessionModel& model)
 {
-    return dynamic_cast<BasicAxisItem*>(model.insertNewItem("BasicAxis"));
+    return model.insertItem<BasicAxisItem>();
 }
 } // namespace
 

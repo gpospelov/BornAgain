@@ -52,7 +52,7 @@ TEST_F(TestSessionModel, SampleModelCopy)
     SampleModel model1;
     auto multilayer = model1.insertItem<MultiLayerItem>();
     multilayer->setItemName("multilayer");
-    model1.insertItem<LayerItem>(model1.indexOfItem(multilayer));
+    model1.insertItem<LayerItem>(multilayer);
     auto multilayer2 = model1.insertItem<MultiLayerItem>();
     multilayer2->setItemName("multilayer2");
 
@@ -75,7 +75,7 @@ TEST_F(TestSessionModel, SampleModelPartialCopy)
     SampleModel model1;
     auto multilayer1 = model1.insertItem<MultiLayerItem>();
     multilayer1->setItemName("multilayer1");
-    model1.insertItem<LayerItem>(model1.indexOfItem(multilayer1));
+    model1.insertItem<LayerItem>(multilayer1);
 
     auto multilayer2 = model1.insertItem<MultiLayerItem>();
     multilayer2->setItemName("multilayer2");
@@ -132,7 +132,7 @@ TEST_F(TestSessionModel, copyItem)
     SampleModel sampleModel;
     auto multilayer1 = sampleModel.insertItem<MultiLayerItem>();
     multilayer1->setItemName("multilayer1");
-    sampleModel.insertItem<LayerItem>(sampleModel.indexOfItem(multilayer1));
+    sampleModel.insertItem<LayerItem>(multilayer1);
 
     InstrumentModel instrumentModel;
     auto instrument1 = instrumentModel.insertItem<GISASInstrumentItem>();
@@ -177,8 +177,8 @@ TEST_F(TestSessionModel, moveBetweenParents)
 {
     SessionModel model("TestModel");
     auto poly1 = model.insertItem<PolygonItem>();
-    auto point11 = model.insertItem<PolygonPointItem>(model.indexOfItem(poly1));
-    auto point12 = model.insertItem<PolygonPointItem>(model.indexOfItem(poly1));
+    auto point11 = model.insertItem<PolygonPointItem>(poly1);
+    auto point12 = model.insertItem<PolygonPointItem>(poly1);
     auto poly2 = model.insertItem<PolygonItem>();
 
     EXPECT_EQ(point11->parent(), poly1);
@@ -195,11 +195,11 @@ TEST_F(TestSessionModel, moveWithinSameParent)
 {
     SessionModel model("TestModel");
     auto poly = model.insertItem<PolygonItem>();
-    auto pA = model.insertItem<PolygonPointItem>(model.indexOfItem(poly));
-    auto pB = model.insertItem<PolygonPointItem>(model.indexOfItem(poly));
-    auto pC = model.insertItem<PolygonPointItem>(model.indexOfItem(poly));
-    auto pD = model.insertItem<PolygonPointItem>(model.indexOfItem(poly));
-    auto pE = model.insertItem<PolygonPointItem>(model.indexOfItem(poly));
+    auto pA = model.insertItem<PolygonPointItem>(poly);
+    auto pB = model.insertItem<PolygonPointItem>(poly);
+    auto pC = model.insertItem<PolygonPointItem>(poly);
+    auto pD = model.insertItem<PolygonPointItem>(poly);
+    auto pE = model.insertItem<PolygonPointItem>(poly);
 
     // 0  pA -> pA
     // 1  pB -> pC

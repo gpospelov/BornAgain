@@ -50,12 +50,12 @@ TEST_F(TestOutputDataIOService, test_nonXMLData)
     // adding JobItem
     auto jobItem = models.jobModel()->insertItem<JobItem>();
     auto dataItem =
-        models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
+        models.jobModel()->insertItem<IntensityDataItem>(jobItem, -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding RealDataItem to jobItem
     RealDataItem* realData2 =
-        models.jobModel()->insertItem<RealDataItem>(jobItem->index(), -1, JobItem::T_REALDATA);
+        models.jobModel()->insertItem<RealDataItem>(jobItem, -1, JobItem::T_REALDATA);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
     realData2->setOutputData(
         GuiUnittestUtils::createData(0.0, GuiUnittestUtils::DIM::D1).release());
@@ -261,7 +261,7 @@ TEST_F(TestOutputDataIOService, test_RealDataItemWithNativeData)
     // adding JobItem
     auto jobItem = models.jobModel()->insertItem<JobItem>();
     jobItem->setIdentifier(GUIHelpers::createUuid());
-    models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
+    models.jobModel()->insertItem<IntensityDataItem>(jobItem, -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // copying RealDataItem to JobItem

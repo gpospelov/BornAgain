@@ -34,8 +34,8 @@ TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
     SampleModel sampleModel;
     auto layout = sampleModel.insertItem<ParticleLayoutItem>();
 
-    auto particle1 = sampleModel.insertItem<ParticleItem>(sampleModel.indexOfItem(layout), -1,
-                                                          ParticleLayoutItem::T_PARTICLES);
+    auto particle1 =
+        sampleModel.insertItem<ParticleItem>(layout, -1, ParticleLayoutItem::T_PARTICLES);
     EXPECT_EQ(particle1->parent(), layout);
 
     auto particle2 = sampleModel.insertItem<ParticleItem>();

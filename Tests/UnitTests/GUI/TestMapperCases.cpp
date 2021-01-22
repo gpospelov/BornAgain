@@ -21,16 +21,16 @@ TEST_F(TestMapperCases, test_ParticeleCompositionUpdate)
 {
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(multilayer->index());
-    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
+    auto layer = model.insertItem<LayerItem>(multilayer);
+    auto layout = model.insertItem<ParticleLayoutItem>(layer);
 
     // composition added to layout should have abundance enabled
-    auto compositionFree = model.insertItem<ParticleCompositionItem>(layout->index());
+    auto compositionFree = model.insertItem<ParticleCompositionItem>(layout);
     EXPECT_TRUE(compositionFree->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     // composition added to distribution should have abundance disabled
-    auto distribution = model.insertItem<ParticleDistributionItem>(layout->index());
-    auto composition = model.insertItem<ParticleCompositionItem>(distribution->index());
+    auto distribution = model.insertItem<ParticleDistributionItem>(layout);
+    auto composition = model.insertItem<ParticleCompositionItem>(distribution);
     EXPECT_FALSE(composition->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
 
     auto taken = distribution->takeRow(ParentRow(*composition));

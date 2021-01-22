@@ -77,11 +77,11 @@ TEST_F(TestParaCrystalItems, test_Inference2DRotationAngleToggle)
 {
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(multilayer->index());
-    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
+    auto layer = model.insertItem<LayerItem>(multilayer);
+    auto layout = model.insertItem<ParticleLayoutItem>(layer);
 
     auto interference = model.insertItem<InterferenceFunction2DParaCrystalItem>(
-        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
+        layout, -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
     interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);

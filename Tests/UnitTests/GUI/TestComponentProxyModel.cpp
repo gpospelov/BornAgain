@@ -362,9 +362,9 @@ TEST_F(TestComponentProxyModel, test_setRootIndexLayer)
 
     // inserting multilayer with two layers
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer1 = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
-    auto layout = model.insertItem<ParticleLayoutItem>(model.indexOfItem(layer1));
-    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer1 = model.insertItem<LayerItem>(multilayer);
+    auto layout = model.insertItem<ParticleLayoutItem>(layer1);
+    model.insertItem<LayerItem>(multilayer);
 
     proxy.setRootIndex(model.indexOfItem(layer1));
     EXPECT_EQ(proxy.rowCount(QModelIndex()), 1);

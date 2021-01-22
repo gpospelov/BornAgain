@@ -94,7 +94,7 @@ TEST_F(TestModelUtils, test_iterateIf)
 {
     SessionModel model("TestModel");
     auto multilayer = model.insertItem<MultiLayerItem>();
-    SessionItem* layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    SessionItem* layer = model.insertItem<LayerItem>(multilayer);
     SessionItem* thicknessItem = layer->getItem(LayerItem::P_THICKNESS);
 
     layer->setVisible(true);

@@ -71,7 +71,7 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
     auto dist = model.insertItem<ParticleDistributionItem>();
 
     // adding default particle and checking list of available parameters
-    auto particle = model.insertItem<ParticleItem>(dist->index());
+    auto particle = model.insertItem<ParticleItem>(dist);
 
     EXPECT_EQ(dist->getItems().size(), 1);
 
@@ -114,7 +114,7 @@ TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
 {
     SampleModel model;
     auto dist = model.insertItem<ParticleDistributionItem>();
-    model.insertItem<ParticleItem>(dist->index());
+    model.insertItem<ParticleItem>(dist);
 
     ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                                   .value<ComboProperty>();
@@ -186,7 +186,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
     // creating GUI distribution
     SampleModel model;
     auto distItem = model.insertItem<ParticleDistributionItem>();
-    auto particleItem = model.insertItem<ParticleItem>(distItem->index());
+    auto particleItem = model.insertItem<ParticleItem>(distItem);
 
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
@@ -225,7 +225,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
     // creating GUI distribution
     SampleModel model;
     auto distItem = model.insertItem<ParticleDistributionItem>();
-    auto particleItem = model.insertItem<ParticleItem>(distItem->index());
+    auto particleItem = model.insertItem<ParticleItem>(distItem);
 
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
@@ -271,7 +271,7 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
     // creating GUI distribution
     SampleModel model;
     auto partDistItem = model.insertItem<ParticleDistributionItem>();
-    model.insertItem<ParticleItem>(partDistItem->index());
+    model.insertItem<ParticleItem>(partDistItem);
 
     // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
@@ -291,7 +291,7 @@ TEST_F(TestParticleDistributionItem, test_Clone)
 
     SampleModel model1;
     auto dist = model1.insertItem<ParticleDistributionItem>();
-    model1.insertItem<ParticleItem>(dist->index());
+    model1.insertItem<ParticleItem>(dist);
 
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);

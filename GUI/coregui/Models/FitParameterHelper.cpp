@@ -31,9 +31,9 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem* container
     removeFromFitParameters(container, parameterItem);
 
     auto model = container->model();
-    auto fitPar = model->insertItem<FitParameterItem>(container->index());
+    auto fitPar = model->insertItem<FitParameterItem>(container);
     fitPar->setDisplayName("par");
-    auto link = model->insertItem<FitParameterLinkItem>(fitPar->index());
+    auto link = model->insertItem<FitParameterLinkItem>(fitPar);
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 

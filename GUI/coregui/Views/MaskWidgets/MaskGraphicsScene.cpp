@@ -639,7 +639,8 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
 
     if (!m_currentItem) {
         setDrawingInProgress(true);
-        m_currentItem = m_maskModel->insertItem<PolygonItem>(m_maskContainerIndex, 0);
+        m_currentItem = m_maskModel->insertItem<PolygonItem>(
+            m_maskModel->itemForIndex(m_maskContainerIndex), 0);
         m_currentItem->setItemValue(MaskItem::P_MASK_VALUE, m_context.getMaskValue());
         m_selectionModel->clearSelection();
         m_selectionModel->select(m_maskModel->indexOfItem(m_currentItem),
@@ -655,7 +656,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
             return;
         }
     }
-    auto point = m_maskModel->insertItem<PolygonPointItem>(m_maskModel->indexOfItem(m_currentItem));
+    auto point = m_maskModel->insertItem<PolygonPointItem>(m_currentItem);
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
     point->setItemValue(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));
@@ -683,13 +684,15 @@ void MaskGraphicsScene::processLineItem(QGraphicsSceneMouseEvent* event)
 
 void MaskGraphicsScene::processVerticalLineItem(const QPointF& pos)
 {
-    m_currentItem = m_maskModel->insertItem<VerticalLineItem>(m_maskContainerIndex, 0);
+    m_currentItem = m_maskModel->insertItem<VerticalLineItem>(
+        m_maskModel->itemForIndex(m_maskContainerIndex), 0);
     m_currentItem->setItemValue(VerticalLineItem::P_POSX, m_adaptor->fromSceneX(pos.x()));
 }
 
 void MaskGraphicsScene::processHorizontalLineItem(const QPointF& pos)
 {
-    m_currentItem = m_maskModel->insertItem<HorizontalLineItem>(m_maskContainerIndex, 0);
+    m_currentItem = m_maskModel->insertItem<HorizontalLineItem>(
+        m_maskModel->itemForIndex(m_maskContainerIndex), 0);
     m_currentItem->setItemValue(HorizontalLineItem::P_POSY, m_adaptor->fromSceneY(pos.y()));
 }
 
@@ -697,7 +700,8 @@ void MaskGraphicsScene::processMaskAllItem(QGraphicsSceneMouseEvent* event)
 {
     Q_UNUSED(event);
     setDrawingInProgress(true);
-    m_currentItem = m_maskModel->insertItem<MaskAllItem>(m_maskContainerIndex);
+    m_currentItem =
+        m_maskModel->insertItem<MaskAllItem>(m_maskModel->itemForIndex(m_maskContainerIndex));
     m_selectionModel->clearSelection();
     setDrawingInProgress(false);
 }

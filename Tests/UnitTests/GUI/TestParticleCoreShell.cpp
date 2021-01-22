@@ -64,7 +64,7 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
 
     // adding core, and checking that abundance is disabled
     auto core =
-        model.insertItem<ParticleItem>(coreshell->index(), -1, ParticleCoreShellItem::T_CORE);
+        model.insertItem<ParticleItem>(coreshell, -1, ParticleCoreShellItem::T_CORE);
     EXPECT_FALSE(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_TRUE(core->positionItem()->isEnabled());
 

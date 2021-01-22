@@ -12,7 +12,7 @@ TEST_F(TestFitParameterModel, test_InitialState)
     JobModel source;
     auto fitSuiteItem = source.insertItem<FitSuiteItem>();
     auto container = source.insertItem<FitParameterContainerItem>(
-        fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+        fitSuiteItem, -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     EXPECT_EQ(0, proxy.rowCount(QModelIndex()));
@@ -26,11 +26,11 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
     JobModel source;
     auto fitSuiteItem = source.insertItem<FitSuiteItem>();
     auto container = source.insertItem<FitParameterContainerItem>(
-        fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+        fitSuiteItem, -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
-    auto fitPar0 = source.insertItem<FitParameterItem>(container->index());
+    auto fitPar0 = source.insertItem<FitParameterItem>(container);
     fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
@@ -90,7 +90,7 @@ TEST_F(TestFitParameterModel, test_addFitParameter)
     // ----------------------------------------------------
     // adding second fit parameter
     // ----------------------------------------------------
-    auto fitPar1 = source.insertItem<FitParameterItem>(container->index());
+    auto fitPar1 = source.insertItem<FitParameterItem>(container);
     fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 10.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 20.0);
@@ -130,18 +130,18 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
     JobModel source;
     auto fitSuiteItem = source.insertItem<FitSuiteItem>();
     auto container = source.insertItem<FitParameterContainerItem>(
-        fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+        fitSuiteItem, -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameter
-    auto fitPar0 = source.insertItem<FitParameterItem>(container->index());
+    auto fitPar0 = source.insertItem<FitParameterItem>(container);
     fitPar0->setDisplayName("par");
     fitPar0->setItemValue(FitParameterItem::P_MIN, 1.0);
     fitPar0->setItemValue(FitParameterItem::P_MAX, 2.0);
     fitPar0->setItemValue(FitParameterItem::P_START_VALUE, 3.0);
 
     // adding link
-    auto link0 = source.insertItem<FitParameterLinkItem>(fitPar0->index());
+    auto link0 = source.insertItem<FitParameterLinkItem>(fitPar0);
     link0->setItemValue(FitParameterLinkItem::P_LINK, "link0");
 
     // checking index of root
@@ -171,7 +171,7 @@ TEST_F(TestFitParameterModel, test_addFitParameterAndLink)
     EXPECT_EQ(linkIndex, proxy.indexOfItem(link0->getItem(FitParameterLinkItem::P_LINK)));
 
     // adding second link
-    auto link1 = source.insertItem<FitParameterLinkItem>(fitPar0->index());
+    auto link1 = source.insertItem<FitParameterLinkItem>(fitPar0);
     link1->setItemValue(FitParameterLinkItem::P_LINK, "link1");
     EXPECT_EQ(proxy.rowCount(index), 2);
     EXPECT_EQ(proxy.columnCount(index), 1); // linkItem
@@ -193,16 +193,16 @@ TEST_F(TestFitParameterModel, test_addTwoFitParameterAndLinks)
     JobModel source;
     auto fitSuiteItem = source.insertItem<FitSuiteItem>();
     auto container = source.insertItem<FitParameterContainerItem>(
-        fitSuiteItem->index(), -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
+        fitSuiteItem, -1, FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
     FitParameterProxyModel proxy(dynamic_cast<FitParameterContainerItem*>(container));
 
     // adding fit parameters
-    auto fitPar0 = source.insertItem<FitParameterItem>(container->index());
-    auto link0 = source.insertItem<FitParameterLinkItem>(fitPar0->index());
+    auto fitPar0 = source.insertItem<FitParameterItem>(container);
+    auto link0 = source.insertItem<FitParameterLinkItem>(fitPar0);
     Q_UNUSED(link0);
 
-    auto fitPar1 = source.insertItem<FitParameterItem>(container->index());
-    auto link1 = source.insertItem<FitParameterLinkItem>(fitPar1->index());
+    auto fitPar1 = source.insertItem<FitParameterItem>(container);
+    auto link1 = source.insertItem<FitParameterLinkItem>(fitPar1);
     Q_UNUSED(link1);
 
     // checking index of root

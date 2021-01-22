@@ -105,11 +105,11 @@ TEST_F(TestSavingSpecularData, test_InstrumentInJobItem)
     // adding JobItem
     auto jobItem = models.jobModel()->insertItem<JobItem>();
     auto dataItem =
-        models.jobModel()->insertItem<IntensityDataItem>(jobItem->index(), -1, JobItem::T_OUTPUT);
+        models.jobModel()->insertItem<IntensityDataItem>(jobItem, -1, JobItem::T_OUTPUT);
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 1);
 
     // adding instrument
-    auto instrument = models.jobModel()->insertItem<SpecularInstrumentItem>(jobItem->index(), -1,
+    auto instrument = models.jobModel()->insertItem<SpecularInstrumentItem>(jobItem, -1,
                                                                             JobItem::T_INSTRUMENT);
     // instrument contains hidden pointwise axis item
     EXPECT_EQ(models.jobModel()->nonXMLData().size(), 2);

@@ -2,6 +2,8 @@
 #include "GUI/coregui/Models/FTDistributionItems.h"
 #include "GUI/coregui/Models/InterferenceFunctionItems.h"
 #include "GUI/coregui/Models/Lattice2DItems.h"
+#include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/ParticleLayoutItem.h"
 #include "GUI/coregui/Models/SampleModel.h"
 #include "GUI/coregui/Models/TransformFromDomain.h"
@@ -74,12 +76,12 @@ TEST_F(TestParaCrystalItems, test_Para2D_fromToDomain)
 TEST_F(TestParaCrystalItems, test_Inference2DRotationAngleToggle)
 {
     SampleModel model;
-    SessionItem* multilayer = model.insertNewItem("MultiLayer");
-    SessionItem* layer = model.insertNewItem("Layer", multilayer->index());
-    SessionItem* layout = model.insertNewItem("ParticleLayout", layer->index());
+    auto multilayer = model.insertItem<MultiLayerItem>();
+    auto layer = model.insertItem<LayerItem>(multilayer->index());
+    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
 
-    SessionItem* interference = model.insertNewItem("Interference2DParaCrystal", layout->index(),
-                                                    -1, ParticleLayoutItem::T_INTERFERENCE);
+    auto interference = model.insertItem<InterferenceFunction2DParaCrystalItem>(
+        layout->index(), -1, ParticleLayoutItem::T_INTERFERENCE);
 
     // rotation (xi) should be disabled if integration is on
     interference->setItemValue(InterferenceFunction2DParaCrystalItem::P_XI_INTEGRATION, true);

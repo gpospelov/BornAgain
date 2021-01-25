@@ -139,36 +139,56 @@ void RectangularDetectorItem::setDetectorAlignment(const QString& alignment)
 
 int RectangularDetectorItem::xSize() const
 {
-    return getItem(RectangularDetectorItem::P_X_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return xAxisItem()->binCount();
 }
 
 int RectangularDetectorItem::ySize() const
 {
-    return getItem(RectangularDetectorItem::P_Y_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return yAxisItem()->binCount();
 }
 
 void RectangularDetectorItem::setXSize(int nx)
 {
-    getItem(RectangularDetectorItem::P_X_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+    xAxisItem()->setBinCount(nx);
 }
 
 void RectangularDetectorItem::setYSize(int ny)
 {
-    getItem(RectangularDetectorItem::P_Y_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
+    yAxisItem()->setBinCount(ny);
+}
+
+const BasicAxisItem* RectangularDetectorItem::xAxisItem() const
+{
+    return dynamic_cast<const BasicAxisItem*>(getItem(P_X_AXIS));
+}
+
+BasicAxisItem* RectangularDetectorItem::xAxisItem()
+{
+    return const_cast<BasicAxisItem*>(
+        static_cast<const RectangularDetectorItem*>(this)->xAxisItem());
+}
+
+const BasicAxisItem* RectangularDetectorItem::yAxisItem() const
+{
+    return dynamic_cast<const BasicAxisItem*>(getItem(P_Y_AXIS));
+}
+
+BasicAxisItem* RectangularDetectorItem::yAxisItem()
+{
+    return const_cast<BasicAxisItem*>(
+        static_cast<const RectangularDetectorItem*>(this)->yAxisItem());
 }
 
 std::unique_ptr<IDetector2D> RectangularDetectorItem::createDomainDetector() const
 {
     // basic axes parameters
-    auto x_axis = item<BasicAxisItem>(RectangularDetectorItem::P_X_AXIS);
-    size_t n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double width = x_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    size_t n_x = xAxisItem()->binCount();
+    double width = xAxisItem()->upperBound();
 
-    auto y_axis = item<BasicAxisItem>(RectangularDetectorItem::P_Y_AXIS);
-    size_t n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toUInt();
-    double height = y_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    size_t n_y = yAxisItem()->binCount();
+    double height = yAxisItem()->upperBound();
 
-    std::unique_ptr<RectangularDetector> result(new RectangularDetector(n_x, width, n_y, height));
+    auto result = std::make_unique<RectangularDetector>(n_x, width, n_y, height);
 
     // distance and alighnment
     double u0 = getItemValue(P_U0).toDouble();

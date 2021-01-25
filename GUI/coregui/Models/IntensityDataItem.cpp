@@ -98,22 +98,22 @@ void IntensityDataItem::setOutputData(OutputData<double>* data)
 
 int IntensityDataItem::getNbinsX() const
 {
-    return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return xAxisItem()->binCount();
 }
 
 int IntensityDataItem::getNbinsY() const
 {
-    return yAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return yAxisItem()->binCount();
 }
 
 double IntensityDataItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return xAxisItem()->lowerBound();
 }
 
 double IntensityDataItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return xAxisItem()->upperBound();
 }
 
 double IntensityDataItem::getXmin() const
@@ -130,12 +130,12 @@ double IntensityDataItem::getXmax() const
 
 double IntensityDataItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return yAxisItem()->lowerBound();
 }
 
 double IntensityDataItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return yAxisItem()->upperBound();
 }
 
 double IntensityDataItem::getYmin() const
@@ -312,9 +312,9 @@ void IntensityDataItem::updateAxesZoomLevel()
     }
 
     const int nx = static_cast<int>(m_data->axis(0).size());
-    xAxisItem()->setItemValue(BasicAxisItem::P_NBINS, nx);
+    xAxisItem()->setBinCount(nx);
     const int ny = static_cast<int>(m_data->axis(1).size());
-    yAxisItem()->setItemValue(BasicAxisItem::P_NBINS, ny);
+    yAxisItem()->setBinCount(ny);
 }
 
 //! Init axes labels, if it was not done already.

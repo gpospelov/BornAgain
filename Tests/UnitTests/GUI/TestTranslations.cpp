@@ -18,9 +18,9 @@ TEST_F(TestTranslations, test_TranslatePosition)
 {
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(multilayer->index());
-    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
-    auto particle = model.insertItem<ParticleItem>(layout->index());
+    auto layer = model.insertItem<LayerItem>(multilayer);
+    auto layout = model.insertItem<ParticleLayoutItem>(layer);
+    auto particle = model.insertItem<ParticleItem>(layout);
 
     auto xItem = particle->positionItem()->getItem(VectorItem::P_X);
 
@@ -32,12 +32,12 @@ TEST_F(TestTranslations, test_TranslateRotation)
 {
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(multilayer->index());
-    auto layout = model.insertItem<ParticleLayoutItem>(layer->index());
-    auto particle = model.insertItem<ParticleItem>(layout->index());
+    auto layer = model.insertItem<LayerItem>(multilayer);
+    auto layout = model.insertItem<ParticleLayoutItem>(layer);
+    auto particle = model.insertItem<ParticleItem>(layout);
 
     auto transformation =
-        model.insertItem<TransformationItem>(particle->index(), -1, ParticleItem::T_TRANSFORMATION);
+        model.insertItem<TransformationItem>(particle, -1, ParticleItem::T_TRANSFORMATION);
 
     SessionItem* rotationItem =
         transformation->setGroupProperty(TransformationItem::P_ROT, "XRotation");

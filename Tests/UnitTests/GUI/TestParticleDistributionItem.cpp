@@ -37,7 +37,7 @@ class TestParticleDistributionItem : public ::testing::Test {
 TEST_F(TestParticleDistributionItem, test_InitialState)
 {
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
+    auto distItem = model.insertItem<ParticleDistributionItem>();
 
     EXPECT_EQ(distItem->displayName(), "ParticleDistribution");
     EXPECT_EQ(distItem->displayName(), distItem->itemName());
@@ -68,10 +68,10 @@ TEST_F(TestParticleDistributionItem, test_InitialState)
 TEST_F(TestParticleDistributionItem, test_AddParticle)
 {
     SampleModel model;
-    SessionItem* dist = model.insertNewItem("ParticleDistribution");
+    auto dist = model.insertItem<ParticleDistributionItem>();
 
     // adding default particle and checking list of available parameters
-    SessionItem* particle = model.insertNewItem("Particle", dist->index());
+    auto particle = model.insertItem<ParticleItem>(dist);
 
     EXPECT_EQ(dist->getItems().size(), 1);
 
@@ -113,8 +113,8 @@ TEST_F(TestParticleDistributionItem, test_AddParticle)
 TEST_F(TestParticleDistributionItem, test_MainLinkedCorrelation)
 {
     SampleModel model;
-    SessionItem* dist = model.insertNewItem("ParticleDistribution");
-    model.insertNewItem("Particle", dist->index());
+    auto dist = model.insertItem<ParticleDistributionItem>();
+    model.insertItem<ParticleItem>(dist);
 
     ComboProperty mainCombo = dist->getItemValue(ParticleDistributionItem::P_DISTRIBUTED_PARAMETER)
                                   .value<ComboProperty>();
@@ -185,8 +185,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomain)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
-    SessionItem* particleItem = model.insertNewItem("Particle", distItem->index());
+    auto distItem = model.insertItem<ParticleDistributionItem>();
+    auto particleItem = model.insertItem<ParticleItem>(distItem);
 
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
@@ -224,8 +224,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainLinked)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* distItem = model.insertNewItem("ParticleDistribution");
-    SessionItem* particleItem = model.insertNewItem("Particle", distItem->index());
+    auto distItem = model.insertItem<ParticleDistributionItem>();
+    auto particleItem = model.insertItem<ParticleItem>(distItem);
 
     particleItem->setGroupProperty(ParticleItem::P_FORM_FACTOR, "AnisoPyramid");
 
@@ -270,8 +270,8 @@ TEST_F(TestParticleDistributionItem, test_FromDomainWithLimits)
 
     // creating GUI distribution
     SampleModel model;
-    SessionItem* partDistItem = model.insertNewItem("ParticleDistribution");
-    model.insertNewItem("Particle", partDistItem->index());
+    auto partDistItem = model.insertItem<ParticleDistributionItem>();
+    model.insertItem<ParticleItem>(partDistItem);
 
     // Sets it from domain
     TransformFromDomain::setParticleDistributionItem(partDistItem, particle_collection);
@@ -290,8 +290,8 @@ TEST_F(TestParticleDistributionItem, test_Clone)
     std::unique_ptr<MaterialModel> P_materialModel(new MaterialModel());
 
     SampleModel model1;
-    SessionItem* dist = model1.insertNewItem("ParticleDistribution");
-    model1.insertNewItem("Particle", dist->index());
+    auto dist = model1.insertItem<ParticleDistributionItem>();
+    model1.insertItem<ParticleItem>(dist);
 
     QString buffer1;
     QXmlStreamWriter writer1(&buffer1);

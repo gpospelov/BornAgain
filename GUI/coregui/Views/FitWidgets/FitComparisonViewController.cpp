@@ -91,7 +91,7 @@ void FitComparison1DViewController::createDiffViewItem(JobItem* job_item)
 {
     m_diff_view_item = m_diff_item_controller->model()->insertItem<Data1DViewItem>();
     auto container = m_diff_view_item->model()->insertItem<DataPropertyContainer>(
-        m_diff_view_item->index(), -1, Data1DViewItem::T_DATA_PROPERTIES);
+        m_diff_view_item, -1, Data1DViewItem::T_DATA_PROPERTIES);
     container->addItem(m_diff_item_controller->diffItem());
 
     m_diff_view_item->setJobItem(job_item);

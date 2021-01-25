@@ -13,6 +13,7 @@
 //  ************************************************************************************************
 
 #include "GUI/coregui/Views/InstrumentWidgets/InstrumentViewActions.h"
+#include "GUI/coregui/Models/DepthProbeInstrumentItem.h"
 #include "GUI/coregui/Models/GroupItem.h"
 #include "GUI/coregui/Models/InstrumentItems.h"
 #include "GUI/coregui/Models/ModelUtils.h"
@@ -79,16 +80,16 @@ void InstrumentViewActions::onAddInstrument()
     QString instrumentType = action->data().toString();
 
     if (instrumentType == "GISASInstrument") {
-        auto instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertItem<GISASInstrumentItem>();
         instrument->setItemName(suggestInstrumentName("GISAS"));
     } else if (instrumentType == "OffSpecularInstrument") {
-        auto instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertItem<OffSpecularInstrumentItem>();
         instrument->setItemName(suggestInstrumentName("OffSpecular"));
     } else if (instrumentType == "SpecularInstrument") {
-        auto instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertItem<SpecularInstrumentItem>();
         instrument->setItemName(suggestInstrumentName("Specular"));
     } else if (instrumentType == "DepthProbeInstrument") {
-        auto instrument = m_model->insertNewItem(instrumentType);
+        auto instrument = m_model->insertItem<DepthProbeInstrumentItem>();
         instrument->setItemName(suggestInstrumentName("DepthProbe"));
     } else {
         qInfo() << "InstrumentViewActions::onAddInstrument() -> Not supported instrument type"

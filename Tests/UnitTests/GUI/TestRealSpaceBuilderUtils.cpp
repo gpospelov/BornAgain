@@ -32,13 +32,13 @@ TEST_F(TestRealSpaceBuilderUtils, test_RealSpaceModelandParticle)
 TEST_F(TestRealSpaceBuilderUtils, test_computeCumulativeAbundances)
 {
     SampleModel sampleModel;
-    auto layout = dynamic_cast<ParticleLayoutItem*>(sampleModel.insertNewItem("ParticleLayout"));
+    auto layout = sampleModel.insertItem<ParticleLayoutItem>();
 
-    auto particle1 = sampleModel.insertNewItem("Particle", sampleModel.indexOfItem(layout), -1,
-                                               ParticleLayoutItem::T_PARTICLES);
+    auto particle1 =
+        sampleModel.insertItem<ParticleItem>(layout, -1, ParticleLayoutItem::T_PARTICLES);
     EXPECT_EQ(particle1->parent(), layout);
 
-    SessionItem* particle2 = sampleModel.insertNewItem("Particle");
+    auto particle2 = sampleModel.insertItem<ParticleItem>();
     EXPECT_EQ(particle2->parent(), sampleModel.rootItem());
 
     sampleModel.moveItem(particle2, layout, -1, ParticleLayoutItem::T_PARTICLES);
@@ -168,7 +168,7 @@ TEST_F(TestRealSpaceBuilderUtils, test_singleParticle3DContainer)
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 
-    auto particleItem = sampleModel->insertNewItem("Particle");
+    auto particleItem = sampleModel->insertItem<ParticleItem>();
     EXPECT_EQ(particleItem->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 1.0);
     EXPECT_EQ(particleItem->getGroupItem(ParticleItem::P_FORM_FACTOR)->modelType(), "Cylinder");
 
@@ -193,11 +193,10 @@ TEST_F(TestRealSpaceBuilderUtils, test_particle3DContainerVector)
     ApplicationModels models;
     SampleModel* sampleModel = models.sampleModel();
 
-    auto layout = dynamic_cast<ParticleLayoutItem*>(sampleModel->insertNewItem("ParticleLayout"));
-
-    auto particle1 = sampleModel->insertNewItem("Particle");
-    auto particle2 = sampleModel->insertNewItem("Particle");
-    auto particle3 = sampleModel->insertNewItem("Particle");
+    auto layout = sampleModel->insertItem<ParticleLayoutItem>();
+    auto particle1 = sampleModel->insertItem<ParticleItem>();
+    auto particle2 = sampleModel->insertItem<ParticleItem>();
+    auto particle3 = sampleModel->insertItem<ParticleItem>();
 
     sampleModel->moveItem(particle1, layout, -1, ParticleLayoutItem::T_PARTICLES);
     sampleModel->moveItem(particle2, layout, -1, ParticleLayoutItem::T_PARTICLES);

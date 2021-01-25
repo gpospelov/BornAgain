@@ -655,7 +655,7 @@ void MaskGraphicsScene::processPolygonItem(QGraphicsSceneMouseEvent* event)
             return;
         }
     }
-    auto point = m_maskModel->insertItem<PolygonPointItem>(m_maskModel->indexOfItem(m_currentItem));
+    auto point = m_maskModel->insertItem<PolygonPointItem>(m_currentItem);
     QPointF click_pos = event->buttonDownScenePos(Qt::LeftButton);
 
     point->setItemValue(PolygonPointItem::P_POSX, m_adaptor->fromSceneX(click_pos.x()));

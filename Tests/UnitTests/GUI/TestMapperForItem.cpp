@@ -132,7 +132,7 @@ TEST_F(TestMapperForItem, test_onPropertyChange)
     Widget w;
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer = model.insertItem<LayerItem>(multilayer);
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w);
@@ -192,7 +192,7 @@ TEST_F(TestMapperForItem, test_onParentChange)
     Widget w;
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer = model.insertItem<LayerItem>(multilayer);
 
     // Mapper is looking on child; changing child's parent
     setItem(layer, &w);
@@ -214,7 +214,7 @@ TEST_F(TestMapperForItem, test_onChildrenChange)
     // Mapper is looking on parent; adding new child to parent
     setItem(multilayer, &w);
     EXPECT_TRUE(m_mapped_item == multilayer);
-    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    model.insertItem<LayerItem>(multilayer);
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 2);
@@ -230,12 +230,12 @@ TEST_F(TestMapperForItem, test_onSiblingsChange)
     Widget w;
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer = model.insertItem<LayerItem>(multilayer);
 
     // Mapper is looking on child; adding another child to parent
     setItem(layer, &w);
     EXPECT_TRUE(m_mapped_item == layer);
-    model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    model.insertItem<LayerItem>(multilayer);
 
     EXPECT_EQ(w.m_onPropertyChangeCount, 0);
     EXPECT_EQ(w.m_onChildPropertyChangeCount, 0);
@@ -254,7 +254,7 @@ TEST_F(TestMapperForItem, test_Subscription)
     Widget w;
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer = model.insertItem<LayerItem>(multilayer);
 
     // Mapper is looking on child; set property of child
     setItem(layer, &w, true);
@@ -283,7 +283,7 @@ TEST_F(TestMapperForItem, test_TwoWidgetsSubscription)
     Widget w1, w2;
     SampleModel model;
     auto multilayer = model.insertItem<MultiLayerItem>();
-    auto layer = model.insertItem<LayerItem>(model.indexOfItem(multilayer));
+    auto layer = model.insertItem<LayerItem>(multilayer);
 
     // Mapper is looking on child; set property of child
     setItem(layer);
@@ -307,7 +307,7 @@ TEST_F(TestMapperForItem, test_AboutToRemoveChild)
     Widget w;
     SampleModel model;
     auto container = model.insertItem<ProjectionContainerItem>();
-    auto line = model.insertItem<HorizontalLineItem>(container->index());
+    auto line = model.insertItem<HorizontalLineItem>(container);
 
     setItem(container, &w);
     EXPECT_EQ(w.m_onAboutToRemoveChild, 0);

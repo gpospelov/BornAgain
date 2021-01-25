@@ -27,10 +27,10 @@ TEST_F(TestParameterTreeUtils, test_parameterTreeNames)
 {
     SampleModel model;
 
-    SessionItem* layer = model.insertNewItem("Layer");
+    auto layer = model.insertItem<LayerItem>();
     EXPECT_EQ(ParameterTreeUtils::parameterTreeNames(layer), QStringList() << "Layer/Thickness");
 
-    SessionItem* particle = model.insertNewItem("Particle");
+    auto particle = model.insertItem<ParticleItem>();
     EXPECT_EQ(ParameterTreeUtils::parameterTreeNames(particle), expectedParticleParameterNames);
 }
 
@@ -40,7 +40,7 @@ TEST_F(TestParameterTreeUtils, test_parameterTranslatedNames)
 {
     SampleModel model;
 
-    SessionItem* particle = model.insertNewItem("Particle");
+    auto particle = model.insertItem<ParticleItem>();
 
     EXPECT_EQ(ParameterTreeUtils::translatedParameterTreeNames(particle),
               expectedParticleParameterTranslations);

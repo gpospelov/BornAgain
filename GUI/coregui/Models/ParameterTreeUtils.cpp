@@ -56,7 +56,7 @@ void handleItem(SessionItem* tree, const SessionItem* source);
 void ParameterTreeUtils::createParameterTree(JobItem* jobItem)
 {
     auto container = jobItem->model()->insertItem<ParameterContainerItem>(
-        jobItem->index(), -1, JobItem::T_PARAMETER_TREE);
+        jobItem, -1, JobItem::T_PARAMETER_TREE);
 
     populateParameterContainer(container, jobItem->getItem(JobItem::T_MATERIAL_CONTAINER));
 
@@ -82,7 +82,7 @@ void ParameterTreeUtils::populateParameterContainer(SessionItem* container,
         throw GUIHelpers::Error("ParameterTreeUtils::populateParameterContainer() -> Error. "
                                 "Not a ParameterContainerType.");
 
-    auto sourceLabel = container->model()->insertItem<ParameterLabelItem>(container->index());
+    auto sourceLabel = container->model()->insertItem<ParameterLabelItem>(container);
     handleItem(sourceLabel, source);
 }
 
@@ -244,18 +244,18 @@ void handleItem(SessionItem* tree, const SessionItem* source)
         if (child->isVisible() && child->isEnabled()) {
             if (child->modelType() == "Property") {
                 if (child->value().type() == QVariant::Double) {
-                    auto branch = tree->model()->insertItem<ParameterItem>(tree->index());
+                    auto branch = tree->model()->insertItem<ParameterItem>(tree);
                     handleItem(branch, child);
                 }
 
             } else if (child->modelType() == "GroupProperty") {
                 SessionItem* currentItem = dynamic_cast<GroupItem*>(child)->currentItem();
                 if (currentItem && currentItem->numberOfChildren() > 0) {
-                    auto branch = tree->model()->insertItem<ParameterLabelItem>(tree->index());
+                    auto branch = tree->model()->insertItem<ParameterLabelItem>(tree);
                     handleItem(branch, currentItem);
                 }
             } else {
-                auto branch = tree->model()->insertItem<ParameterLabelItem>(tree->index());
+                auto branch = tree->model()->insertItem<ParameterLabelItem>(tree);
                 handleItem(branch, child);
             }
         }

@@ -16,10 +16,10 @@ class TestParticleCoreShell : public ::testing::Test {
 TEST_F(TestParticleCoreShell, test_moveCoreAndShell)
 {
     SampleModel model;
-    SessionItem* coreshell = model.insertNewItem("ParticleCoreShell");
-    SessionItem* particle1 = model.insertNewItem("Particle");
-    SessionItem* particle2 = model.insertNewItem("Particle");
-    SessionItem* particle3 = model.insertNewItem("Particle");
+    auto coreshell = model.insertItem<ParticleCoreShellItem>();
+    auto particle1 = model.insertItem<ParticleItem>();
+    auto particle2 = model.insertItem<ParticleItem>();
+    auto particle3 = model.insertItem<ParticleItem>();
 
     // empty coreshell particle
     EXPECT_EQ(particle1->parent(), model.rootItem());
@@ -64,7 +64,7 @@ TEST_F(TestParticleCoreShell, test_propertyAppearance)
 
     // adding core, and checking that abundance is disabled
     auto core =
-        model.insertItem<ParticleItem>(coreshell->index(), -1, ParticleCoreShellItem::T_CORE);
+        model.insertItem<ParticleItem>(coreshell, -1, ParticleCoreShellItem::T_CORE);
     EXPECT_FALSE(core->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_TRUE(core->positionItem()->isEnabled());
 
@@ -102,13 +102,13 @@ TEST_F(TestParticleCoreShell, test_distributionContext)
     SampleModel model;
 
     // coreshell particle
-    SessionItem* coreshell = model.insertNewItem("ParticleCoreShell");
+    auto coreshell = model.insertItem<ParticleCoreShellItem>();
     coreshell->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 0.2);
 
     // create distribution, adding coreshell to it
-    SessionItem* distribution = model.insertNewItem("ParticleDistribution");
+    auto distribution = model.insertItem<ParticleDistributionItem>();
     model.moveItem(coreshell, distribution, -1, ParticleDistributionItem::T_PARTICLES);
     // checking abundance has switched to defaults
     EXPECT_FALSE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
@@ -127,13 +127,13 @@ TEST_F(TestParticleCoreShell, test_compositionContext)
     SampleModel model;
 
     // coreshell particle
-    SessionItem* coreshell = model.insertNewItem("ParticleCoreShell");
+    auto coreshell = model.insertItem<ParticleCoreShellItem>();
     coreshell->setItemValue(ParticleItem::P_ABUNDANCE, 0.2);
     EXPECT_TRUE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());
     EXPECT_EQ(coreshell->getItemValue(ParticleItem::P_ABUNDANCE).toDouble(), 0.2);
 
     // create composition, adding coreshell to it
-    SessionItem* composition = model.insertNewItem("ParticleComposition");
+    auto composition = model.insertItem<ParticleCompositionItem>();
     model.moveItem(coreshell, composition, -1, ParticleCompositionItem::T_PARTICLES);
     // checking abundance has switched to defaults
     EXPECT_FALSE(coreshell->getItem(ParticleItem::P_ABUNDANCE)->isEnabled());

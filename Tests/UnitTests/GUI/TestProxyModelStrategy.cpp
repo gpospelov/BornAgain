@@ -4,6 +4,7 @@
 #include "GUI/coregui/Models/ModelUtils.h"
 #include "GUI/coregui/Models/ParticleItem.h"
 #include "GUI/coregui/Models/SessionModel.h"
+#include "GUI/coregui/Models/PropertyItem.h"
 #include "GUI/coregui/Models/VectorItem.h"
 #include "Tests/GTestWrapper/google_test.h"
 
@@ -27,7 +28,7 @@ TEST_F(TestProxyModelStrategy, test_identityStrategy)
     EXPECT_EQ(strategy.proxySourceParent().size(), 0);
 
     // building map when simple item
-    SessionItem* item = model.insertNewItem("Property");
+    auto item = model.insertItem<PropertyItem>();
     strategy.buildModelMap(&model, &proxy);
     EXPECT_EQ(strategy.sourceToProxy().size(), 2);
     EXPECT_EQ(strategy.proxySourceParent().size(), 2);
@@ -68,7 +69,7 @@ TEST_F(TestProxyModelStrategy, test_identityStrategyParticle)
     ComponentProxyModel proxy;
     IndentityProxyStrategy strategy;
 
-    SessionItem* item = model.insertNewItem("Particle");
+    auto item = model.insertItem<ParticleItem>();
 
     // building the map of source
     strategy.buildModelMap(&model, &proxy);
@@ -99,7 +100,7 @@ TEST_F(TestProxyModelStrategy, test_componentStrategyParticle)
     ComponentProxyModel proxy;
     ComponentProxyStrategy strategy;
 
-    SessionItem* item = model.insertNewItem("Particle");
+    auto item = model.insertItem<ParticleItem>();
 
     // building the map of  source
     strategy.buildModelMap(&model, &proxy);
@@ -139,7 +140,7 @@ TEST_F(TestProxyModelStrategy, test_setRootIndex)
     ComponentProxyModel proxy;
     ComponentProxyStrategy strategy;
 
-    SessionItem* item = model.insertNewItem("Particle");
+    auto item = model.insertItem<ParticleItem>();
     SessionItem* group = item->getItem(ParticleItem::P_FORM_FACTOR);
     SessionItem* ffItem = item->getGroupItem(ParticleItem::P_FORM_FACTOR);
 

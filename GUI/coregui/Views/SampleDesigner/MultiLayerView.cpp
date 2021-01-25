@@ -224,8 +224,7 @@ void MultiLayerView::dropEvent(QGraphicsSceneDragDropEvent* event)
         if (designerScene) {
             SampleModel* sampleModel = designerScene->getSampleModel();
 
-            sampleModel->insertNewItem(mimeData->getClassName(),
-                                       sampleModel->indexOfItem(this->getItem()),
+            sampleModel->insertNewItem(mimeData->getClassName(), this->getItem(),
                                        getDropArea(event->pos()));
         }
     }

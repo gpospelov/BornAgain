@@ -257,10 +257,9 @@ QModelIndex SessionModel::indexOfItem(SessionItem* item) const
     return createIndex(row, 0, item);
 }
 
-SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent, int row,
+SessionItem* SessionModel::insertNewItem(QString model_type, SessionItem* parent_item, int row,
                                          QString tag)
 {
-    SessionItem* parent_item = itemForIndex(parent);
     if (!parent_item)
         parent_item = m_root_item;
     if (row > parent_item->numberOfChildren())
@@ -282,6 +281,12 @@ SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& 
         throw GUIHelpers::Error("SessionModel::insertNewItem -> Error. Can't insert item");
 
     return new_item;
+}
+
+SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent_item,
+                                         int row, QString tag)
+{
+    return insertNewItem(model_type, itemForIndex(parent_item), row, tag);
 }
 
 QVector<QString> SessionModel::acceptableDefaultItemTypes(const QModelIndex& parent) const

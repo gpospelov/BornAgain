@@ -31,9 +31,9 @@ void FitParameterHelper::createFitParameter(FitParameterContainerItem* container
     removeFromFitParameters(container, parameterItem);
 
     auto model = container->model();
-    auto fitPar = model->insertItem<FitParameterItem>(container->index());
+    auto fitPar = model->insertItem<FitParameterItem>(container);
     fitPar->setDisplayName("par");
-    auto link = model->insertItem<FitParameterLinkItem>(fitPar->index());
+    auto link = model->insertItem<FitParameterLinkItem>(fitPar);
     fitPar->setItemValue(FitParameterItem::P_START_VALUE, parameterItem->value());
     link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
 
@@ -69,7 +69,7 @@ void FitParameterHelper::addToFitParameter(FitParameterContainerItem* container,
     removeFromFitParameters(container, parameterItem);
     for (auto fitPar : container->getItems(FitParameterContainerItem::T_FIT_PARAMETERS)) {
         if (fitPar->displayName() == fitParName) {
-            SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar->index());
+            SessionItem* link = fitPar->model()->insertNewItem("FitParameterLink", fitPar);
             link->setItemValue(FitParameterLinkItem::P_LINK, getParameterItemPath(parameterItem));
             break;
         }

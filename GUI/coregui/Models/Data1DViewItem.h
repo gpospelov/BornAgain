@@ -57,11 +57,12 @@ public:
     const BasicAxisItem* xAxisItem() const;
     BasicAxisItem* xAxisItem();
     const AmplitudeAxisItem* yAxisItem() const;
+    AmplitudeAxisItem* yAxisItem();
 
     void resetView();
 
-    void setXaxisTitle(QString xtitle);
-    void setYaxisTitle(QString ytitle);
+    void setXaxisTitle(const QString& title);
+    void setYaxisTitle(const QString& title);
     void setAxesRangeToData();
 
     //! Returns data view to default state (no dimensional units, default axes' names)
@@ -78,10 +79,10 @@ public:
     //! job item set with DataItem1DView::setJobItem.
     JobItem* jobItem();
 
-    void setLowerX(double xmin);
-    void setUpperX(double xmax);
-    void setLowerY(double ymin);
-    void setUpperY(double ymax);
+    void setLowerX(double value);
+    void setUpperX(double value);
+    void setLowerY(double value);
+    void setUpperY(double value);
     void setLog(bool log_flag);
 
     DataPropertyContainer* propertyContainerItem();

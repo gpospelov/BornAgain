@@ -283,6 +283,12 @@ SessionItem* SessionModel::insertNewItem(QString model_type, SessionItem* parent
     return new_item;
 }
 
+SessionItem* SessionModel::insertNewItem(QString model_type, const QModelIndex& parent_item,
+                                         int row, QString tag)
+{
+    return insertNewItem(model_type, itemForIndex(parent_item), row, tag);
+}
+
 QVector<QString> SessionModel::acceptableDefaultItemTypes(const QModelIndex& parent) const
 {
     QVector<QString> result;

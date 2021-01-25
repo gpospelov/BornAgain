@@ -55,8 +55,16 @@ public:
     QModelIndex indexOfItem(SessionItem* item) const;
     SessionItem* insertNewItem(QString model_type, SessionItem* parent_item = nullptr, int row = -1,
                                QString tag = "");
+
+    // #migration Method is deprecated, index usage is discouraged.
+    SessionItem* insertNewItem(QString model_type, const QModelIndex& parent_item,
+                                  int row = -1, QString tag = "");
+
     template <typename T>
     T* insertItem(SessionItem* parent = nullptr, int row = -1, QString tag = "");
+
+    // #migration Method is deprecated, index usage is discouraged.
+    template <typename T> T* insertItem(const QModelIndex& parent, int row = -1, QString tag = "");
 
     QString getModelTag() const;
     QString getModelName() const;
@@ -108,6 +116,11 @@ private:
 template <typename T> T* SessionModel::insertItem(SessionItem* parent, int row, QString tag)
 {
     return static_cast<T*>(insertNewItem(T().modelType(), parent, row, tag));
+}
+
+template <typename T> T* SessionModel::insertItem(const QModelIndex& parent, int row, QString tag)
+{
+    return insertItem<T>(itemForIndex(parent), row, tag);
 }
 
 template <typename T> T* SessionModel::topItem() const

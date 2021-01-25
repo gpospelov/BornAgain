@@ -95,8 +95,7 @@ void SampleTreeWidget::addItem(const QString& item_name)
     QModelIndex currentIndex = FilterPropertyProxy::toSourceIndex(treeView()->currentIndex());
 
     QModelIndex currentIndexAtColumnZero = getIndexAtColumnZero(currentIndex);
-    SessionItem* new_item = m_sampleModel->insertNewItem(
-        item_name, m_sampleModel->itemForIndex(currentIndexAtColumnZero));
+    SessionItem* new_item = m_sampleModel->insertNewItem(item_name, currentIndexAtColumnZero);
     if (new_item) {
         QModelIndex new_index = m_sampleModel->indexOfItem(new_item);
         scrollToIndex(new_index);

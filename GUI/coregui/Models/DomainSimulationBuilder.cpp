@@ -122,8 +122,7 @@ createOffSpecularSimulation(std::unique_ptr<MultiLayer> P_multilayer,
     ret->setInstrument(*P_instrument);
 
     auto beamItem = instrument->beamItem();
-    auto axisItem =
-        dynamic_cast<BasicAxisItem*>(instrument->getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS));
+    auto axisItem = instrument->item<BasicAxisItem>(OffSpecularInstrumentItem::P_ALPHA_AXIS);
     ret->setBeamParameters(beamItem->wavelength(), *axisItem->createAxis(Units::deg),
                            beamItem->getAzimuthalAngle());
 

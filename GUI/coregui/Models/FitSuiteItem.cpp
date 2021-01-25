@@ -34,11 +34,10 @@ FitSuiteItem::FitSuiteItem() : SessionItem("FitSuite")
 
 FitParameterContainerItem* FitSuiteItem::fitParameterContainerItem()
 {
-    return dynamic_cast<FitParameterContainerItem*>(
-        getItem(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER));
+    return item<FitParameterContainerItem>(FitSuiteItem::T_FIT_PARAMETERS_CONTAINER);
 }
 
 MinimizerContainerItem* FitSuiteItem::minimizerContainerItem()
 {
-    return dynamic_cast<MinimizerContainerItem*>(getItem(FitSuiteItem::T_MINIMIZER));
+    return item<MinimizerContainerItem>(FitSuiteItem::T_MINIMIZER);
 }

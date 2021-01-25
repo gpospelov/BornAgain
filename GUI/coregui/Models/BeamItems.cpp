@@ -188,7 +188,7 @@ void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
     if (units == "nbins") {
         inclinationAxisGroup()->setCurrentType("BasicAxis");
         auto axis_item = currentInclinationAxisItem();
-        axis_item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
+        axis_item->setBinCount(static_cast<int>(axis.size()));
         return;
     }
 

@@ -31,9 +31,9 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
     addGroupProperty(P_BEAM, "SpecularBeam");
 
     auto axisItem = beamItem()->currentInclinationAxisItem();
-    axisItem->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
-    axisItem->setItemValue(BasicAxisItem::P_MAX_DEG, 1.0);
-    axisItem->setItemValue(BasicAxisItem::P_NBINS, 500);
+    axisItem->setLowerBound(0.0);
+    axisItem->setUpperBound(1.0);
+    axisItem->setBinCount(500);
 
     auto axis = addGroupProperty(P_Z_AXIS, "BasicAxis");
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);

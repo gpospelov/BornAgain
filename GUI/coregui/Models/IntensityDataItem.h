@@ -18,6 +18,7 @@
 #include "GUI/coregui/Models/DataItem.h"
 
 class BasicAxisItem;
+class AmplitudeAxisItem;
 class MaskContainerItem;
 class ProjectionContainerItem;
 
@@ -80,8 +81,8 @@ public:
     BasicAxisItem* xAxisItem();
     const BasicAxisItem* yAxisItem() const;
     BasicAxisItem* yAxisItem();
-    const BasicAxisItem* zAxisItem() const;
-    BasicAxisItem* zAxisItem();
+    const AmplitudeAxisItem* zAxisItem() const;
+    AmplitudeAxisItem* zAxisItem();
 
     void resetView();
 

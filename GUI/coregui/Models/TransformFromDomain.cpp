@@ -408,17 +408,13 @@ void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detect
                                                  const RectangularDetector& detector)
 {
     // Axes
-    BasicAxisItem* xAxisItem =
-        dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_X_AXIS));
-    ASSERT(xAxisItem);
-    xAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsX());
-    xAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getWidth());
+    auto xAxisItem = detector_item->xAxisItem();
+    xAxisItem->setBinCount(detector.getNbinsX());
+    xAxisItem->setUpperBound(detector.getWidth());
 
-    BasicAxisItem* yAxisItem =
-        dynamic_cast<BasicAxisItem*>(detector_item->getItem(RectangularDetectorItem::P_Y_AXIS));
-    ASSERT(yAxisItem);
-    yAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)detector.getNbinsY());
-    yAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, detector.getHeight());
+    auto yAxisItem = detector_item->yAxisItem();
+    yAxisItem->setBinCount((int)detector.getNbinsY());
+    yAxisItem->setUpperBound(detector.getHeight());
 
     if (detector.getDetectorArrangment() == RectangularDetector::GENERIC) {
         detector_item->setDetectorAlignment("Generic");

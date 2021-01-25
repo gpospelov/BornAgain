@@ -152,12 +152,12 @@ double IntensityDataItem::getYmax() const
 
 double IntensityDataItem::getLowerZ() const
 {
-    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return zAxisItem()->lowerBound();
 }
 
 double IntensityDataItem::getUpperZ() const
 {
-    return getItem(P_ZAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return zAxisItem()->upperBound();
 }
 
 QString IntensityDataItem::getGradient() const
@@ -168,7 +168,7 @@ QString IntensityDataItem::getGradient() const
 
 bool IntensityDataItem::isLogz() const
 {
-    return getItem(P_ZAXIS)->getItemValue(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
+    return zAxisItem()->isLogScale();
 }
 
 bool IntensityDataItem::isInterpolated() const
@@ -178,12 +178,12 @@ bool IntensityDataItem::isInterpolated() const
 
 QString IntensityDataItem::getXaxisTitle() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return xAxisItem()->title();
 }
 
 QString IntensityDataItem::getYaxisTitle() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return yAxisItem()->title();
 }
 
 bool IntensityDataItem::isZAxisLocked() const
@@ -198,12 +198,12 @@ void IntensityDataItem::setZAxisLocked(bool state)
 
 void IntensityDataItem::setXaxisTitle(QString xtitle)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+    xAxisItem()->setTitle(xtitle);
 }
 
 void IntensityDataItem::setYaxisTitle(QString ytitle)
 {
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_TITLE, ytitle);
+    yAxisItem()->setTitle(ytitle);
 }
 
 //! set zoom range of x,y axes to axes of input data
@@ -248,46 +248,46 @@ void IntensityDataItem::reset(ImportDataInfo data)
 
 void IntensityDataItem::setLowerX(double xmin)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
+    xAxisItem()->setLowerBound(xmin);
 }
 
 void IntensityDataItem::setUpperX(double xmax)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
+    xAxisItem()->setUpperBound(xmax);
 }
 
 void IntensityDataItem::setLowerY(double ymin)
 {
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, ymin);
+    yAxisItem()->setLowerBound(ymin);
 }
 
 void IntensityDataItem::setUpperY(double ymax)
 {
-    getItem(P_YAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, ymax);
+    yAxisItem()->setUpperBound(ymax);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)
 {
     if (getLowerZ() != zmin)
-        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, zmin);
+        setLowerZ(zmin);
 
     if (getUpperZ() != zmax)
-        getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, zmax);
+        setUpperZ(zmax);
 }
 
 void IntensityDataItem::setLowerZ(double zmin)
 {
-    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, zmin);
+    zAxisItem()->setLowerBound(zmin);
 }
 
 void IntensityDataItem::setUpperZ(double zmax)
 {
-    getItem(P_ZAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, zmax);
+    zAxisItem()->setUpperBound(zmax);
 }
 
 void IntensityDataItem::setLogz(bool logz)
 {
-    getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, logz);
+    zAxisItem()->setLogScale(logz);
 }
 
 void IntensityDataItem::setInterpolated(bool interp)
@@ -367,7 +367,7 @@ QPair<double, double> IntensityDataItem::dataRange() const
 
 const BasicAxisItem* IntensityDataItem::xAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 BasicAxisItem* IntensityDataItem::xAxisItem()
@@ -377,7 +377,7 @@ BasicAxisItem* IntensityDataItem::xAxisItem()
 
 const BasicAxisItem* IntensityDataItem::yAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_YAXIS));
+    return item<BasicAxisItem>(P_YAXIS);
 }
 
 BasicAxisItem* IntensityDataItem::yAxisItem()
@@ -385,14 +385,14 @@ BasicAxisItem* IntensityDataItem::yAxisItem()
     return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->yAxisItem());
 }
 
-const BasicAxisItem* IntensityDataItem::zAxisItem() const
+const AmplitudeAxisItem* IntensityDataItem::zAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_ZAXIS));
+    return item<AmplitudeAxisItem>(P_ZAXIS);
 }
 
-BasicAxisItem* IntensityDataItem::zAxisItem()
+AmplitudeAxisItem* IntensityDataItem::zAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->zAxisItem());
+    return const_cast<AmplitudeAxisItem*>(static_cast<const IntensityDataItem*>(this)->zAxisItem());
 }
 
 //! Set axes viewport to original data.

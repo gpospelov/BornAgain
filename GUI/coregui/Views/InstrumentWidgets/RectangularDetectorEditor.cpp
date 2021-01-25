@@ -15,6 +15,7 @@
 #include "GUI/coregui/Views/InstrumentWidgets/RectangularDetectorEditor.h"
 #include "GUI/coregui/Models/ComboProperty.h"
 #include "GUI/coregui/Models/RectangularDetectorItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QGridLayout>
 
@@ -101,12 +102,10 @@ void RectangularDetectorEditor::create_editors()
 void RectangularDetectorEditor::init_editors()
 {
     m_xAxisEditor->clearEditor();
-    auto xAxisItem = detectorItem()->getItem(RectangularDetectorItem::P_X_AXIS);
-    m_xAxisEditor->setItem(xAxisItem);
+    m_xAxisEditor->setItem(detectorItem()->xAxisItem());
 
     m_yAxisEditor->clearEditor();
-    auto yAxisItem = detectorItem()->getItem(RectangularDetectorItem::P_Y_AXIS);
-    m_yAxisEditor->setItem(yAxisItem);
+    m_yAxisEditor->setItem(detectorItem()->yAxisItem());
 
     m_resolutionFunctionEditor->clearEditor();
     auto resFuncGroup = detectorItem()->getItem(RectangularDetectorItem::P_RESOLUTION_FUNCTION);

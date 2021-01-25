@@ -29,11 +29,50 @@ BasicAxisItem::BasicAxisItem(const QString& type) : SessionItem(type)
     register_basic_properties();
 }
 
+int BasicAxisItem::binCount() const
+{
+    return getItemValue(P_NBINS).toInt();
+}
+
+void BasicAxisItem::setBinCount(int value)
+{
+    setItemValue(P_NBINS, value);
+}
+
+double BasicAxisItem::lowerBound() const
+{
+    return getItemValue(P_MIN_DEG).toDouble();
+}
+
+void BasicAxisItem::setLowerBound(double value)
+{
+    setItemValue(P_MIN_DEG, value);
+}
+
+double BasicAxisItem::upperBound() const
+{
+    return getItemValue(P_MAX_DEG).toDouble();
+}
+
+void BasicAxisItem::setUpperBound(double value)
+{
+    setItemValue(P_MAX_DEG, value);
+}
+
+QString BasicAxisItem::title() const
+{
+    return getItemValue(P_TITLE).toString();
+}
+
+void BasicAxisItem::setTitle(const QString& title)
+{
+    setItemValue(P_TITLE, title);
+}
+
 std::unique_ptr<IAxis> BasicAxisItem::createAxis(double scale) const
 {
-    return std::make_unique<FixedBinAxis>(
-        getItemValue(P_TITLE).toString().toStdString(), getItemValue(P_NBINS).toInt(),
-        getItemValue(P_MIN_DEG).toDouble() * scale, getItemValue(P_MAX_DEG).toDouble() * scale);
+    return std::make_unique<FixedBinAxis>(title().toStdString(), binCount(), lowerBound() * scale,
+                                          upperBound() * scale);
 }
 
 BasicAxisItem::~BasicAxisItem() = default;
@@ -42,10 +81,8 @@ void BasicAxisItem::register_basic_properties()
 {
     addProperty(P_IS_VISIBLE, true)->setVisible(false);
     addProperty(P_NBINS, 100)->setLimits(RealLimits::limited(1, max_detector_pixels));
-    addProperty(P_MIN_DEG, 0.0)->setDecimals(3);
-    getItem(P_MIN_DEG)->setLimits(RealLimits::limitless());
-    addProperty(P_MAX_DEG, -1.0)->setDecimals(3);
-    getItem(P_MAX_DEG)->setLimits(RealLimits::limitless());
+    addProperty(P_MIN_DEG, 0.0)->setDecimals(3).setLimits(RealLimits::limitless());
+    addProperty(P_MAX_DEG, -1.0)->setDecimals(3).setLimits(RealLimits::limitless());
     addProperty(P_TITLE, QString());
     addProperty(P_TITLE_IS_VISIBLE, true)->setVisible(false);
 }
@@ -71,6 +108,16 @@ AmplitudeAxisItem::AmplitudeAxisItem() : BasicAxisItem("AmplitudeAxis")
                 setMinMaxEditor("Default");
         }
     });
+}
+
+bool AmplitudeAxisItem::isLogScale() const
+{
+    return getItemValue(P_IS_LOGSCALE).toBool();
+}
+
+void AmplitudeAxisItem::setLogScale(bool value)
+{
+    setItemValue(P_IS_LOGSCALE, value);
 }
 
 //! Sets editor for min, max values of axes

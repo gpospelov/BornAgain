@@ -32,6 +32,18 @@ public:
     explicit BasicAxisItem(const QString& type = "BasicAxis");
     virtual ~BasicAxisItem();
 
+    int binCount() const;
+    void setBinCount(int value);
+
+    double lowerBound() const;
+    void setLowerBound(double value);
+
+    double upperBound() const;
+    void setUpperBound(double value);
+
+    QString title() const;
+    void setTitle(const QString& title);
+
     virtual std::unique_ptr<IAxis> createAxis(double scale) const;
 
 protected:
@@ -43,6 +55,9 @@ public:
     static const QString P_IS_LOGSCALE;
     static const QString P_LOCK_MIN_MAX;
     AmplitudeAxisItem();
+
+    bool isLogScale() const;
+    void setLogScale(bool value);
 
 private:
     void setMinMaxEditor(const QString& editorType);

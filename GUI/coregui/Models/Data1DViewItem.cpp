@@ -217,7 +217,7 @@ const BasicAxisItem* Data1DViewItem::xAxisItem() const
 
 BasicAxisItem* Data1DViewItem::xAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const Data1DViewItem*>(this)->xAxisItem());
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 const AmplitudeAxisItem* Data1DViewItem::yAxisItem() const
@@ -227,7 +227,7 @@ const AmplitudeAxisItem* Data1DViewItem::yAxisItem() const
 
 AmplitudeAxisItem* Data1DViewItem::yAxisItem()
 {
-    return const_cast<AmplitudeAxisItem*>(static_cast<const Data1DViewItem*>(this)->yAxisItem());
+    return item<AmplitudeAxisItem>(P_YAXIS);
 }
 
 //! Set axes viewport to original data.

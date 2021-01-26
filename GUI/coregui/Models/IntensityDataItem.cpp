@@ -372,7 +372,7 @@ const BasicAxisItem* IntensityDataItem::xAxisItem() const
 
 BasicAxisItem* IntensityDataItem::xAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->xAxisItem());
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 const BasicAxisItem* IntensityDataItem::yAxisItem() const
@@ -382,7 +382,7 @@ const BasicAxisItem* IntensityDataItem::yAxisItem() const
 
 BasicAxisItem* IntensityDataItem::yAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const IntensityDataItem*>(this)->yAxisItem());
+    return item<BasicAxisItem>(P_YAXIS);
 }
 
 const AmplitudeAxisItem* IntensityDataItem::zAxisItem() const
@@ -392,7 +392,7 @@ const AmplitudeAxisItem* IntensityDataItem::zAxisItem() const
 
 AmplitudeAxisItem* IntensityDataItem::zAxisItem()
 {
-    return const_cast<AmplitudeAxisItem*>(static_cast<const IntensityDataItem*>(this)->zAxisItem());
+    return item<AmplitudeAxisItem>(P_ZAXIS);
 }
 
 //! Set axes viewport to original data.

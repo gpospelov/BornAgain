@@ -83,8 +83,7 @@ const BasicAxisItem* SphericalDetectorItem::phiAxisItem() const
 
 BasicAxisItem* SphericalDetectorItem::phiAxisItem()
 {
-    return const_cast<BasicAxisItem*>(
-        static_cast<const SphericalDetectorItem*>(this)->phiAxisItem());
+    return item<BasicAxisItem>(P_PHI_AXIS);
 }
 
 const BasicAxisItem* SphericalDetectorItem::alphaAxisItem() const
@@ -94,8 +93,7 @@ const BasicAxisItem* SphericalDetectorItem::alphaAxisItem() const
 
 BasicAxisItem* SphericalDetectorItem::alphaAxisItem()
 {
-    return const_cast<BasicAxisItem*>(
-        static_cast<const SphericalDetectorItem*>(this)->alphaAxisItem());
+    return item<BasicAxisItem>(P_ALPHA_AXIS);
 }
 
 double SphericalDetectorItem::axesToDomainUnitsFactor() const

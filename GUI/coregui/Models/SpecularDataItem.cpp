@@ -228,7 +228,7 @@ const BasicAxisItem* SpecularDataItem::xAxisItem() const
 
 BasicAxisItem* SpecularDataItem::xAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const SpecularDataItem*>(this)->xAxisItem());
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
@@ -238,7 +238,7 @@ const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
 
 AmplitudeAxisItem* SpecularDataItem::yAxisItem()
 {
-    return const_cast<AmplitudeAxisItem*>(static_cast<const SpecularDataItem*>(this)->yAxisItem());
+    return item<AmplitudeAxisItem>(P_YAXIS);
 }
 
 //! Set axes viewport to original data.

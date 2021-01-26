@@ -389,19 +389,15 @@ void TransformFromDomain::setSphericalDetector(SphericalDetectorItem* detector_i
     const IAxis& phi_axis = detector.axis(0);
     const IAxis& alpha_axis = detector.axis(1);
 
-    BasicAxisItem* phiAxisItem =
-        dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_PHI_AXIS));
-    ASSERT(phiAxisItem);
-    phiAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)phi_axis.size());
-    phiAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(phi_axis.lowerBound()));
-    phiAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(phi_axis.upperBound()));
+    auto phiAxisItem = detector_item->phiAxisItem();
+    phiAxisItem->setBinCount(phi_axis.size());
+    phiAxisItem->setLowerBound(Units::rad2deg(phi_axis.lowerBound()));
+    phiAxisItem->setUpperBound(Units::rad2deg(phi_axis.upperBound()));
 
-    BasicAxisItem* alphaAxisItem =
-        dynamic_cast<BasicAxisItem*>(detector_item->getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-    ASSERT(alphaAxisItem);
-    alphaAxisItem->setItemValue(BasicAxisItem::P_NBINS, (int)alpha_axis.size());
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MIN_DEG, Units::rad2deg(alpha_axis.lowerBound()));
-    alphaAxisItem->setItemValue(BasicAxisItem::P_MAX_DEG, Units::rad2deg(alpha_axis.upperBound()));
+    auto alphaAxisItem = detector_item->alphaAxisItem();
+    alphaAxisItem->setBinCount(alpha_axis.size());
+    alphaAxisItem->setLowerBound(Units::rad2deg(alpha_axis.lowerBound()));
+    alphaAxisItem->setUpperBound(Units::rad2deg(alpha_axis.upperBound()));
 }
 
 void TransformFromDomain::setRectangularDetector(RectangularDetectorItem* detector_item,

@@ -45,44 +45,35 @@ SphericalDetectorItem::SphericalDetectorItem() : DetectorItem("SphericalDetector
 
 std::unique_ptr<IDetector2D> SphericalDetectorItem::createDomainDetector() const
 {
-    auto x_axis = dynamic_cast<BasicAxisItem*>(getItem(SphericalDetectorItem::P_PHI_AXIS));
-    ASSERT(x_axis);
-    int n_x = x_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-    double x_min = Units::deg2rad(x_axis->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble());
-    double x_max = Units::deg2rad(x_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble());
+    int n_x = phiAxisItem()->binCount();
+    double x_min = Units::deg2rad(phiAxisItem()->lowerBound());
+    double x_max = Units::deg2rad(phiAxisItem()->upperBound());
 
-    auto y_axis = dynamic_cast<BasicAxisItem*>(getItem(SphericalDetectorItem::P_ALPHA_AXIS));
-    ASSERT(y_axis);
-    int n_y = y_axis->getItemValue(BasicAxisItem::P_NBINS).toInt();
-    double y_min = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble());
-    double y_max = Units::deg2rad(y_axis->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble());
+    int n_y = alphaAxisItem()->binCount();
+    double y_min = Units::deg2rad(alphaAxisItem()->lowerBound());
+    double y_max = Units::deg2rad(alphaAxisItem()->upperBound());
 
-    std::unique_ptr<SphericalDetector> result(
-        new SphericalDetector(n_x, x_min, x_max, n_y, y_min, y_max));
-
-    return std::unique_ptr<IDetector2D>(result.release());
+    return std::make_unique<SphericalDetector>(n_x, x_min, x_max, n_y, y_min, y_max);
 }
 
 int SphericalDetectorItem::xSize() const
 {
-    return getItem(SphericalDetectorItem::P_PHI_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return phiAxisItem()->binCount();
 }
 
 int SphericalDetectorItem::ySize() const
 {
-    return getItem(SphericalDetectorItem::P_ALPHA_AXIS)
-        ->getItemValue(BasicAxisItem::P_NBINS)
-        .toInt();
+    return alphaAxisItem()->binCount();
 }
 
 void SphericalDetectorItem::setXSize(int nx)
 {
-    getItem(SphericalDetectorItem::P_PHI_AXIS)->setItemValue(BasicAxisItem::P_NBINS, nx);
+    phiAxisItem()->setBinCount(nx);
 }
 
 void SphericalDetectorItem::setYSize(int ny)
 {
-    getItem(SphericalDetectorItem::P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
+    alphaAxisItem()->setBinCount(ny);
 }
 
 const BasicAxisItem* SphericalDetectorItem::phiAxisItem() const

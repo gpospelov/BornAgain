@@ -17,6 +17,8 @@
 
 #include "GUI/coregui/Models/DetectorItems.h"
 
+class BasicAxisItem;
+
 class BA_CORE_API_ SphericalDetectorItem : public DetectorItem {
 public:
     static const QString P_PHI_AXIS;
@@ -27,6 +29,12 @@ public:
     int ySize() const override;
     void setXSize(int nx) override;
     void setYSize(int ny) override;
+
+    const BasicAxisItem* phiAxisItem() const;
+    BasicAxisItem* phiAxisItem();
+
+    const BasicAxisItem* alphaAxisItem() const;
+    BasicAxisItem* alphaAxisItem();
 
 protected:
     std::unique_ptr<IDetector2D> createDomainDetector() const override;

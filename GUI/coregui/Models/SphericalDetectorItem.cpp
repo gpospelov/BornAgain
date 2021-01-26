@@ -85,6 +85,28 @@ void SphericalDetectorItem::setYSize(int ny)
     getItem(SphericalDetectorItem::P_ALPHA_AXIS)->setItemValue(BasicAxisItem::P_NBINS, ny);
 }
 
+const BasicAxisItem* SphericalDetectorItem::phiAxisItem() const
+{
+    return item<BasicAxisItem>(P_PHI_AXIS);
+}
+
+BasicAxisItem* SphericalDetectorItem::phiAxisItem()
+{
+    return const_cast<BasicAxisItem*>(
+        static_cast<const SphericalDetectorItem*>(this)->phiAxisItem());
+}
+
+const BasicAxisItem* SphericalDetectorItem::alphaAxisItem() const
+{
+    return item<BasicAxisItem>(P_ALPHA_AXIS);
+}
+
+BasicAxisItem* SphericalDetectorItem::alphaAxisItem()
+{
+    return const_cast<BasicAxisItem*>(
+        static_cast<const SphericalDetectorItem*>(this)->alphaAxisItem());
+}
+
 double SphericalDetectorItem::axesToDomainUnitsFactor() const
 {
     return Units::deg;

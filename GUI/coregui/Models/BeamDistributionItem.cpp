@@ -66,8 +66,7 @@ BeamDistributionItem::getParameterDistributionForName(const std::string& paramet
 
 void BeamDistributionItem::initDistributionItem(bool show_mean)
 {
-    GroupItem* groupItem = dynamic_cast<GroupItem*>(getItem(P_DISTRIBUTION));
-    ASSERT(groupItem);
+    auto groupItem = item<GroupItem>(P_DISTRIBUTION);
 
     SessionItem* distributionNone = nullptr;
     for (auto item : groupItem->getItems(GroupItem::T_ITEMS)) {

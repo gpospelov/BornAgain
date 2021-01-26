@@ -73,52 +73,53 @@ Data1DViewItem::Data1DViewItem() : SessionItem("Data1DViewItem"), m_job_item(nul
 
 int Data1DViewItem::getNbins() const
 {
-    return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
+
+    return xAxisItem()->binCount();
 }
 
 double Data1DViewItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return xAxisItem()->lowerBound();
 }
 
 double Data1DViewItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return xAxisItem()->upperBound();
 }
 
 double Data1DViewItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return yAxisItem()->lowerBound();
 }
 
 double Data1DViewItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return yAxisItem()->upperBound();
 }
 
 bool Data1DViewItem::isLog() const
 {
-    return getItem(P_YAXIS)->getItemValue(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
+    return yAxisItem()->isLogScale();
 }
 
 QString Data1DViewItem::getXaxisTitle() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return xAxisItem()->title();
 }
 
 QString Data1DViewItem::getYaxisTitle() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return yAxisItem()->title();
 }
 
-void Data1DViewItem::setXaxisTitle(QString xtitle)
+void Data1DViewItem::setXaxisTitle(const QString& title)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+    xAxisItem()->setTitle(title);
 }
 
-void Data1DViewItem::setYaxisTitle(QString ytitle)
+void Data1DViewItem::setYaxisTitle(const QString& title)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
+    yAxisItem()->setTitle(title);
 }
 
 //! set zoom range of x,y axes to axes of input data
@@ -179,51 +180,54 @@ JobItem* Data1DViewItem::jobItem()
         "Error in DataItem1DView::jobItem: passed item is not owned by any job item");
 }
 
-void Data1DViewItem::setLowerX(double xmin)
+void Data1DViewItem::setLowerX(double value)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
+    xAxisItem()->setLowerBound(value);
 }
 
-void Data1DViewItem::setUpperX(double xmax)
+void Data1DViewItem::setUpperX(double value)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
+    xAxisItem()->setUpperBound(value);
 }
 
-void Data1DViewItem::setLowerY(double ymin)
+void Data1DViewItem::setLowerY(double value)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN_DEG, ymin);
+    yAxisItem()->setLowerBound(value);
 }
 
-void Data1DViewItem::setUpperY(double ymax)
+void Data1DViewItem::setUpperY(double value)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX_DEG, ymax);
+    yAxisItem()->setUpperBound(value);
 }
 
 void Data1DViewItem::setLog(bool log_flag)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
+    yAxisItem()->setLogScale(log_flag);
 }
 
 DataPropertyContainer* Data1DViewItem::propertyContainerItem()
 {
-    return dynamic_cast<DataPropertyContainer*>(getItem(T_DATA_PROPERTIES));
+    return item<DataPropertyContainer>(T_DATA_PROPERTIES);
 }
 
 const BasicAxisItem* Data1DViewItem::xAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 BasicAxisItem* Data1DViewItem::xAxisItem()
 {
-    return const_cast<BasicAxisItem*>(static_cast<const Data1DViewItem*>(this)->xAxisItem());
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 const AmplitudeAxisItem* Data1DViewItem::yAxisItem() const
 {
-    auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
-    ASSERT(result);
-    return result;
+    return item<AmplitudeAxisItem>(P_YAXIS);
+}
+
+AmplitudeAxisItem* Data1DViewItem::yAxisItem()
+{
+    return item<AmplitudeAxisItem>(P_YAXIS);
 }
 
 //! Set axes viewport to original data.

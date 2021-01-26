@@ -10,6 +10,33 @@
 class TestAxesItems : public ::testing::Test {
 };
 
+TEST_F(TestAxesItems, gettersAndSettes)
+{
+    BasicAxisItem item;
+
+    item.setBinCount(42);
+    EXPECT_EQ(item.binCount(), 42);
+
+    item.setLowerBound(42.1);
+    EXPECT_EQ(item.lowerBound(), 42.1);
+
+    item.setUpperBound(42.2);
+    EXPECT_EQ(item.upperBound(), 42.2);
+
+    item.setTitle("abc");
+    EXPECT_EQ(item.title(), QString("abc"));
+}
+
+TEST_F(TestAxesItems, AmplitudeAxisGettersAndSetters)
+{
+    AmplitudeAxisItem item;
+
+    item.setLogScale(true);
+    EXPECT_TRUE(item.isLogScale());
+    item.setLogScale(false);
+    EXPECT_FALSE(item.isLogScale());
+}
+
 TEST_F(TestAxesItems, transformFromDomain)
 {
     BasicAxisItem item;

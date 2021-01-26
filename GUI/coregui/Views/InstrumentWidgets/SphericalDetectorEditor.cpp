@@ -14,6 +14,7 @@
 
 #include "GUI/coregui/Views/InstrumentWidgets/SphericalDetectorEditor.h"
 #include "GUI/coregui/Models/SphericalDetectorItem.h"
+#include "GUI/coregui/Models/AxesItems.h"
 #include "GUI/coregui/Views/PropertyEditor/ComponentEditor.h"
 #include <QGridLayout>
 
@@ -45,10 +46,10 @@ SphericalDetectorEditor::SphericalDetectorEditor(QWidget* parent)
 
 void SphericalDetectorEditor::subscribeToItem()
 {
-    auto phiAxisItem = detectorItem()->getItem(SphericalDetectorItem::P_PHI_AXIS);
+    auto phiAxisItem = detectorItem()->phiAxisItem();
     m_phiAxisEditor->setItem(phiAxisItem);
 
-    auto alphaAxisItem = detectorItem()->getItem(SphericalDetectorItem::P_ALPHA_AXIS);
+    auto alphaAxisItem = detectorItem()->alphaAxisItem();
     m_alphaAxisEditor->setItem(alphaAxisItem);
 
     auto resFuncGroup = detectorItem()->getItem(SphericalDetectorItem::P_RESOLUTION_FUNCTION);

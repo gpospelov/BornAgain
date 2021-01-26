@@ -104,7 +104,7 @@ void ParticleItem::updatePropertiesAppearance(SessionItem* newParent)
         }
     } else {
         getItem(ParticleItem::P_ABUNDANCE)->setEnabled(true);
-        getItem(ParticleItem::P_POSITION)->setEnabled(true);
+        positionItem()->setEnabled(true);
     }
 }
 

@@ -51,8 +51,8 @@ public:
 
     QString selectedAxesUnits() const;
 
-    virtual void setXaxisTitle(QString xtitle) = 0;
-    virtual void setYaxisTitle(QString ytitle) = 0;
+    virtual void setXaxisTitle(const QString& title) = 0;
+    virtual void setYaxisTitle(const QString& title) = 0;
     virtual void setAxesRangeToData() = 0;
     virtual void updateAxesUnits(const InstrumentItem* instrument) = 0;
     virtual std::vector<int> shape() const = 0;

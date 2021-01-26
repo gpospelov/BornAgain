@@ -24,10 +24,9 @@
 #include "GUI/coregui/Models/PointwiseAxisItem.h"
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
-#include "GUI/coregui/utils/GUIHelpers.h"
 #include "GUI/coregui/Models/VectorItem.h"
+#include "GUI/coregui/utils/GUIHelpers.h"
 #include <cmath>
-
 
 namespace {
 const QString polarization_tooltip = "Polarization of the beam, given as the Bloch vector";
@@ -69,36 +68,27 @@ void BeamItem::setIntensity(double value)
 
 double BeamItem::wavelength() const
 {
-    BeamWavelengthItem* beamWavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
-    return beamWavelength->wavelength();
+    return item<BeamWavelengthItem>(P_WAVELENGTH)->wavelength();
 }
 
 void BeamItem::setWavelength(double value)
 {
-    auto beam_wavelength = dynamic_cast<BeamWavelengthItem*>(getItem(P_WAVELENGTH));
-    ASSERT(beam_wavelength);
-    beam_wavelength->resetToValue(value);
+    item<BeamWavelengthItem>(P_WAVELENGTH)->resetToValue(value);
 }
 
 void BeamItem::setInclinationAngle(double value)
 {
-    auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_INCLINATION_ANGLE));
-    ASSERT(angleItem);
-    angleItem->resetToValue(value);
+    item<BeamDistributionItem>(P_INCLINATION_ANGLE)->resetToValue(value);
 }
 
 double BeamItem::getAzimuthalAngle() const
 {
-    const auto inclination = dynamic_cast<BeamAzimuthalAngleItem*>(getItem(P_AZIMUTHAL_ANGLE));
-    ASSERT(inclination);
-    return inclination->azimuthalAngle();
+    return item<BeamAzimuthalAngleItem>(P_AZIMUTHAL_ANGLE)->azimuthalAngle();
 }
 
 void BeamItem::setAzimuthalAngle(double value)
 {
-    auto angleItem = dynamic_cast<BeamDistributionItem*>(getItem(P_AZIMUTHAL_ANGLE));
-    ASSERT(angleItem);
-    angleItem->resetToValue(value);
+    item<BeamDistributionItem>(P_AZIMUTHAL_ANGLE)->resetToValue(value);
 }
 
 std::unique_ptr<Beam> BeamItem::createBeam() const
@@ -198,7 +188,7 @@ void SpecularBeamItem::updateToData(const IAxis& axis, QString units)
     if (units == "nbins") {
         inclinationAxisGroup()->setCurrentType("BasicAxis");
         auto axis_item = currentInclinationAxisItem();
-        axis_item->setItemValue(BasicAxisItem::P_NBINS, static_cast<int>(axis.size()));
+        axis_item->setBinCount(static_cast<int>(axis.size()));
         return;
     }
 
@@ -234,9 +224,7 @@ GISASBeamItem::~GISASBeamItem() = default;
 
 double GISASBeamItem::getInclinationAngle() const
 {
-    const auto inclination = dynamic_cast<BeamInclinationAngleItem*>(getItem(P_INCLINATION_ANGLE));
-    ASSERT(inclination);
-    return inclination->inclinationAngle();
+    return item<BeamInclinationAngleItem>(P_INCLINATION_ANGLE)->inclinationAngle();
 }
 
 namespace {

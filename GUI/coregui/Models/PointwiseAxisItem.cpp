@@ -138,9 +138,9 @@ void PointwiseAxisItem::updateIndicators()
         return;
 
     const auto converter = m_instrument->createUnitConverter();
-    getItem(P_MIN_DEG)->setValue(converter->calculateMin(0, Axes::Units::DEGREES));
-    getItem(P_MAX_DEG)->setValue(converter->calculateMax(0, Axes::Units::DEGREES));
-    getItem(P_NBINS)->setValue(static_cast<int>(m_axis->size()));
+    setLowerBound(converter->calculateMin(0, Axes::Units::DEGREES));
+    setUpperBound(converter->calculateMax(0, Axes::Units::DEGREES));
+    setBinCount(static_cast<int>(m_axis->size()));
 
     emitDataChanged();
 }

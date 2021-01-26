@@ -18,6 +18,8 @@
 #include "Base/Vector/Vectors3D.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 
+class BasicAxisItem;
+
 class BA_CORE_API_ RectangularDetectorItem : public DetectorItem {
 public:
     static const QString P_X_AXIS;
@@ -39,6 +41,11 @@ public:
     int ySize() const override;
     void setXSize(int nx) override;
     void setYSize(int ny) override;
+
+    const BasicAxisItem* xAxisItem() const;
+    BasicAxisItem* xAxisItem();
+    const BasicAxisItem* yAxisItem() const;
+    BasicAxisItem* yAxisItem();
 
 private:
     std::unique_ptr<IDetector2D> createDomainDetector() const override;

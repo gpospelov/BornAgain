@@ -125,7 +125,7 @@ std::unique_ptr<Instrument> SpecularInstrumentItem::createInstrument() const
 std::vector<int> SpecularInstrumentItem::shape() const
 {
     const auto axis_item = beamItem()->currentInclinationAxisItem();
-    return {axis_item->getItemValue(BasicAxisItem::P_NBINS).toInt()};
+    return {axis_item->binCount()};
 }
 
 void SpecularInstrumentItem::updateToRealData(const RealDataItem* item)
@@ -262,22 +262,22 @@ OffSpecularInstrumentItem::OffSpecularInstrumentItem() : Instrument2DItem("OffSp
 
 std::vector<int> OffSpecularInstrumentItem::shape() const
 {
-    const int x_size = getItem(P_ALPHA_AXIS)->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    const int x_size = item<BasicAxisItem>(P_ALPHA_AXIS)->binCount();
     auto detector_item = detectorItem();
     return {x_size, detector_item->ySize()};
 }
 
-void OffSpecularInstrumentItem::updateToRealData(const RealDataItem* item)
+void OffSpecularInstrumentItem::updateToRealData(const RealDataItem* dataItem)
 {
-    if (!item)
+    if (!dataItem)
         return;
 
-    const auto data_shape = item->shape();
+    const auto data_shape = dataItem->shape();
     if (shape().size() != data_shape.size())
         throw GUIHelpers::Error("Error in OffSpecularInstrumentItem::updateToRealData: The type of "
                                 "instrument is incompatible with passed data shape.");
-    getItem(OffSpecularInstrumentItem::P_ALPHA_AXIS)
-        ->setItemValue(BasicAxisItem::P_NBINS, data_shape[0]);
+
+    item<BasicAxisItem>(P_ALPHA_AXIS)->setBinCount(data_shape[0]);
     detectorItem()->setYSize(data_shape[1]);
 }
 

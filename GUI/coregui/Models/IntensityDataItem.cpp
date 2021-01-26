@@ -196,14 +196,14 @@ void IntensityDataItem::setZAxisLocked(bool state)
     return getItem(P_ZAXIS)->setItemValue(AmplitudeAxisItem::P_LOCK_MIN_MAX, state);
 }
 
-void IntensityDataItem::setXaxisTitle(QString xtitle)
+void IntensityDataItem::setXaxisTitle(const QString& title)
 {
-    xAxisItem()->setTitle(xtitle);
+    xAxisItem()->setTitle(title);
 }
 
-void IntensityDataItem::setYaxisTitle(QString ytitle)
+void IntensityDataItem::setYaxisTitle(const QString& title)
 {
-    yAxisItem()->setTitle(ytitle);
+    yAxisItem()->setTitle(title);
 }
 
 //! set zoom range of x,y axes to axes of input data
@@ -246,24 +246,24 @@ void IntensityDataItem::reset(ImportDataInfo data)
     converter.convertFromNbins(this);
 }
 
-void IntensityDataItem::setLowerX(double xmin)
+void IntensityDataItem::setLowerX(double value)
 {
-    xAxisItem()->setLowerBound(xmin);
+    xAxisItem()->setLowerBound(value);
 }
 
-void IntensityDataItem::setUpperX(double xmax)
+void IntensityDataItem::setUpperX(double value)
 {
-    xAxisItem()->setUpperBound(xmax);
+    xAxisItem()->setUpperBound(value);
 }
 
-void IntensityDataItem::setLowerY(double ymin)
+void IntensityDataItem::setLowerY(double value)
 {
-    yAxisItem()->setLowerBound(ymin);
+    yAxisItem()->setLowerBound(value);
 }
 
-void IntensityDataItem::setUpperY(double ymax)
+void IntensityDataItem::setUpperY(double value)
 {
-    yAxisItem()->setUpperBound(ymax);
+    yAxisItem()->setUpperBound(value);
 }
 
 void IntensityDataItem::setLowerAndUpperZ(double zmin, double zmax)

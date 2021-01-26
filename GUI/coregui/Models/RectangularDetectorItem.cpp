@@ -159,7 +159,7 @@ void RectangularDetectorItem::setYSize(int ny)
 
 const BasicAxisItem* RectangularDetectorItem::xAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_X_AXIS));
+    return item<BasicAxisItem>(P_X_AXIS);
 }
 
 BasicAxisItem* RectangularDetectorItem::xAxisItem()
@@ -170,7 +170,7 @@ BasicAxisItem* RectangularDetectorItem::xAxisItem()
 
 const BasicAxisItem* RectangularDetectorItem::yAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_Y_AXIS));
+    return item<BasicAxisItem>(P_Y_AXIS);
 }
 
 BasicAxisItem* RectangularDetectorItem::yAxisItem()

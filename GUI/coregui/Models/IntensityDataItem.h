@@ -89,8 +89,8 @@ public:
     MaskContainerItem* maskContainerItem();
     ProjectionContainerItem* projectionContainerItem();
 
-    void setXaxisTitle(QString xtitle) override;
-    void setYaxisTitle(QString ytitle) override;
+    void setXaxisTitle(const QString& title) override;
+    void setYaxisTitle(const QString& title) override;
     void setAxesRangeToData() override;
     void updateAxesUnits(const InstrumentItem* instrument) override;
     std::vector<int> shape() const override;
@@ -100,10 +100,10 @@ public:
     void reset(ImportDataInfo data) override;
 
 public slots:
-    void setLowerX(double xmin);
-    void setUpperX(double xmax);
-    void setLowerY(double ymin);
-    void setUpperY(double ymax);
+    void setLowerX(double value);
+    void setUpperX(double value);
+    void setLowerY(double value);
+    void setUpperY(double value);
     void setLowerAndUpperZ(double zmin, double zmax);
     void setLowerZ(double zmin);
     void setUpperZ(double zmax);

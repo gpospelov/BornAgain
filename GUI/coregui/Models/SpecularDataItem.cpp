@@ -56,17 +56,17 @@ void SpecularDataItem::setOutputData(OutputData<double>* data)
 
 int SpecularDataItem::getNbins() const
 {
-    return xAxisItem()->getItemValue(BasicAxisItem::P_NBINS).toInt();
+    return xAxisItem()->binCount();
 }
 
 double SpecularDataItem::getLowerX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return xAxisItem()->lowerBound();
 }
 
 double SpecularDataItem::getUpperX() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return xAxisItem()->upperBound();
 }
 
 double SpecularDataItem::getXmin() const
@@ -83,12 +83,12 @@ double SpecularDataItem::getXmax() const
 
 double SpecularDataItem::getLowerY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MIN_DEG).toDouble();
+    return yAxisItem()->lowerBound();
 }
 
 double SpecularDataItem::getUpperY() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_MAX_DEG).toDouble();
+    return yAxisItem()->upperBound();
 }
 
 double SpecularDataItem::getYmin() const
@@ -103,27 +103,27 @@ double SpecularDataItem::getYmax() const
 
 bool SpecularDataItem::isLog() const
 {
-    return getItem(P_YAXIS)->getItemValue(AmplitudeAxisItem::P_IS_LOGSCALE).toBool();
+    return yAxisItem()->isLogScale();
 }
 
 QString SpecularDataItem::getXaxisTitle() const
 {
-    return getItem(P_XAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return xAxisItem()->title();
 }
 
 QString SpecularDataItem::getYaxisTitle() const
 {
-    return getItem(P_YAXIS)->getItemValue(BasicAxisItem::P_TITLE).toString();
+    return yAxisItem()->title();
 }
 
-void SpecularDataItem::setXaxisTitle(QString xtitle)
+void SpecularDataItem::setXaxisTitle(const QString& title)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_TITLE, xtitle);
+    xAxisItem()->setTitle(title);
 }
 
-void SpecularDataItem::setYaxisTitle(QString ytitle)
+void SpecularDataItem::setYaxisTitle(const QString& title)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_TITLE, ytitle);
+    yAxisItem()->setTitle(title);
 }
 
 //! set zoom range of x,y axes to axes of input data
@@ -157,29 +157,29 @@ void SpecularDataItem::reset(ImportDataInfo data)
     setAxesRangeToData();
 }
 
-void SpecularDataItem::setLowerX(double xmin)
+void SpecularDataItem::setLowerX(double value)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MIN_DEG, xmin);
+    xAxisItem()->setLowerBound(value);
 }
 
-void SpecularDataItem::setUpperX(double xmax)
+void SpecularDataItem::setUpperX(double value)
 {
-    getItem(P_XAXIS)->setItemValue(BasicAxisItem::P_MAX_DEG, xmax);
+    xAxisItem()->setUpperBound(value);
 }
 
-void SpecularDataItem::setLowerY(double ymin)
+void SpecularDataItem::setLowerY(double value)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MIN_DEG, ymin);
+    yAxisItem()->setLowerBound(value);
 }
 
-void SpecularDataItem::setUpperY(double ymax)
+void SpecularDataItem::setUpperY(double value)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_MAX_DEG, ymax);
+    yAxisItem()->setUpperBound(value);
 }
 
 void SpecularDataItem::setLog(bool log_flag)
 {
-    getItem(P_YAXIS)->setItemValue(AmplitudeAxisItem::P_IS_LOGSCALE, log_flag);
+    yAxisItem()->setLogScale(log_flag);
 }
 
 //! Sets zoom range of X,Y axes, if it was not yet defined.
@@ -223,7 +223,7 @@ QPair<double, double> SpecularDataItem::dataRange() const
 
 const BasicAxisItem* SpecularDataItem::xAxisItem() const
 {
-    return dynamic_cast<const BasicAxisItem*>(getItem(P_XAXIS));
+    return item<BasicAxisItem>(P_XAXIS);
 }
 
 BasicAxisItem* SpecularDataItem::xAxisItem()
@@ -233,9 +233,12 @@ BasicAxisItem* SpecularDataItem::xAxisItem()
 
 const AmplitudeAxisItem* SpecularDataItem::yAxisItem() const
 {
-    auto result = dynamic_cast<const AmplitudeAxisItem*>(getItem(P_YAXIS));
-    ASSERT(result);
-    return result;
+    return item<AmplitudeAxisItem>(P_YAXIS);
+}
+
+AmplitudeAxisItem* SpecularDataItem::yAxisItem()
+{
+    return const_cast<AmplitudeAxisItem*>(static_cast<const SpecularDataItem*>(this)->yAxisItem());
 }
 
 //! Set axes viewport to original data.

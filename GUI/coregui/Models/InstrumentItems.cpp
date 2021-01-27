@@ -17,6 +17,7 @@
 #include "Device/Detector/IDetector2D.h"
 #include "Device/Instrument/Instrument.h"
 #include "GUI/coregui/Models/BackgroundItems.h"
+#include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/DataItem.h"
 #include "GUI/coregui/Models/DetectorItems.h"
 #include "GUI/coregui/Models/GroupItem.h"
@@ -90,11 +91,6 @@ InstrumentItem::InstrumentItem(const QString& modelType) : SessionItem(modelType
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid())->setVisible(false);
 }
 
-void InstrumentItem::initBeamGroup(const QString& beam_model)
-{
-    addGroupProperty(P_BEAM, beam_model);
-}
-
 void InstrumentItem::initBackgroundGroup()
 {
     auto item = addGroupProperty(P_BACKGROUND, "Background group");
@@ -104,7 +100,8 @@ void InstrumentItem::initBackgroundGroup()
 
 SpecularInstrumentItem::SpecularInstrumentItem() : InstrumentItem("SpecularInstrument")
 {
-    initBeamGroup("SpecularBeam");
+    addProperty<SpecularBeamItem>(P_BEAM);
+
     initBackgroundGroup();
     item<SpecularBeamItem>(P_BEAM)->updateFileName(
         ItemFileNameUtils::instrumentDataFileName(*this));
@@ -181,7 +178,7 @@ const QString Instrument2DItem::P_DETECTOR = "Detector";
 
 Instrument2DItem::Instrument2DItem(const QString& modelType) : InstrumentItem(modelType)
 {
-    initBeamGroup("GISASBeam");
+    addProperty<GISASBeamItem>(P_BEAM);
     addGroupProperty(P_DETECTOR, "Detector group");
     initBackgroundGroup();
 

@@ -105,16 +105,6 @@ std::unique_ptr<Beam> BeamItem::createBeam() const
     return result;
 }
 
-void BeamItem::setInclinationProperty(const QString& inclination_type)
-{
-    addGroupProperty(P_INCLINATION_ANGLE, inclination_type);
-}
-
-void BeamItem::setWavelengthProperty(const QString& wavelength_type)
-{
-    addGroupProperty(P_WAVELENGTH, wavelength_type);
-}
-
 // Specular beam item
 /* ------------------------------------------------------------------------- */
 
@@ -124,8 +114,8 @@ const QString footprint_group_label("Type");
 
 SpecularBeamItem::SpecularBeamItem() : BeamItem("SpecularBeam")
 {
-    setInclinationProperty("SpecularBeamInclinationAxis");
-    setWavelengthProperty("SpecularBeamWavelength");
+    addProperty<SpecularBeamInclinationItem>(P_INCLINATION_ANGLE);
+    addProperty<SpecularBeamWavelengthItem>(P_WAVELENGTH);
 
     getItem(P_AZIMUTHAL_ANGLE)->setVisible(false);
     getItem(P_POLARIZATION)->setVisible(false);
@@ -216,8 +206,8 @@ void SpecularBeamItem::updateWavelength()
 
 GISASBeamItem::GISASBeamItem() : BeamItem("GISASBeam")
 {
-    setInclinationProperty("BeamInclinationAngle");
-    setWavelengthProperty("BeamWavelength");
+    addProperty<BeamInclinationAngleItem>(P_INCLINATION_ANGLE);
+    addProperty<BeamWavelengthItem>(P_WAVELENGTH);
 }
 
 GISASBeamItem::~GISASBeamItem() = default;

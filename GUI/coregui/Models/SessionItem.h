@@ -67,6 +67,10 @@ public:
 
     // convenience functions for properties
     SessionItem* addProperty(const QString& name, const QVariant& variant);
+
+    // #migration: templated addProperty will eventually replace addGroupProperty
+    template <typename T> T* addProperty(const QString& name);
+
     QVariant getItemValue(const QString& tag) const;
     void setItemValue(const QString& tag, const QVariant& variant);
 
@@ -143,6 +147,16 @@ template <typename T> T* SessionItem::item(const QString& tag) const
     T* t = dynamic_cast<T*>(getItem(tag));
     ASSERT(t);
     return t;
+}
+
+template <typename T> T* SessionItem::addProperty(const QString& tagname)
+{
+    auto property = new T;
+    property->setDisplayName(tagname);
+    registerTag(tagname, 1, 1, QStringList() << property->modelType());
+    bool success = insertItem(0, property, tagname);
+    ASSERT(success);
+    return property;
 }
 
 template <typename T> T& SessionItem::groupItem(const QString& groupName) const

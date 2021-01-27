@@ -284,15 +284,15 @@ void OffSpecularInstrumentItem::updateToRealData(const RealDataItem* dataItem)
 namespace {
 void addAxisGroupProperty(SessionItem* parent, const QString& tag)
 {
-    auto item = parent->addGroupProperty(tag, "BasicAxis");
-    item->setToolTip("Incoming alpha range [deg]");
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
-    item->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Starting value [deg]");
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value [deg]");
+    auto axisItem = parent->addProperty<BasicAxisItem>(tag);
+    axisItem->setToolTip("Incoming alpha range [deg]");
+    axisItem->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    axisItem->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of points in scan");
+    axisItem->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Starting value [deg]");
+    axisItem->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Ending value [deg]");
 
-    item->setItemValue(BasicAxisItem::P_TITLE, "alpha_i");
-    item->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, 10.0);
+    axisItem->setTitle("alpha_i");
+    axisItem->setLowerBound(0.0);
+    axisItem->setUpperBound(10.0);
 }
 } // namespace

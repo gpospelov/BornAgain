@@ -17,6 +17,7 @@
 #include "Core/Simulation/DepthProbeSimulation.h"
 #include "Device/Detector/SimpleUnitConverters.h"
 #include "GUI/coregui/Models/AxesItems.h"
+#include "GUI/coregui/Models/BeamItems.h"
 #include "GUI/coregui/Models/BeamWavelengthItem.h"
 #include "GUI/coregui/Models/SpecularBeamInclinationItem.h"
 #include "GUI/coregui/Models/TransformToDomain.h"
@@ -28,17 +29,17 @@ DepthProbeInstrumentItem::DepthProbeInstrumentItem() : InstrumentItem("DepthProb
 {
     setItemName("DepthProbeInstrument");
 
-    addGroupProperty(P_BEAM, "SpecularBeam");
+    addProperty<SpecularBeamItem>(P_BEAM);
 
     auto axisItem = beamItem()->currentInclinationAxisItem();
     axisItem->setLowerBound(0.0);
     axisItem->setUpperBound(1.0);
     axisItem->setBinCount(500);
 
-    auto axis = addGroupProperty(P_Z_AXIS, "BasicAxis");
+    auto axis = addProperty<BasicAxisItem>(P_Z_AXIS);
+    axis->setLowerBound(-100.0);
+    axis->setUpperBound(100.0);
     axis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    axis->setItemValue(BasicAxisItem::P_MIN_DEG, -100.0);
-    axis->setItemValue(BasicAxisItem::P_MAX_DEG, 100.0);
     axis->getItem(BasicAxisItem::P_NBINS)
         ->setToolTip("Number of points in scan across sample bulk");
     axis->getItem(BasicAxisItem::P_MIN_DEG)

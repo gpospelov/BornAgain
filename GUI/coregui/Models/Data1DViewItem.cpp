@@ -40,16 +40,14 @@ Data1DViewItem::Data1DViewItem() : SessionItem("Data1DViewItem"), m_job_item(nul
 {
     addProperty(P_TITLE, QString())->setVisible(false);
 
-    SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+    auto basicAxis = addProperty<BasicAxisItem>(P_XAXIS);
+    basicAxis->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_YAXIS, "AmplitudeAxis");
-    item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(true);
-
-    item = item->getItem(AmplitudeAxisItem::P_IS_VISIBLE);
-    item->setValue(true);
-    item->setVisible(false);
+    auto amplitudeAxis = addProperty<AmplitudeAxisItem>(P_YAXIS);
+    amplitudeAxis->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+    amplitudeAxis->getItem(BasicAxisItem::P_TITLE)->setVisible(true);
+    amplitudeAxis->getItem(AmplitudeAxisItem::P_IS_VISIBLE)->setValue(true);
+    amplitudeAxis->getItem(AmplitudeAxisItem::P_IS_VISIBLE)->setVisible(false);
 
     registerTag(T_DATA_PROPERTIES, 1, 1, QStringList() << "DataPropertyContainer");
 

@@ -63,14 +63,14 @@ IntensityDataItem::IntensityDataItem() : DataItem("IntensityData")
     addProperty(P_IS_INTERPOLATED, true);
     addProperty(P_GRADIENT, gradientCombo().variant());
 
-    SessionItem* item = addGroupProperty(P_XAXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+    auto basicAxis = addProperty<BasicAxisItem>(P_XAXIS);
+    basicAxis->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_YAXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+    basicAxis = addProperty<BasicAxisItem>(P_YAXIS);
+    basicAxis->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
-    item = addGroupProperty(P_ZAXIS, "AmplitudeAxis");
-    item->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
+    auto amplitudeAxis = addProperty<AmplitudeAxisItem>(P_ZAXIS);
+    amplitudeAxis->getItem(BasicAxisItem::P_NBINS)->setVisible(false);
 
     setXaxisTitle(x_axis_default_name);
     setYaxisTitle(y_axis_default_name);

@@ -20,6 +20,7 @@
 #include "GUI/coregui/Models/SessionItemUtils.h"
 #include "GUI/coregui/Models/SessionModel.h"
 #include "GUI/coregui/utils/GUIHelpers.h"
+#include <QDebug>
 
 const QString SessionItem::P_NAME = "Name";
 
@@ -320,6 +321,10 @@ SessionItem* SessionItem::addGroupProperty(const QString& groupTag, const QStrin
         registerTag(groupTag, 1, 1, QStringList() << "GroupProperty");
         result = groupItem;
     } else {
+        // # migration Remove this branch at any convenient occasion. It is not used anymore.
+        // # migration Suggestion is to throw if not SessionItemUtils::IsValidGroup(groupType)
+        qWarning() << "SessionItem::addGroupProperty() is obsolete for single property items. Use "
+                      "::addProperty<> instead.";
         // create single item
         registerTag(groupTag, 1, 1, QStringList() << groupType);
         result = ItemFactory::CreateItem(groupType);

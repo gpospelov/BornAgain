@@ -22,23 +22,25 @@ const QString SphericalDetectorItem::P_ALPHA_AXIS = "Alpha axis";
 
 SphericalDetectorItem::SphericalDetectorItem() : DetectorItem("SphericalDetector")
 {
-    SessionItem* item = addGroupProperty(P_PHI_AXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MIN_DEG, -1.0);
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, 1.0);
+    auto phiAxis = addProperty<BasicAxisItem>(P_PHI_AXIS);
+    phiAxis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    phiAxis->setLowerBound(-1.0);
+    phiAxis->setUpperBound(1.0);
 
-    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of phi-axis bins");
-    item->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Low edge of first phi-bin (in deg)");
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Upper edge of last phi-bin (in deg)");
+    phiAxis->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of phi-axis bins");
+    phiAxis->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Low edge of first phi-bin (in deg)");
+    phiAxis->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Upper edge of last phi-bin (in deg)");
 
-    item = addGroupProperty(P_ALPHA_AXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MIN_DEG, 0.0);
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, 2.0);
+    auto alphaAxis = addProperty<BasicAxisItem>(P_ALPHA_AXIS);
+    alphaAxis->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    alphaAxis->setLowerBound(0.0);
+    alphaAxis->setUpperBound(2.0);
 
-    item->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of alpha-axis bins");
-    item->getItem(BasicAxisItem::P_MIN_DEG)->setToolTip("Low edge of first alpha-bin (in deg)");
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Upper edge of last alpha-bin (in deg)");
+    alphaAxis->getItem(BasicAxisItem::P_NBINS)->setToolTip("Number of alpha-axis bins");
+    alphaAxis->getItem(BasicAxisItem::P_MIN_DEG)
+        ->setToolTip("Low edge of first alpha-bin (in deg)");
+    alphaAxis->getItem(BasicAxisItem::P_MAX_DEG)
+        ->setToolTip("Upper edge of last alpha-bin (in deg)");
 
     register_resolution_function();
 }

@@ -76,30 +76,30 @@ RectangularDetectorItem::RectangularDetectorItem()
     : DetectorItem("RectangularDetector"), m_is_constructed(false)
 {
     // axes parameters
-    SessionItem* item = addGroupProperty(P_X_AXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_width);
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Width [mm]");
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Width of the detector in mm");
+    auto axisItem = addProperty<BasicAxisItem>(P_X_AXIS);
+    axisItem->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    axisItem->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
+    axisItem->setUpperBound(default_detector_width);
+    axisItem->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Width [mm]");
+    axisItem->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Width of the detector in mm");
 
-    item = addGroupProperty(P_Y_AXIS, "BasicAxis");
-    item->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
-    item->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
-    item->setItemValue(BasicAxisItem::P_MAX_DEG, default_detector_height);
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Height [mm]");
-    item->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Height of the detector in mm");
+    axisItem = addProperty<BasicAxisItem>(P_Y_AXIS);
+    axisItem->getItem(BasicAxisItem::P_TITLE)->setVisible(false);
+    axisItem->getItem(BasicAxisItem::P_MIN_DEG)->setVisible(false);
+    axisItem->setUpperBound(default_detector_height);
+    axisItem->getItem(BasicAxisItem::P_MAX_DEG)->setDisplayName("Height [mm]");
+    axisItem->getItem(BasicAxisItem::P_MAX_DEG)->setToolTip("Height of the detector in mm");
 
     // alignment selector
     addProperty(P_ALIGNMENT, alignmentCombo().variant());
 
     // alignment parameters
-    item = addGroupProperty(P_NORMAL, "Vector");
-    item->setItemValue(VectorItem::P_X, default_detector_distance);
+    auto normalItem = addProperty<VectorItem>(P_NORMAL);
+    normalItem->setX(default_detector_distance);
 
     // direction
-    item = addGroupProperty(P_DIRECTION, "Vector");
-    item->setItemValue(VectorItem::P_Y, -1.0);
+    auto directionItem = addProperty<VectorItem>(P_DIRECTION);
+    directionItem->setY(-1.0);
 
     addProperty(P_U0, default_detector_width / 2.)
         ->setToolTip(tooltip_u0)

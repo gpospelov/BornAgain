@@ -45,7 +45,7 @@ ParticleCompositionItem::ParticleCompositionItem() : SessionGraphicsItem("Partic
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
+    addProperty<VectorItem>(ParticleItem::P_POSITION)->setToolTip(position_tooltip);
 
     registerTag(T_PARTICLES, 0, -1,
                 QStringList() << "Particle"

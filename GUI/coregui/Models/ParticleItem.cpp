@@ -50,7 +50,7 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
         ->setLimits(RealLimits::limited(0.0, 1.0))
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
-    addGroupProperty(P_POSITION, "Vector")->setToolTip(position_tooltip);
+    addProperty<VectorItem>(P_POSITION)->setToolTip(position_tooltip);
 
     registerTag(T_TRANSFORMATION, 0, 1, QStringList() << "Rotation");
     setDefaultTag(T_TRANSFORMATION);
@@ -61,7 +61,6 @@ ParticleItem::ParticleItem() : SessionGraphicsItem("Particle")
     mapper()->setOnParentChange(
         [this](SessionItem* newParent) { updatePropertiesAppearance(newParent); });
 }
-
 
 VectorItem* ParticleItem::positionItem() const
 {

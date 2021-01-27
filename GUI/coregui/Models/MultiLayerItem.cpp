@@ -14,6 +14,7 @@
 
 #include "GUI/coregui/Models/MultiLayerItem.h"
 #include "GUI/coregui/Models/LayerItem.h"
+#include "GUI/coregui/Models/VectorItem.h"
 #include "GUI/coregui/Models/ParameterTranslators.h"
 
 namespace {
@@ -34,7 +35,7 @@ MultiLayerItem::MultiLayerItem() : SessionGraphicsItem("MultiLayer")
         ->setDecimals(5)
         .setToolTip("Cross correlation length of roughnesses \n"
                     "between interfaces in nanometers");
-    addGroupProperty(P_EXTERNAL_FIELD, "Vector")->setToolTip(external_field_tooltip);
+    addProperty<VectorItem>(P_EXTERNAL_FIELD)->setToolTip(external_field_tooltip);
 
     registerTag(T_LAYERS, 0, -1, QStringList() << "Layer");
     setDefaultTag(T_LAYERS);

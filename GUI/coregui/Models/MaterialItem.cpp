@@ -36,7 +36,7 @@ MaterialItem::MaterialItem() : SessionItem("Material")
     addProperty(P_COLOR, color.variant())->setEditorType("ExtColorEditor");
 
     addGroupProperty(P_MATERIAL_DATA, "Material data group");
-    addGroupProperty(P_MAGNETIZATION, "Vector")->setToolTip(magnetization_tooltip);
+    addProperty<VectorItem>(P_MAGNETIZATION)->setToolTip(magnetization_tooltip);
     addProperty(P_IDENTIFIER, GUIHelpers::createUuid());
     getItem(P_IDENTIFIER)->setVisible(false);
 }

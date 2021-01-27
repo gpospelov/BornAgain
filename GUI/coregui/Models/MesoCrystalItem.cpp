@@ -73,10 +73,10 @@ MesoCrystalItem::MesoCrystalItem() : SessionGraphicsItem("MesoCrystal")
         .setDecimals(3)
         .setToolTip(abundance_tooltip);
 
-    addGroupProperty(P_VECTOR_A, "Vector")->setToolTip(lattice_vector1_tooltip);
-    addGroupProperty(P_VECTOR_B, "Vector")->setToolTip(lattice_vector2_tooltip);
-    addGroupProperty(P_VECTOR_C, "Vector")->setToolTip(lattice_vector3_tooltip);
-    addGroupProperty(ParticleItem::P_POSITION, "Vector")->setToolTip(position_tooltip);
+    addProperty<VectorItem>(P_VECTOR_A)->setToolTip(lattice_vector1_tooltip);
+    addProperty<VectorItem>(P_VECTOR_B)->setToolTip(lattice_vector2_tooltip);
+    addProperty<VectorItem>(P_VECTOR_C)->setToolTip(lattice_vector3_tooltip);
+    addProperty<VectorItem>(ParticleItem::P_POSITION)->setToolTip(position_tooltip);
 
     registerTag(T_BASIS_PARTICLE, 0, 1,
                 QStringList() << "Particle"

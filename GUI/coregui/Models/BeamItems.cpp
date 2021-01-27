@@ -48,8 +48,8 @@ BeamItem::BeamItem(const QString& beam_model) : SessionItem(beam_model)
         .setToolTip("Beam intensity in neutrons (or gammas) per sec.")
         .setEditorType("ScientificDouble");
 
-    addGroupProperty(P_AZIMUTHAL_ANGLE, "BeamAzimuthalAngle");
-    addGroupProperty(P_POLARIZATION, "Vector")->setToolTip(polarization_tooltip);
+    addProperty<BeamAzimuthalAngleItem>(P_AZIMUTHAL_ANGLE);
+    addProperty<VectorItem>(P_POLARIZATION)->setToolTip(polarization_tooltip);
 
     addTranslator(VectorParameterTranslator(P_POLARIZATION, "BlochVector"));
 }

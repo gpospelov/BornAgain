@@ -8,6 +8,7 @@ Reference data was generated with GENX for ti layers' thicknesses equal to 3 nm
 
 import numpy as np
 import bornagain as ba
+from bornagain import ba_fitmonitor
 from matplotlib import pyplot as plt
 from os import path
 

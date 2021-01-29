@@ -64,7 +64,12 @@ std::vector<double> Utils::CreateDiffVector(const std::vector<double>& a,
 void Utils::SetDifference(const ModelView::Data1DItem* data1, const ModelView::Data1DItem* data2,
                           ModelView::Data1DItem* target)
 {
-    // it is expected that difference graph has proper axis
+    // It is expected that difference graph has compatible axis.
+    if (data1->binCenters().size() != data2->binCenters().size())
+        return;
+
+    target->item<ModelView::PointwiseAxisItem>(ModelView::Data1DItem::T_AXIS)
+        ->setParameters(data1->binCenters());
     target->setValues(CreateDiffVector(data1->binValues(), data2->binValues()));
 }
 

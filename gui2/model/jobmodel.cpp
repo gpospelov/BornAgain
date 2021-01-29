@@ -71,7 +71,6 @@ void JobModel::updateReferenceGraph(const ModelView::GraphItem* graph)
 void JobModel::updateSpecularData(const SimulationResult& data)
 {
     auto specularData = jobItem()->specularData();
-    //    specularData->setAxis<ModelView::PointwiseAxisItem>(data.qvalues);
     specularData->item<PointwiseAxisItem>(Data1DItem::T_AXIS)->setParameters(data.qvalues);
     specularData->setValues(data.amplitudes);
 

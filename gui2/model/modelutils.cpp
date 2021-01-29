@@ -20,6 +20,20 @@
 #include "mvvm/standarditems/data1ditem.h"
 #include "mvvm/standarditems/graphitem.h"
 
+namespace {
+bool areCompatibleAxes(const ModelView::Data1DItem& item1, const ModelView::Data1DItem& item2)
+{
+    // TODO consider moving the logic on board of Data1DItem, consider implement getAxis() getter.
+    auto axis1 = item1.getItem(ModelView::Data1DItem::T_AXIS);
+    auto axis2 = item2.getItem(ModelView::Data1DItem::T_AXIS);
+    if (!axis1 || !axis2)
+        return false;
+
+    return axis1->modelType() == axis2->modelType();
+}
+
+} // namespace
+
 namespace gui2 {
 
 ModelView::ExternalProperty Utils::CreateProperty(const ModelView::GraphItem* graph)
@@ -64,12 +78,17 @@ std::vector<double> Utils::CreateDiffVector(const std::vector<double>& a,
 void Utils::SetDifference(const ModelView::Data1DItem* data1, const ModelView::Data1DItem* data2,
                           ModelView::Data1DItem* target)
 {
-    // It is expected that difference graph has compatible axis.
+    if (!areCompatibleAxes(*data1, *data2) || !areCompatibleAxes(*data1, *target))
+        return;
+
+    // We expect same number of points to caclulate the difference graph.
     if (data1->binCenters().size() != data2->binCenters().size())
         return;
 
-    target->item<ModelView::PointwiseAxisItem>(ModelView::Data1DItem::T_AXIS)
-        ->setParameters(data1->binCenters());
+    if (data1->binCenters() != target->binCenters()) {
+        target->item<ModelView::PointwiseAxisItem>(ModelView::Data1DItem::T_AXIS)
+            ->setParameters(data1->binCenters());
+    }
     target->setValues(CreateDiffVector(data1->binValues(), data2->binValues()));
 }
 
